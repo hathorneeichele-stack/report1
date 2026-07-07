@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>销售播报</title>
+  <style>
+    :root {
+      --ink:#1f2a3d;
+      --muted:#6d7788;
+      --line:#e6ecf5;
+      --bg:#f2f5fa;
+      --panel:#ffffff;
+      --blue:#4268d6;
+      --blue-2:#6e8dff;
+      --blue-soft:#eef3ff;
+      --red:#c9554d;
+      --green:#2f9e62;
+      --gold:#b88712;
+      --gold-soft:#fff6d8;
+      --shadow:0 10px 24px rgba(28,41,70,.08);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+    .sales-report { min-height:100vh; padding:24px 28px 36px; }
+    .topbar {
+      min-height:48px;
+      margin:-4px 0 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .crumb { color:var(--muted); font-size:13px; font-weight:650; }
+    .crumb strong { color:var(--ink); font-size:16px; margin-left:8px; }
+    .hero {
+      position:relative;
+      overflow:hidden;
+      border:1px solid #dce4f4;
+      border-radius:8px;
+      background:
+        linear-gradient(135deg, rgba(66,104,214,.96), rgba(23,35,59,.98)),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.25), transparent 32%);
+      color:#fff;
+      box-shadow:var(--shadow);
+      padding:26px 30px;
+    }
+    .hero:after {
+      content:"";
+      position:absolute;
+      right:-90px;
+      top:-110px;
+      width:340px;
+      height:340px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:50%;
+    }
+    .hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:end; }
+    .eyebrow { margin:0 0 8px; color:#dbe6ff; font-weight:750; }
+    h1 { margin:0; font-size:32px; letter-spacing:0; line-height:1.15; }
+    .hero-note { margin:10px 0 0; color:#dce6fa; max-width:780px; }
+    .asof {
+      display:grid;
+      gap:4px;
+      min-width:178px;
+      padding:14px 16px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:8px;
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(10px);
+    }
+    .asof span { color:#dbe6ff; font-size:12px; }
+    .asof strong { font-size:22px; }
+    .date-stack { display:grid; grid-template-columns:repeat(2,minmax(160px,1fr)); gap:10px; }
+    .summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:18px; }
+    .metric-card {
+      min-height:126px;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .metric-card .label { color:var(--muted); font-weight:750; }
+    .metric-card .value { font-size:30px; line-height:1; font-weight:850; letter-spacing:0; }
+    .metric-card .unit { color:var(--muted); font-size:13px; }
+    .progress { height:8px; overflow:hidden; border-radius:999px; background:#edf1f8; }
+    .progress i { display:block; height:100%; width:var(--w); max-width:100%; border-radius:inherit; background:linear-gradient(90deg,var(--blue),var(--blue-2)); }
+    .cell-bar { min-width:74px; }
+    .cell-bar strong { display:block; text-align:center; font-variant-numeric:tabular-nums; }
+    .cell-track { margin:4px auto 0; height:6px; border-radius:999px; overflow:hidden; }
+    .cell-track i { display:block; height:100%; width:var(--w); border-radius:inherit; }
+    .cell-track.blue i { background:linear-gradient(90deg,var(--blue),var(--blue-2)); }
+    .cell-track.red i { background:linear-gradient(90deg,#cf5148,#f0aca3); }
+    .cell-track.yellow i { background:linear-gradient(90deg,#d69a17,#f1cf65); }
+    .heat-cell { min-height:34px; display:grid; place-items:center; border-radius:0; font-weight:850; font-variant-numeric:tabular-nums; }
+    .rate-heat { background:rgba(201,85,77,var(--heat,.18)); color:#b4443e; }
+    .lift-cell { background:rgba(217,154,22,var(--heat,.18)); color:#9a6a08; }
+    .lift-cell.up { color:#9a6a08; }
+    .lift-cell.down { background:#e4f2ea; color:#2f9e62; }
+    .section { margin-top:18px; border:1px solid var(--line); border-radius:8px; background:var(--panel); box-shadow:var(--shadow); overflow:hidden; }
+    .section-head { padding:16px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .section-title { margin:0; font-size:18px; display:flex; align-items:center; gap:10px; }
+    .section-title:before { content:""; width:4px; height:20px; border-radius:2px; background:var(--blue); display:block; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:var(--blue-soft); color:var(--blue); font-weight:700; font-size:12px; white-space:nowrap; }
+    .content-pad { padding:18px; }
+    .top-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    table { width:100%; border-collapse:collapse; }
+    .branch-table { min-width:1120px; font-size:11.5px; table-layout:fixed; }
+    th { background:#edf2fb; color:#4c63b3; font-weight:800; text-align:center; padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+    td { padding:10px 12px; border-bottom:1px solid #eef2f7; vertical-align:middle; text-align:center; }
+    .branch-table th { padding:7px 6px; text-align:center; font-size:11.5px; }
+    .branch-table td { padding:7px 6px; }
+    .branch-table .rank { width:36px; }
+    .branch-table .branch-cell { width:112px; white-space:nowrap; }
+    .branch-table .branch-cell strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12.5px; }
+    .branch-table .rate { min-width:72px; }
+    tr:last-child td { border-bottom:0; }
+    tbody tr:hover { background:#fffdf4; }
+    .num { text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .rank { width:42px; color:var(--gold); font-weight:900; }
+    .branch-cell strong, .person strong { display:block; font-size:14px; }
+    .sub { display:block; color:var(--muted); font-size:12px; margin-top:2px; }
+    .rate { min-width:104px; }
+    .rate strong { display:block; margin-bottom:6px; font-variant-numeric:tabular-nums; }
+    .mini-list { display:grid; gap:10px; }
+    .person {
+      display:grid;
+      grid-template-columns:minmax(82px,.32fr) minmax(0,1fr) auto;
+      align-items:center;
+      gap:12px;
+      padding:10px 12px;
+      border:1px solid #edf1f7;
+      border-radius:8px;
+      background:#fbfcff;
+    }
+    .name-pill { min-height:34px; padding:7px 10px; border-radius:999px; display:flex; align-items:center; justify-content:center; background:#fff; font-weight:850; white-space:nowrap; }
+    .rank-panel.public .name-pill { border:1px solid #f1c86a; color:#9a6a08; }
+    .rank-panel.private .name-pill { border:1px solid #9fb6ff; color:#4268d6; }
+    .rank-panel.combined .name-pill { border:1px solid #efaaa3; color:#c9554d; }
+    .amount { font-weight:850; color:#1f2a3d; font-variant-numeric:tabular-nums; }
+    .rank-panel { border:1px solid var(--line); border-radius:8px; background:#fff; overflow:hidden; }
+    .rank-panel h3 { margin:0; padding:12px 14px; border-bottom:1px solid var(--line); background:#fbfcff; font-size:15px; }
+    .bucket-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .bucket-matrix { display:grid; grid-template-columns:112px repeat(3,minmax(0,1fr)); gap:14px; }
+    .bucket-label-column { padding-top:45px; display:grid; gap:8px; }
+    .bucket-label-only { min-height:28px; display:flex; align-items:center; color:#536176; font-weight:850; white-space:nowrap; }
+    .bucket-card { border:1px solid var(--line); border-radius:8px; background:#fff; overflow:hidden; }
+    .bucket-card h3 { margin:0; padding:12px 14px; border-bottom:1px solid var(--line); background:#fbfcff; font-size:15px; }
+    .bucket-body { padding:12px 14px 14px; display:grid; gap:8px; }
+    .bucket-row { display:grid; grid-template-columns:44px minmax(170px,1fr) 58px; gap:10px; align-items:center; min-height:28px; }
+    .bucket-people { text-align:right; font-weight:850; font-variant-numeric:tabular-nums; }
+    .bucket-track { height:10px; border-radius:999px; background:transparent; overflow:hidden; }
+    .bucket-track i { display:block; height:100%; width:var(--w); border-radius:inherit; background:var(--bucket-color,#4268d6); }
+    .bucket-card.public { --bucket-color:#d99a16; }
+    .bucket-card.private { --bucket-color:#4268d6; }
+    .bucket-card.combined { --bucket-color:#c9554d; }
+    .bucket-amount { display:grid; grid-template-columns:72px minmax(90px,1fr); gap:8px; align-items:center; color:#536176; font-size:12px; font-weight:750; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .bucket-share { text-align:right; color:#1f2a3d; font-weight:850; font-variant-numeric:tabular-nums; }
+    .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .product-card { border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
+    .product-top {
+      padding:18px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:16px;
+      align-items:start;
+      background:linear-gradient(180deg,#fbfcff,#ffffff);
+      border-bottom:1px solid var(--line);
+    }
+    .product-top h3 { margin:0; font-size:22px; }
+    .product-stats { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .stat-chip { padding:6px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:750; }
+    .product-body { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+    .product-pane { padding:14px; min-width:0; }
+    .product-pane + .product-pane { border-left:1px solid var(--line); }
+    .pane-title { margin:0 0 10px; color:#41506a; font-size:14px; }
+    .bar-row { display:grid; grid-template-columns:88px minmax(0,1fr) 74px; gap:8px; align-items:center; min-height:46px; border-bottom:1px solid #f0f3f8; }
+    .bar-row:last-child { border-bottom:0; }
+    .branch-metric-row { display:grid; grid-template-columns:minmax(96px,1fr) 76px 76px; gap:8px; align-items:center; min-height:46px; padding:0; border-bottom:1px solid #f0f3f8; }
+    .branch-metric-row:last-child { border-bottom:0; }
+    .metric-pair { display:grid; gap:1px; justify-items:end; font-variant-numeric:tabular-nums; }
+    .metric-pair strong { font-size:14px; line-height:1.1; }
+    .metric-pair span { color:var(--muted); font-size:11px; white-space:nowrap; }
+    .bar-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#536176; font-weight:750; }
+    .bar-track { height:8px; border-radius:999px; background:#eef2f8; overflow:hidden; }
+    .bar-track i { display:block; height:100%; width:var(--w); border-radius:inherit; background:var(--blue); }
+    .bar-val { text-align:right; font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
+    .deal-table { grid-column:1 / -1; border-top:1px solid var(--line); }
+    .deal-table th { font-size:12px; }
+    .source-note { margin-top:14px; color:var(--muted); font-size:12px; }
+    @media (max-width:1100px) {
+      .sales-report { padding:18px; }
+      .hero-inner, .top-grid, .product-grid, .product-body, .date-stack { grid-template-columns:1fr; }
+      .bucket-matrix { grid-template-columns:1fr; }
+      .bucket-label-column { display:none; }
+      .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .product-pane + .product-pane { border-left:0; border-top:1px solid var(--line); }
+    }
+    @media (max-width:720px) {
+      h1 { font-size:27px; }
+      .summary-grid { grid-template-columns:1fr; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .content-pad { overflow-x:auto; }
+      table { min-width:760px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sales-report">
+    <div class="topbar">
+      <div class="crumb">产品相关 / <strong>销售播报</strong></div>
+      <span class="pill">2026-07-07更新</span>
+    </div>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">山东分公司 / 7月销售播报</p>
+          <h1>公私募标准销量与重点首发产品战报</h1>
+          <p class="hero-note">聚焦营业部完成情况、员工贡献榜，以及重点首发产品的销售进展。</p>
+        </div>
+        <div class="date-stack">
+          <div class="asof"><span>标准销量统计日</span><strong id="asOf">-</strong></div>
+          <div class="asof"><span>重点首发产品销售统计日</span><strong>20260707</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="summary" class="summary-grid"></div>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">营业部标准销量完成情况</h2>
+        <span class="pill">按公私募总当日提升降序</span>
+      </div>
+      <div class="content-pad">
+          <table class="branch-table">
+            <thead>
+              <tr>
+                <th>排名</th><th>营业部</th>
+                <th class="num">公募标准销量</th><th>公募完成率</th><th class="num">公募统计日新增</th><th class="num">公募当日提升</th>
+                <th class="num">私募标准销量</th><th>私募完成率</th><th class="num">私募统计日新增</th><th class="num">私募当日提升</th>
+                <th class="num">公私募汇总</th><th>汇总完成率</th><th class="num">汇总统计日新增</th><th class="num">汇总当日提升</th>
+              </tr>
+            </thead>
+            <tbody id="branchRows"></tbody>
+          </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">个人标销 TOP5</h2>
+        <span class="pill">金额单位：万元</span>
+      </div>
+      <div class="content-pad top-grid">
+        <div class="rank-panel public"><h3>公募标销 TOP5</h3><div id="publicTopRows" class="mini-list content-pad"></div></div>
+        <div class="rank-panel private"><h3>私募标销 TOP5</h3><div id="privateTopRows" class="mini-list content-pad"></div></div>
+        <div class="rank-panel combined"><h3>标销汇总 TOP5</h3><div id="combinedTopRows" class="mini-list content-pad"></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">个人标销分档人数</h2>
+        <span class="pill">分档区间更细，金额为累计标销</span>
+      </div>
+      <div id="bucketRows" class="content-pad bucket-matrix"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">重点首发产品销售情况</h2>
+      </div>
+      <div class="content-pad">
+        <div id="productRows" class="product-grid"></div>
+        <div class="source-note" id="sourceNote"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const reportData = {"standard":{"as_of":"20260706","totals":{"branch":"总计","public_target":21360.0,"public_amount":2848.39,"public_new":466.0,"public_lift":0.02,"private_target":31970.0,"private_amount":7951.0,"private_new":2762.0,"private_lift":0.09,"combined_target":53330.0,"combined_amount":10799.39,"combined_new":3228.0,"combined_lift":0.06,"public_rate":0.133352,"private_rate":0.248702,"combined_rate":0.202501},"branches":[{"branch":"济南解放东路","public_target":3930.0,"public_amount":728.81,"public_new":122.0,"public_lift":0.03,"private_target":5800.0,"private_amount":2676.5,"private_new":1162.0,"private_lift":0.2,"combined_target":9730.0,"combined_amount":3405.31,"combined_new":1284.0,"combined_lift":0.13,"public_rate":0.185448,"private_rate":0.461466,"combined_rate":0.34998},{"branch":"济南解放路","public_target":5720.0,"public_amount":547.7,"public_new":88.0,"public_lift":0.02,"private_target":8600.0,"private_amount":2359.0,"private_new":1050.0,"private_lift":0.12,"combined_target":14320.0,"combined_amount":2906.7,"combined_new":1138.0,"combined_lift":0.08,"public_rate":0.095752,"private_rate":0.274302,"combined_rate":0.202982},{"branch":"青岛香港西路","public_target":3700.0,"public_amount":248.5,"public_new":50.0,"public_lift":0.01,"private_target":5560.0,"private_amount":1352.0,"private_new":540.0,"private_lift":0.1,"combined_target":9260.0,"combined_amount":1600.5,"combined_new":590.0,"combined_lift":0.06,"public_rate":0.067162,"private_rate":0.243165,"combined_rate":0.17284},{"branch":"烟台南大街","public_target":1350.0,"public_amount":272.31,"public_new":126.0,"public_lift":0.09,"private_target":2050.0,"private_amount":1200.0,"private_new":0.0,"private_lift":0.0,"combined_target":3400.0,"combined_amount":1472.31,"combined_new":126.0,"combined_lift":0.04,"public_rate":0.201711,"private_rate":0.585366,"combined_rate":0.433032},{"branch":"莱阳昌山路","public_target":2980.0,"public_amount":647.7,"public_new":51.0,"public_lift":0.02,"private_target":4460.0,"private_amount":353.5,"private_new":0.0,"private_lift":0.0,"combined_target":7440.0,"combined_amount":1001.2,"combined_new":51.0,"combined_lift":0.01,"public_rate":0.217349,"private_rate":0.07926,"combined_rate":0.13457},{"branch":"济南经七路","public_target":2530.0,"public_amount":343.86,"public_new":25.0,"public_lift":0.01,"private_target":3800.0,"private_amount":0.0,"private_new":0.0,"private_lift":0.0,"combined_target":6330.0,"combined_amount":343.86,"combined_new":25.0,"combined_lift":0.0,"public_rate":0.135913,"private_rate":0.0,"combined_rate":0.054322},{"branch":"临沂北京路","public_target":1150.0,"public_amount":59.51,"public_new":4.0,"public_lift":0.0,"private_target":1700.0,"private_amount":10.0,"private_new":10.0,"private_lift":0.01,"combined_target":2850.0,"combined_amount":69.51,"combined_new":14.0,"combined_lift":0.0,"public_rate":0.051748,"private_rate":0.005882,"combined_rate":0.024389}]},"employees":[{"name":"郗立苹","branch":"济南解放路","public_amount":69.92,"private_amount":1155.0,"combined_amount":1224.92},{"name":"程凯丽","branch":"烟台南大街","public_amount":0.29,"private_amount":1200.0,"combined_amount":1200.29},{"name":"李越美","branch":"济南解放路","public_amount":33.24,"private_amount":800.0,"combined_amount":833.24},{"name":"张亚芳","branch":"济南解放东路","public_amount":28.24,"private_amount":757.5,"combined_amount":785.74},{"name":"张晶晶","branch":"青岛香港西路","public_amount":38.12,"private_amount":707.0,"combined_amount":745.12},{"name":"郝明辉","branch":"莱阳昌山路","public_amount":347.72,"private_amount":353.5,"combined_amount":701.22},{"name":"王帅","branch":"青岛香港西路","public_amount":24.19,"private_amount":525.0,"combined_amount":549.19},{"name":"马晶","branch":"济南解放东路","public_amount":157.1,"private_amount":353.5,"combined_amount":510.6},{"name":"任敬业","branch":"济南解放东路","public_amount":80.27,"private_amount":404.0,"combined_amount":484.27},{"name":"王坤","branch":"济南解放东路","public_amount":17.67,"private_amount":404.0,"combined_amount":421.67},{"name":"孙丽丽","branch":"济南解放路","public_amount":9.13,"private_amount":404.0,"combined_amount":413.13},{"name":"张磊","branch":"济南解放东路","public_amount":0.88,"private_amount":404.0,"combined_amount":404.88},{"name":"伊长锁","branch":"济南解放东路","public_amount":27.89,"private_amount":353.5,"combined_amount":381.39},{"name":"刘俊","branch":"济南解放东路","public_amount":262.2,"private_amount":0.0,"combined_amount":262.2},{"name":"张慧君","branch":"烟台南大街","public_amount":172.22,"private_amount":0.0,"combined_amount":172.22},{"name":"杨飞","branch":"青岛香港西路","public_amount":30.83,"private_amount":120.0,"combined_amount":150.83},{"name":"赵晓娜","branch":"济南经七路","public_amount":101.49,"private_amount":0.0,"combined_amount":101.49},{"name":"杜晶","branch":"济南解放路","public_amount":60.55,"private_amount":0.0,"combined_amount":60.55},{"name":"骆雷","branch":"莱阳昌山路","public_amount":60.23,"private_amount":0.0,"combined_amount":60.23},{"name":"谭淑慧","branch":"烟台南大街","public_amount":59.64,"private_amount":0.0,"combined_amount":59.64},{"name":"刘守哲","branch":"济南解放东路","public_amount":59.52,"private_amount":0.0,"combined_amount":59.52},{"name":"姜建成","branch":"莱阳昌山路","public_amount":56.05,"private_amount":0.0,"combined_amount":56.05},{"name":"谢静","branch":"济南经七路","public_amount":50.94,"private_amount":0.0,"combined_amount":50.94},{"name":"王凯","branch":"济南经七路","public_amount":47.34,"private_amount":0.0,"combined_amount":47.34},{"name":"陈传翠","branch":"济南解放路","public_amount":47.27,"private_amount":0.0,"combined_amount":47.27},{"name":"申思","branch":"济南解放路","public_amount":46.94,"private_amount":0.0,"combined_amount":46.94},{"name":"王正","branch":"青岛香港西路","public_amount":45.68,"private_amount":0.0,"combined_amount":45.68},{"name":"李新龙","branch":"济南经七路","public_amount":44.74,"private_amount":0.0,"combined_amount":44.74},{"name":"周明红","branch":"莱阳昌山路","public_amount":38.13,"private_amount":0.0,"combined_amount":38.13},{"name":"乔卫华","branch":"莱阳昌山路","public_amount":37.71,"private_amount":0.0,"combined_amount":37.71},{"name":"刘红霞","branch":"济南解放路","public_amount":37.09,"private_amount":0.0,"combined_amount":37.09},{"name":"连子豪","branch":"青岛香港西路","public_amount":31.29,"private_amount":0.0,"combined_amount":31.29},{"name":"卓德凤","branch":"临沂北京路","public_amount":20.13,"private_amount":10.0,"combined_amount":30.13},{"name":"王昭峰","branch":"济南解放路","public_amount":29.8,"private_amount":0.0,"combined_amount":29.8},{"name":"刘立友","branch":"济南解放路","public_amount":25.89,"private_amount":0.0,"combined_amount":25.89},{"name":"宋晓洋","branch":"济南经七路","public_amount":23.24,"private_amount":0.0,"combined_amount":23.24},{"name":"陈昱辰","branch":"济南解放东路","public_amount":21.57,"private_amount":0.0,"combined_amount":21.57},{"name":"何鲁豪","branch":"济南解放路","public_amount":19.2,"private_amount":0.0,"combined_amount":19.2},{"name":"邢明星","branch":"济南解放路","public_amount":19.18,"private_amount":0.0,"combined_amount":19.18},{"name":"杨佳佳","branch":"莱阳昌山路","public_amount":18.95,"private_amount":0.0,"combined_amount":18.95},{"name":"林子渊","branch":"济南解放东路","public_amount":18.06,"private_amount":0.0,"combined_amount":18.06},{"name":"梁静静","branch":"济南经七路","public_amount":17.94,"private_amount":0.0,"combined_amount":17.94},{"name":"孙广进","branch":"临沂北京路","public_amount":16.44,"private_amount":0.0,"combined_amount":16.44},{"name":"张志远","branch":"青岛香港西路","public_amount":15.11,"private_amount":0.0,"combined_amount":15.11},{"name":"毛新宇","branch":"济南经七路","public_amount":15.08,"private_amount":0.0,"combined_amount":15.08},{"name":"孙悦晟","branch":"烟台南大街","public_amount":15.02,"private_amount":0.0,"combined_amount":15.02},{"name":"刘硕","branch":"济南经七路","public_amount":14.12,"private_amount":0.0,"combined_amount":14.12},{"name":"王宇龙","branch":"济南解放东路","public_amount":14.0,"private_amount":0.0,"combined_amount":14.0},{"name":"曲家妮","branch":"青岛香港西路","public_amount":13.64,"private_amount":0.0,"combined_amount":13.64},{"name":"阴焕玲","branch":"济南解放路","public_amount":12.86,"private_amount":0.0,"combined_amount":12.86},{"name":"肖云颂","branch":"济南解放路","public_amount":12.46,"private_amount":0.0,"combined_amount":12.46},{"name":"韩雨洁","branch":"临沂北京路","public_amount":12.1,"private_amount":0.0,"combined_amount":12.1},{"name":"于佳慧","branch":"烟台南大街","public_amount":11.9,"private_amount":0.0,"combined_amount":11.9},{"name":"景方栋","branch":"烟台南大街","public_amount":11.52,"private_amount":0.0,"combined_amount":11.52},{"name":"王素懿","branch":"莱阳昌山路","public_amount":11.45,"private_amount":0.0,"combined_amount":11.45},{"name":"王琦","branch":"青岛香港西路","public_amount":10.9,"private_amount":0.0,"combined_amount":10.9},{"name":"刘辉","branch":"济南解放路","public_amount":10.83,"private_amount":0.0,"combined_amount":10.83},{"name":"续宗美","branch":"济南解放路","public_amount":10.66,"private_amount":0.0,"combined_amount":10.66},{"name":"苏茵茵","branch":"济南经七路","public_amount":10.44,"private_amount":0.0,"combined_amount":10.44},{"name":"吴昊","branch":"青岛香港西路","public_amount":9.56,"private_amount":0.0,"combined_amount":9.56},{"name":"于曦智","branch":"济南经七路","public_amount":9.15,"private_amount":0.0,"combined_amount":9.15},{"name":"王钰翔","branch":"济南解放东路","public_amount":7.89,"private_amount":0.0,"combined_amount":7.89},{"name":"王艺博","branch":"济南解放东路","public_amount":7.65,"private_amount":0.0,"combined_amount":7.65},{"name":"陈巧波","branch":"莱阳昌山路","public_amount":7.6,"private_amount":0.0,"combined_amount":7.6},{"name":"迟家鸣","branch":"莱阳昌山路","public_amount":7.59,"private_amount":0.0,"combined_amount":7.59},{"name":"王军","branch":"济南解放路","public_amount":6.86,"private_amount":0.0,"combined_amount":6.86},{"name":"冯玉萍","branch":"青岛香港西路","public_amount":6.76,"private_amount":0.0,"combined_amount":6.76},{"name":"孟强","branch":"济南经七路","public_amount":5.81,"private_amount":0.0,"combined_amount":5.81},{"name":"杨骏","branch":"济南解放路","public_amount":5.12,"private_amount":0.0,"combined_amount":5.12},{"name":"于超","branch":"莱阳昌山路","public_amount":5.09,"private_amount":0.0,"combined_amount":5.09},{"name":"于铭玮","branch":"莱阳昌山路","public_amount":5.06,"private_amount":0.0,"combined_amount":5.06},{"name":"赵晶晶","branch":"济南解放东路","public_amount":5.0,"private_amount":0.0,"combined_amount":5.0},{"name":"徐梦遥","branch":"青岛香港西路","public_amount":4.37,"private_amount":0.0,"combined_amount":4.37},{"name":"徐宇宸","branch":"青岛香港西路","public_amount":4.15,"private_amount":0.0,"combined_amount":4.15},{"name":"宋旭东","branch":"莱阳昌山路","public_amount":3.61,"private_amount":0.0,"combined_amount":3.61},{"name":"王有乐","branch":"济南解放东路","public_amount":3.57,"private_amount":0.0,"combined_amount":3.57},{"name":"李陈修","branch":"青岛香港西路","public_amount":3.42,"private_amount":0.0,"combined_amount":3.42},{"name":"马婷婷","branch":"济南解放东路","public_amount":3.35,"private_amount":0.0,"combined_amount":3.35},{"name":"谢印康","branch":"临沂北京路","public_amount":3.03,"private_amount":0.0,"combined_amount":3.03},{"name":"李雪茹","branch":"济南解放东路","public_amount":2.95,"private_amount":0.0,"combined_amount":2.95},{"name":"雷柳","branch":"济南解放路","public_amount":2.69,"private_amount":0.0,"combined_amount":2.69},{"name":"王瀚祺","branch":"济南经七路","public_amount":2.21,"private_amount":0.0,"combined_amount":2.21},{"name":"王晓春","branch":"济南解放路","public_amount":2.09,"private_amount":0.0,"combined_amount":2.09},{"name":"路梦雪","branch":"莱阳昌山路","public_amount":2.06,"private_amount":0.0,"combined_amount":2.06},{"name":"高发芹","branch":"临沂北京路","public_amount":2.03,"private_amount":0.0,"combined_amount":2.03},{"name":"姜曰振","branch":"青岛香港西路","public_amount":1.94,"private_amount":0.0,"combined_amount":1.94},{"name":"刘松","branch":"青岛香港西路","public_amount":1.57,"private_amount":0.0,"combined_amount":1.57},{"name":"杨乐鹏","branch":"烟台南大街","public_amount":0.55,"private_amount":0.0,"combined_amount":0.55},{"name":"赵琳","branch":"济南解放东路","public_amount":0.54,"private_amount":0.0,"combined_amount":0.54},{"name":"王迪","branch":"莱阳昌山路","public_amount":0.5,"private_amount":0.0,"combined_amount":0.5},{"name":"王硕","branch":"临沂北京路","public_amount":0.46,"private_amount":0.0,"combined_amount":0.46},{"name":"邵康","branch":"济南解放路","public_amount":0.36,"private_amount":0.0,"combined_amount":0.36},{"name":"宋春洁","branch":"烟台南大街","public_amount":0.2,"private_amount":0.0,"combined_amount":0.2},{"name":"徐潇","branch":"青岛香港西路","public_amount":0.08,"private_amount":0.0,"combined_amount":0.08},{"name":"刘颜信","branch":"临沂北京路","public_amount":0.0,"private_amount":0.0,"combined_amount":0.0},{"name":"许孝威","branch":"烟台南大街","public_amount":0.0,"private_amount":0.0,"combined_amount":0.0}],"employeeTop":{"public":[{"name":"郝明辉","branch":"莱阳昌山路","public_amount":347.72,"private_amount":353.5,"combined_amount":701.22},{"name":"刘俊","branch":"济南解放东路","public_amount":262.2,"private_amount":0.0,"combined_amount":262.2},{"name":"张慧君","branch":"烟台南大街","public_amount":172.22,"private_amount":0.0,"combined_amount":172.22},{"name":"马晶","branch":"济南解放东路","public_amount":157.1,"private_amount":353.5,"combined_amount":510.6},{"name":"赵晓娜","branch":"济南经七路","public_amount":101.49,"private_amount":0.0,"combined_amount":101.49}],"private":[{"name":"程凯丽","branch":"烟台南大街","public_amount":0.29,"private_amount":1200.0,"combined_amount":1200.29},{"name":"郗立苹","branch":"济南解放路","public_amount":69.92,"private_amount":1155.0,"combined_amount":1224.92},{"name":"李越美","branch":"济南解放路","public_amount":33.24,"private_amount":800.0,"combined_amount":833.24},{"name":"张亚芳","branch":"济南解放东路","public_amount":28.24,"private_amount":757.5,"combined_amount":785.74},{"name":"张晶晶","branch":"青岛香港西路","public_amount":38.12,"private_amount":707.0,"combined_amount":745.12}],"combined":[{"name":"郗立苹","branch":"济南解放路","public_amount":69.92,"private_amount":1155.0,"combined_amount":1224.92},{"name":"程凯丽","branch":"烟台南大街","public_amount":0.29,"private_amount":1200.0,"combined_amount":1200.29},{"name":"李越美","branch":"济南解放路","public_amount":33.24,"private_amount":800.0,"combined_amount":833.24},{"name":"张亚芳","branch":"济南解放东路","public_amount":28.24,"private_amount":757.5,"combined_amount":785.74},{"name":"张晶晶","branch":"青岛香港西路","public_amount":38.12,"private_amount":707.0,"combined_amount":745.12}]},"employeeBuckets":{"public":[{"label":"1000万以上","people":0,"amount":0,"share":0.0},{"label":"500-1000万","people":0,"amount":0,"share":0.0},{"label":"300-500万","people":1,"amount":347.72,"share":0.129174},{"label":"100-300万","people":4,"amount":693.01,"share":0.257445},{"label":"50-100万","people":8,"amount":497.12,"share":0.184674},{"label":"10-50万","people":43,"amount":1008.86,"share":0.374779},{"label":"10万以下","people":40,"amount":145.17,"share":0.053929}],"private":[{"label":"1000万以上","people":2,"amount":2355.0,"share":0.296189},{"label":"500-1000万","people":4,"amount":2789.5,"share":0.350836},{"label":"300-500万","people":7,"amount":2676.5,"share":0.336624},{"label":"100-300万","people":1,"amount":120.0,"share":0.015092},{"label":"50-100万","people":0,"amount":0,"share":0.0},{"label":"10-50万","people":1,"amount":10.0,"share":0.001258},{"label":"10万以下","people":81,"amount":0.0,"share":0.0}],"combined":[{"label":"1000万以上","people":2,"amount":2425.21,"share":0.227872},{"label":"500-1000万","people":6,"amount":4125.11,"share":0.387593},{"label":"300-500万","people":5,"amount":2105.34,"share":0.197817},{"label":"100-300万","people":4,"amount":686.74,"share":0.064526},{"label":"50-100万","people":6,"amount":346.93,"share":0.032597},{"label":"10-50万","people":36,"amount":818.68,"share":0.076923},{"label":"10万以下","people":37,"amount":134.87,"share":0.012672}]},"products":[{"name":"龙旗灵动","total_amount":16120000.0,"total_clients":14,"branches":[{"name":"济南解放东路","amount":10080000.0},{"name":"济南解放路","amount":3010000.0},{"name":"青岛香港西路","amount":2020000.0},{"name":"莱阳昌山路","amount":1010000.0}],"branch_stats":[{"name":"济南解放东路","amount":10080000.0,"people":7,"clients":9},{"name":"济南解放路","amount":3010000.0,"people":2,"clients":2},{"name":"青岛香港西路","amount":2020000.0,"people":2,"clients":2},{"name":"莱阳昌山路","amount":1010000.0,"people":1,"clients":1}],"managers":[{"name":"张亚芳","amount":3010000.0},{"name":"张磊","amount":2020000.0},{"name":"李越美","amount":2000000.0},{"name":"连子豪","amount":1010000.0},{"name":"姜曰振","amount":1010000.0},{"name":"王有乐","amount":1010000.0},{"name":"姜建成","amount":1010000.0},{"name":"马晶","amount":1010000.0},{"name":"伊长锁","amount":1010000.0},{"name":"任敬业","amount":1010000.0},{"name":"孙丽丽","amount":1010000.0},{"name":"王坤","amount":1010000.0}],"deals":[{"branch":"济南解放东路","manager":"张亚芳","amount":3010000.0,"clients":2},{"branch":"济南解放东路","manager":"张磊","amount":2020000.0,"clients":2},{"branch":"济南解放路","manager":"李越美","amount":2000000.0,"clients":1},{"branch":"青岛香港西路","manager":"连子豪","amount":1010000.0,"clients":1},{"branch":"青岛香港西路","manager":"姜曰振","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"王有乐","amount":1010000.0,"clients":1},{"branch":"莱阳昌山路","manager":"姜建成","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"马晶","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"伊长锁","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"任敬业","amount":1010000.0,"clients":1},{"branch":"济南解放路","manager":"孙丽丽","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"王坤","amount":1010000.0,"clients":1}]},{"name":"进化论1000","total_amount":11570000.0,"total_clients":9,"branches":[{"name":"济南解放路","amount":4010000.0},{"name":"青岛香港西路","amount":3520000.0},{"name":"济南解放东路","amount":3030000.0},{"name":"莱阳昌山路","amount":1010000.0}],"branch_stats":[{"name":"济南解放路","amount":4010000.0,"people":2,"clients":2},{"name":"青岛香港西路","amount":3520000.0,"people":2,"clients":3},{"name":"济南解放东路","amount":3030000.0,"people":3,"clients":3},{"name":"莱阳昌山路","amount":1010000.0,"people":1,"clients":1}],"managers":[{"name":"郗立苹","amount":3000000.0},{"name":"张晶晶","amount":2020000.0},{"name":"王帅","amount":1500000.0},{"name":"马晶","amount":1010000.0},{"name":"伊长锁","amount":1010000.0},{"name":"张亚芳","amount":1010000.0},{"name":"郝明辉","amount":1010000.0},{"name":"孙丽丽","amount":1010000.0}],"deals":[{"branch":"济南解放路","manager":"郗立苹","amount":3000000.0,"clients":1},{"branch":"青岛香港西路","manager":"张晶晶","amount":2020000.0,"clients":2},{"branch":"青岛香港西路","manager":"王帅","amount":1500000.0,"clients":1},{"branch":"济南解放东路","manager":"马晶","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"伊长锁","amount":1010000.0,"clients":1},{"branch":"济南解放东路","manager":"张亚芳","amount":1010000.0,"clients":1},{"branch":"莱阳昌山路","manager":"郝明辉","amount":1010000.0,"clients":1},{"branch":"济南解放路","manager":"孙丽丽","amount":1010000.0,"clients":1}]}],"sourceFiles":{"standard":"标准销量完成情况t-7月(1).xlsx","personal":"个人公私募标销-7月(1).xlsx","keyProducts":"2026战略重点级明细-下半年(1).xlsx"}};
+    const fmtWan = (v) => {
+      const n = Number(v || 0);
+      if (Math.abs(n) >= 1000) return n.toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+      return n.toLocaleString('zh-CN', { maximumFractionDigits: n % 1 === 0 ? 0 : 1 });
+    };
+    const fmtYuanWan = (v) => fmtWan(Number(v || 0) / 10000);
+    const pct = (v) => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const firstChar = (name) => [...String(name || '')][0] || '人';
+    const widthPct = (value, max) => `${Math.max(4, Math.min(100, Number(value || 0) / Math.max(1, max) * 100))}%`;
+
+    function renderSummary() {
+      const standard = reportData.standard;
+      const total = standard.totals;
+      document.getElementById('asOf').textContent = standard.as_of || '-';
+      const cards = [
+        ['公私募汇总', fmtWan(total.combined_amount), '目标 ' + fmtWan(total.combined_target) + ' 万元', total.combined_rate],
+        ['公募标准销量', fmtWan(total.public_amount), '目标 ' + fmtWan(total.public_target) + ' 万元', total.public_rate],
+        ['私募标准销量', fmtWan(total.private_amount), '目标 ' + fmtWan(total.private_target) + ' 万元', total.private_rate],
+        ['统计日新增', fmtWan(total.combined_new), '当日提升 ' + pct(total.combined_lift), total.combined_rate]
+      ];
+      document.getElementById('summary').innerHTML = cards.map(([label, value, unit, rate]) => `
+        <div class="metric-card">
+          <div class="label">${label}</div>
+          <div><span class="value">${value}</span><span class="unit"> 万元</span></div>
+          <div class="unit">${unit}</div>
+          <div class="progress" aria-label="${label}完成率"><i style="--w:${Math.min(100, Number(rate || 0) * 100)}%"></i></div>
+        </div>
+      `).join('');
+    }
+
+    function renderBranches() {
+      const maxPublic = Math.max(...reportData.standard.branches.map(item => item.public_amount), 1);
+      const maxPrivate = Math.max(...reportData.standard.branches.map(item => item.private_amount), 1);
+      const maxCombined = Math.max(...reportData.standard.branches.map(item => item.combined_amount), 1);
+      const maxRateHeat = Math.max(...reportData.standard.branches.flatMap(item => [item.public_rate, item.private_rate, item.combined_rate]).map(value => Math.abs(Number(value || 0))), 0.001);
+      const maxLiftHeat = Math.max(...reportData.standard.branches.flatMap(item => [item.public_lift, item.private_lift, item.combined_lift]).map(value => Math.abs(Number(value || 0))), 0.001);
+      const amountBar = (value, max) => `<div class="cell-bar"><strong>${fmtWan(value)}</strong><div class="cell-track blue"><i style="--w:${widthPct(value, max)}"></i></div></div>`;
+      const rateHeatCell = (value) => {
+        const heat = 0.14 + Math.min(0.72, Math.abs(Number(value || 0)) / maxRateHeat * 0.72);
+        return `<div class="heat-cell rate-heat" style="--heat:${heat.toFixed(3)}">${pct(value)}</div>`;
+      };
+      const liftCell = (value) => {
+        const heat = 0.14 + Math.min(0.72, Math.abs(Number(value || 0)) / maxLiftHeat * 0.72);
+        return `<div class="heat-cell lift-cell ${Number(value || 0) >= 0 ? 'up' : 'down'}" style="--heat:${heat.toFixed(3)}">${Number(value || 0) >= 0 ? '+' : ''}${pct(value)}</div>`;
+      };
+      document.getElementById('branchRows').innerHTML = reportData.standard.branches.map((row, index) => `
+        <tr>
+          <td class="rank">${String(index + 1).padStart(2, '0')}</td>
+          <td class="branch-cell" title="${row.branch}"><strong>${row.branch}</strong></td>
+          <td class="num">${amountBar(row.public_amount, maxPublic)}</td>
+          <td class="rate">${rateHeatCell(row.public_rate)}</td>
+          <td class="num">${fmtWan(row.public_new)}</td>
+          <td class="num">${liftCell(row.public_lift)}</td>
+          <td class="num">${amountBar(row.private_amount, maxPrivate)}</td>
+          <td class="rate">${rateHeatCell(row.private_rate)}</td>
+          <td class="num">${fmtWan(row.private_new)}</td>
+          <td class="num">${liftCell(row.private_lift)}</td>
+          <td class="num">${amountBar(row.combined_amount, maxCombined)}</td>
+          <td class="rate">${rateHeatCell(row.combined_rate)}</td>
+          <td class="num">${fmtWan(row.combined_new)}</td>
+          <td class="num">${liftCell(row.combined_lift)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderTopList(targetId, rows, metricKey) {
+      document.getElementById(targetId).innerHTML = rows.map((row, index) => `
+        <div class="person">
+          <div class="name-pill">${row.name}</div>
+          <div><strong>${row.branch}</strong><span class="sub">公募 ${fmtWan(row.public_amount)} / 私募 ${fmtWan(row.private_amount)}</span></div>
+          <div class="amount">${fmtWan(row[metricKey])}万</div>
+        </div>
+      `).join('');
+    }
+
+    function renderEmployees() {
+      renderTopList('publicTopRows', reportData.employeeTop.public, 'public_amount');
+      renderTopList('privateTopRows', reportData.employeeTop.private, 'private_amount');
+      renderTopList('combinedTopRows', reportData.employeeTop.combined, 'combined_amount');
+    }
+
+    function renderBuckets() {
+      const titles = { public: '公募各分档人数及占比', private: '私募各分档人数及占比', combined: '标销汇总各分档人数及占比' };
+      const labels = reportData.employeeBuckets.public.map(item => item.label);
+      const labelColumn = `<div class="bucket-label-column">${labels.map(label => `<div class="bucket-label-only">${label}</div>`).join('')}</div>`;
+      const cards = ['public','private','combined'].map(key => {
+        const rows = reportData.employeeBuckets[key];
+        const maxAmount = Math.max(...rows.map(item => item.amount), 1);
+        return `
+          <div class="bucket-card ${key}">
+            <h3>${titles[key]}</h3>
+            <div class="bucket-body">
+              ${rows.map(item => `
+                <div class="bucket-row">
+                  <div class="bucket-people">${item.people}</div>
+                  <div class="bucket-amount"><span>${fmtWan(item.amount)}万</span><div class="bucket-track"><i style="--w:${widthPct(item.amount, maxAmount)}"></i></div></div>
+                  <div class="bucket-share">${pct(item.share)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('bucketRows').innerHTML = labelColumn + cards;
+    }
+
+    function renderProduct(product) {
+      const branchMax = Math.max(...product.branches.map(item => item.amount), 1);
+      const branchBars = product.branches.map(item => `
+        <div class="bar-row">
+          <div class="bar-name" title="${item.name}">${item.name}</div>
+          <div class="bar-track"><i style="--w:${widthPct(item.amount, branchMax)}"></i></div>
+          <div class="bar-val">${fmtYuanWan(item.amount)}万</div>
+        </div>
+      `).join('');
+      const branchMetrics = product.branch_stats.map(item => `
+        <div class="branch-metric-row">
+          <div class="bar-name" title="${item.name}">${item.name}</div>
+          <div class="metric-pair"><strong>${item.people}</strong><span>出单人数</span></div>
+          <div class="metric-pair"><strong>${item.clients}</strong><span>出单客户</span></div>
+        </div>
+      `).join('');
+      const deals = product.deals.map((item, index) => `
+        <tr>
+          <td class="rank">${String(index + 1).padStart(2, '0')}</td>
+          <td>${item.branch}</td>
+          <td>${item.manager}</td>
+          <td class="num">${fmtYuanWan(item.amount)}</td>
+          <td class="num">${item.clients}</td>
+        </tr>
+      `).join('');
+      return `
+        <article class="product-card">
+          <div class="product-top">
+            <div>
+              <h3>${product.name}</h3>
+              <div class="product-stats">
+                <span class="stat-chip">销售金额 ${fmtYuanWan(product.total_amount)} 万元</span>
+                <span class="stat-chip">出单客户 ${product.total_clients} 户</span>
+                <span class="stat-chip">覆盖营业部 ${product.branches.length} 个</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-pane"><h4 class="pane-title">营业部销售</h4>${branchBars}</div>
+            <div class="product-pane"><h4 class="pane-title">营业部出单</h4>${branchMetrics}</div>
+            <div class="deal-table">
+              <table>
+                <thead><tr><th>排名</th><th>对应营业部</th><th>服务经理</th><th class="num">金额（万元）</th><th class="num">出单客户</th></tr></thead>
+                <tbody>${deals}</tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderProducts() {
+      document.getElementById('productRows').innerHTML = reportData.products.map(renderProduct).join('');
+      const files = reportData.sourceFiles;
+      document.getElementById('sourceNote').textContent = `数据来源：${files.standard}、${files.personal}、${files.keyProducts}`;
+    }
+
+    renderSummary();
+    renderBranches();
+    renderEmployees();
+    renderBuckets();
+    renderProducts();
+  </script>
+</body>
+</html>

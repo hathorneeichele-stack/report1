@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>产品配置｜私募策略跟踪</title>
+  <style>
+    :root {
+      --nav:#101829;
+      --nav-2:#17233b;
+      --ink:#1f2a3d;
+      --muted:#6d7788;
+      --line:#e8edf5;
+      --soft:#f5f7fb;
+      --panel:#ffffff;
+      --blue:#4268d6;
+      --blue-soft:#eef3ff;
+      --gold:#c8a43a;
+      --red:#c9554d;
+      --green:#2f9e62;
+      --shadow:0 10px 24px rgba(28,41,70,.08);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:#f2f5fa;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+    .app { min-height:100vh; display:grid; grid-template-columns:232px minmax(0,1fr); }
+    aside { background:linear-gradient(180deg,var(--nav),var(--nav-2)); color:#dce6fa; padding:18px 14px; position:sticky; top:0; height:100vh; }
+    .brand { display:flex; gap:10px; align-items:center; padding:6px 8px 20px; border-bottom:1px solid rgba(255,255,255,.1); }
+    .brand-mark { width:32px; height:32px; border-radius:8px; background:#4c6fff; display:grid; place-items:center; font-weight:800; color:#fff; }
+    .brand strong { display:block; color:#fff; font-size:16px; }
+    .brand span { font-size:12px; color:#9fb0cf; }
+    .nav-section { margin-top:18px; }
+    .nav-title { color:#7f91b4; font-size:12px; padding:8px; }
+    .nav-item { display:flex; align-items:center; justify-content:space-between; padding:11px 10px; border-radius:8px; color:#cbd7ee; margin:4px 0; }
+    .nav-item.active { background:#26395f; color:#fff; box-shadow:inset 3px 0 0 #6e8dff; }
+    .nav-dot { width:8px; height:8px; border-radius:50%; background:#6e8dff; }
+    main { min-width:0; }
+    .topbar { height:64px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; padding:0 28px; position:sticky; top:0; z-index:10; }
+    .crumb { color:var(--muted); font-size:13px; }
+    .crumb strong { color:var(--ink); font-size:16px; margin-left:8px; }
+    .toolbar { display:flex; align-items:center; gap:10px; }
+    .search { width:270px; height:36px; border:1px solid var(--line); border-radius:6px; padding:0 12px; outline:none; background:#fafbfd; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:var(--blue-soft); color:var(--blue); font-weight:650; font-size:12px; white-space:nowrap; }
+    .workspace { padding:24px 28px 36px; }
+    h1 { margin:0; font-size:24px; letter-spacing:0; }
+    .meta { margin-top:6px; color:var(--muted); font-size:13px; }
+    .placeholder { border-style:dashed; box-shadow:none; background:#fbfcff; }
+    .drilldown-shell { border:1px solid #dce4f4; border-radius:8px; background:#f8faff; padding:14px; }
+    .drilldown-title { margin-bottom:14px; padding:2px 2px 0; }
+    .drilldown-title h2 { margin:0; font-size:20px; }
+    .module-view[hidden] { display:none; }
+    .empty-view { background:#fff; border:1px dashed #cfd8e8; border-radius:8px; padding:30px; color:var(--muted); min-height:220px; display:grid; align-content:center; gap:8px; }
+    .empty-view strong { color:var(--ink); font-size:18px; }
+    .section { background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:18px; box-shadow:var(--shadow); overflow:hidden; }
+    .section-head { padding:16px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .section-title { margin:0; font-size:18px; display:flex; align-items:center; gap:10px; }
+    .section-title:before { content:""; width:4px; height:20px; border-radius:2px; background:#5f7be8; display:block; }
+    .report-stack { display:grid; gap:18px; padding:18px; }
+    .market-block { border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
+    .market-chart-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; padding:14px 18px; }
+    .chart-panel { min-width:0; }
+    .chart-title { text-align:center; font-size:16px; color:#707988; font-weight:800; margin-bottom:8px; }
+    .bar-row { display:grid; grid-template-columns:92px minmax(0,1fr) 64px; align-items:center; gap:10px; height:36px; }
+    .bar-label { color:#6b7482; font-weight:750; white-space:nowrap; }
+    .axis-track { position:relative; height:22px; border-radius:4px; background:linear-gradient(90deg,transparent 49.7%,rgba(34,43,58,.24) 49.7%,rgba(34,43,58,.24) 50.3%,transparent 50.3%); overflow:hidden; }
+    .axis-track:before { content:""; position:absolute; left:0; right:0; top:10px; height:1px; background:rgba(34,43,58,.12); }
+    .axis-bar { position:absolute; top:3px; height:16px; border-radius:3px; min-width:4px; }
+    .axis-bar.positive { left:50%; }
+    .axis-bar.negative { right:50%; }
+    .axis-bar.positive, .avg-bar.positive { background:#c9554d; }
+    .axis-bar.negative, .avg-bar.negative { background:#2f9e62; }
+    .bar-value { font-variant-numeric:tabular-nums; font-size:12px; color:#1f2a3d; text-align:right; }
+    .strategy-average-grid { display:grid; grid-template-columns:repeat(3,minmax(230px,1fr)); gap:10px; }
+    .avg-card { min-height:48px; display:grid; grid-template-columns:minmax(124px,1fr) minmax(90px,1.1fr) 76px; align-items:center; gap:12px; padding:12px 14px; border-radius:6px; background:#f7f8fa; border:1px solid #eef1f6; }
+    .avg-card span:first-child { color:#536176; font-weight:650; }
+    .avg-card span:last-child { font-weight:800; font-variant-numeric:tabular-nums; }
+    .avg-track { position:relative; height:12px; background:linear-gradient(90deg,transparent 49.6%,rgba(34,43,58,.2) 49.6%,rgba(34,43,58,.2) 50.4%,transparent 50.4%); border-radius:3px; overflow:hidden; }
+    .avg-bar { position:absolute; top:1px; height:10px; border-radius:2px; min-width:3px; }
+    .avg-bar.positive { left:50%; }
+    .avg-bar.negative { right:50%; }
+    .metric-table { width:100%; border-collapse:collapse; }
+    .metric-table th { background:#edf2fb; color:#4c63b3; font-weight:750; text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+    .metric-table td { padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+    .metric-table tr:last-child td { border-bottom:0; }
+    .mini-rank { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .rank-card { border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    .rank-card h3 { margin:0; padding:10px 12px; font-size:14px; background:#fafbfd; color:#41506a; border-bottom:1px solid var(--line); }
+    .rank-row { display:grid; grid-template-columns:42px 1fr 86px; gap:8px; align-items:center; padding:8px 12px; border-bottom:1px solid #f0f2f6; font-size:13px; }
+    .rank-row:last-child { border-bottom:0; }
+    .rank-no { color:#9c7a10; font-weight:800; }
+    .pos { color:var(--red); font-weight:650; }
+    .neg { color:var(--green); font-weight:650; }
+    .flat { color:#6c7688; }
+    .strategy-list { display:grid; gap:12px; padding:18px; }
+    details.strategy { border:1px solid var(--line); border-radius:8px; background:#fff; overflow:hidden; }
+    details.strategy[open] { border-color:#c9d4ff; }
+    summary { cursor:pointer; list-style:none; display:grid; gap:10px; padding:16px 18px; background:#fbfcff; }
+    summary::-webkit-details-marker { display:none; }
+    .strategy-name { display:flex; align-items:center; gap:10px; min-width:0; }
+    .chev { width:22px; height:22px; border-radius:5px; display:grid; place-items:center; background:#edf2ff; color:#4a66d8; font-size:13px; transition:.18s; }
+    details[open] .chev { transform:rotate(90deg); }
+    .strategy-name strong { font-size:17px; }
+    .strategy-stats { display:flex; flex-wrap:wrap; gap:8px; padding-left:32px; }
+    .top-list { display:flex; flex-wrap:wrap; gap:8px; padding-left:32px; }
+    .chip { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:650; white-space:nowrap; }
+    .chip.gold { background:#fff6d8; color:#96700a; }
+    .table-shell { background:#fff; }
+    .table-shell.fullscreen { position:fixed; inset:16px; z-index:1000; border:1px solid #c9d4ee; border-radius:8px; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
+    .table-shell.fullscreen .table-wrap { flex:1; max-height:none; }
+    .detail-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:0 18px 12px; color:var(--muted); font-size:12px; }
+    .table-action { width:30px; height:30px; border:1px solid #cbd6eb; border-radius:6px; background:#fff; color:#4268d6; display:inline-grid; place-items:center; cursor:pointer; font-size:16px; line-height:1; }
+    .table-action:hover { background:#eef3ff; }
+    .child-list { display:grid; gap:10px; padding:0 14px 14px; }
+    details.child-strategy { border:1px solid #d3ddfb; border-radius:8px; background:#fff; overflow:hidden; }
+    details.child-strategy summary { background:#edf3ff; color:#263b72; padding:12px 16px; }
+    details.child-strategy .strategy-name strong { font-size:15px; color:#263b72; }
+    details.child-strategy .strategy-stats, details.child-strategy .top-list { padding-left:30px; }
+    details.child-strategy .chip { background:#ffffff; color:#3153ad; border:1px solid #c6d4ff; }
+    details.child-strategy .chip.gold { background:#d9e4ff; color:#244293; border-color:#b8c8f5; }
+    details.child-strategy .chev { background:#d6e1ff; color:#3153ad; }
+    .table-wrap { overflow-x:auto; overflow-y:auto; border-top:1px solid var(--line); max-height:560px; width:100%; -webkit-overflow-scrolling:touch; }
+    table.detail { width:100%; min-width:1580px; border-collapse:collapse; }
+    table.detail th { position:sticky; top:0; z-index:2; background:#151b34; color:#fff; text-align:center; padding:8px 8px; font-size:10px; white-space:nowrap; }
+    table.detail td { padding:7px 8px; border-bottom:1px solid #edf0f5; white-space:nowrap; vertical-align:middle; text-align:center; font-size:11px; }
+    table.detail tbody tr:hover { background:#fffdf0; }
+    table.detail tbody tr.private-pool { background:#fffbe6; }
+    table.detail tbody tr.private-pool:hover { background:#fff5c7; }
+    .heat-cell { border-radius:0; background-clip:padding-box; }
+    .data-bar-cell { position:relative; overflow:hidden; }
+    .data-bar-cell:after { content:""; position:absolute; left:50%; top:5px; bottom:5px; border-left:1px dashed rgba(34,43,58,.34); z-index:0; }
+    .data-bar-cell:before { content:""; position:absolute; top:7px; bottom:7px; left:50%; width:var(--bar-width,0%); background:var(--bar-color,rgba(201,85,77,.22)); border-radius:3px; z-index:0; }
+    .data-bar-cell.ytd-negative:before, .data-bar-cell.excess-negative:before { left:auto; right:50%; }
+    .data-bar-cell span { position:relative; z-index:1; }
+    .rank-cell { color:#a67d10; font-weight:800; }
+    .product-cell { min-width:220px; white-space:normal; text-align:center; }
+    .source-note { padding:12px 18px 18px; color:#6e7786; font-size:12px; }
+    .empty { text-align:center; color:var(--muted); padding:36px; border-top:1px solid var(--line); display:none; }
+    @media (max-width:1100px) {
+      .app { grid-template-columns:1fr; }
+      aside { display:none; }
+      .market-block, .market-chart-grid { grid-template-columns:1fr; }
+      .strategy-average-grid { grid-template-columns:1fr; }
+      .topbar { position:static; height:auto; padding:14px 18px; align-items:flex-start; flex-direction:column; }
+      .toolbar, .search { width:100%; }
+      .workspace { padding:18px; }
+      summary { grid-template-columns:1fr; }
+      .strategy-stats { justify-content:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="brand-mark">配</div>
+        <div><strong>中台管理系统</strong><span>产品运营工作台</span></div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-title">一级页面</div>
+        <div class="nav-item active"><span>产品配置</span><span class="nav-dot"></span></div>
+        <div class="nav-item"><span>客户运营</span></div>
+        <div class="nav-item"><span>投顾服务</span></div>
+        <div class="nav-item"><span>数据看板</span></div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-title">产品配置模块</div>
+        <div class="nav-item active"><span>私募策略跟踪</span></div>
+        <div class="nav-item"><span>产品日历</span></div>
+        <div class="nav-item"><span>销售话术</span></div>
+        <div class="nav-item"><span>同类比较</span></div>
+      </div>
+    </aside>
+    <main>
+      <div class="topbar">
+        <div class="crumb">产品配置 / <strong>私募策略跟踪</strong></div>
+        <div class="toolbar">
+          <input id="searchBox" class="search" placeholder="搜索产品名称、代码、管理人">
+          <span class="pill">数据截至 <span id="asOf"></span></span>
+        </div>
+      </div>
+      <div class="workspace">
+        <div class="drilldown-shell">
+          <div id="privateView" class="module-view">
+            <section class="section">
+              <div class="section-head">
+                <h2 class="section-title">市场业绩指标</h2>
+              </div>
+              <div class="report-stack">
+                <div class="market-block">
+                  <div class="market-chart-grid">
+                    <div class="chart-panel"><div class="chart-title">近一周</div><div id="marketWeek"></div></div>
+                    <div class="chart-panel"><div class="chart-title">近一月</div><div id="marketMonth"></div></div>
+                    <div class="chart-panel"><div class="chart-title">2026年以来</div><div id="marketYtd"></div></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="chart-title" style="text-align:left;margin:0 0 10px;">近一周收益率（算术平均）</div>
+                  <div id="strategyAverage" class="strategy-average-grid"></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <div class="section-head">
+                <h2 class="section-title">各策略产品业绩表现</h2>
+                <span class="pill">点击展开详情表格</span>
+              </div>
+              <div id="strategyList" class="strategy-list"></div>
+              <div id="emptyState" class="empty">没有匹配的产品，请调整搜索条件。</div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../data/productReportData.js?v=20260707_2045"></script><script>
+    const DATA=window.productReportData.privateTracking;
+    const baseColumns = [
+      ["strategyRank", "策略排名"],
+      ["productName", "产品名称"],
+      ["productCode", "产品代码"],
+      ["established", "成立时间"],
+      ["manager", "管理人"],
+      ["subscriptionDay", "申购日"],
+      ["lockup", "锁定期"],
+      ["nav", "累计净值"],
+      ["weekReturn", "近一周增幅"],
+      ["monthReturn", "近一月增幅"],
+      ["ytdReturn", "今年以来增幅"],
+      ["return2025", "2025年增幅"],
+      ["maxDrawdown", "成立最大回撤"],
+      ["sharpe", "成立sharpe"]
+    ];
+    const childBaseColumns = [
+      ["strategyRank", "策略排名"],
+      ["subStrategyRank", "子策略排名"],
+      ...baseColumns.slice(1)
+    ];
+    const excessEnabledSubStrategies = new Set(["中证500", "中证1000", "沪深300", "中证A500"]);
+    const childExcessColumns = [
+      ...childBaseColumns,
+      ["adjustedNav", "复权净值"],
+      ["weekExcess", "近一周超额"],
+      ["ytdBuildExcess", "今年以来建仓超额"],
+      ["excess2025", "2025年化超额"]
+    ];
+    function tone(value) {
+      const text = String(value ?? "");
+      if (text.startsWith("+")) return "pos";
+      if (text.startsWith("-")) return "neg";
+      return "flat";
+    }
+
+    function cellClass(key, value) {
+      if (key === "strategyRank" || key === "subStrategyRank") return "rank-cell";
+      if (key === "productName") return "product-cell";
+      if (key === "manager") return "manager-cell";
+      if (key === "subscriptionDay") return "subscription-cell";
+      if (["weekReturn","monthReturn","ytdReturn","return2025","maxDrawdown"].includes(key)) return tone(value);
+      return "";
+    }
+
+    function pctNumber(raw) {
+      return typeof raw === "number" && Number.isFinite(raw) ? raw : null;
+    }
+
+    function heatStyle(raw, maxAbs, palette = "redGreen") {
+      const value = pctNumber(raw);
+      if (value === null) return "";
+      const ratio = Math.min(1, Math.abs(value) / Math.max(maxAbs || 0.001, 0.001));
+      const intensity = 0.08 + ratio * 0.34;
+      const positive = palette === "blueGreen" ? `rgba(66,104,214,${intensity})` : `rgba(201,85,77,${intensity})`;
+      const negative = `rgba(47,158,98,${intensity})`;
+      const color = value >= 0 ? positive : negative;
+      return `background:${color};`;
+    }
+
+    function dataBarStyle(raw, maxAbs) {
+      const value = pctNumber(raw);
+      if (value === null) return "";
+      const width = Math.min(48, Math.max(3, Math.abs(value) / Math.max(maxAbs || 0.001, 0.001) * 48));
+      const color = value >= 0 ? "rgba(201,85,77,.24)" : "rgba(47,158,98,.24)";
+      return `--bar-width:${width}%;--bar-color:${color};`;
+    }
+
+    function excessBarStyle(raw, maxAbs) {
+      const value = pctNumber(raw);
+      if (value === null) return "";
+      const width = Math.min(48, Math.max(3, Math.abs(value) / Math.max(maxAbs || 0.001, 0.001) * 48));
+      const color = value >= 0 ? "rgba(66,104,214,.24)" : "rgba(47,158,98,.24)";
+      return `--bar-width:${width}%;--bar-color:${color};`;
+    }
+
+    function ytdClass(row) {
+      const value = pctNumber(row.ytdRaw);
+      if (value === null) return "";
+      return value >= 0 ? "ytd-positive" : "ytd-negative";
+    }
+
+    function excessClass(row) {
+      const value = parsePercent(row.ytdBuildExcess);
+      if (value === null) return "";
+      return value >= 0 ? "excess-positive" : "excess-negative";
+    }
+
+    function cellStyle(key, row, metrics) {
+      if (key === "monthReturn") return heatStyle(row.monthRaw, metrics.maxMonthAbs, "redGreen");
+      if (key === "weekExcess") return heatStyle(parsePercent(row.weekExcess), metrics.maxWeekExcessAbs, "blueGreen");
+      if (key === "ytdReturn") return dataBarStyle(row.ytdRaw, metrics.maxYtdAbs);
+      if (key === "ytdBuildExcess") return excessBarStyle(parsePercent(row.ytdBuildExcess), metrics.maxYtdBuildExcessAbs);
+      return "";
+    }
+
+    function parsePercent(value) {
+      if (typeof value !== "string" || value === "-") return null;
+      const parsed = Number(value.replace("%", ""));
+      return Number.isFinite(parsed) ? parsed / 100 : null;
+    }
+
+    function tableMetrics(rows) {
+      return {
+        maxMonthAbs: Math.max(...rows.map(row => Math.abs(row.monthRaw || 0)), 0.001),
+        maxWeekExcessAbs: Math.max(...rows.map(row => Math.abs(parsePercent(row.weekExcess) || 0)), 0.001),
+        maxYtdAbs: Math.max(...rows.map(row => Math.abs(row.ytdRaw || 0)), 0.001),
+        maxYtdBuildExcessAbs: Math.max(...rows.map(row => Math.abs(parsePercent(row.ytdBuildExcess) || 0)), 0.001)
+      };
+    }
+
+    function cellContent(key, row) {
+      const value = row[key] ?? "-";
+      return key === "ytdReturn" || key === "ytdBuildExcess" ? `<span>${value}</span>` : value;
+    }
+
+    function marketRows(metricKey, returnKey) {
+      const maxAbs = Math.max(...DATA.marketPerformance.map(item => Math.abs(item[metricKey] || 0)), 0.001);
+      return DATA.marketPerformance.map(item => {
+        const raw = item[metricKey] || 0;
+        const width = Math.max(4, Math.abs(raw) / maxAbs * 48);
+        const direction = raw >= 0 ? "positive" : "negative";
+        return `
+          <div class="bar-row">
+            <div class="bar-label">${item.name}</div>
+            <div class="axis-track"><span class="axis-bar ${direction}" style="width:${width}%;"></span></div>
+            <div class="bar-value">${item[returnKey]}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function averageCard(item) {
+      const maxAbs = Math.max(...DATA.strategyArithmetic.map(row => Math.abs(row.weekRaw || 0)), 0.001);
+      const raw = item.weekRaw || 0;
+      const width = Math.max(4, Math.abs(raw) / maxAbs * 48);
+      const direction = raw >= 0 ? "positive" : "negative";
+      return `
+        <div class="avg-card">
+          <span>${item.name}</span>
+          <div class="avg-track"><span class="avg-bar ${direction}" style="width:${width}%;"></span></div>
+          <span class="${tone(item.weekReturn)}">${item.weekReturn}</span>
+        </div>
+      `;
+    }
+
+    function renderReport() {
+      document.getElementById("asOf").textContent = DATA.asOf;
+      document.getElementById("marketWeek").innerHTML = marketRows("weekRaw", "weekReturn");
+      document.getElementById("marketMonth").innerHTML = marketRows("monthRaw", "monthReturn");
+      document.getElementById("marketYtd").innerHTML = marketRows("ytdRaw", "ytdReturn");
+      document.getElementById("strategyAverage").innerHTML = DATA.strategyArithmetic.map(averageCard).join("");
+    }
+
+    function topThree(strategy) {
+      if (!strategy.top3 || !strategy.top3.length) return "";
+      return `<div class="top-list">${strategy.top3.map(item => `<span class="chip">TOP${item.rank} ${item.name} ${item.return}</span>`).join("")}</div>`;
+    }
+
+    function productTable(rows, includeSubRank = false, includeExcess = false) {
+      const columns = includeExcess ? childExcessColumns : (includeSubRank ? childBaseColumns : baseColumns);
+      const metrics = tableMetrics(rows);
+      const tableId = `table-${Math.random().toString(36).slice(2)}`;
+      const bodyRows = rows.map(row => `
+        <tr class="${row.isPrivatePool ? "private-pool" : ""}">${columns.map(([key,label]) => `<td class="${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}">${cellContent(key, row)}</td>`).join("")}</tr>
+      `).join("");
+      return `
+        <div class="table-shell" id="${tableId}">
+          <div class="detail-meta">
+            <span>排序规则：近一周增幅降序</span>
+            <button class="table-action" type="button" data-fullscreen="${tableId}" title="全屏展示">⛶</button>
+          </div>
+          <div class="table-wrap">
+            <table class="detail">
+              <thead><tr>${columns.map(([key,label]) => `<th>${label}</th>`).join("")}</tr></thead>
+              <tbody>${bodyRows}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function strategySummary(strategy, isChild = false) {
+      return `
+        <summary>
+          <div class="strategy-name"><span class="chev">›</span><strong>${strategy.title}</strong></div>
+          <div class="strategy-stats">
+            <span class="chip gold">共 ${strategy.count} 个产品</span>
+            <span class="chip">近一周均值 ${strategy.avgWeekReturn}</span>
+            <span class="chip">正收益 ${strategy.positiveCount} 个</span>
+          </div>
+          ${topThree(strategy)}
+        </summary>
+      `;
+    }
+
+    function renderStrategyBlock(strategy, index) {
+      if (strategy.children && strategy.children.length) {
+        const children = strategy.children.map((child, childIndex) => `
+          <details class="child-strategy" ${childIndex === 0 ? "open" : ""}>
+            ${strategySummary(child, true)}
+            ${productTable(child.rows, true, excessEnabledSubStrategies.has(child.title))}
+          </details>
+        `).join("");
+        return `
+          <details class="strategy" ${index === 1 ? "open" : ""}>
+            ${strategySummary(strategy)}
+            <div class="child-list">${children}</div>
+          </details>
+        `;
+      }
+      return `
+        <details class="strategy" ${index === 0 ? "open" : ""}>
+          ${strategySummary(strategy)}
+          ${productTable(strategy.rows, false)}
+        </details>
+      `;
+    }
+
+    function renderStrategies(query = "") {
+      const normalized = query.trim().toLowerCase();
+      let visibleCards = 0;
+      const html = DATA.strategies.map((strategy, index) => {
+        const filterRows = rows => rows.filter(row => {
+          if (!normalized) return true;
+          return [row.productName,row.productCode,row.manager].some(value => String(value).toLowerCase().includes(normalized));
+        });
+        if (strategy.children && strategy.children.length) {
+          const children = strategy.children.map(child => ({ ...child, rows: filterRows(child.rows) })).filter(child => child.rows.length);
+          if (!children.length) return "";
+          visibleCards += 1;
+          const parentRows = children.flatMap(child => child.rows);
+          const parent = { ...strategy, rows: parentRows, children, count: parentRows.length };
+          return renderStrategyBlock(parent, index);
+        }
+        const rows = filterRows(strategy.rows);
+        if (!rows.length) return "";
+        visibleCards += 1;
+        return renderStrategyBlock({ ...strategy, rows }, index);
+      }).join("");
+      document.getElementById("strategyList").innerHTML = html;
+      document.getElementById("emptyState").style.display = visibleCards ? "none" : "block";
+    }
+
+    renderReport();
+    renderStrategies();
+    document.getElementById("searchBox").addEventListener("input", event => renderStrategies(event.target.value));
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-fullscreen]");
+      if (!button) return;
+      const shell = document.getElementById(button.dataset.fullscreen);
+      if (!shell) return;
+      shell.classList.toggle("fullscreen");
+      button.textContent = shell.classList.contains("fullscreen") ? "×" : "⛶";
+      button.title = shell.classList.contains("fullscreen") ? "退出全屏" : "全屏展示";
+    });
+  </script>
+</body>
+</html>

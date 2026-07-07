@@ -238,8 +238,8 @@
 
     .content-frame {
       width:100%;
-      height:100dvh;
-      min-height:0;
+      height:100vh;
+      min-height:900px;
       border:0;
       display:block;
       background:#fff;
@@ -311,7 +311,7 @@
       .workspace { padding:0; }
     }
   </style>
-<script src="data/productCalendarData.js"></script><script src="data/productReportData.js"></script><script src="data/productMaterialData.js"></script><script src="data/customerOperationData.js"></script><script src="data/investmentServiceData.js"></script></head>
+<script src="data/productCalendarData.js?v=20260707_2029"></script><script src="data/productReportData.js?v=20260707_2029"></script><script src="data/productMaterialData.js?v=20260707_2029"></script><script src="data/customerOperationData.js?v=20260707_2029"></script><script src="data/investmentServiceData.js?v=20260707_2029"></script></head>
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -334,7 +334,6 @@
             <button class="active" type="button" role="menuitem" data-module="calendar">产品日历</button>
             <button type="button" role="menuitem" data-module="tracking">私募数据跟踪</button>
             <button type="button" role="menuitem" data-module="broadcast">销售播报</button>
-            <button type="button" role="menuitem" data-module="fof">FOF产品运行情况</button>
           </div>
         </div>
         <button class="nav-item" type="button"><span>客户运营</span></button>
@@ -352,25 +351,19 @@
       <div class="workspace">
         <section class="module-view" id="calendarView">
           <div class="frame-shell">
-            <iframe class="content-frame calendar-frame" id="calendarFrame" src="嵌入-私募日历.html" title="产品日历内容"></iframe>
+            <iframe class="content-frame calendar-frame" id="calendarFrame" src="嵌入-私募日历.html?v=20260707_2029" title="产品日历内容"></iframe>
           </div>
         </section>
 
         <section class="module-view" id="trackingView" hidden>
           <div class="frame-shell">
-            <iframe class="content-frame tracking-frame" id="trackingFrame" src="嵌入-私募数据跟踪.html" title="私募数据跟踪内容"></iframe>
+            <iframe class="content-frame tracking-frame" id="trackingFrame" src="嵌入-私募数据跟踪.html?v=20260707_2029" title="私募数据跟踪内容"></iframe>
           </div>
         </section>
 
         <section class="module-view" id="broadcastView" hidden>
           <div class="frame-shell">
-            <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="销售播报.html" title="销售播报内容"></iframe>
-          </div>
-        </section>
-
-        <section class="module-view" id="fofView" hidden>
-          <div class="frame-shell">
-            <iframe class="content-frame fof-frame" id="fofFrame" src="about:blank" data-src="嵌入-FOF产品运行情况.html" title="FOF产品运行情况内容"></iframe>
+            <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="销售播报.html?v=20260707_2029" title="销售播报内容"></iframe>
           </div>
         </section>
       </div>
@@ -390,31 +383,26 @@
       broadcast: {
         title: '销售播报',
         view: document.getElementById('broadcastView')
-      },
-      fof: {
-        title: 'FOF产品运行情况',
-        view: document.getElementById('fofView')
       }
     };
 
     const calendars = {
-      private: '嵌入-私募日历.html',
-      public: '嵌入-公募日历.html',
-      fixed: '嵌入-固收结构化日历.html'
+      private: '嵌入-私募日历.html?v=20260707_2029',
+      public: '嵌入-公募日历.html?v=20260707_2029',
+      fixed: '嵌入-固收结构化日历.html?v=20260707_2029'
     };
 
     const sideCurrent = document.getElementById('sideCurrent');
     const calendarFrame = document.getElementById('calendarFrame');
     const trackingFrame = document.getElementById('trackingFrame');
     const broadcastFrame = document.getElementById('broadcastFrame');
-    const fofFrame = document.getElementById('fofFrame');
 
     function fitFrameHeight(frame) {
       try {
         syncEmbeddedViewport(frame);
-        frame.style.height = '100dvh';
+        frame.style.height = '100vh';
       } catch (error) {
-        frame.style.height = '100dvh';
+        frame.style.height = '100vh';
       }
     }
 
@@ -435,7 +423,6 @@
       fitFrameHeight(calendarFrame);
       fitFrameHeight(trackingFrame);
       fitFrameHeight(broadcastFrame);
-      fitFrameHeight(fofFrame);
     }
 
     function tuneEmbeddedPage(frame) {
@@ -655,8 +642,8 @@
           }
 
           .modal-overlay.image-open .image-media img {
-            width: 100% !important;
-            max-width: 100% !important;
+            width: auto !important;
+            max-width: none !important;
             max-height: none !important;
             height: auto !important;
           }
@@ -706,9 +693,6 @@
       sideCurrent.textContent = current.title;
 
       if (moduleName === 'calendar' && calendarFrame.getAttribute('src') === 'about:blank') openCalendar('private');
-      if (moduleName === 'fof' && fofFrame.getAttribute('src') === 'about:blank') {
-        fofFrame.src = fofFrame.dataset.src;
-      }
     }
 
     function openCalendar(calendarName) {
@@ -789,10 +773,6 @@
       tuneEmbeddedPage(broadcastFrame);
       fitFrameHeight(broadcastFrame);
       window.setTimeout(() => fitFrameHeight(broadcastFrame), 400);
-    });
-    fofFrame.addEventListener('load', () => {
-      fitFrameHeight(fofFrame);
-      window.setTimeout(() => fitFrameHeight(fofFrame), 400);
     });
     window.addEventListener('resize', fitAllFrames);
     window.addEventListener('scroll', fitAllFrames, { passive: true });

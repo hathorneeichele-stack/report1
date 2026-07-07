@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>销售播报</title>
+  <style>
+    :root {
+      --ink:#1f2a3d;
+      --muted:#6d7788;
+      --line:#e6ecf5;
+      --bg:#f2f5fa;
+      --panel:#ffffff;
+      --blue:#4268d6;
+      --blue-2:#6e8dff;
+      --blue-soft:#eef3ff;
+      --red:#c9554d;
+      --green:#2f9e62;
+      --gold:#b88712;
+      --gold-soft:#fff6d8;
+      --shadow:0 10px 24px rgba(28,41,70,.08);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+    .sales-report { min-height:100vh; padding:24px 28px 36px; }
+    .hero {
+      position:relative;
+      overflow:hidden;
+      border:1px solid #dce4f4;
+      border-radius:8px;
+      background:
+        linear-gradient(135deg, rgba(66,104,214,.96), rgba(23,35,59,.98)),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.25), transparent 32%);
+      color:#fff;
+      box-shadow:var(--shadow);
+      padding:28px 30px;
+    }
+    .hero:after {
+      content:"";
+      position:absolute;
+      right:-90px;
+      top:-110px;
+      width:340px;
+      height:340px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:50%;
+    }
+    .hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:end; }
+    .eyebrow { margin:0 0 8px; color:#dbe6ff; font-weight:750; }
+    h1 { margin:0; font-size:34px; letter-spacing:0; line-height:1.15; }
+    .hero-note { margin:10px 0 0; color:#dce6fa; max-width:780px; }
+    .asof {
+      display:grid;
+      gap:4px;
+      min-width:178px;
+      padding:14px 16px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:8px;
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(10px);
+    }
+    .asof span { color:#dbe6ff; font-size:12px; }
+    .asof strong { font-size:22px; }
+    .summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:18px; }
+    .metric-card {
+      min-height:126px;
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .metric-card .label { color:var(--muted); font-weight:750; }
+    .metric-card .value { font-size:30px; line-height:1; font-weight:850; letter-spacing:0; }
+    .metric-card .unit { color:var(--muted); font-size:13px; }
+    .progress { height:8px; overflow:hidden; border-radius:999px; background:#edf1f8; }
+    .progress i { display:block; height:100%; width:var(--w); max-width:100%; border-radius:inherit; background:linear-gradient(90deg,var(--blue),var(--blue-2)); }
+    .section { margin-top:18px; border:1px solid var(--line); border-radius:8px; background:var(--panel); box-shadow:var(--shadow); overflow:hidden; }
+    .section-head { padding:16px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .section-title { margin:0; font-size:18px; display:flex; align-items:center; gap:10px; }
+    .section-title:before { content:""; width:4px; height:20px; border-radius:2px; background:var(--blue); display:block; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:var(--blue-soft); color:var(--blue); font-weight:700; font-size:12px; white-space:nowrap; }
+    .content-pad { padding:18px; }
+    .two-col { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr); gap:18px; }
+    table { width:100%; border-collapse:collapse; }
+    th { background:#edf2fb; color:#4c63b3; font-weight:800; text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+    td { padding:10px 12px; border-bottom:1px solid #eef2f7; vertical-align:middle; }
+    tr:last-child td { border-bottom:0; }
+    tbody tr:hover { background:#fffdf4; }
+    .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .rank { width:42px; color:var(--gold); font-weight:900; }
+    .branch-cell strong, .person strong { display:block; font-size:14px; }
+    .sub { display:block; color:var(--muted); font-size:12px; margin-top:2px; }
+    .rate { min-width:120px; }
+    .rate strong { display:block; margin-bottom:6px; font-variant-numeric:tabular-nums; }
+    .mini-list { display:grid; gap:10px; }
+    .person {
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr) auto;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid #edf1f7;
+      border-radius:8px;
+      background:#fbfcff;
+    }
+    .avatar { width:34px; height:34px; border-radius:8px; display:grid; place-items:center; color:#fff; background:var(--blue); font-weight:850; }
+    .amount { font-weight:850; color:#1f2a3d; font-variant-numeric:tabular-nums; }
+    .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .product-card { border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
+    .product-top {
+      padding:18px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:16px;
+      align-items:start;
+      background:linear-gradient(180deg,#fbfcff,#ffffff);
+      border-bottom:1px solid var(--line);
+    }
+    .product-top h3 { margin:0; font-size:22px; }
+    .product-stats { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .stat-chip { padding:6px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:750; }
+    .product-body { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+    .product-pane { padding:14px; min-width:0; }
+    .product-pane + .product-pane { border-left:1px solid var(--line); }
+    .pane-title { margin:0 0 10px; color:#41506a; font-size:14px; }
+    .bar-row { display:grid; grid-template-columns:88px minmax(0,1fr) 74px; gap:8px; align-items:center; min-height:30px; }
+    .branch-metric-row { display:grid; grid-template-columns:minmax(96px,1fr) 76px 76px; gap:8px; align-items:center; min-height:36px; padding:6px 0; border-bottom:1px solid #f0f3f8; }
+    .branch-metric-row:last-child { border-bottom:0; }
+    .metric-pair { display:grid; gap:1px; justify-items:end; font-variant-numeric:tabular-nums; }
+    .metric-pair strong { font-size:14px; line-height:1.1; }
+    .metric-pair span { color:var(--muted); font-size:11px; white-space:nowrap; }
+    .bar-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#536176; font-weight:750; }
+    .bar-track { height:8px; border-radius:999px; background:#eef2f8; overflow:hidden; }
+    .bar-track i { display:block; height:100%; width:var(--w); border-radius:inherit; background:var(--blue); }
+    .bar-val { text-align:right; font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
+    .deal-table { grid-column:1 / -1; border-top:1px solid var(--line); }
+    .deal-table th { font-size:12px; }
+    .source-note { margin-top:14px; color:var(--muted); font-size:12px; }
+    @media (max-width:1100px) {
+      .sales-report { padding:18px; }
+      .hero-inner, .two-col, .product-grid, .product-body { grid-template-columns:1fr; }
+      .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .product-pane + .product-pane { border-left:0; border-top:1px solid var(--line); }
+    }
+    @media (max-width:720px) {
+      h1 { font-size:27px; }
+      .summary-grid { grid-template-columns:1fr; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .content-pad { overflow-x:auto; }
+      table { min-width:760px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sales-report">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">山东分公司 / 7月销售播报</p>
+          <h1>公私募标准销量与重点首发产品战报</h1>
+          <p class="hero-note">聚焦营业部完成情况、员工贡献榜，以及龙旗灵动、进化论1000两个重点首发产品的销售进展。</p>
+        </div>
+        <div class="asof"><span>标准销量统计日</span><strong id="asOf">-</strong></div>
+      </div>
+    </section>
+
+    <div id="summary" class="summary-grid"></div>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">营业部标准销量完成情况</h2>
+        <span class="pill">金额单位：万元</span>
+      </div>
+      <div class="content-pad two-col">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>排名</th><th>营业部</th><th class="num">公募标准</th><th class="num">私募标准</th><th class="num">公私募汇总</th><th>完成率</th><th class="num">统计日新增</th>
+              </tr>
+            </thead>
+            <tbody id="branchRows"></tbody>
+          </table>
+        </div>
+        <div>
+          <h3 class="pane-title">员工公私募贡献榜</h3>
+          <div id="employeeRows" class="mini-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">重点首发产品销售情况</h2>
+        <span class="pill">空白行已忽略</span>
+      </div>
+      <div class="content-pad">
+        <div id="productRows" class="product-grid"></div>
+        <div class="source-note" id="sourceNote"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../data/productReportData.js?v=20260707_2045"></script><script>
+    const reportData=window.productReportData.salesBroadcast;
+    const fmtWan = (v) => {
+      const n = Number(v || 0);
+      if (Math.abs(n) >= 1000) return n.toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+      return n.toLocaleString('zh-CN', { maximumFractionDigits: n % 1 === 0 ? 0 : 1 });
+    };
+    const fmtYuanWan = (v) => fmtWan(Number(v || 0) / 10000);
+    const pct = (v) => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const firstChar = (name) => [...String(name || '')][0] || '人';
+    const widthPct = (value, max) => `${Math.max(4, Math.min(100, Number(value || 0) / Math.max(1, max) * 100))}%`;
+
+    function renderSummary() {
+      const standard = reportData.standard;
+      const total = standard.totals;
+      document.getElementById('asOf').textContent = standard.as_of || '-';
+      const cards = [
+        ['公私募汇总', fmtWan(total.combined_amount), '目标 ' + fmtWan(total.combined_target) + ' 万元', total.combined_rate],
+        ['公募标准销量', fmtWan(total.public_amount), '目标 ' + fmtWan(total.public_target) + ' 万元', total.public_rate],
+        ['私募标准销量', fmtWan(total.private_amount), '目标 ' + fmtWan(total.private_target) + ' 万元', total.private_rate],
+        ['统计日新增', fmtWan(total.combined_new), '当日提升 ' + pct(total.combined_lift), total.combined_rate]
+      ];
+      document.getElementById('summary').innerHTML = cards.map(([label, value, unit, rate]) => `
+        <div class="metric-card">
+          <div class="label">${label}</div>
+          <div><span class="value">${value}</span><span class="unit"> 万元</span></div>
+          <div class="unit">${unit}</div>
+          <div class="progress" aria-label="${label}完成率"><i style="--w:${Math.min(100, Number(rate || 0) * 100)}%"></i></div>
+        </div>
+      `).join('');
+    }
+
+    function renderBranches() {
+      const maxAmount = Math.max(...reportData.standard.branches.map(item => item.combined_amount), 1);
+      document.getElementById('branchRows').innerHTML = reportData.standard.branches.map((row, index) => `
+        <tr>
+          <td class="rank">${String(index + 1).padStart(2, '0')}</td>
+          <td class="branch-cell"><strong>${row.branch}</strong><span class="sub">目标 ${fmtWan(row.combined_target)} 万元</span></td>
+          <td class="num">${fmtWan(row.public_amount)}</td>
+          <td class="num">${fmtWan(row.private_amount)}</td>
+          <td class="num"><strong>${fmtWan(row.combined_amount)}</strong></td>
+          <td class="rate"><strong>${pct(row.combined_rate)}</strong><div class="progress"><i style="--w:${widthPct(row.combined_amount, maxAmount)}"></i></div></td>
+          <td class="num">${fmtWan(row.combined_new)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderEmployees() {
+      document.getElementById('employeeRows').innerHTML = reportData.employees.slice(0, 10).map((row, index) => `
+        <div class="person">
+          <div class="avatar">${firstChar(row.name)}</div>
+          <div><strong>${index + 1}. ${row.name}</strong><span class="sub">${row.branch} · 公募 ${fmtWan(row.public_amount)} / 私募 ${fmtWan(row.private_amount)}</span></div>
+          <div class="amount">${fmtWan(row.combined_amount)}万</div>
+        </div>
+      `).join('');
+    }
+
+    function renderProduct(product) {
+      const branchMax = Math.max(...product.branches.map(item => item.amount), 1);
+      const branchBars = product.branches.map(item => `
+        <div class="bar-row">
+          <div class="bar-name" title="${item.name}">${item.name}</div>
+          <div class="bar-track"><i style="--w:${widthPct(item.amount, branchMax)}"></i></div>
+          <div class="bar-val">${fmtYuanWan(item.amount)}万</div>
+        </div>
+      `).join('');
+      const branchMetrics = product.branch_stats.map(item => `
+        <div class="branch-metric-row">
+          <div class="bar-name" title="${item.name}">${item.name}</div>
+          <div class="metric-pair"><strong>${item.people}</strong><span>出单人数</span></div>
+          <div class="metric-pair"><strong>${item.clients}</strong><span>出单客户</span></div>
+        </div>
+      `).join('');
+      const deals = product.deals.map((item, index) => `
+        <tr>
+          <td class="rank">${String(index + 1).padStart(2, '0')}</td>
+          <td>${item.branch}</td>
+          <td>${item.manager}</td>
+          <td class="num">${fmtYuanWan(item.amount)}</td>
+          <td class="num">${item.clients}</td>
+        </tr>
+      `).join('');
+      return `
+        <article class="product-card">
+          <div class="product-top">
+            <div>
+              <h3>${product.name}</h3>
+              <div class="product-stats">
+                <span class="stat-chip">销售金额 ${fmtYuanWan(product.total_amount)} 万元</span>
+                <span class="stat-chip">出单客户 ${product.total_clients} 户</span>
+                <span class="stat-chip">覆盖营业部 ${product.branches.length} 个</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-pane"><h4 class="pane-title">营业部销售</h4>${branchBars}</div>
+            <div class="product-pane"><h4 class="pane-title">营业部出单</h4>${branchMetrics}</div>
+            <div class="deal-table">
+              <table>
+                <thead><tr><th>排名</th><th>对应营业部</th><th>服务经理</th><th class="num">金额（万元）</th><th class="num">出单客户</th></tr></thead>
+                <tbody>${deals}</tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderProducts() {
+      document.getElementById('productRows').innerHTML = reportData.products.map(renderProduct).join('');
+      const files = reportData.sourceFiles;
+      document.getElementById('sourceNote').textContent = `数据来源：${files.standard}、${files.personal}、${files.keyProducts}`;
+    }
+
+    renderSummary();
+    renderBranches();
+    renderEmployees();
+    renderProducts();
+  </script>
+</body>
+</html>

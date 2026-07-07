@@ -333,6 +333,7 @@
           <div class="flyout" role="menu" aria-label="产品相关">
             <button class="active" type="button" role="menuitem" data-module="calendar">产品日历</button>
             <button type="button" role="menuitem" data-module="tracking">私募数据跟踪</button>
+            <button type="button" role="menuitem" data-module="fof">FOF产品运作情况</button>
             <button type="button" role="menuitem" data-module="broadcast">销售播报</button>
           </div>
         </div>
@@ -361,6 +362,12 @@
           </div>
         </section>
 
+        <section class="module-view" id="fofView" hidden>
+          <div class="frame-shell">
+            <iframe class="content-frame fof-frame" id="fofFrame" src="嵌入-FOF产品运行情况.html?v=20260707_2045" title="FOF产品运作情况内容"></iframe>
+          </div>
+        </section>
+
         <section class="module-view" id="broadcastView" hidden>
           <div class="frame-shell">
             <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="销售播报.html?v=20260707_2045" title="销售播报内容"></iframe>
@@ -380,6 +387,10 @@
         title: '私募数据跟踪',
         view: document.getElementById('trackingView')
       },
+      fof: {
+        title: 'FOF产品运作情况',
+        view: document.getElementById('fofView')
+      },
       broadcast: {
         title: '销售播报',
         view: document.getElementById('broadcastView')
@@ -395,6 +406,7 @@
     const sideCurrent = document.getElementById('sideCurrent');
     const calendarFrame = document.getElementById('calendarFrame');
     const trackingFrame = document.getElementById('trackingFrame');
+    const fofFrame = document.getElementById('fofFrame');
     const broadcastFrame = document.getElementById('broadcastFrame');
 
     function fitFrameHeight(frame) {
@@ -422,6 +434,7 @@
     function fitAllFrames() {
       fitFrameHeight(calendarFrame);
       fitFrameHeight(trackingFrame);
+      fitFrameHeight(fofFrame);
       fitFrameHeight(broadcastFrame);
     }
 
@@ -768,6 +781,11 @@
       tuneEmbeddedPage(trackingFrame);
       fitFrameHeight(trackingFrame);
       window.setTimeout(() => fitFrameHeight(trackingFrame), 400);
+    });
+    fofFrame.addEventListener('load', () => {
+      tuneEmbeddedPage(fofFrame);
+      fitFrameHeight(fofFrame);
+      window.setTimeout(() => fitFrameHeight(fofFrame), 400);
     });
     broadcastFrame.addEventListener('load', () => {
       tuneEmbeddedPage(broadcastFrame);

@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中台管理系统｜产品相关</title>
+  <style>
+    :root {
+      --nav:#101829;
+      --nav-2:#17233b;
+      --nav-active:#2f436d;
+      --ink:#1f2a3d;
+      --muted:#6d7788;
+      --line:#e6ecf5;
+      --bg:#f2f5fa;
+      --panel:#ffffff;
+      --blue:#4268d6;
+      --blue-2:#6e8dff;
+      --shadow:0 10px 24px rgba(28,41,70,.08);
+    }
+
+    * { box-sizing:border-box; }
+
+    html,
+    body {
+      height:100%;
+      overflow:hidden;
+    }
+
+    body {
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    button { font:inherit; }
+
+    .shell {
+      height:100vh;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:248px minmax(0,1fr);
+    }
+
+    .sidebar {
+      position:sticky;
+      top:0;
+      height:100vh;
+      padding:18px 14px;
+      background:linear-gradient(180deg,var(--nav),var(--nav-2));
+      color:#dce6fa;
+      z-index:40;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:6px 8px 20px;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .brand-mark {
+      width:32px;
+      height:32px;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      background:#4c6fff;
+      color:#fff;
+      font-weight:850;
+    }
+
+    .brand strong {
+      display:block;
+      color:#fff;
+      font-size:16px;
+    }
+
+    .brand span {
+      display:block;
+      margin-top:1px;
+      color:#9fb0cf;
+      font-size:12px;
+    }
+
+    .nav-section { margin-top:18px; }
+
+    .nav-title {
+      padding:8px;
+      color:#7f91b4;
+      font-size:12px;
+    }
+
+    .nav-item,
+    .nav-trigger,
+    .flyout button {
+      width:100%;
+      border:0;
+      color:#cbd7ee;
+      background:transparent;
+      text-align:left;
+      cursor:pointer;
+    }
+
+    .nav-item,
+    .nav-trigger {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:44px;
+      padding:11px 10px;
+      border-radius:8px;
+      margin:4px 0;
+      font-weight:750;
+    }
+
+    .nav-item:hover,
+    .nav-trigger:hover,
+    .nav-group:hover .nav-trigger,
+    .nav-group:focus-within .nav-trigger,
+    .nav-trigger.active {
+      background:var(--nav-active);
+      color:#fff;
+      box-shadow:inset 3px 0 0 var(--blue-2);
+    }
+
+    .nav-dot {
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--blue-2);
+    }
+
+    .chevron {
+      width:18px;
+      height:18px;
+      display:grid;
+      place-items:center;
+      color:#dce6fa;
+      transition:transform .18s ease;
+    }
+
+    .chevron:before {
+      content:"";
+      width:8px;
+      height:8px;
+      border-right:3px solid currentColor;
+      border-bottom:3px solid currentColor;
+      transform:rotate(-45deg);
+    }
+
+    .nav-group {
+      position:relative;
+    }
+
+    .nav-group:hover .chevron,
+    .nav-group:focus-within .chevron,
+    .nav-group.open .chevron {
+      transform:translateX(2px);
+    }
+
+    .flyout {
+      position:absolute;
+      left:calc(100% + 10px);
+      top:0;
+      width:184px;
+      padding:8px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:8px;
+      background:#182641;
+      box-shadow:0 20px 50px rgba(5,12,24,.32);
+      opacity:0;
+      pointer-events:none;
+      transform:translateX(-6px);
+      transition:opacity .16s ease, transform .16s ease;
+    }
+
+    .nav-group:hover .flyout,
+    .nav-group:focus-within .flyout,
+    .nav-group.open .flyout {
+      opacity:1;
+      pointer-events:auto;
+      transform:translateX(0);
+    }
+
+    .flyout button {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:44px;
+      padding:9px 10px;
+      border-radius:7px;
+      font-size:16px;
+      font-weight:850;
+    }
+
+    .flyout button:hover,
+    .flyout button.active {
+      background:#26395f;
+      color:#fff;
+    }
+
+    .flyout button.active:after {
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--blue-2);
+    }
+
+    main {
+      min-width:0;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    .workspace {
+      padding:0;
+      min-height:100%;
+      overflow:hidden;
+    }
+
+    .module-view[hidden] {
+      display:none;
+    }
+
+    .frame-shell {
+      overflow:hidden;
+      border:0;
+      border-radius:0;
+      background:#fff;
+      box-shadow:none;
+    }
+
+    .content-frame {
+      width:100%;
+      height:100dvh;
+      min-height:0;
+      border:0;
+      display:block;
+      background:#fff;
+    }
+
+    .placeholder {
+      min-height:calc(100vh - 154px);
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .placeholder-card {
+      width:min(680px,100%);
+      border:1px dashed #cbd6eb;
+      border-radius:8px;
+      padding:36px;
+      background:#fff;
+      text-align:center;
+      box-shadow:0 8px 20px rgba(28,41,70,.04);
+    }
+
+    .placeholder-card h2 {
+      margin:0;
+      color:#17233b;
+      font-size:22px;
+    }
+
+    .placeholder-card p {
+      margin:10px 0 0;
+      color:#6d7788;
+      font-size:14px;
+    }
+
+    @media (max-width:1180px) {
+      .calendar-hub {
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:980px) {
+      .shell {
+        height:auto;
+        min-height:100vh;
+        overflow:visible;
+        grid-template-columns:1fr;
+      }
+
+      .sidebar {
+        position:static;
+        height:auto;
+      }
+
+      main {
+        height:auto;
+        overflow:visible;
+      }
+
+      .flyout {
+        position:static;
+        width:100%;
+        margin-top:4px;
+        opacity:1;
+        pointer-events:auto;
+        transform:none;
+        box-shadow:none;
+      }
+
+      .workspace { padding:0; }
+    }
+  </style>
+<script src="data/productCalendarData.js"></script><script src="data/productReportData.js"></script><script src="data/productMaterialData.js"></script><script src="data/customerOperationData.js"></script><script src="data/investmentServiceData.js"></script></head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">配</div>
+        <div>
+          <strong>中台管理系统</strong>
+          <span>产品运营工作台</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">一级页面</div>
+        <div class="nav-group">
+          <button class="nav-trigger active" type="button" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+            <span>产品相关</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <div class="flyout" role="menu" aria-label="产品相关">
+            <button class="active" type="button" role="menuitem" data-module="calendar">产品日历</button>
+            <button type="button" role="menuitem" data-module="tracking">私募数据跟踪</button>
+            <button type="button" role="menuitem" data-module="broadcast">销售播报</button>
+            <button type="button" role="menuitem" data-module="fof">FOF产品运行情况</button>
+          </div>
+        </div>
+        <button class="nav-item" type="button"><span>客户运营</span></button>
+        <button class="nav-item" type="button"><span>投顾服务</span></button>
+        <button class="nav-item" type="button"><span>数据看板</span></button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">当前模块</div>
+        <div class="nav-item active"><span id="sideCurrent">产品日历</span><span class="nav-dot"></span></div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="workspace">
+        <section class="module-view" id="calendarView">
+          <div class="frame-shell">
+            <iframe class="content-frame calendar-frame" id="calendarFrame" src="嵌入-私募日历.html" title="产品日历内容"></iframe>
+          </div>
+        </section>
+
+        <section class="module-view" id="trackingView" hidden>
+          <div class="frame-shell">
+            <iframe class="content-frame tracking-frame" id="trackingFrame" src="嵌入-私募数据跟踪.html" title="私募数据跟踪内容"></iframe>
+          </div>
+        </section>
+
+        <section class="module-view" id="broadcastView" hidden>
+          <div class="frame-shell">
+            <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="销售播报.html" title="销售播报内容"></iframe>
+          </div>
+        </section>
+
+        <section class="module-view" id="fofView" hidden>
+          <div class="frame-shell">
+            <iframe class="content-frame fof-frame" id="fofFrame" src="about:blank" data-src="嵌入-FOF产品运行情况.html" title="FOF产品运行情况内容"></iframe>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const modules = {
+      calendar: {
+        title: '产品日历',
+        view: document.getElementById('calendarView')
+      },
+      tracking: {
+        title: '私募数据跟踪',
+        view: document.getElementById('trackingView')
+      },
+      broadcast: {
+        title: '销售播报',
+        view: document.getElementById('broadcastView')
+      },
+      fof: {
+        title: 'FOF产品运行情况',
+        view: document.getElementById('fofView')
+      }
+    };
+
+    const calendars = {
+      private: '嵌入-私募日历.html',
+      public: '嵌入-公募日历.html',
+      fixed: '嵌入-固收结构化日历.html'
+    };
+
+    const sideCurrent = document.getElementById('sideCurrent');
+    const calendarFrame = document.getElementById('calendarFrame');
+    const trackingFrame = document.getElementById('trackingFrame');
+    const broadcastFrame = document.getElementById('broadcastFrame');
+    const fofFrame = document.getElementById('fofFrame');
+
+    function fitFrameHeight(frame) {
+      try {
+        syncEmbeddedViewport(frame);
+        frame.style.height = '100dvh';
+      } catch (error) {
+        frame.style.height = '100dvh';
+      }
+    }
+
+    function syncEmbeddedViewport(frame) {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+        const modalWidth = Math.round(window.innerWidth * 0.9);
+        const modalHeight = Math.round(window.innerHeight * 0.9);
+        doc.documentElement.style.setProperty('--outer-modal-width', `${modalWidth}px`);
+        doc.documentElement.style.setProperty('--outer-modal-height', `${modalHeight}px`);
+      } catch (error) {
+        console.warn('弹窗尺寸同步未生效', error);
+      }
+    }
+
+    function fitAllFrames() {
+      fitFrameHeight(calendarFrame);
+      fitFrameHeight(trackingFrame);
+      fitFrameHeight(broadcastFrame);
+      fitFrameHeight(fofFrame);
+    }
+
+    function tuneEmbeddedPage(frame) {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || doc.getElementById('embeddedPageTuning')) return;
+
+        const style = doc.createElement('style');
+        style.id = 'embeddedPageTuning';
+        style.textContent = `
+          .app > aside {
+            display: none !important;
+          }
+
+          .app {
+            display: block !important;
+            min-height: auto !important;
+          }
+
+          .workspace {
+            padding: 24px 28px 36px !important;
+          }
+
+          .page-head {
+            margin-bottom: 18px !important;
+          }
+
+          .page-head h1 {
+            font-size: 24px !important;
+            line-height: 1.25 !important;
+            margin: 0 !important;
+          }
+
+          .meta {
+            margin-top: 6px !important;
+            font-size: 13px !important;
+            line-height: 1.45 !important;
+          }
+
+          .module-grid,
+          .hub-tabs {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 14px !important;
+            margin: 0 0 18px !important;
+          }
+
+          .module-card,
+          .hub-card {
+            height: 116px !important;
+            min-height: 116px !important;
+            padding: 16px !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            gap: 0 !important;
+          }
+
+          .module-card h2,
+          .hub-card h2 {
+            margin: 0 0 10px !important;
+            font-size: 17px !important;
+            line-height: 1.25 !important;
+          }
+
+          .module-card p,
+          .hub-card p {
+            margin: 0 !important;
+            font-size: 13px !important;
+            line-height: 1.5 !important;
+          }
+
+          .module-card-foot,
+          .hub-card-foot,
+          .hub-card div,
+          .hub-copy,
+          .public-tab-shell:before,
+          .section-head {
+            display: none !important;
+          }
+
+          .kpis {
+            display: grid !important;
+            grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            gap: 12px !important;
+            margin: 0 0 16px !important;
+          }
+
+          .kpi {
+            min-height: 87px !important;
+            padding: 14px 16px !important;
+            border-radius: 8px !important;
+          }
+
+          .kpi strong {
+            font-size: 23px !important;
+            line-height: 1.2 !important;
+          }
+
+          .public-tab-shell,
+          .public-tab-content {
+            margin: 0 !important;
+            border: 0 !important;
+            padding: 0 !important;
+          }
+
+          .panel-head {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            align-items: start !important;
+            gap: 14px !important;
+          }
+
+          .panel-title-zone {
+            min-width: 0 !important;
+            grid-column: 1 !important;
+          }
+
+          .filters {
+            grid-column: 1 !important;
+            width: 100% !important;
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            align-items: start !important;
+            align-content: flex-start !important;
+            justify-content: start !important;
+            gap: 12px !important;
+            min-height: 0 !important;
+          }
+
+          .filter-group {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            gap: 10px 12px !important;
+          }
+
+          .filter-label {
+            flex: 0 0 38px !important;
+            text-align: left !important;
+          }
+
+          .filter-group .seg,
+          #strategyFilters .filter-chip {
+            flex: 0 0 auto !important;
+          }
+
+          #strategyFilters {
+            flex: 1 1 520px !important;
+          }
+
+          .modal-overlay.frame-open .modal-body {
+            overflow: hidden !important;
+            padding: 8px !important;
+          }
+
+          .modal-overlay.frame-open .modal-media,
+          .modal-overlay.frame-open .pdf-media,
+          .modal-overlay.frame-open .image-media {
+            height: 100% !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
+          }
+
+          .modal-overlay.frame-open .perf-report {
+            height: 100% !important;
+            min-height: 0 !important;
+            overflow: auto !important;
+          }
+
+          .modal-overlay.performance-open .modal-body {
+            overflow: hidden !important;
+            padding: 0 !important;
+          }
+
+          .modal-overlay.performance-open .modal-media {
+            height: 100% !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
+            transform: none !important;
+            width: 100% !important;
+          }
+
+          .modal-overlay.performance-open iframe {
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            border: 0 !important;
+          }
+
+          .modal-overlay.frame-open .pdf-media iframe {
+            display: block !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            border: 0 !important;
+          }
+
+          .modal-overlay.frame-open .material-modal {
+            overflow: hidden !important;
+          }
+
+          .modal-overlay.image-open .modal-body {
+            overflow: auto !important;
+            padding: 8px !important;
+          }
+
+          .modal-overlay.image-open .modal-media,
+          .modal-overlay.image-open .image-media {
+            height: auto !important;
+            min-height: 100% !important;
+            overflow: visible !important;
+          }
+
+          .modal-overlay.image-open .image-media img {
+            width: 100% !important;
+            max-width: 100% !important;
+            max-height: none !important;
+            height: auto !important;
+          }
+
+          .material-modal {
+            width: var(--outer-modal-width, 90vw) !important;
+            height: var(--outer-modal-height, 90vh) !important;
+            max-width: var(--outer-modal-width, 90vw) !important;
+            max-height: var(--outer-modal-height, 90vh) !important;
+          }
+
+          .modal-overlay {
+            position: fixed !important;
+            inset: 0 !important;
+            place-items: center !important;
+            background: rgba(16, 24, 40, .55) !important;
+          }
+
+          @media (max-width:1180px) {
+            .calendar {
+              grid-template-columns: repeat(5, minmax(168px, 1fr)) !important;
+            }
+
+            .weekday {
+              display: block !important;
+            }
+          }
+        `;
+        doc.head.appendChild(style);
+        syncEmbeddedViewport(frame);
+        doc.addEventListener('click', () => syncEmbeddedViewport(frame), true);
+      } catch (error) {
+        console.warn('嵌入页精简样式未生效', error);
+      }
+    }
+
+    function setModule(moduleName) {
+      Object.entries(modules).forEach(([key, module]) => {
+        module.view.hidden = key !== moduleName;
+      });
+
+      document.querySelectorAll('[data-module]').forEach(button => {
+        button.classList.toggle('active', button.dataset.module === moduleName);
+      });
+
+      const current = modules[moduleName];
+      sideCurrent.textContent = current.title;
+
+      if (moduleName === 'calendar' && calendarFrame.getAttribute('src') === 'about:blank') openCalendar('private');
+      if (moduleName === 'fof' && fofFrame.getAttribute('src') === 'about:blank') {
+        fofFrame.src = fofFrame.dataset.src;
+      }
+    }
+
+    function openCalendar(calendarName) {
+      if (!calendars[calendarName]) return;
+      calendarFrame.src = calendars[calendarName];
+      window.setTimeout(() => fitFrameHeight(calendarFrame), 120);
+    }
+
+    function bindCalendarCards(frame) {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+        const cards = Array.from(doc.querySelectorAll('.module-card, .hub-card'));
+        cards.forEach(card => {
+          const title = card.querySelector('h2')?.textContent || '';
+          card.style.cursor = 'pointer';
+          if (title.includes('私募')) card.dataset.targetCalendar = 'private';
+          if (title.includes('公募')) card.dataset.targetCalendar = 'public';
+          if (title.includes('固收') || title.includes('QDII')) card.dataset.targetCalendar = 'fixed';
+          if (card.dataset.targetCalendar) {
+            card.onclick = null;
+            card.addEventListener('click', event => {
+              event.preventDefault();
+              event.stopPropagation();
+              openCalendar(card.dataset.targetCalendar);
+            });
+          }
+        });
+      } catch (error) {
+        console.warn('日历卡片切换未绑定', error);
+      }
+    }
+
+    window.addEventListener('message', event => {
+      const data = event.data;
+      if (!data || data.type !== 'open-calendar') return;
+      openCalendar(data.calendar);
+    });
+
+    document.addEventListener('click', event => {
+      const navTrigger = event.target.closest('[data-nav-trigger]');
+      if (navTrigger) {
+        const navGroup = navTrigger.closest('.nav-group');
+        const open = !navGroup.classList.contains('open');
+        navGroup.classList.toggle('open', open);
+        navTrigger.setAttribute('aria-expanded', String(open));
+        return;
+      }
+
+      const moduleButton = event.target.closest('[data-module]');
+      if (moduleButton) {
+        setModule(moduleButton.dataset.module);
+        const navGroup = moduleButton.closest('.nav-group');
+        const navTrigger = navGroup?.querySelector('[data-nav-trigger]');
+        navGroup?.classList.remove('open');
+        navTrigger?.setAttribute('aria-expanded', 'false');
+        return;
+      }
+
+      const calendarEntry = event.target.closest('[data-calendar-entry]');
+      if (calendarEntry) {
+        openCalendar(calendarEntry.dataset.calendarEntry);
+      }
+    });
+
+    calendarFrame.addEventListener('load', () => {
+      tuneEmbeddedPage(calendarFrame);
+      bindCalendarCards(calendarFrame);
+      fitFrameHeight(calendarFrame);
+      window.setTimeout(() => fitFrameHeight(calendarFrame), 400);
+    });
+    trackingFrame.addEventListener('load', () => {
+      tuneEmbeddedPage(trackingFrame);
+      fitFrameHeight(trackingFrame);
+      window.setTimeout(() => fitFrameHeight(trackingFrame), 400);
+    });
+    broadcastFrame.addEventListener('load', () => {
+      tuneEmbeddedPage(broadcastFrame);
+      fitFrameHeight(broadcastFrame);
+      window.setTimeout(() => fitFrameHeight(broadcastFrame), 400);
+    });
+    fofFrame.addEventListener('load', () => {
+      fitFrameHeight(fofFrame);
+      window.setTimeout(() => fitFrameHeight(fofFrame), 400);
+    });
+    window.addEventListener('resize', fitAllFrames);
+    window.addEventListener('scroll', fitAllFrames, { passive: true });
+    window.addEventListener('load', fitAllFrames);
+  </script>
+</body>
+</html>

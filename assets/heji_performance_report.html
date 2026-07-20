@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>合骥兴泰选股灵活多空系列实盘业绩报告</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --ink: #17243a;
+      --muted: #65758b;
+      --line: #d9e3f1;
+      --blue: #255fb8;
+      --blue-2: #6f99df;
+      --red: #c5484f;
+      --green: #2f9b72;
+      --gold: #b58a2a;
+      --navy: #15233d;
+      --soft: #edf4ff;
+      --shadow: 0 10px 28px rgba(29, 55, 91, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8fbff, var(--bg));
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .report {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 28px 36px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff, #edf5ff);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid #cbdcff;
+      background: #eaf2ff;
+      color: #245aa6;
+      font-weight: 850;
+      font-size: 12px;
+    }
+
+    h1 {
+      margin: 10px 0 6px;
+      font-size: 28px;
+      line-height: 1.22;
+      color: #12213a;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .source {
+      margin-top: 8px;
+      color: #76879e;
+      font-size: 12px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px 14px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 24px;
+      color: var(--blue);
+      line-height: 1.2;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      color: #15233a;
+      font-size: 20px;
+    }
+
+    .section h2:before {
+      content: "";
+      width: 4px;
+      height: 22px;
+      border-radius: 2px;
+      background: var(--blue);
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.nav-stack { grid-template-columns: 1fr; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 15px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      color: #162541;
+      font-size: 15px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #536176;
+    }
+
+    .card.highlight { border-left: 4px solid var(--blue); }
+    .card.caution { border-left: 4px solid var(--gold); }
+    .card.green { border-left: 4px solid var(--green); }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--blue);
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    .chart-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      overflow: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .chart-title {
+      margin-bottom: 10px;
+      color: #244b82;
+      font-weight: 900;
+    }
+
+    svg {
+      width: 100%;
+      min-width: 760px;
+      height: auto;
+      display: block;
+      background: #fbfdff;
+      border: 1px solid #e2ebf6;
+      border-radius: 7px;
+    }
+
+    .axis { stroke: #9aa9bc; stroke-width: 1.2; }
+    .grid-line { stroke: #e5ecf5; stroke-width: 1; }
+    .line-product { fill: none; stroke: var(--blue); stroke-width: 3; }
+    .line-scale { fill: none; stroke: var(--gold); stroke-width: 2.2; stroke-dasharray: 5 5; }
+    .area-product { fill: rgba(37,95,184,.10); }
+    .dot-product { fill: var(--blue); stroke: #fff; stroke-width: 2; }
+    .bar-pos { fill: #d75a61; }
+    .bar-neg { fill: #3aa478; }
+    .bar-neutral { fill: #7fa7e2; }
+    .chart-text { fill: #66758b; font-size: 12px; }
+    .chart-label { fill: #17243a; font-size: 13px; font-weight: 800; }
+    .value-pos { fill: #c5484f; font-weight: 850; }
+    .value-neg { fill: #2f9b72; font-weight: 850; }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 920px;
+      background: #fff;
+    }
+
+    .nav-stack table { min-width: 0; }
+    .nav-stack svg { min-width: 0; }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #edf2f8;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #eaf3ff;
+      color: #244b82;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    tr.total td {
+      background: #f2f7ff;
+      font-weight: 850;
+    }
+
+    .note {
+      margin-top: 10px;
+      color: #69788b;
+      font-size: 12px;
+    }
+
+    .risk {
+      margin-top: 20px;
+      padding: 13px 15px;
+      border: 1px solid #ead7a8;
+      border-radius: 8px;
+      background: #fff9e9;
+      color: #6a5629;
+      font-size: 12px;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr) 78px;
+      gap: 10px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .lane strong {
+      color: #17243a;
+      font-size: 13px;
+    }
+
+    .track {
+      height: 13px;
+      border-radius: 999px;
+      background: #edf3fb;
+      overflow: hidden;
+    }
+
+    .track i {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #255fb8, #72a4eb);
+    }
+
+    .lane span {
+      color: var(--blue);
+      font-weight: 850;
+      text-align: right;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: #7a8797;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    @media (max-width: 980px) {
+      .report { padding: 18px; }
+      .metrics, .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+      h1 { font-size: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <section class="hero">
+      <span class="badge">内部材料 | 实盘业绩报告</span>
+      <h1>合骥兴泰选股灵活多空系列</h1>
+      <p class="subtitle">以“75%股票增强+25%股指期货”的双引擎架构为核心，通过全市场量化选股获取 Alpha，同时以股指期货进行风险对冲和仓位管理，力争在上涨、震荡及下跌环境中提升组合稳定性。</p>
+      <div class="source">数据来源：合骥兴泰选股灵活多空1号完整推介材料、管理人路演口径；业绩数据截至 2026/6/18。同策略展示产品与上架产品股期配置比例存在差异，历史业绩不预示未来表现。</div>
+      <div class="metrics">
+        <div class="metric"><span>同策略运作以来收益</span><strong>65.56%</strong></div>
+        <div class="metric"><span>年化收益率</span><strong>26.31%</strong></div>
+        <div class="metric"><span>最大回撤</span><strong>-9.68%</strong></div>
+        <div class="metric"><span>夏普比率</span><strong>1.62</strong></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>核心结论</h2>
+      <div class="grid three">
+        <div class="card highlight">
+          <span class="pill">收益与回撤</span>
+          <h3>长期目标更像“高盈亏比”策略</h3>
+          <p>同策略自 2024/6/24 起运作至 2026/6/18，运作以来收益 65.56%，最大回撤 -9.68%。路演中管理人强调，该策略价值更多体现在持续优化组合风险收益，而非每个短周期精准择时。</p>
+        </div>
+        <div class="card green">
+          <span class="pill">资产配置</span>
+          <h3>补足指增客户的风格压力</h3>
+          <p>A 股“指数牛市、个股熊市”的阶段可能使满仓小盘或单一指增客户承受较大回撤压力。灵活多空策略可作为权益组合中的另一类工具，参与上涨并降低部分回撤压力。</p>
+        </div>
+        <div class="card caution">
+          <span class="pill">容量约束</span>
+          <h3>短周期择时策略容量有限</h3>
+          <p>管理人路演提到，策略聚焦 0-2 天短周期预测，整体换手约 130-150 倍。短周期策略市场容量有限，募集达到规模上限后可能封盘。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>同策略净值与规模</h2>
+      <div class="grid nav-stack">
+        <div class="chart-card">
+          <div class="chart-title">净值走势示意 | 2024/6/24-2026/6/18</div>
+          <svg id="navChart" viewBox="0 0 900 360" role="img" aria-label="合骥灵活多空母策略净值走势"></svg>
+          <p class="note">根据完整推介材料披露的月度收益重构，用于展示趋势方向；正式净值以托管净值和管理人披露为准。</p>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">年度表现与风险指标</div>
+          <table>
+            <thead>
+              <tr><th>期间</th><th>收益</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2024/6/24 起运作</td><td class="value-pos">19.05%</td><td>启动期经历 2024 年 7-8 月回撤后修复。</td></tr>
+              <tr><td>2025 年</td><td class="value-pos">26.07%</td><td>全年收益较稳定，体现策略连续性。</td></tr>
+              <tr><td>2026 年截至 6/18</td><td class="value-pos">10.31%</td><td>3 月回撤后 4 月修复明显。</td></tr>
+              <tr class="total"><td>运作以来</td><td class="value-pos">65.56%</td><td>年化 26.31%，最大回撤 -9.68%，波动率 16.28%。</td></tr>
+            </tbody>
+          </table>
+          <p class="note">华泰上架产品与展示产品采用同一策略体系运作，仅股期配置比例由 80:20 调整为 75:25。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>月度收益拆解</h2>
+      <div class="chart-card">
+        <div class="chart-title">月度收益表现 | 单位：%</div>
+        <svg id="monthlyChart" viewBox="0 0 1120 430" role="img" aria-label="合骥灵活多空母策略月度收益"></svg>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>为什么当前发行灵活多空</h2>
+      <div class="grid two">
+        <div class="card highlight">
+          <h3>A 股环境的结构性变化</h3>
+          <p>路演中提到，虽然指数已经经历一轮上涨，但真正贡献收益的股票数量并不多。自 2024/9/24 到 2026/5，约 5300 只股票中仍有较高比例低于 9/24 当日价格，市场更像“指数牛市、个股熊市”。</p>
+        </div>
+        <div class="card highlight">
+          <h3>降低单一小盘风格切换压力</h3>
+          <p>管理人认为，满仓 1000/2000 或偏小票策略在风格切换时可能面临较大回撤压力。灵活多空产品通过股票仓位动态管理和股指期货对冲，提供更柔性的权益参与方式。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>策略结构</h2>
+      <div class="grid three">
+        <div class="card">
+          <span class="pill">75%</span>
+          <h3>股票增强</h3>
+          <p>投资范围覆盖全市场，目标持股约 1000 只。股票端基于量价、基本面、机器学习和人工因子挖掘，分散持仓并获取相对收益。</p>
+        </div>
+        <div class="card">
+          <span class="pill">25%</span>
+          <h3>股指期货</h3>
+          <p>通过沪深 300 期货、中证 1000 期货等工具进行风险对冲和仓位管理，单日可进行 1-2 次动态调节。</p>
+        </div>
+        <div class="card">
+          <span class="pill">0-2 天</span>
+          <h3>短周期预测</h3>
+          <p>策略聚焦日内和隔夜的短周期信号，路演口径中提到整体换手大约 130-150 倍，目标是更微观、分散地获取 Alpha。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>多赛道 Alpha 证据</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>代表性赛道表现</h3>
+          <div class="lane"><strong>红利指增</strong><div class="track"><i style="width:72%"></i></div><span>11.74%</span></div>
+          <div class="lane"><strong>A500</strong><div class="track"><i style="width:84%"></i></div><span>13.68%</span></div>
+          <div class="lane"><strong>500 指针</strong><div class="track"><i style="width:60%"></i></div><span>9.73%</span></div>
+          <div class="lane"><strong>量选</strong><div class="track"><i style="width:54%"></i></div><span>稳健约束</span></div>
+          <p class="note">上述为路演中提及的代表性超额口径，统计截至 2026/6/18 或路演披露口径，用于说明平台在不同赛道持续获取 Alpha 的能力。</p>
+        </div>
+        <div class="card">
+          <h3>赛道解读</h3>
+          <p><strong>红利：</strong>截至 2026/6/18，红利指增超额收益约 11.74%，在红利指数自身表现一般的背景下体现选股能力。</p>
+          <p><strong>A500：</strong>路演提到 A500 指增超额约 13.68%，在友商渠道代销产品中排名靠前。</p>
+          <p><strong>500 指针：</strong>超额约 9.73%，成分股约 35% 来自 500，其余来自 300、1000 及全市场选股，体现分散选股理念。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>投研与执行体系</h2>
+      <div class="grid four">
+        <div class="card">
+          <h3>团队结构</h3>
+          <p>公司约 43 人，其中 33 人来自投研体系，包含 18 位一线策略研究人员和 15 位 IT 研发人员。</p>
+        </div>
+        <div class="card">
+          <h3>数据体系</h3>
+          <p>覆盖交易所 Level 2、逐笔成交、委托等微观数据，并将盘口结构用于统计分析和因子推演。</p>
+        </div>
+        <div class="card">
+          <h3>研发平台</h3>
+          <p>投研平台支持策略回测、模拟交易、评价和跟踪，目标是缩小回测与实盘之间的差距。</p>
+        </div>
+        <div class="card">
+          <h3>交易执行</h3>
+          <p>已部署交易基础设施，并通过自建机房、数据中心和算力集群提升研发效率和执行效率。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>客户沟通口径</h2>
+      <div class="grid three">
+        <div class="card highlight">
+          <h3>适合谁</h3>
+          <p>适合已经配置较多指增、希望降低单一风格波动压力，同时仍希望参与权益市场长期机会的中高风险客户。</p>
+        </div>
+        <div class="card green">
+          <h3>怎么解释</h3>
+          <p>它不是传统指增，也不是单纯 CTA，而是由股票增强、动态仓位管理和股指期货日内交易组合而成的复合策略。</p>
+        </div>
+        <div class="card caution">
+          <h3>风险提示</h3>
+          <p>模型基于历史数据构建，存在失效风险；股指期货等衍生品具有杠杆效应，市场大幅波动时可能放大损失。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk">
+      本报告仅供内部产品展示使用。过往业绩、策略回测、同策略展示产品表现及路演口径不代表未来表现，也不构成管理人、代销机构保证投资者本金不受损失或取得预期收益的承诺。请以基金合同、风险揭示书及正式产品材料为准。
+    </section>
+    <div class="footer-note">合骥兴泰选股灵活多空系列 | 业绩报告</div>
+  </main>
+
+  <script>
+    const monthly = [
+      { label: '24-06', value: -2.48 }, { label: '24-07', value: -2.96 },
+      { label: '24-08', value: -0.52 }, { label: '24-09', value: 13.48 },
+      { label: '24-10', value: 6.30 }, { label: '24-11', value: 6.96 },
+      { label: '24-12', value: -2.62 }, { label: '25-01', value: 1.47 },
+      { label: '25-02', value: 4.32 }, { label: '25-03', value: -0.05 },
+      { label: '25-04', value: 0.24 }, { label: '25-05', value: 1.67 },
+      { label: '25-06', value: 1.64 }, { label: '25-07', value: 1.25 },
+      { label: '25-08', value: 5.28 }, { label: '25-09', value: 2.01 },
+      { label: '25-10', value: 0.76 }, { label: '25-11', value: 2.94 },
+      { label: '25-12', value: 2.00 }, { label: '26-01', value: 5.10 },
+      { label: '26-02', value: 4.38 }, { label: '26-03', value: -3.77 },
+      { label: '26-04', value: 5.82 }, { label: '26-05', value: -1.54 },
+      { label: '26-06', value: 0.29 }
+    ];
+
+    function pct(v) {
+      return (v > 0 ? '+' : '') + v.toFixed(2) + '%';
+    }
+
+    function drawNav() {
+      const svg = document.getElementById('navChart');
+      const x0 = 64, y0 = 40, w = 760, h = 250;
+      let nav = 1;
+      const points = monthly.map((d) => {
+        nav *= (1 + d.value / 100);
+        return { label: d.label, value: nav };
+      });
+      const min = 0.88, max = 1.75;
+      const xy = points.map((p, i) => {
+        const x = x0 + (w * i / (points.length - 1));
+        const y = y0 + h - ((p.value - min) / (max - min) * h);
+        return [x, y, p];
+      });
+      const path = xy.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+      const area = `M ${x0} ${y0+h} L ${xy.map(p => p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L ')} L ${x0+w} ${y0+h} Z`;
+      let out = `<rect x="0" y="0" width="900" height="360" rx="7" fill="#fbfdff"/>`;
+      for (let i = 0; i <= 4; i++) {
+        const y = y0 + h - i * h / 4;
+        const v = min + (max - min) * i / 4;
+        out += `<line class="grid-line" x1="${x0}" y1="${y}" x2="${x0+w}" y2="${y}"/><text class="chart-text" x="${x0-14}" y="${y+4}" text-anchor="end">${v.toFixed(2)}</text>`;
+      }
+      out += `<line class="axis" x1="${x0}" y1="${y0+h}" x2="${x0+w}" y2="${y0+h}"/><line class="axis" x1="${x0}" y1="${y0}" x2="${x0}" y2="${y0+h}"/>`;
+      out += `<path class="area-product" d="${area}"/><path class="line-product" d="${path}"/>`;
+      xy.forEach((p, i) => {
+        if (i % 4 === 0 || i === xy.length - 1) {
+          out += `<circle class="dot-product" cx="${p[0]}" cy="${p[1]}" r="5"/><text class="chart-text" x="${p[0]}" y="${y0+h+26}" text-anchor="middle">${p[2].label}</text>`;
+        }
+      });
+      const last = xy[xy.length - 1];
+      out += `<text class="chart-label" x="${last[0]-74}" y="${last[1]-16}">累计收益约 +65.56%</text>`;
+      out += `<text class="chart-text" x="${x0}" y="330">说明：曲线按月度收益复合重构，展示策略净值方向和回撤修复过程。</text>`;
+      svg.innerHTML = out;
+    }
+
+    function drawMonthly() {
+      const svg = document.getElementById('monthlyChart');
+      const x0 = 62, y0 = 42, w = 1000, h = 285, min = -6, max = 15;
+      const zero = y0 + h - ((0 - min) / (max - min) * h);
+      let out = `<rect x="0" y="0" width="1120" height="430" rx="7" fill="#fbfdff"/>`;
+      for (let v = -5; v <= 15; v += 5) {
+        const y = y0 + h - ((v - min) / (max - min) * h);
+        out += `<line class="grid-line" x1="${x0}" y1="${y}" x2="${x0+w}" y2="${y}"/><text class="chart-text" x="${x0-14}" y="${y+4}" text-anchor="end">${v}%</text>`;
+      }
+      out += `<line class="axis" x1="${x0}" y1="${zero}" x2="${x0+w}" y2="${zero}"/>`;
+      const group = w / monthly.length;
+      monthly.forEach((d, i) => {
+        const x = x0 + i * group + group * .18;
+        const bw = group * .64;
+        const y = y0 + h - ((d.value - min) / (max - min) * h);
+        const top = Math.min(y, zero);
+        const bh = Math.max(2, Math.abs(y - zero));
+        const cls = d.value >= 0 ? 'bar-pos' : 'bar-neg';
+        const labelY = d.value >= 0 ? top - 6 : top + bh + 16;
+        out += `<rect class="${cls}" x="${x}" y="${top}" width="${bw}" height="${bh}" rx="3"/>`;
+        if (Math.abs(d.value) >= 1.2 || i % 2 === 0) {
+          out += `<text class="${d.value >= 0 ? 'value-pos' : 'value-neg'}" x="${x+bw/2}" y="${labelY}" text-anchor="middle" font-size="10">${pct(d.value)}</text>`;
+        }
+        if (i % 2 === 0) {
+          out += `<text class="chart-text" x="${x+bw/2}" y="${y0+h+27}" text-anchor="middle">${d.label}</text>`;
+        }
+      });
+      out += `<text class="chart-text" x="${x0}" y="394">2024 年：+19.05% | 2025 年：+26.07% | 2026 年截至 6/18：+10.31%</text>`;
+      svg.innerHTML = out;
+    }
+
+    drawNav();
+    drawMonthly();
+  </script>
+</body>
+</html>

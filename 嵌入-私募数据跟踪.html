@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>产品配置｜私募策略跟踪</title>
+  <title>产品配置工作台｜私募策略跟踪</title>
   <style>
     :root {
       --nav:#101829;
@@ -163,13 +163,13 @@
       </div>
       <div class="nav-section">
         <div class="nav-title">一级页面</div>
-        <div class="nav-item active"><span>产品配置</span><span class="nav-dot"></span></div>
+        <div class="nav-item active"><span>产品配置工作台</span><span class="nav-dot"></span></div>
         <div class="nav-item"><span>客户运营</span></div>
         <div class="nav-item"><span>投顾服务</span></div>
         <div class="nav-item"><span>数据看板</span></div>
       </div>
       <div class="nav-section">
-        <div class="nav-title">产品配置模块</div>
+        <div class="nav-title">产品配置工作台模块</div>
         <div class="nav-item active"><span>私募策略跟踪</span></div>
         <div class="nav-item"><span>产品日历</span></div>
         <div class="nav-item"><span>销售话术</span></div>
@@ -178,7 +178,7 @@
     </aside>
     <main>
       <div class="topbar">
-        <div class="crumb">产品配置 / <strong>私募策略跟踪</strong></div>
+        <div class="crumb">产品配置工作台 / <strong>私募策略跟踪</strong></div>
         <div class="toolbar">
           <input id="searchBox" class="search" placeholder="搜索产品名称、代码、管理人">
           <span class="pill">数据截至 <span id="asOf"></span></span>
@@ -220,7 +220,7 @@
     </main>
   </div>
 
-  <script src="data/productReportData.js?v=20260708_0846"></script><script>
+  <script src="data/productReportData.js?v=20260710_002"></script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -229,7 +229,7 @@
       ["established", "成立时间"],
       ["manager", "管理人"],
       ["subscriptionDay", "申购日"],
-      ["lockup", "锁定期"],
+      ["lockup", "私享持营池"],
       ["nav", "累计净值"],
       ["weekReturn", "近一周增幅"],
       ["monthReturn", "近一月增幅"],
@@ -479,5 +479,6 @@
       button.title = shell.classList.contains("fullscreen") ? "退出全屏" : "全屏展示";
     });
   </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
 </body>
 </html>

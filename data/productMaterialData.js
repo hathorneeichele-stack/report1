@@ -17,10 +17,16 @@ window.productMaterialData = {
     full:'<div class="modal-media pdf-media"><iframe src="assets/yanfu_full.pdf#toolbar=1&navpanes=0" title="衍复兴泰中证全指系列完整材料"></iframe></div>'
   },
   '合骥兴泰选股灵活多空系列':{
-    overview:`<div class="modal-text"><p><strong>首发提示：</strong>7月重点级首发私募合骥兴泰选股灵活多空系列，产品代码SAMW75、SASS67，募集期7月20日-7月24日（含冷静期）。</p><p><strong>产品要素：</strong>中高风险，份额锁定期360天，持有92天以上无赎回费。仅供给2个号。</p><h4>策略定位</h4><p>灵活多空策略，适合用于权益组合中的波动管理和多空收益来源补充。具体管理人介绍、策略细节、费率和销售政策需以后续正式材料为准。</p><h4>材料状态</h4><p>本地未找到合骥对应思维导图、实盘业绩报告、单页或完整推介材料文件，因此相关按钮保留入口，但内容显示为待接入。</p></div>`
+    overview:`<div class="modal-text"><h4>产品销售概览</h4><p><strong>路演回放：</strong><a href="https://meeting.tencent.com/crm/KEWqqXZYe5" target="_blank">https://meeting.tencent.com/crm/KEWqqXZYe5</a>，密码：0625。24min44s开始，对内路演，严禁转发。</p><p><strong>产品代码：</strong>合骥兴泰选股灵活多空1号、2号（SAMW75、SASS67）。</p><p><strong>风险等级：</strong>中高风险。</p><p><strong>首发时间：</strong>2026/7/20-7/23，交易日9点-15点可认购下单，7/24为最后一天冷静期。</p><h4>零售份额产品要素</h4><ul><li>360天锁定期。</li><li>认购费：0-300万为1%；300万（含）-1000万为0.5%；1000万（含）以上为0。</li><li>赎回费：持有92天以上无赎回费。</li><li>管理费：2%。</li><li>业绩报酬：20%单人单笔份额高水位法。</li></ul><h4>产品亮点</h4><ul><li><strong>攻守兼备，高盈亏比：</strong>灵活多空策略（75%股票增强+25%股指期货）可以适应大部分市场环境，通过仓位灵活调节和股指期货日内交易策略，在参与市场上涨的同时，力争少经历较大回撤。</li><li><strong>资产配置的有效补充：</strong>当前大部分客户持仓以指增为主，灵活多空策略与指增策略相关度较低，能够在市场面临较大回撤压力时，为客户组合提供一定支撑。</li><li><strong>额度稀缺：</strong>择时策略市场容量有限，募集规模达到上限之后将封盘。</li></ul><h4>销售政策</h4><ul><li>认购费全额创收（投顾绩效计提比例×2）。</li><li>管理费创收（年化1%）。</li><li>业绩报酬创收（管理人提取部分的25%）。</li><li>首发募集参与给予一次性交易收入（1.2%）。</li></ul><h4>对价政策</h4><p>提供1:1.2对价。</p></div>`,
+    mindmap:'<div class="modal-media image-media"><img src="assets/heji_mindmap.jpg" alt="合骥兴泰选股灵活多空系列思维导图"></div>',
+    performance:'<div class="modal-media pdf-media"><iframe src="assets/heji_performance_report.html?v=20260720-heji-report-stack" title="合骥兴泰选股灵活多空系列实盘业绩报告"></iframe></div>',
+    single:'<div class="modal-media pdf-media"><iframe src="assets/heji_single.pdf#toolbar=1&navpanes=0" title="合骥兴泰选股灵活多空系列单页材料"></iframe></div>',
+    full:'<div class="modal-media pdf-media"><iframe src="assets/heji_full.pdf#toolbar=1&navpanes=0" title="合骥兴泰选股灵活多空系列完整材料"></iframe></div>'
   },
   '蒙玺兴泰量化光翼系列':{
-    overview:`<div class="modal-text"><p><strong>首发提示：</strong>7月重点级首发私募蒙玺兴泰量化光翼系列，募集期7月23日-7月31日（含冷静期）。</p><p><strong>产品代码：</strong>待补充。</p><p><strong>产品要素：</strong>中高风险，锁定期180天，持有360天以上无赎回费。策略为量化多头，对标万得全A等权。</p><h4>策略定位</h4><p>量化多头策略，对标万得全A等权，适合关注全市场等权口径、希望配置量化选股收益来源的客户。具体产品代码、募集规模、费率和正式销售政策需以后续通知为准。</p><h4>材料状态</h4><p>本地未找到蒙玺对应思维导图、实盘业绩报告、单页或完整推介材料文件，因此相关按钮保留入口，但内容显示为待接入。</p></div>`
+    overview:`<div class="modal-text"><p><strong>首发提示：</strong>7月重点级首发私募蒙玺兴泰量化光翼系列，募集期7月23日-7月31日（含冷静期）。</p><p><strong>产品代码：</strong>待补充。</p><p><strong>产品要素：</strong>中高风险，锁定期180天，持有360天以上无赎回费。策略为量化多头，对标万得全A等权。</p><h4>策略定位</h4><p>量化多头策略，对标万得全A等权，适合关注全市场等权口径、希望配置量化选股收益来源的客户。具体产品代码、募集规模、费率和正式销售政策需以后续通知为准。</p><h4>材料状态</h4><p>对客推介材料单页版和完整版已接入；思维导图、实盘业绩报告待补充。</p></div>`,
+    single:'<div class="modal-media pdf-media"><iframe src="assets/mengxi_single.pdf#toolbar=1&navpanes=0" title="蒙玺兴泰量化光翼系列单页材料"></iframe></div>',
+    full:'<div class="modal-media pdf-media"><iframe src="assets/mengxi_full.pdf#toolbar=1&navpanes=0" title="蒙玺兴泰量化光翼系列完整材料"></iframe></div>'
   }
 },
     MATERIAL_LABELS: {overview:'产品销售概览',mindmap:'思维导图',performance:'实盘业绩报告',single:'对客推介材料-单页',full:'对客推介材料-完整'}

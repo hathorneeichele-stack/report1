@@ -29,7 +29,7 @@
       font-size:14px;
       line-height:1.45;
     }
-    .sales-report { min-height:100vh; padding:24px 28px 36px; }
+    .sales-report { min-height:100vh; padding:24px 28px 88px; }
     .topbar {
       min-height:48px;
       margin:-4px 0 14px;
@@ -65,11 +65,10 @@
     .hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:end; }
     .eyebrow { margin:0 0 8px; color:#dbe6ff; font-weight:750; }
     h1 { margin:0; font-size:32px; letter-spacing:0; line-height:1.15; }
-    .hero-note { margin:10px 0 0; color:#dce6fa; max-width:780px; }
     .asof {
       display:grid;
       gap:4px;
-      min-width:178px;
+      min-width:260px;
       padding:14px 16px;
       border:1px solid rgba(255,255,255,.22);
       border-radius:8px;
@@ -78,7 +77,7 @@
     }
     .asof span { color:#dbe6ff; font-size:12px; }
     .asof strong { font-size:22px; }
-    .date-stack { display:grid; grid-template-columns:repeat(2,minmax(160px,1fr)); gap:10px; }
+    .date-stack { display:grid; grid-template-columns:minmax(220px,1fr); gap:10px; }
     .summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:18px; }
     .metric-card {
       min-height:126px;
@@ -113,6 +112,26 @@
     .section-title { margin:0; font-size:18px; display:flex; align-items:center; gap:10px; }
     .section-title:before { content:""; width:4px; height:20px; border-radius:2px; background:var(--blue); display:block; }
     .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:var(--blue-soft); color:var(--blue); font-weight:700; font-size:12px; white-space:nowrap; }
+    .module-switch { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .module-switch button {
+      min-height:42px;
+      border:1px solid #d6e0f2;
+      border-radius:8px;
+      padding:9px 14px;
+      background:#fff;
+      color:#41506a;
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(28,41,70,.05);
+    }
+    .module-switch button.active {
+      border-color:#b8c7ff;
+      background:#eef3ff;
+      color:var(--blue);
+      box-shadow:inset 3px 0 0 var(--blue-2), 0 6px 16px rgba(28,41,70,.05);
+    }
+    .sales-module[hidden] { display:none; }
     .content-pad { padding:18px; }
     .top-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
     table { width:100%; border-collapse:collapse; }
@@ -187,9 +206,9 @@
     .pane-title { margin:0 0 10px; color:#41506a; font-size:14px; }
     .bar-row { display:grid; grid-template-columns:88px minmax(0,1fr) 74px; gap:8px; align-items:center; min-height:46px; border-bottom:1px solid #f0f3f8; }
     .bar-row:last-child { border-bottom:0; }
-    .branch-metric-row { display:grid; grid-template-columns:minmax(96px,1fr) 76px 76px; gap:8px; align-items:center; min-height:46px; padding:0; border-bottom:1px solid #f0f3f8; }
+    .branch-metric-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; align-items:center; min-height:46px; padding:0; border-bottom:1px solid #f0f3f8; }
     .branch-metric-row:last-child { border-bottom:0; }
-    .metric-pair { display:grid; gap:1px; justify-items:end; font-variant-numeric:tabular-nums; }
+    .metric-pair { display:grid; gap:1px; justify-items:center; font-variant-numeric:tabular-nums; }
     .metric-pair strong { font-size:14px; line-height:1.1; }
     .metric-pair span { color:var(--muted); font-size:11px; white-space:nowrap; }
     .bar-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#536176; font-weight:750; }
@@ -219,74 +238,81 @@
 <body>
   <main class="sales-report">
     <div class="topbar">
-      <div class="crumb">产品相关 / <strong>销售播报</strong></div>
+      <div class="crumb">产品运营工作台 / <strong>销售播报</strong></div>
       <span class="pill">2026-07-07更新</span>
     </div>
     <section class="hero">
       <div class="hero-inner">
         <div>
           <p class="eyebrow">山东分公司 / 7月销售播报</p>
-          <h1>公私募标准销量与重点首发产品战报</h1>
-          <p class="hero-note">聚焦营业部完成情况、员工贡献榜，以及重点首发产品的销售进展。</p>
+          <h1>销售播报</h1>
         </div>
         <div class="date-stack">
-          <div class="asof"><span>标准销量统计日</span><strong id="asOf">-</strong></div>
-          <div class="asof"><span>重点首发产品销售统计日</span><strong>20260707</strong></div>
+          <div class="asof"><span id="asOfLabel">标准销量统计日</span><strong id="asOf">-</strong></div>
         </div>
       </div>
     </section>
 
-    <div id="summary" class="summary-grid"></div>
+    <nav class="module-switch" aria-label="销售播报模块">
+      <button class="active" type="button" data-sales-tab="standard">公私募标准销量</button>
+      <button type="button" data-sales-tab="products">重点产品首发播报</button>
+    </nav>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">营业部标准销量完成情况</h2>
-        <span class="pill">按公私募总当日提升降序</span>
-      </div>
-      <div class="content-pad">
-          <table class="branch-table">
-            <thead>
-              <tr>
-                <th>排名</th><th>营业部</th>
-                <th class="num">公募标准销量</th><th>公募完成率</th><th class="num">公募统计日新增</th><th class="num">公募当日提升</th>
-                <th class="num">私募标准销量</th><th>私募完成率</th><th class="num">私募统计日新增</th><th class="num">私募当日提升</th>
-                <th class="num">公私募汇总</th><th>汇总完成率</th><th class="num">汇总统计日新增</th><th class="num">汇总当日提升</th>
-              </tr>
-            </thead>
-            <tbody id="branchRows"></tbody>
-          </table>
-      </div>
-    </section>
+    <div class="sales-module" data-sales-module="standard">
+      <div id="summary" class="summary-grid"></div>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">个人标销 TOP5</h2>
-        <span class="pill">金额单位：万元</span>
-      </div>
-      <div class="content-pad top-grid">
-        <div class="rank-panel public"><h3>公募标销 TOP5</h3><div id="publicTopRows" class="mini-list content-pad"></div></div>
-        <div class="rank-panel private"><h3>私募标销 TOP5</h3><div id="privateTopRows" class="mini-list content-pad"></div></div>
-        <div class="rank-panel combined"><h3>标销汇总 TOP5</h3><div id="combinedTopRows" class="mini-list content-pad"></div></div>
-      </div>
-    </section>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">营业部标准销量完成情况</h2>
+          <span class="pill">按公私募总当日提升降序</span>
+        </div>
+        <div class="content-pad">
+            <table class="branch-table">
+              <thead>
+                <tr>
+                  <th>排名</th><th>营业部</th>
+                  <th class="num">公募标准销量</th><th>公募完成率</th><th class="num">公募统计日新增</th><th class="num">公募当日提升</th>
+                  <th class="num">私募标准销量</th><th>私募完成率</th><th class="num">私募统计日新增</th><th class="num">私募当日提升</th>
+                  <th class="num">公私募汇总</th><th>汇总完成率</th><th class="num">汇总统计日新增</th><th class="num">汇总当日提升</th>
+                </tr>
+              </thead>
+              <tbody id="branchRows"></tbody>
+            </table>
+        </div>
+      </section>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">个人标销分档人数</h2>
-        <span class="pill">分档区间更细，金额为累计标销</span>
-      </div>
-      <div id="bucketRows" class="content-pad bucket-matrix"></div>
-    </section>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">个人标销 TOP5</h2>
+          <span class="pill">金额单位：万元</span>
+        </div>
+        <div class="content-pad top-grid">
+          <div class="rank-panel public"><h3>公募标销 TOP5</h3><div id="publicTopRows" class="mini-list content-pad"></div></div>
+          <div class="rank-panel private"><h3>私募标销 TOP5</h3><div id="privateTopRows" class="mini-list content-pad"></div></div>
+          <div class="rank-panel combined"><h3>标销汇总 TOP5</h3><div id="combinedTopRows" class="mini-list content-pad"></div></div>
+        </div>
+      </section>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">重点首发产品销售情况</h2>
-      </div>
-      <div class="content-pad">
-        <div id="productRows" class="product-grid"></div>
-        <div class="source-note" id="sourceNote"></div>
-      </div>
-    </section>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">个人标销分档人数</h2>
+          <span class="pill">分档区间更细，金额为累计标销</span>
+        </div>
+        <div id="bucketRows" class="content-pad bucket-matrix"></div>
+      </section>
+    </div>
+
+    <div class="sales-module" data-sales-module="products" hidden>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">重点产品首发播报</h2>
+          <span class="pill">统计日 20260707</span>
+        </div>
+        <div class="content-pad">
+          <div id="productRows" class="product-grid"></div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <script>
@@ -408,7 +434,6 @@
       `).join('');
       const branchMetrics = product.branch_stats.map(item => `
         <div class="branch-metric-row">
-          <div class="bar-name" title="${item.name}">${item.name}</div>
           <div class="metric-pair"><strong>${item.people}</strong><span>出单人数</span></div>
           <div class="metric-pair"><strong>${item.clients}</strong><span>出单客户</span></div>
         </div>
@@ -450,15 +475,50 @@
 
     function renderProducts() {
       document.getElementById('productRows').innerHTML = reportData.products.map(renderProduct).join('');
-      const files = reportData.sourceFiles;
-      document.getElementById('sourceNote').textContent = `数据来源：${files.standard}、${files.personal}、${files.keyProducts}`;
     }
+
+    function updateSalesDate(moduleName) {
+      const label = document.getElementById('asOfLabel');
+      const value = document.getElementById('asOf');
+      if (moduleName === 'products') {
+        label.textContent = '重点首发产品销售统计日';
+        value.textContent = '20260707';
+        return;
+      }
+      label.textContent = '标准销量统计日';
+      value.textContent = reportData.standard.as_of || '-';
+    }
+
+    function setSalesModule(moduleName) {
+      document.querySelectorAll('[data-sales-module]').forEach(section => {
+        section.hidden = section.dataset.salesModule !== moduleName;
+      });
+      document.querySelectorAll('[data-sales-tab]').forEach(button => {
+        button.classList.toggle('active', button.dataset.salesTab === moduleName);
+      });
+      updateSalesDate(moduleName);
+    }
+    window.setSalesModule = setSalesModule;
+
+    document.addEventListener('click', event => {
+      const button = event.target.closest('[data-sales-tab]');
+      if (!button) return;
+      setSalesModule(button.dataset.salesTab);
+    });
+
+    window.addEventListener('message', event => {
+      const data = event.data;
+      if (!data || data.type !== 'set-sales-module') return;
+      setSalesModule(data.module || 'standard');
+    });
 
     renderSummary();
     renderBranches();
     renderEmployees();
     renderBuckets();
     renderProducts();
+    updateSalesDate('standard');
   </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
 </body>
 </html>

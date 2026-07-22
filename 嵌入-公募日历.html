@@ -39,7 +39,9 @@
     const METRICS_BY_NAME=window.productCalendarData.public.METRICS_BY_NAME;
     const state={category:"all",query:""};
     const weekdays=["周一","周二","周三","周四","周五"];
-    const TODAY_DAY=20;
+    function beijingToday(){const p=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'numeric',day:'numeric'}).formatToParts(new Date()).reduce((a,x)=>(a[x.type]=Number(x.value)||x.value,a),{});return {year:Number(p.year),month:Number(p.month),day:Number(p.day)}}
+    const TODAY=beijingToday();
+    const TODAY_DAY=TODAY.month===7?TODAY.day:null;
     function productPolicy(product){return POLICY_BY_NAME[product.name]||product.policy||"待补充"}
     const LAUNCH_RICH_CONTENT=window.productCalendarData.public.LAUNCH_RICH_CONTENT;
     function parseRange(product){const matches=[...product.period.matchAll(/2026\/(\d+)\/(\d+)/g)].map(m=>({month:Number(m[1]),day:Number(m[2])}));const start=matches[0]||{month:7,day:1};const end=matches[1]||start;return {start,end}}
@@ -94,5 +96,5 @@
     }
   }, true);
 })();
-</script><script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script></body>
+</script><script src="data/productCoefficientData.js?v=20260722_001"></script><script src="data/productDecisionTools.js?v=20260722_004"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'public',title:'公募产品对比'});</script><script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script></body>
 </html>

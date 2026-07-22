@@ -111,8 +111,8 @@
     .chip { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:650; white-space:nowrap; }
     .chip.gold { background:#fff6d8; color:#96700a; }
     .table-shell { background:#fff; }
-    .table-shell.fullscreen { position:fixed; inset:16px; z-index:1000; border:1px solid #c9d4ee; border-radius:8px; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
-    .table-shell.fullscreen .table-wrap { flex:1; max-height:none; }
+    .table-shell.fullscreen { position:fixed; inset:16px 16px 72px 16px; z-index:1000; border:1px solid #c9d4ee; border-radius:8px; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
+    .table-shell.fullscreen .table-wrap { flex:1; min-height:0; max-height:none; overflow:auto; padding-bottom:18px; }
     .detail-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:0 18px 12px; color:var(--muted); font-size:12px; }
     .table-action { width:30px; height:30px; border:1px solid #cbd6eb; border-radius:6px; background:#fff; color:#4268d6; display:inline-grid; place-items:center; cursor:pointer; font-size:16px; line-height:1; }
     .table-action:hover { background:#eef3ff; }
@@ -124,8 +124,23 @@
     details.child-strategy .chip { background:#ffffff; color:#3153ad; border:1px solid #c6d4ff; }
     details.child-strategy .chip.gold { background:#d9e4ff; color:#244293; border-color:#b8c8f5; }
     details.child-strategy .chev { background:#d6e1ff; color:#3153ad; }
-    .table-wrap { overflow-x:auto; overflow-y:auto; border-top:1px solid var(--line); max-height:560px; width:100%; -webkit-overflow-scrolling:touch; }
-    table.detail { width:100%; min-width:1580px; border-collapse:collapse; }
+    .table-wrap { overflow:auto; border-top:1px solid var(--line); max-height:560px; width:100%; padding-bottom:10px; scrollbar-gutter:stable both-edges; -webkit-overflow-scrolling:touch; }
+    table.detail { width:max-content; border-collapse:collapse; table-layout:fixed; }
+    table.detail.base-detail { min-width:1660px; }
+    table.detail.wide-detail { min-width:2040px; }
+    col.col-strategyRank { width:78px; }
+    col.col-subStrategyRank { width:88px; }
+    col.col-productName { width:200px; }
+    col.col-productCode { width:96px; }
+    col.col-established { width:104px; }
+    col.col-manager { width:88px; }
+    col.col-subscriptionDay { width:104px; }
+    col.col-lockup { width:92px; }
+    col.col-nav, col.col-adjustedNav { width:94px; }
+    col.col-weekReturn, col.col-monthReturn, col.col-weekExcess { width:124px; }
+    col.col-ytdReturn, col.col-return2025, col.col-maxDrawdown, col.col-excess2025 { width:126px; }
+    col.col-ytdBuildExcess { width:146px; }
+    col.col-sharpe { width:106px; }
     table.detail th { position:sticky; top:0; z-index:2; background:#151b34; color:#fff; text-align:center; padding:8px 8px; font-size:10px; white-space:nowrap; }
     table.detail td { padding:7px 8px; border-bottom:1px solid #edf0f5; white-space:nowrap; vertical-align:middle; text-align:center; font-size:11px; }
     table.detail tbody tr:hover { background:#fffdf0; }
@@ -137,8 +152,14 @@
     .data-bar-cell:before { content:""; position:absolute; top:7px; bottom:7px; left:50%; width:var(--bar-width,0%); background:var(--bar-color,rgba(201,85,77,.22)); border-radius:3px; z-index:0; }
     .data-bar-cell.ytd-negative:before, .data-bar-cell.excess-negative:before { left:auto; right:50%; }
     .data-bar-cell span { position:relative; z-index:1; }
+    .week-bar-cell { position:relative; overflow:hidden; }
+    .week-bar-cell:before { content:""; position:absolute; left:7px; top:7px; bottom:7px; width:var(--week-bar-width,0%); max-width:calc(100% - 14px); border-radius:3px; background:var(--week-bar-color,rgba(90,138,198,.28)); z-index:0; }
+    .week-bar-cell span { position:relative; z-index:1; font-weight:800; }
+    .week-bar-cell.week-positive span { color:#b7202e; }
+    .week-bar-cell.week-negative span { color:#1f5f9f; }
+    .week-bar-cell.week-flat span { color:#596579; }
     .rank-cell { color:#a67d10; font-weight:800; }
-    .product-cell { min-width:220px; white-space:normal; text-align:center; }
+    .product-cell { width:200px; max-width:200px; white-space:normal; overflow-wrap:break-word; line-height:1.35; text-align:center; }
     .source-note { padding:12px 18px 18px; color:#6e7786; font-size:12px; }
     .empty { text-align:center; color:var(--muted); padding:36px; border-top:1px solid var(--line); display:none; }
     @media (max-width:1100px) {
@@ -220,7 +241,7 @@
     </main>
   </div>
 
-  <script src="data/productReportData.js?v=20260710_002"></script><script>
+  <script src="data/productReportData.js?v=20260717_002"></script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -267,6 +288,10 @@
       return "";
     }
 
+    function columnClass(key) {
+      return `col-${key}`;
+    }
+
     function pctNumber(raw) {
       return typeof raw === "number" && Number.isFinite(raw) ? raw : null;
     }
@@ -290,6 +315,14 @@
       return `--bar-width:${width}%;--bar-color:${color};`;
     }
 
+    function weekBarStyle(raw, maxAbs) {
+      const value = pctNumber(raw);
+      if (value === null) return "";
+      const width = Math.min(100, Math.max(8, Math.abs(value) / Math.max(maxAbs || 0.001, 0.001) * 100));
+      const color = value >= 0 ? "rgba(248,105,107,.32)" : "rgba(90,138,198,.36)";
+      return `--week-bar-width:${width}%;--week-bar-color:${color};`;
+    }
+
     function excessBarStyle(raw, maxAbs) {
       const value = pctNumber(raw);
       if (value === null) return "";
@@ -304,6 +337,14 @@
       return value >= 0 ? "ytd-positive" : "ytd-negative";
     }
 
+    function weekClass(row) {
+      const value = pctNumber(row.weekRaw);
+      if (value === null) return "";
+      if (value > 0) return "week-positive";
+      if (value < 0) return "week-negative";
+      return "week-flat";
+    }
+
     function excessClass(row) {
       const value = parsePercent(row.ytdBuildExcess);
       if (value === null) return "";
@@ -311,6 +352,7 @@
     }
 
     function cellStyle(key, row, metrics) {
+      if (key === "weekReturn") return weekBarStyle(row.weekRaw, metrics.maxWeekAbs);
       if (key === "monthReturn") return heatStyle(row.monthRaw, metrics.maxMonthAbs, "redGreen");
       if (key === "weekExcess") return heatStyle(parsePercent(row.weekExcess), metrics.maxWeekExcessAbs, "blueGreen");
       if (key === "ytdReturn") return dataBarStyle(row.ytdRaw, metrics.maxYtdAbs);
@@ -326,6 +368,7 @@
 
     function tableMetrics(rows) {
       return {
+        maxWeekAbs: Math.max(...rows.map(row => Math.abs(row.weekRaw || 0)), 0.001),
         maxMonthAbs: Math.max(...rows.map(row => Math.abs(row.monthRaw || 0)), 0.001),
         maxWeekExcessAbs: Math.max(...rows.map(row => Math.abs(parsePercent(row.weekExcess) || 0)), 0.001),
         maxYtdAbs: Math.max(...rows.map(row => Math.abs(row.ytdRaw || 0)), 0.001),
@@ -335,7 +378,7 @@
 
     function cellContent(key, row) {
       const value = row[key] ?? "-";
-      return key === "ytdReturn" || key === "ytdBuildExcess" ? `<span>${value}</span>` : value;
+      return key === "weekReturn" || key === "ytdReturn" || key === "ytdBuildExcess" ? `<span>${value}</span>` : value;
     }
 
     function marketRows(metricKey, returnKey) {
@@ -385,8 +428,10 @@
       const columns = includeExcess ? childExcessColumns : (includeSubRank ? childBaseColumns : baseColumns);
       const metrics = tableMetrics(rows);
       const tableId = `table-${Math.random().toString(36).slice(2)}`;
+      const tableClass = includeExcess ? "wide-detail" : "base-detail";
+      const colGroup = `<colgroup>${columns.map(([key]) => `<col class="${columnClass(key)}">`).join("")}</colgroup>`;
       const bodyRows = rows.map(row => `
-        <tr class="${row.isPrivatePool ? "private-pool" : ""}">${columns.map(([key,label]) => `<td class="${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}">${cellContent(key, row)}</td>`).join("")}</tr>
+        <tr class="${row.isPrivatePool ? "private-pool" : ""}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}">${cellContent(key, row)}</td>`).join("")}</tr>
       `).join("");
       return `
         <div class="table-shell" id="${tableId}">
@@ -395,8 +440,9 @@
             <button class="table-action" type="button" data-fullscreen="${tableId}" title="全屏展示">⛶</button>
           </div>
           <div class="table-wrap">
-            <table class="detail">
-              <thead><tr>${columns.map(([key,label]) => `<th>${label}</th>`).join("")}</tr></thead>
+            <table class="detail ${tableClass}">
+              ${colGroup}
+              <thead><tr>${columns.map(([key,label]) => `<th class="${columnClass(key)}">${label}</th>`).join("")}</tr></thead>
               <tbody>${bodyRows}</tbody>
             </table>
           </div>

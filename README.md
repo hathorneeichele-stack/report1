@@ -27,3 +27,19 @@
 更新私募数据跟踪或销售播报数据时，改 `/data/productReportData.js`。
 更新产品材料、实盘业绩报告、PDF 或图片材料入口时，改 `/data/productMaterialData.js`。
 页面样式和交互继续在最终页面或对应 HTML/CSS 中调整，不要把业务数据重新复制回页面。
+
+## 对外分享 / 上传发布
+
+每次改完底稿或 data 后，不需要手动挑文件上传。运行：
+
+```bash
+python3 tools/build_publish_artifacts.py
+```
+
+脚本会生成：
+
+- `dist/share-package/`：完整网页文件夹，适合直接整体拖到 GitHub 仓库或部署目录；
+- `dist/share-package.zip`：完整压缩包，适合发给别人、归档，或上传到 Release/网盘；
+- `dist/single-html/index_单文件版.html`、`dist/single-html/产品相关_单文件版.html`：把本地 JS、图片、PDF 等尽量内嵌后的单 HTML，适合直接发给别人打开。
+
+建议日常维护仍然只改根目录、`data/`、`assets/`；需要分享时再重新运行脚本生成发布产物。

@@ -5047,11 +5047,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -5327,11 +5327,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -5565,11 +5565,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -5705,11 +5705,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -5803,11 +5803,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -5873,11 +5873,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -6097,11 +6097,11 @@ window.productCalendarData = {
         "type": "launch",
         "typeLabel": "首发",
         "name": "蒙玺兴泰量化光翼系列",
-        "code": "待补充",
+        "code": "SBHG77 / BHF42B",
         "manager": "蒙玺",
         "strategy": "量化多头",
         "subStrategy": "对标万得全A等权",
-        "openText": "首发重点段",
+        "openText": "7/23-7/30首发认购，7/31冷静期",
         "week": "-",
         "ytd": "-"
       },
@@ -7494,3 +7494,3815 @@ window.productCalendarData = {
     "DAILY_OVERRIDES": {}
   }
 };
+
+(function(){
+  const data = window.productCalendarData && window.productCalendarData.private;
+  if(!data || !Array.isArray(data.EVENTS)) return;
+  const events = data.EVENTS;
+  const typeLabel = { launch: '首发', pool: '私享持营池', other: '其他持营' };
+  const tue = [4, 11, 18, 25];
+  const thu = [6, 13, 20, 27];
+  const fri = [7, 14, 21, 28];
+  const mon = [3, 10, 17, 24, 31];
+  const add = (item) => {
+    const days = item.days || [item.day];
+    days.forEach((day) => {
+      events.push({
+        month: 8,
+        day,
+        type: item.type || 'pool',
+        typeLabel: item.typeLabel || typeLabel[item.type || 'pool'],
+        name: item.name,
+        code: item.code || '',
+        manager: item.manager || '',
+        strategy: item.strategy || '',
+        subStrategy: item.subStrategy || '',
+        openText: item.openText || '',
+        week: item.week || '-',
+        ytd: item.ytd || '-'
+      });
+    });
+  };
+  [
+    {type:'launch',name:'启林兴泰红利系列',manager:'启林',strategy:'量化多头',subStrategy:'对标红利指数',days:[3,4,5,6,7],openText:'8月3日-8月7日首发认购'},
+    {type:'launch',name:'鸣石兴泰未来系列',manager:'鸣石',strategy:'量化多头',subStrategy:'全市场选股',days:[10,11,12,13,14,17],openText:'8月10日-8月17日首发认购'},
+    {type:'launch',name:'鸣石对冲均衡系列',manager:'鸣石',strategy:'复合策略',subStrategy:'中性+股指套利',days:[10,11,12,13,14,17],openText:'8月10日-8月17日首发认购'},
+    {type:'launch',name:'托特沪深300稳泰对冲系列',manager:'托特',strategy:'市场中性',days:[18,19,20,21,24],openText:'8月18日-8月24日首发认购'},
+    {type:'launch',name:'理成兴泰进取1号3期',manager:'理成',strategy:'主观多头',days:[25,26,27,28,31],openText:'8月25日-8月31日首发认购'},
+    {name:'睿郡兴泰1号1期',code:'STP099',manager:'睿郡',strategy:'主观多头',days:[4,5,6,7],openText:'8.4-8.7申购'},
+    {name:'理成兴泰进取1号1期',code:'SQQ865',manager:'理成',strategy:'主观多头',days:tue,openText:'每周二申购'},
+    {name:'望正精英鹏辉9号1期',code:'SLW945',manager:'望正',strategy:'主观多头',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰进享1号',code:'SANX58',manager:'衍复',strategy:'量化多头',subStrategy:'300指增',days:[7],openText:'8.7申购'},
+    {name:'诚奇兴泰进取1号',code:'SQN232',manager:'诚奇',strategy:'量化多头',subStrategy:'500指增',days:[4],openText:'8.4申购'},
+    {name:'诚奇兴泰进取2号',code:'SST179',manager:'诚奇',strategy:'量化多头',subStrategy:'500指增',days:[19],openText:'8.19申购'},
+    {name:'诚奇兴泰进取3号',code:'SST182',manager:'诚奇',strategy:'量化多头',subStrategy:'500指增',days:[4],openText:'8.4申购'},
+    {name:'世纪前沿兴泰进取A期',code:'SSV417',manager:'世纪前沿',strategy:'量化多头',subStrategy:'500指增',days:[7],openText:'8.7申购'},
+    {name:'世纪前沿兴泰进取B期',code:'SSV422',manager:'世纪前沿',strategy:'量化多头',subStrategy:'500指增',days:[7],openText:'8.7申购'},
+    {name:'衍复兴泰锐进1期',code:'STQ383',manager:'衍复',strategy:'量化多头',subStrategy:'1000指增',days:[14],openText:'8.14申购'},
+    {name:'衍复兴泰锐进2期',code:'STQ384',manager:'衍复',strategy:'量化多头',subStrategy:'1000指增',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰锐进3期',code:'STQ385',manager:'衍复',strategy:'量化多头',subStrategy:'1000指增',days:[24],openText:'8.24申购'},
+    {name:'诚奇兴泰锐进2号',code:'SBFJ12',manager:'诚奇',strategy:'量化多头',subStrategy:'1000指增',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰锐进A期',code:'SBE896',manager:'世纪前沿',strategy:'量化多头',subStrategy:'1000指增',days:[11,25],openText:'8.11、8.25申购'},
+    {name:'世纪前沿兴泰锐进B期',code:'SBFE20',manager:'世纪前沿',strategy:'量化多头',subStrategy:'1000指增',days:[11,25],openText:'8.11、8.25申购'},
+    {name:'世纪前沿兴泰锐进C期',code:'SBFH00',manager:'世纪前沿',strategy:'量化多头',subStrategy:'1000指增',days:[11,25],openText:'8.11、8.25申购'},
+    {name:'启林兴泰锐进C享1号',code:'SAZJ69',manager:'启林',strategy:'量化多头',subStrategy:'1000指增',days:thu,openText:'每周四申购'},
+    {name:'启林兴泰锐进C享2号',code:'SBDD05',manager:'启林',strategy:'量化多头',subStrategy:'1000指增',days:thu,openText:'每周四申购'},
+    {name:'启林兴泰锐进C享3号',code:'SBRD11',manager:'启林',strategy:'量化多头',subStrategy:'1000指增',days:thu,openText:'每周四申购'},
+    {name:'启林兴泰锐进C享5号',code:'SBRD12',manager:'启林',strategy:'量化多头',subStrategy:'1000指增',days:thu,openText:'每周四申购'},
+    {name:'赫富兴泰锐进1号1期',code:'SBBT50',manager:'赫富',strategy:'量化多头',subStrategy:'1000指增',days:tue,openText:'每周二申购'},
+    {name:'赫富兴泰锐进1号5期',code:'SBQA27',manager:'赫富',strategy:'量化多头',subStrategy:'1000指增',days:tue,openText:'每周二申购'},
+    {name:'千衍兴泰锐进六和2号',code:'SBQV56',manager:'千衍',strategy:'量化多头',subStrategy:'1000指增',days:[14,25],openText:'8.14、8.25申购'},
+    {name:'衍复兴泰小市值1期',code:'SB4307',manager:'衍复',strategy:'量化多头',subStrategy:'小市值',days:[7,24],openText:'8.7、8.24申购'},
+    {name:'衍复兴泰小市值2期',code:'SB8183',manager:'衍复',strategy:'量化多头',subStrategy:'小市值',days:[4,14],openText:'8.4、8.14申购'},
+    {name:'衍复兴泰中证全指1号',code:'SARL30',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[7],openText:'8.7申购'},
+    {name:'衍复兴泰中证全指3号',code:'SAUN40',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[7],openText:'8.7申购'},
+    {name:'衍复兴泰中证全指6号',code:'SBNY94',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰中证全指7号',code:'SBNY97',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰中证全指9号',code:'SBNY02',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰中证全指10号',code:'SBNY59',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[19],openText:'8.19申购'},
+    {name:'衍复兴泰中证全指12号',code:'SBPZ01',manager:'衍复',strategy:'量化多头',subStrategy:'中证全指指增',days:[14],openText:'8.14申购'},
+    {name:'黑翼兴泰进享1号',code:'SATG48',manager:'黑翼',strategy:'量化多头',subStrategy:'A500指增',days:tue,openText:'每周二申购'},
+    {name:'致诚中证A500兴泰2号1期',code:'SAUS91',manager:'致诚卓远',strategy:'量化多头',subStrategy:'A500指增',days:[27],openText:'8.27申购'},
+    {name:'九坤兴泰进享1号',code:'SBCY39',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享2号',code:'SBFK32',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享3号',code:'SBFK50',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享5号',code:'SBFK60',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享6号',code:'SBGY11',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享8号',code:'SBHQ86',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'九坤兴泰进享9号',code:'SBHQ88',manager:'九坤',strategy:'量化多头',subStrategy:'A500指增',days:[13,27],openText:'8.13、8.27申购'},
+    {name:'世纪前沿兴泰精选A期',code:'SAHY68',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰精选B期',code:'SAHY46',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰精选C期',code:'SAHY76',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰精选D期',code:'SAHY00',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰精选E期',code:'SAHX60',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'世纪前沿兴泰精选H期',code:'SAHY75',manager:'世纪前沿',strategy:'量化多头',subStrategy:'全市场选股',days:[4,18],openText:'8.4、8.18申购'},
+    {name:'天演兴泰2号',code:'SBAM79',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰5号',code:'SBTC04',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰6号',code:'SBTC09',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰7号',code:'SBTC14',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰8号',code:'SBTC19',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰9号',code:'SBTC28',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰10号',code:'SBTC31',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰11号',code:'SBUH70',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'天演兴泰12号',code:'SBUH71',manager:'天演',strategy:'量化多头',subStrategy:'全市场选股',days:thu,openText:'每周四申购'},
+    {name:'诚奇兴泰股票优选1号',code:'SXM769',manager:'诚奇',strategy:'量化多头',subStrategy:'全市场选股',days:[4,19],openText:'8.4、8.19申购'},
+    {name:'龙旗锐泰一号1期',code:'SAAF69',manager:'龙旗',strategy:'套利策略',days:thu,openText:'每周四申购'},
+    {name:'里睿稳泰套利1号1期',code:'SAKS75',manager:'里睿',strategy:'套利策略',days:[4,7,11,14,18,21,25,28],openText:'每周二、周五申购'},
+    {name:'申毅稳泰千里马1号',code:'SBBP07',manager:'申毅',strategy:'套利策略',days:thu,openText:'每周四申购'},
+    {name:'展弘优选套利A期',code:'SB2689',manager:'展弘',strategy:'宏观对冲',days:[19],openText:'8.19申购'},
+    {name:'泓湖永泰均衡配置六号2期',code:'SBTR16',manager:'泓湖',strategy:'宏观对冲',days:tue,openText:'每周二申购'},
+    {name:'泓湖永泰均衡配置六号3期',code:'SBTR18',manager:'泓湖',strategy:'宏观对冲',days:tue,openText:'每周二申购'},
+    {name:'进化论稳泰对冲1号',code:'SNJ907',manager:'进化论',strategy:'市场中性',days:[14,31],openText:'8.14、8.31申购'},
+    {name:'诚奇稳泰对冲1号',code:'SQN230',manager:'诚奇',strategy:'市场中性',days:[4],openText:'8.4申购'},
+    {name:'展弘灵泰多策略2号',code:'SVJ469',manager:'展弘',strategy:'复合策略',days:[14,27],openText:'8.14、8.27申购'},
+    {name:'展弘灵泰多策略3号',code:'SZB040',manager:'展弘',strategy:'复合策略',days:[7,19],openText:'8.7、8.19申购'},
+    {name:'展弘灵泰多策略9号',code:'SAAP23',manager:'展弘',strategy:'复合策略',days:[14,27],openText:'8.14、8.27申购'},
+    {name:'展弘灵泰多策略10号',code:'SBKP23',manager:'展弘',strategy:'复合策略',days:[14,27],openText:'8.14、8.27申购'},
+    {name:'千象全景多元灵泰22号1期',code:'SBJM39',manager:'千象',strategy:'复合策略',days:fri,openText:'每周五申购'},
+    {name:'洛书灵泰CTA对冲多策略1号1期',code:'SBHJ98',manager:'洛书',strategy:'复合策略',days:mon,openText:'每周一申购'},
+    {name:'洛书灵泰多策略1期',code:'STB376',manager:'洛书',strategy:'复合策略',days:[28],openText:'8.28申购'},
+    {name:'黑翼优选灵泰多策略1号',code:'SSM185',manager:'黑翼',strategy:'复合策略',days:[14],openText:'8.14申购'},
+    {name:'千衍灵泰多策略六安29号',code:'SAXV30',manager:'千衍',strategy:'复合策略',days:[7,24],openText:'8.7、8.24申购'},
+    {name:'省心享华泰量化多头单策略FOF1号',code:'941983',manager:'华泰资管',strategy:'FOF组合',days:[6,7,13,14,20,21,27,28],openText:'每周四、周五申购'},
+    {name:'省心享华泰套利对冲单策略FOF1号',code:'941980',manager:'华泰资管',strategy:'FOF组合',days:[6,7,13,14,20,21,27,28],openText:'每周四、周五申购'},
+    {name:'省心享华泰套利对冲单策略FOF2号',code:'941981',manager:'华泰资管',strategy:'FOF组合',days:[6,7,13,14,20,21,27,28],openText:'每周四、周五申购'},
+    {name:'鹏扬睿恒FOF1号（量化多头）',code:'941849',manager:'华泰资管',strategy:'FOF组合',days:[11,12,13,14,17],openText:'8.11-8.17申购'}
+  ].forEach(add);
+  data.MONTHS = [
+    {month:7,label:'2026年7月',selectedDay:15,currentDay:15},
+    {month:8,label:'2026年8月',selectedDay:3}
+  ];
+  data.DEFAULT_MONTH = 7;
+})();
+
+(function(){
+  const data = window.productCalendarData && window.productCalendarData.private;
+  if(!data || !Array.isArray(data.EVENTS)) return;
+  data.PERFORMANCE_AS_OF = "2026-07-17";
+  data.PERFORMANCE_SOURCE = "业绩汇总+量化超额";
+  const byCode = {
+  "SNB074": {
+    "name": "陆宝嘉成优势成长",
+    "week": "-3.36%",
+    "ytd": "-15.68%",
+    "sourceRow": 27
+  },
+  "SAJH00": {
+    "name": "才誉兴泰1号1期",
+    "week": "+1.54%",
+    "ytd": "-11.76%",
+    "sourceRow": 28
+  },
+  "319119": {
+    "name": "申万菱信全球红利QDII-FOF",
+    "week": "-0.46%",
+    "ytd": "+7.55%",
+    "sourceRow": 29
+  },
+  "SBTE76": {
+    "name": "日斗嘉泰1号",
+    "week": "-0.78%",
+    "ytd": "-8.43%",
+    "sourceRow": 30
+  },
+  "SCP304": {
+    "name": "易同先锋1号",
+    "week": "-0.65%",
+    "ytd": "-7.83%",
+    "sourceRow": 31
+  },
+  "STP099": {
+    "name": "睿郡兴泰1号1期",
+    "week": "-0.32%",
+    "ytd": "-10.41%",
+    "sourceRow": 32
+  },
+  "SNF604": {
+    "name": "惠理中国丰泰3号",
+    "week": "-0.64%",
+    "ytd": "-8.95%",
+    "sourceRow": 33
+  },
+  "SCA000": {
+    "name": "兴聚润泰1号",
+    "week": "-0.53%",
+    "ytd": "-11.13%",
+    "sourceRow": 34
+  },
+  "SJZ975": {
+    "name": "拾贝开泰1号",
+    "week": "-1.03%",
+    "ytd": "-9.40%",
+    "sourceRow": 35
+  },
+  "2E0066": {
+    "name": "泉果基金桃源一期三年持有66号",
+    "week": "-5.73%",
+    "ytd": "+11.05%",
+    "sourceRow": 36
+  },
+  "STC806": {
+    "name": "名禹嘉泰1期",
+    "week": "-4.93%",
+    "ytd": "+3.08%",
+    "sourceRow": 37
+  },
+  "SZS875": {
+    "name": "名禹嘉泰2号1期",
+    "week": "-5.14%",
+    "ytd": "+2.65%",
+    "sourceRow": 38
+  },
+  "940126": {
+    "name": "创新精选",
+    "week": "-7.39%",
+    "ytd": "+8.19%",
+    "sourceRow": 39
+  },
+  "SNH500": {
+    "name": "睿扬尊享18号",
+    "week": "-7.84%",
+    "ytd": "+65.48%",
+    "sourceRow": 40
+  },
+  "SSN507": {
+    "name": "相聚嘉泰1号A期",
+    "week": "-7.08%",
+    "ytd": "-3.68%",
+    "sourceRow": 41
+  },
+  "SCG297": {
+    "name": "希瓦小牛10号",
+    "week": "-6.86%",
+    "ytd": "+36.21%",
+    "sourceRow": 42
+  },
+  "SY1044": {
+    "name": "希瓦小牛2号",
+    "week": "-6.79%",
+    "ytd": "+35.79%",
+    "sourceRow": 43
+  },
+  "343619": {
+    "name": "兴全兴泰1号",
+    "week": "-6.32%",
+    "ytd": "+10.53%",
+    "sourceRow": 44
+  },
+  "343626": {
+    "name": "兴全兴泰2号",
+    "week": "-6.01%",
+    "ytd": "+13.15%",
+    "sourceRow": 45
+  },
+  "SQQ865": {
+    "name": "理成兴泰进取1号1期",
+    "week": "-9.77%",
+    "ytd": "+23.80%",
+    "sourceRow": 46
+  },
+  "SAHL05": {
+    "name": "远望角嘉泰探索8号1期",
+    "week": "-11.32%",
+    "ytd": "-5.54%",
+    "sourceRow": 47
+  },
+  "STY183": {
+    "name": "勤辰创赢成长嘉泰1号",
+    "week": "-9.67%",
+    "ytd": "+54.20%",
+    "sourceRow": 48
+  },
+  "SST216": {
+    "name": "复胜嘉泰正能量27号",
+    "week": "+1.03%",
+    "ytd": "-0.22%",
+    "sourceRow": 49
+  },
+  "941827": {
+    "name": "陆港通1号",
+    "week": "-8.43%",
+    "ytd": "-3.13%",
+    "sourceRow": 50
+  },
+  "942014": {
+    "name": "华泰智远1号",
+    "week": "-10.76%",
+    "ytd": "+0.14%",
+    "sourceRow": 51
+  },
+  "STW167": {
+    "name": "博鸿聚义兴泰1号C份额",
+    "week": "-10.88%",
+    "ytd": "+11.21%",
+    "sourceRow": 52
+  },
+  "SQG731": {
+    "name": "源乐晟九晟兴泰1号",
+    "week": "-7.51%",
+    "ytd": "+33.45%",
+    "sourceRow": 53
+  },
+  "SQJ505": {
+    "name": "同犇16期1号",
+    "week": "-7.37%",
+    "ytd": "+26.17%",
+    "sourceRow": 54
+  },
+  "SQY761": {
+    "name": "同犇16期3号",
+    "week": "-7.37%",
+    "ytd": "+26.12%",
+    "sourceRow": 55
+  },
+  "SQX505": {
+    "name": "同犇16期2号",
+    "week": "-7.37%",
+    "ytd": "+26.14%",
+    "sourceRow": 56
+  },
+  "SLW946": {
+    "name": "望正精英鹏辉9号2期",
+    "week": "-7.27%",
+    "ytd": "+17.72%",
+    "sourceRow": 57
+  },
+  "SLW945": {
+    "name": "望正精英鹏辉9号1期",
+    "week": "-7.27%",
+    "ytd": "+17.73%",
+    "sourceRow": 58
+  },
+  "SJ4871": {
+    "name": "望正精英鹏辉2号证券投资基金1期",
+    "week": "-7.71%",
+    "ytd": "+17.85%",
+    "sourceRow": 59
+  },
+  "SQU415": {
+    "name": "量锐兴泰进取2号",
+    "week": "-12.88%",
+    "ytd": "+2.02%",
+    "sourceRow": 63
+  },
+  "SNK782": {
+    "name": "量锐兴泰进取1号",
+    "week": "-12.82%",
+    "ytd": "+2.04%",
+    "sourceRow": 64
+  },
+  "SSV422": {
+    "name": "世纪前沿兴泰进取B期",
+    "week": "-12.53%",
+    "ytd": "+2.60%",
+    "sourceRow": 65
+  },
+  "SSV417": {
+    "name": "世纪前沿兴泰进取A期",
+    "week": "-12.64%",
+    "ytd": "+2.55%",
+    "sourceRow": 66
+  },
+  "SAKD13": {
+    "name": "九坤兴泰进取10号",
+    "week": "-13.36%",
+    "ytd": "-16.18%",
+    "sourceRow": 67
+  },
+  "SAAK24": {
+    "name": "九坤兴泰进取7号",
+    "week": "-13.39%",
+    "ytd": "-16.24%",
+    "sourceRow": 68
+  },
+  "SAAL25": {
+    "name": "九坤兴泰进取3号",
+    "week": "-13.36%",
+    "ytd": "-16.27%",
+    "sourceRow": 69
+  },
+  "SAAH49": {
+    "name": "九坤兴泰进取1号",
+    "week": "-13.43%",
+    "ytd": "-16.29%",
+    "sourceRow": 70
+  },
+  "SAAK30": {
+    "name": "九坤兴泰进取2号",
+    "week": "-13.32%",
+    "ytd": "-16.31%",
+    "sourceRow": 71
+  },
+  "SAAH43": {
+    "name": "九坤兴泰进取6号",
+    "week": "-13.32%",
+    "ytd": "-16.33%",
+    "sourceRow": 72
+  },
+  "SAAK14": {
+    "name": "九坤兴泰进取11号",
+    "week": "-13.32%",
+    "ytd": "-16.33%",
+    "sourceRow": 73
+  },
+  "SAAL27": {
+    "name": "九坤兴泰进取5号",
+    "week": "-13.41%",
+    "ytd": "-16.35%",
+    "sourceRow": 74
+  },
+  "SAKC27": {
+    "name": "九坤兴泰进取9号",
+    "week": "-13.39%",
+    "ytd": "-16.36%",
+    "sourceRow": 75
+  },
+  "SAAJ63": {
+    "name": "九坤兴泰进取8号",
+    "week": "-13.41%",
+    "ytd": "-16.37%",
+    "sourceRow": 76
+  },
+  "SQN232": {
+    "name": "诚奇兴泰进取1号",
+    "week": "-12.90%",
+    "ytd": "+5.50%",
+    "sourceRow": 77
+  },
+  "SST179": {
+    "name": "诚奇兴泰进取2号",
+    "week": "-12.73%",
+    "ytd": "+5.39%",
+    "sourceRow": 78
+  },
+  "SST182": {
+    "name": "诚奇兴泰进取3号",
+    "week": "-12.68%",
+    "ytd": "+3.62%",
+    "sourceRow": 79
+  },
+  "SANG06": {
+    "name": "九坤兴泰进取16号",
+    "week": "-12.37%",
+    "ytd": "-17.90%",
+    "sourceRow": 80
+  },
+  "SSX042": {
+    "name": "因诺兴泰进取1号3期",
+    "week": "-13.03%",
+    "ytd": "-0.62%",
+    "sourceRow": 81
+  },
+  "SQY454": {
+    "name": "因诺兴泰进取1号2期",
+    "week": "-13.07%",
+    "ytd": "-0.64%",
+    "sourceRow": 82
+  },
+  "SQY446": {
+    "name": "因诺兴泰进取1号1期",
+    "week": "-13.07%",
+    "ytd": "-0.65%",
+    "sourceRow": 83
+  },
+  "SAKK29": {
+    "name": "宽德兴泰进取2号1期",
+    "week": "-13.84%",
+    "ytd": "-6.77%",
+    "sourceRow": 84
+  },
+  "SAEW64": {
+    "name": "九坤兴泰进取12号",
+    "week": "-13.34%",
+    "ytd": "-18.96%",
+    "sourceRow": 85
+  },
+  "SAEX31": {
+    "name": "九坤兴泰进取15号",
+    "week": "-13.40%",
+    "ytd": "-18.99%",
+    "sourceRow": 86
+  },
+  "SAEX49": {
+    "name": "九坤兴泰进取13号",
+    "week": "-13.36%",
+    "ytd": "-19.03%",
+    "sourceRow": 87
+  },
+  "SNY433": {
+    "name": "幻方量化专享71号2期",
+    "week": "-15.74%",
+    "ytd": "-1.02%",
+    "sourceRow": 88
+  },
+  "SZE699": {
+    "name": "卓识兴泰伟业十八号",
+    "week": "-14.54%",
+    "ytd": "-5.86%",
+    "sourceRow": 89
+  },
+  "SNY432": {
+    "name": "幻方量化专享71号1期",
+    "week": "-16.04%",
+    "ytd": "+3.38%",
+    "sourceRow": 90
+  },
+  "SNG270": {
+    "name": "启林泰享2号",
+    "week": "-13.96%",
+    "ytd": "-5.12%",
+    "sourceRow": 91
+  },
+  "SNE085": {
+    "name": "启林泰享1号",
+    "week": "-14.09%",
+    "ytd": "-5.40%",
+    "sourceRow": 92
+  },
+  "SLR032": {
+    "name": "明汯兴泰1号3期",
+    "week": "-15.60%",
+    "ytd": "-1.04%",
+    "sourceRow": 93
+  },
+  "SLR031": {
+    "name": "明汯兴泰1号2期",
+    "week": "-15.74%",
+    "ytd": "-0.68%",
+    "sourceRow": 94
+  },
+  "SBLM86": {
+    "name": "进化论500锐泰3号",
+    "week": "-16.32%",
+    "ytd": "-5.42%",
+    "sourceRow": 95
+  },
+  "SBLM84": {
+    "name": "进化论500锐泰1号",
+    "week": "-16.26%",
+    "ytd": "-5.19%",
+    "sourceRow": 96
+  },
+  "SBLM85": {
+    "name": "进化论500锐泰2号",
+    "week": "-16.31%",
+    "ytd": "-5.33%",
+    "sourceRow": 97
+  },
+  "SLP634": {
+    "name": "明汯兴泰1号1期",
+    "week": "-15.70%",
+    "ytd": "-1.82%",
+    "sourceRow": 98
+  },
+  "SLS282": {
+    "name": "明汯兴泰1号5期",
+    "week": "-15.71%",
+    "ytd": "-1.80%",
+    "sourceRow": 99
+  },
+  "SBVW69": {
+    "name": "弈倍兴泰锐进5号",
+    "week": "-8.05%",
+    "ytd": "-8.06%",
+    "sourceRow": 101
+  },
+  "SBVW60": {
+    "name": "弈倍兴泰锐进3号",
+    "week": "-8.11%",
+    "ytd": "-8.12%",
+    "sourceRow": 102
+  },
+  "SBBT50": {
+    "name": "赫富兴泰锐进1号1期",
+    "week": "-12.53%",
+    "ytd": "+1.05%",
+    "sourceRow": 103
+  },
+  "SBQA29": {
+    "name": "赫富兴泰锐进1号6期",
+    "week": "-12.52%",
+    "ytd": "-13.24%",
+    "sourceRow": 104
+  },
+  "SBQA94": {
+    "name": "赫富兴泰锐进1号2期",
+    "week": "-12.52%",
+    "ytd": "-13.23%",
+    "sourceRow": 105
+  },
+  "SBQA27": {
+    "name": "赫富兴泰锐进1号5期",
+    "week": "-12.53%",
+    "ytd": "-7.06%",
+    "sourceRow": 106
+  },
+  "SBQA26": {
+    "name": "赫富兴泰锐进1号3期",
+    "week": "-12.53%",
+    "ytd": "-13.25%",
+    "sourceRow": 107
+  },
+  "SZY306": {
+    "name": "量锐嘉泰进取2号1期",
+    "week": "-12.36%",
+    "ytd": "-0.17%",
+    "sourceRow": 108
+  },
+  "STQ385": {
+    "name": "衍复兴泰锐进3期",
+    "week": "-12.86%",
+    "ytd": "+3.49%",
+    "sourceRow": 109
+  },
+  "STQ384": {
+    "name": "衍复兴泰锐进2期",
+    "week": "-12.73%",
+    "ytd": "+3.40%",
+    "sourceRow": 110
+  },
+  "STQ383": {
+    "name": "衍复兴泰锐进1期",
+    "week": "-12.72%",
+    "ytd": "+3.37%",
+    "sourceRow": 111
+  },
+  "SBFE20": {
+    "name": "世纪前沿兴泰锐进B期",
+    "week": "-14.13%",
+    "ytd": "+1.71%",
+    "sourceRow": 112
+  },
+  "SBEB96": {
+    "name": "世纪前沿兴泰锐进A期",
+    "week": "-14.12%",
+    "ytd": "+1.79%",
+    "sourceRow": 113
+  },
+  "SXG268": {
+    "name": "九坤兴泰锐进A期",
+    "week": "-13.71%",
+    "ytd": "+2.65%",
+    "sourceRow": 114
+  },
+  "SBFH00": {
+    "name": "世纪前沿兴泰锐进C期",
+    "week": "-14.26%",
+    "ytd": "+1.51%",
+    "sourceRow": 115
+  },
+  "SBFJ12": {
+    "name": "诚奇兴泰锐进2号",
+    "week": "-13.41%",
+    "ytd": "+3.87%",
+    "sourceRow": 116
+  },
+  "SBFR53": {
+    "name": "倍漾兴泰锐进2号2期",
+    "week": "-13.75%",
+    "ytd": "-2.70%",
+    "sourceRow": 117
+  },
+  "SBFR51": {
+    "name": "倍漾兴泰锐进2号1期",
+    "week": "-13.75%",
+    "ytd": "-2.70%",
+    "sourceRow": 118
+  },
+  "SBJW39": {
+    "name": "倍漾兴泰锐进2号3期",
+    "week": "-13.76%",
+    "ytd": "-2.70%",
+    "sourceRow": 119
+  },
+  "SBJW40": {
+    "name": "倍漾兴泰锐进2号5期",
+    "week": "-13.77%",
+    "ytd": "-2.71%",
+    "sourceRow": 120
+  },
+  "SAYD60": {
+    "name": "诚奇兴泰锐进1号",
+    "week": "-14.85%",
+    "ytd": "+3.19%",
+    "sourceRow": 121
+  },
+  "SBPM13": {
+    "name": "诚奇兴泰锐进8号",
+    "week": "-14.79%",
+    "ytd": "-7.90%",
+    "sourceRow": 122
+  },
+  "SBMZ37": {
+    "name": "诚奇兴泰锐进6号",
+    "week": "-14.78%",
+    "ytd": "-8.33%",
+    "sourceRow": 123
+  },
+  "SBMZ38": {
+    "name": "诚奇兴泰锐进7号",
+    "week": "-14.82%",
+    "ytd": "-8.30%",
+    "sourceRow": 124
+  },
+  "SBPR65": {
+    "name": "诚奇兴泰锐进9号",
+    "week": "-14.84%",
+    "ytd": "-8.09%",
+    "sourceRow": 125
+  },
+  "SBMZ28": {
+    "name": "诚奇兴泰锐进3号",
+    "week": "-14.83%",
+    "ytd": "-8.40%",
+    "sourceRow": 126
+  },
+  "SBMZ33": {
+    "name": "诚奇兴泰锐进5号",
+    "week": "-14.84%",
+    "ytd": "-8.43%",
+    "sourceRow": 127
+  },
+  "SBQV56": {
+    "name": "千衍兴泰锐进六和62号",
+    "week": "-14.22%",
+    "ytd": "-2.54%",
+    "sourceRow": 128
+  },
+  "SB5386": {
+    "name": "稳博兴泰进取2号2期",
+    "week": "-16.70%",
+    "ytd": "-12.36%",
+    "sourceRow": 129
+  },
+  "SB3962": {
+    "name": "稳博兴泰进取2号1期",
+    "week": "-16.80%",
+    "ytd": "-12.52%",
+    "sourceRow": 130
+  },
+  "SAZJ69": {
+    "name": "启林兴泰锐进心享1号",
+    "week": "-16.03%",
+    "ytd": "-9.30%",
+    "sourceRow": 131
+  },
+  "SBDB05": {
+    "name": "启林兴泰锐进心享2号",
+    "week": "-16.03%",
+    "ytd": "-9.81%",
+    "sourceRow": 132
+  },
+  "SBRD12": {
+    "name": "启林兴泰锐进心享5号",
+    "week": "-16.10%",
+    "ytd": "-14.82%",
+    "sourceRow": 133
+  },
+  "SBRD11": {
+    "name": "启林兴泰锐进心享3号",
+    "week": "-16.13%",
+    "ytd": "-14.58%",
+    "sourceRow": 134
+  },
+  "SANX58": {
+    "name": "衍复兴泰进享1号",
+    "week": "-6.75%",
+    "ytd": "+4.49%",
+    "sourceRow": 136
+  },
+  "SBFK50": {
+    "name": "九坤兴泰进享3号",
+    "week": "-8.59%",
+    "ytd": "+6.59%",
+    "sourceRow": 138
+  },
+  "SBFK32": {
+    "name": "九坤兴泰进享2号",
+    "week": "-8.52%",
+    "ytd": "+6.04%",
+    "sourceRow": 139
+  },
+  "SBHQ86": {
+    "name": "九坤兴泰进享8号",
+    "week": "-8.61%",
+    "ytd": "+6.38%",
+    "sourceRow": 140
+  },
+  "SBFK60": {
+    "name": "九坤兴泰进享5号",
+    "week": "-8.57%",
+    "ytd": "+6.21%",
+    "sourceRow": 141
+  },
+  "SBCY39": {
+    "name": "九坤兴泰进享1号",
+    "week": "-8.66%",
+    "ytd": "+5.95%",
+    "sourceRow": 142
+  },
+  "SBGY11": {
+    "name": "九坤兴泰进享6号",
+    "week": "-8.68%",
+    "ytd": "+6.17%",
+    "sourceRow": 143
+  },
+  "SBHQ88": {
+    "name": "九坤兴泰进享9号",
+    "week": "-8.62%",
+    "ytd": "+6.44%",
+    "sourceRow": 144
+  },
+  "SAUS91": {
+    "name": "致远中证A500兴泰2号1期",
+    "week": "-8.93%",
+    "ytd": "-1.17%",
+    "sourceRow": 145
+  },
+  "SATD74": {
+    "name": "宽德中证A500兴泰进享3号",
+    "week": "-10.17%",
+    "ytd": "-3.22%",
+    "sourceRow": 146
+  },
+  "SASK35": {
+    "name": "宽德中证A500兴泰进享1号",
+    "week": "-10.14%",
+    "ytd": "-3.21%",
+    "sourceRow": 147
+  },
+  "SAZG00": {
+    "name": "量派中证A500兴泰1号1期",
+    "week": "-10.01%",
+    "ytd": "+0.25%",
+    "sourceRow": 148
+  },
+  "SATG48": {
+    "name": "黑翼兴泰进享1号",
+    "week": "-11.23%",
+    "ytd": "-2.97%",
+    "sourceRow": 149
+  },
+  "SB4307": {
+    "name": "衍复兴泰小市值1期",
+    "week": "-6.07%",
+    "ytd": "-2.61%",
+    "sourceRow": 151
+  },
+  "SB8183": {
+    "name": "衍复兴泰小市值2期",
+    "week": "-5.96%",
+    "ytd": "-4.85%",
+    "sourceRow": 152
+  },
+  "SAUN40": {
+    "name": "衍复兴泰中证全指3号",
+    "week": "-9.35%",
+    "ytd": "+3.96%",
+    "sourceRow": 154
+  },
+  "SARL30": {
+    "name": "衍复兴泰中证全指1号",
+    "week": "-9.34%",
+    "ytd": "+4.77%",
+    "sourceRow": 155
+  },
+  "SBNV94": {
+    "name": "衍复兴泰中证全指6号",
+    "week": "-9.29%",
+    "ytd": "-5.15%",
+    "sourceRow": 156
+  },
+  "SBNV99": {
+    "name": "衍复兴泰中证全指8号",
+    "week": "-9.31%",
+    "ytd": "-4.79%",
+    "sourceRow": 157
+  },
+  "SBNW59": {
+    "name": "衍复兴泰中证全指10号",
+    "week": "-9.33%",
+    "ytd": "-5.32%",
+    "sourceRow": 158
+  },
+  "SAWR23": {
+    "name": "衍复兴泰中证全指5号",
+    "week": "-9.37%",
+    "ytd": "-5.01%",
+    "sourceRow": 159
+  },
+  "SBNW02": {
+    "name": "衍复兴泰中证全指9号",
+    "week": "-9.46%",
+    "ytd": "-4.98%",
+    "sourceRow": 160
+  },
+  "SBNV97": {
+    "name": "衍复兴泰中证全指7号",
+    "week": "-9.45%",
+    "ytd": "-5.54%",
+    "sourceRow": 161
+  },
+  "SBKE17": {
+    "name": "信弘兴泰中证全指2号",
+    "week": "-13.02%",
+    "ytd": "-18.79%",
+    "sourceRow": 162
+  },
+  "SBUH71": {
+    "name": "天演兴泰12号",
+    "week": "-7.84%",
+    "ytd": "-17.49%",
+    "sourceRow": 165
+  },
+  "SBTC14": {
+    "name": "天演兴泰7号",
+    "week": "-7.94%",
+    "ytd": "-17.64%",
+    "sourceRow": 166
+  },
+  "SBTC04": {
+    "name": "天演兴泰5号",
+    "week": "-7.87%",
+    "ytd": "-17.49%",
+    "sourceRow": 167
+  },
+  "SBTC09": {
+    "name": "天演兴泰6号",
+    "week": "-7.87%",
+    "ytd": "-17.49%",
+    "sourceRow": 168
+  },
+  "SBTC28": {
+    "name": "天演兴泰9号",
+    "week": "-7.91%",
+    "ytd": "-17.47%",
+    "sourceRow": 169
+  },
+  "SBTC19": {
+    "name": "天演兴泰8号",
+    "week": "-7.99%",
+    "ytd": "-17.66%",
+    "sourceRow": 170
+  },
+  "SBTC31": {
+    "name": "天演兴泰10号",
+    "week": "-7.96%",
+    "ytd": "-17.66%",
+    "sourceRow": 171
+  },
+  "SBAM79": {
+    "name": "天演兴泰2号",
+    "week": "-7.85%",
+    "ytd": "-3.49%",
+    "sourceRow": 172
+  },
+  "SBUH70": {
+    "name": "天演兴泰11号",
+    "week": "-8.07%",
+    "ytd": "-17.72%",
+    "sourceRow": 173
+  },
+  "SSM604": {
+    "name": "天演兴泰1号C期",
+    "week": "-7.98%",
+    "ytd": "-4.08%",
+    "sourceRow": 174
+  },
+  "SSP483": {
+    "name": "天演兴泰1号D期",
+    "week": "-8.01%",
+    "ytd": "-4.13%",
+    "sourceRow": 175
+  },
+  "SAHY68": {
+    "name": "世纪前沿兴泰精选A期",
+    "week": "-13.54%",
+    "ytd": "-13.03%",
+    "sourceRow": 176
+  },
+  "SSM594": {
+    "name": "天演兴泰1号B期",
+    "week": "-8.31%",
+    "ytd": "-4.05%",
+    "sourceRow": 177
+  },
+  "SSJ699": {
+    "name": "天演兴泰1号A期",
+    "week": "-8.37%",
+    "ytd": "-4.38%",
+    "sourceRow": 178
+  },
+  "SABN27": {
+    "name": "知行通达兴泰汇智量选1号5期",
+    "week": "-9.29%",
+    "ytd": "-7.97%",
+    "sourceRow": 179
+  },
+  "SBTQ49": {
+    "name": "知行通达兴泰汇智量选1号1期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 180
+  },
+  "SABP17": {
+    "name": "知行通达兴泰汇智量选1号3期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 181
+  },
+  "SABG72": {
+    "name": "知行通达兴泰汇智量选1号2期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 182
+  },
+  "SABQ48": {
+    "name": "知行通达兴泰汇智量选6号5期",
+    "week": "-9.32%",
+    "ytd": "-8.05%",
+    "sourceRow": 183
+  },
+  "SABN29": {
+    "name": "知行通达兴泰汇智量选6号2期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 184
+  },
+  "SABR24": {
+    "name": "知行通达兴泰汇智量选6号1期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 185
+  },
+  "SABQ89": {
+    "name": "知行通达兴泰汇智量选6号3期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 186
+  },
+  "SZY501": {
+    "name": "信弘兴泰征程2号",
+    "week": "-8.75%",
+    "ytd": "-11.64%",
+    "sourceRow": 187
+  },
+  "SZU834": {
+    "name": "信弘兴泰征程1号",
+    "week": "-8.75%",
+    "ytd": "-11.48%",
+    "sourceRow": 188
+  },
+  "SSV813": {
+    "name": "明汯兴泰股票精选1号",
+    "week": "-11.02%",
+    "ytd": "+0.55%",
+    "sourceRow": 189
+  },
+  "SATU00": {
+    "name": "宽德兴泰飞虹27号",
+    "week": "-10.94%",
+    "ytd": "-7.40%",
+    "sourceRow": 190
+  },
+  "SB1954": {
+    "name": "卓识锐泰一号1期",
+    "week": "-10.83%",
+    "ytd": "-6.89%",
+    "sourceRow": 191
+  },
+  "SB9876": {
+    "name": "宽德兴泰飞虹1期",
+    "week": "-10.76%",
+    "ytd": "-9.57%",
+    "sourceRow": 192
+  },
+  "SAUZ38": {
+    "name": "宽德兴泰飞虹42号",
+    "week": "-11.05%",
+    "ytd": "-7.14%",
+    "sourceRow": 193
+  },
+  "SVS984": {
+    "name": "致远精选二十三号1期",
+    "week": "-11.63%",
+    "ytd": "-9.16%",
+    "sourceRow": 194
+  },
+  "SZZ370": {
+    "name": "致远精选十七号",
+    "week": "-12.00%",
+    "ytd": "-8.38%",
+    "sourceRow": 195
+  },
+  "SJE255": {
+    "name": "致远精选二十号",
+    "week": "-11.67%",
+    "ytd": "-9.67%",
+    "sourceRow": 196
+  },
+  "SXM769": {
+    "name": "诚奇兴泰股票优选1号",
+    "week": "-13.44%",
+    "ytd": "+0.45%",
+    "sourceRow": 197
+  },
+  "SXD492": {
+    "name": "平方和鼎盛",
+    "week": "-15.98%",
+    "ytd": "+7.00%",
+    "sourceRow": 198
+  },
+  "SAAF69": {
+    "name": "龙旗锐泰一号1期",
+    "week": "-14.27%",
+    "ytd": "-5.58%",
+    "sourceRow": 199
+  },
+  "SBNS64": {
+    "name": "龙旗锐泰一号2期",
+    "week": "-14.28%",
+    "ytd": "-13.47%",
+    "sourceRow": 200
+  },
+  "SBNS67": {
+    "name": "龙旗锐泰一号3期",
+    "week": "-14.28%",
+    "ytd": "-13.47%",
+    "sourceRow": 201
+  },
+  "SLN860": {
+    "name": "九坤股票多空配置26号",
+    "week": "-4.82%",
+    "ytd": "+4.57%",
+    "sourceRow": 204
+  },
+  "SAEK13": {
+    "name": "九坤股票多空配置58号",
+    "week": "-5.28%",
+    "ytd": "+4.15%",
+    "sourceRow": 205
+  },
+  "SLN859": {
+    "name": "九坤股票多空配置25号",
+    "week": "-5.28%",
+    "ytd": "+4.05%",
+    "sourceRow": 206
+  },
+  "SLE619": {
+    "name": "九坤股票多空配置7号",
+    "week": "-5.52%",
+    "ytd": "+4.21%",
+    "sourceRow": 207
+  },
+  "SAAX97": {
+    "name": "进化论三维锐泰1号",
+    "week": "-5.91%",
+    "ytd": "-6.64%",
+    "sourceRow": 208
+  },
+  "SXL818": {
+    "name": "橡木悦泰省心享1号",
+    "week": "-9.30%",
+    "ytd": "-13.35%",
+    "sourceRow": 209
+  },
+  "SBGA33": {
+    "name": "盛丰灵泰灵活对冲1号",
+    "week": "-11.80%",
+    "ytd": "-16.50%",
+    "sourceRow": 210
+  },
+  "STS694": {
+    "name": "龙旗猎豹1号1期",
+    "week": "-13.46%",
+    "ytd": "-8.80%",
+    "sourceRow": 211
+  },
+  "319117": {
+    "name": "申万菱信华泰配置宝",
+    "week": "-0.80%",
+    "ytd": "+1.69%",
+    "sourceRow": 214
+  },
+  "SBTR16": {
+    "name": "泓湖永泰均衡配置六号2期",
+    "week": "-1.80%",
+    "ytd": "+0.39%",
+    "sourceRow": 215
+  },
+  "SBTR18": {
+    "name": "泓湖永泰均衡配置六号3期",
+    "week": "-1.80%",
+    "ytd": "+0.39%",
+    "sourceRow": 216
+  },
+  "SQG203": {
+    "name": "凯丰宏观策略泰享2号",
+    "week": "-3.57%",
+    "ytd": "-6.03%",
+    "sourceRow": 217
+  },
+  "SJT990": {
+    "name": "凯丰宏观策略泰享1号",
+    "week": "-7.29%",
+    "ytd": "-7.34%",
+    "sourceRow": 218
+  },
+  "SB5132": {
+    "name": "润洲正行灵泰多策略1号",
+    "week": "+0.34%",
+    "ytd": "-5.76%",
+    "sourceRow": 221
+  },
+  "STG903": {
+    "name": "艾方波动率均衡6号1期",
+    "week": "+1.33%",
+    "ytd": "+5.42%",
+    "sourceRow": 222
+  },
+  "SVD363": {
+    "name": "艾方波动率均衡6号2期",
+    "week": "+1.32%",
+    "ytd": "+5.42%",
+    "sourceRow": 223
+  },
+  "SBKP23": {
+    "name": "展弘灵泰多策略10号",
+    "week": "-0.27%",
+    "ytd": "+3.36%",
+    "sourceRow": 224
+  },
+  "SAAP23": {
+    "name": "展弘灵泰多策略9号",
+    "week": "-0.40%",
+    "ytd": "+3.16%",
+    "sourceRow": 225
+  },
+  "SZB040": {
+    "name": "展弘灵泰多策略3号",
+    "week": "-0.40%",
+    "ytd": "+3.12%",
+    "sourceRow": 226
+  },
+  "SVJ469": {
+    "name": "展弘灵泰多策略2号",
+    "week": "-0.43%",
+    "ytd": "+3.17%",
+    "sourceRow": 227
+  },
+  "SQW322": {
+    "name": "展弘灵泰多策略1号",
+    "week": "-0.39%",
+    "ytd": "+3.29%",
+    "sourceRow": 228
+  },
+  "SQF745": {
+    "name": "申毅灵泰多策略1号A期",
+    "week": "-0.64%",
+    "ytd": "-0.12%",
+    "sourceRow": 229
+  },
+  "SAXQ76": {
+    "name": "黑翼灵泰CTA多策略1号",
+    "week": "+0.24%",
+    "ytd": "+1.75%",
+    "sourceRow": 230
+  },
+  "6E0511": {
+    "name": "睿泰稳见1号",
+    "week": "-0.03%",
+    "ytd": "-2.18%",
+    "sourceRow": 231
+  },
+  "6E0512": {
+    "name": "睿远基金睿泰稳见2号",
+    "week": "-0.08%",
+    "ytd": "-4.23%",
+    "sourceRow": 232
+  },
+  "SQM071": {
+    "name": "艾方波动率均衡2号",
+    "week": "+1.16%",
+    "ytd": "+1.39%",
+    "sourceRow": 233
+  },
+  "SBHJ98": {
+    "name": "洛书灵泰CTA对冲多策略1号1期",
+    "week": "-0.43%",
+    "ytd": "-1.86%",
+    "sourceRow": 234
+  },
+  "SAXV30": {
+    "name": "千衍灵泰多策略六贞29号",
+    "week": "+0.20%",
+    "ytd": "+3.26%",
+    "sourceRow": 235
+  },
+  "SBJM39": {
+    "name": "千象全景多元灵泰22号1期",
+    "week": "-1.01%",
+    "ytd": "-1.13%",
+    "sourceRow": 236
+  },
+  "SACV36": {
+    "name": "蒙玺稳泰2号1期",
+    "week": "-3.75%",
+    "ytd": "-0.10%",
+    "sourceRow": 237
+  },
+  "SBTJ57": {
+    "name": "黑翼灵泰精选多策略9号",
+    "week": "-1.67%",
+    "ytd": "-6.71%",
+    "sourceRow": 238
+  },
+  "SXG312": {
+    "name": "省心享蒙玺稳泰1号",
+    "week": "-3.64%",
+    "ytd": "-1.92%",
+    "sourceRow": 239
+  },
+  "SBTJ58": {
+    "name": "黑翼灵泰精选多策略10号",
+    "week": "-1.77%",
+    "ytd": "-6.84%",
+    "sourceRow": 240
+  },
+  "SBMH31": {
+    "name": "黑翼灵泰精选多策略5号",
+    "week": "-1.75%",
+    "ytd": "-6.78%",
+    "sourceRow": 241
+  },
+  "SBMH32": {
+    "name": "黑翼灵泰精选多策略6号",
+    "week": "-1.76%",
+    "ytd": "-6.80%",
+    "sourceRow": 242
+  },
+  "SBMH29": {
+    "name": "黑翼灵泰精选多策略3号",
+    "week": "-1.76%",
+    "ytd": "-6.82%",
+    "sourceRow": 243
+  },
+  "SBMH28": {
+    "name": "黑翼灵泰精选多策略2号",
+    "week": "-1.77%",
+    "ytd": "-6.80%",
+    "sourceRow": 244
+  },
+  "SBQE66": {
+    "name": "黑翼灵泰精选多策略7号",
+    "week": "-1.78%",
+    "ytd": "-6.81%",
+    "sourceRow": 245
+  },
+  "SBLQ98": {
+    "name": "黑翼灵泰精选多策略1号",
+    "week": "-1.78%",
+    "ytd": "-6.84%",
+    "sourceRow": 246
+  },
+  "SBTJ56": {
+    "name": "黑翼灵泰精选多策略8号",
+    "week": "-1.80%",
+    "ytd": "-6.84%",
+    "sourceRow": 247
+  },
+  "SZB239": {
+    "name": "省心享翔云灵泰多策略1号",
+    "week": "-1.67%",
+    "ytd": "+0.02%",
+    "sourceRow": 248
+  },
+  "STD876": {
+    "name": "洛书灵泰多策略1期",
+    "week": "-5.24%",
+    "ytd": "+2.55%",
+    "sourceRow": 249
+  },
+  "SZH125": {
+    "name": "宽德灵泰飞凡1期",
+    "week": "-11.57%",
+    "ytd": "-5.27%",
+    "sourceRow": 250
+  },
+  "SSM185": {
+    "name": "黑翼优选灵泰多策略1号",
+    "week": "-13.75%",
+    "ytd": "-2.52%",
+    "sourceRow": 251
+  },
+  "SXM934": {
+    "name": "省心享殊馥馥源套利2号",
+    "week": "+1.14%",
+    "ytd": "+3.96%",
+    "sourceRow": 254
+  },
+  "SAKS75": {
+    "name": "量客稳泰套利1号1期",
+    "week": "+0.38%",
+    "ytd": "+2.91%",
+    "sourceRow": 255
+  },
+  "SBBP07": {
+    "name": "申毅稳泰千里马1号",
+    "week": "-0.48%",
+    "ytd": "-0.28%",
+    "sourceRow": 256
+  },
+  "SBPF91": {
+    "name": "申毅稳泰千里马3号",
+    "week": "-0.43%",
+    "ytd": "-0.18%",
+    "sourceRow": 257
+  },
+  "SBPF86": {
+    "name": "申毅稳泰千里马2号",
+    "week": "-0.43%",
+    "ytd": "-0.20%",
+    "sourceRow": 258
+  },
+  "SB2689": {
+    "name": "展弘优选套利A期",
+    "week": "-0.22%",
+    "ytd": "+2.21%",
+    "sourceRow": 259
+  },
+  "SACP76": {
+    "name": "世纪前沿稳泰对冲A期",
+    "week": "-2.82%",
+    "ytd": "+2.93%",
+    "sourceRow": 262
+  },
+  "SADD76": {
+    "name": "信弘稳泰量化对冲1号1期",
+    "week": "-1.20%",
+    "ytd": "-6.01%",
+    "sourceRow": 263
+  },
+  "SXC706": {
+    "name": "衍复稳泰对冲1期",
+    "week": "-1.18%",
+    "ytd": "+4.04%",
+    "sourceRow": 264
+  },
+  "SAAL02": {
+    "name": "致远稳泰对冲2号",
+    "week": "-2.23%",
+    "ytd": "-3.29%",
+    "sourceRow": 265
+  },
+  "SXS850": {
+    "name": "致远稳泰对冲1号",
+    "week": "-2.07%",
+    "ytd": "-2.42%",
+    "sourceRow": 266
+  },
+  "SQN230": {
+    "name": "诚奇稳泰对冲1号",
+    "week": "-1.99%",
+    "ytd": "+2.03%",
+    "sourceRow": 267
+  },
+  "SAZM22": {
+    "name": "启林稳泰对冲心享1号",
+    "week": "-2.43%",
+    "ytd": "-4.91%",
+    "sourceRow": 268
+  },
+  "SB7837": {
+    "name": "平方和衡盛稳泰对冲18号",
+    "week": "-4.51%",
+    "ytd": "+0.99%",
+    "sourceRow": 269
+  },
+  "SNJ907": {
+    "name": "进化论稳泰对冲1号",
+    "week": "-3.52%",
+    "ytd": "+1.77%",
+    "sourceRow": 270
+  },
+  "SQS916": {
+    "name": "博普锐泰1号",
+    "week": "+1.16%",
+    "ytd": "-10.75%",
+    "sourceRow": 273
+  },
+  "246043": {
+    "name": "元盛九号A",
+    "week": "+0.96%",
+    "ytd": "-6.02%",
+    "sourceRow": 274
+  },
+  "B66708": {
+    "name": "平安信托臻泰星耀1号",
+    "week": "-1.57%",
+    "ytd": "+11.02%",
+    "sourceRow": 277
+  },
+  "B66709": {
+    "name": "平安信托臻泰星耀2号",
+    "week": "-2.65%",
+    "ytd": "+13.43%",
+    "sourceRow": 278
+  },
+  "941982": {
+    "name": "省心享-华泰商品CTA单策略FOF1号",
+    "week": "+0.83%",
+    "ytd": "+2.95%",
+    "sourceRow": 279
+  },
+  "SQX362": {
+    "name": "华泰期货锐泰FOF7号",
+    "week": "-0.11%",
+    "ytd": "+0.08%",
+    "sourceRow": 280
+  },
+  "942202": {
+    "name": "省心享-华泰固收增强单策略FOF1号",
+    "week": "-0.59%",
+    "ytd": "-0.39%",
+    "sourceRow": 281
+  },
+  "942484": {
+    "name": "华泰睿选大类资产配置FOF1号",
+    "week": "-0.70%",
+    "ytd": "+1.28%",
+    "sourceRow": 282
+  },
+  "941980": {
+    "name": "省心享-华泰套利对冲单策略FOF1号",
+    "week": "-1.30%",
+    "ytd": "+0.73%",
+    "sourceRow": 283
+  },
+  "942030": {
+    "name": "省心享-华泰套利对冲单策略FOF5号",
+    "week": "-1.32%",
+    "ytd": "+0.89%",
+    "sourceRow": 284
+  },
+  "941981": {
+    "name": "省心享-华泰套利对冲单策略FOF2号",
+    "week": "-1.43%",
+    "ytd": "+0.92%",
+    "sourceRow": 285
+  },
+  "941746": {
+    "name": "启泰精英FOF1号",
+    "week": "-1.87%",
+    "ytd": "+1.21%",
+    "sourceRow": 286
+  },
+  "941748": {
+    "name": "启泰沪航FOF1号",
+    "week": "-3.41%",
+    "ytd": "-0.15%",
+    "sourceRow": 287
+  },
+  "941289": {
+    "name": "睿泰精英FOF5号",
+    "week": "-3.91%",
+    "ytd": "+0.24%",
+    "sourceRow": 288
+  },
+  "941743": {
+    "name": "睿泰华盛FOF1号",
+    "week": "-5.32%",
+    "ytd": "+1.37%",
+    "sourceRow": 289
+  },
+  "941808": {
+    "name": "睿泰平衡FOF1号",
+    "week": "-5.00%",
+    "ytd": "-3.40%",
+    "sourceRow": 290
+  },
+  "941850": {
+    "name": "鹏泰指增FOF2号",
+    "week": "-6.34%",
+    "ytd": "+1.24%",
+    "sourceRow": 291
+  },
+  "941287": {
+    "name": "睿泰精英FOF2号",
+    "week": "-5.30%",
+    "ytd": "-0.36%",
+    "sourceRow": 292
+  },
+  "942100": {
+    "name": "省心享-华泰沪深300量化单策略FOF1号",
+    "week": "-7.05%",
+    "ytd": "+3.66%",
+    "sourceRow": 293
+  },
+  "SQF748": {
+    "name": "明晟东诚兴泰1期1号",
+    "week": "-7.44%",
+    "ytd": "+23.09%",
+    "sourceRow": 294
+  },
+  "941815": {
+    "name": "鹏泰精英FOF1号",
+    "week": "-6.58%",
+    "ytd": "-2.81%",
+    "sourceRow": 295
+  },
+  "941849": {
+    "name": "鹏泰指增FOF1号",
+    "week": "-7.79%",
+    "ytd": "-0.13%",
+    "sourceRow": 296
+  },
+  "SAUN48": {
+    "name": "省心享汇升天山七号",
+    "week": "-7.87%",
+    "ytd": "-4.56%",
+    "sourceRow": 297
+  },
+  "SQJ585": {
+    "name": "明晟东诚兴泰1期2号",
+    "week": "-8.31%",
+    "ytd": "+22.23%",
+    "sourceRow": 298
+  },
+  "941983": {
+    "name": "省心享-华泰量化多头单策略FOF1号",
+    "week": "-12.99%",
+    "ytd": "-4.09%",
+    "sourceRow": 299
+  },
+  "941901": {
+    "name": "先锋MOM1号",
+    "week": "-6.16%",
+    "ytd": "+14.11%",
+    "sourceRow": 300
+  },
+  "942261": {
+    "name": "华泰荣泰海外美元配置1号QDII",
+    "week": "0.00%",
+    "ytd": "-1.46%",
+    "sourceRow": 303
+  },
+  "319118": {
+    "name": "申万菱信周周鑫2号（QDII）",
+    "week": "+0.04%",
+    "ytd": "-1.76%",
+    "sourceRow": 304
+  },
+  "HT2502": {
+    "name": "固安鑫量金2号",
+    "week": "+0.04%",
+    "ytd": "+1.40%",
+    "sourceRow": 305
+  },
+  "601130": {
+    "name": "国寿资产-源流2158",
+    "week": "+0.03%",
+    "ytd": "+1.20%",
+    "sourceRow": 306
+  },
+  "HT2501": {
+    "name": "固安鑫量金1号",
+    "week": "+0.02%",
+    "ytd": "+1.67%",
+    "sourceRow": 307
+  },
+  "941508": {
+    "name": "掘金信用1号",
+    "week": "+0.03%",
+    "ytd": "+1.73%",
+    "sourceRow": 308
+  },
+  "B35988": {
+    "name": "平安信托周周添利（泰享5号）",
+    "week": "+0.04%",
+    "ytd": "+1.12%",
+    "sourceRow": 309
+  },
+  "B77428": {
+    "name": "平安信托周周添利（泰享1号）",
+    "week": "+0.03%",
+    "ytd": "+1.11%",
+    "sourceRow": 310
+  },
+  "942161": {
+    "name": "华泰紫金月享2号",
+    "week": "+0.02%",
+    "ytd": "+0.41%",
+    "sourceRow": 311
+  },
+  "941119": {
+    "name": "信用1号",
+    "week": "+0.02%",
+    "ytd": "+1.35%",
+    "sourceRow": 312
+  },
+  "236609": {
+    "name": "海富通华海1号QDII-FOF",
+    "week": "-0.15%",
+    "ytd": "-2.03%",
+    "sourceRow": 313
+  },
+  "319116": {
+    "name": "申万菱信目标盈1号（QDII）",
+    "week": "-0.08%",
+    "ytd": "-3.21%",
+    "sourceRow": 314
+  },
+  "246174": {
+    "name": "元盛十五号A",
+    "week": "+1.63%",
+    "ytd": "-4.69%",
+    "sourceRow": 317
+  },
+  "941509": {
+    "name": "沪港深",
+    "week": "+2.59%",
+    "ytd": "-6.96%",
+    "sourceRow": 318
+  },
+  "SALB33": {
+    "name": "均成灵泰1号1期",
+    "week": "+1.69%",
+    "ytd": "-1.42%",
+    "sourceRow": 319
+  },
+  "942301": {
+    "name": "省心享-华泰全球配置稳泰FOF1号",
+    "week": "-0.43%",
+    "ytd": "-1.92%",
+    "sourceRow": 320
+  },
+  "942420": {
+    "name": "华泰紫金月享5号",
+    "week": "+0.01%",
+    "ytd": "+0.23%",
+    "sourceRow": 321
+  },
+  "944323": {
+    "name": "华泰紫金月享3号",
+    "week": "+0.01%",
+    "ytd": "+0.09%",
+    "sourceRow": 322
+  },
+  "941725": {
+    "name": "启泰金阊FOF1号",
+    "week": "+0.01%",
+    "ytd": "+2.96%",
+    "sourceRow": 323
+  },
+  "SQB623": {
+    "name": "石锋资产重剑11号嘉泰B期",
+    "week": "-0.59%",
+    "ytd": "-1.90%",
+    "sourceRow": 324
+  },
+  "941825": {
+    "name": "启泰沪航FOF2号",
+    "week": "-3.08%",
+    "ytd": "+2.70%",
+    "sourceRow": 325
+  },
+  "941747": {
+    "name": "启泰精英FOF2号",
+    "week": "-1.81%",
+    "ytd": "+1.48%",
+    "sourceRow": 326
+  },
+  "941286": {
+    "name": "睿泰精英FOF1号",
+    "week": "-4.86%",
+    "ytd": "-1.51%",
+    "sourceRow": 327
+  },
+  "SB2942": {
+    "name": "省心享东恺兴泰进取一号1期",
+    "week": "-5.35%",
+    "ytd": "+1.59%",
+    "sourceRow": 328
+  },
+  "941978": {
+    "name": "省心享-华泰股多单策略FOF1号",
+    "week": "-7.73%",
+    "ytd": "+10.61%",
+    "sourceRow": 329
+  },
+  "941841": {
+    "name": "陆港通5号",
+    "week": "-7.74%",
+    "ytd": "-0.32%",
+    "sourceRow": 330
+  },
+  "941938": {
+    "name": "陆港通6号",
+    "week": "-7.90%",
+    "ytd": "-2.64%",
+    "sourceRow": 331
+  },
+  "941839": {
+    "name": "陆港通2号",
+    "week": "-8.71%",
+    "ytd": "-3.47%",
+    "sourceRow": 332
+  }
+};
+  const byName = {
+  "陆宝嘉成优势成长": {
+    "code": "SNB074",
+    "name": "陆宝嘉成优势成长",
+    "week": "-3.36%",
+    "ytd": "-15.68%",
+    "sourceRow": 27
+  },
+  "才誉兴泰1号1期": {
+    "code": "SAJH00",
+    "name": "才誉兴泰1号1期",
+    "week": "+1.54%",
+    "ytd": "-11.76%",
+    "sourceRow": 28
+  },
+  "申万菱信全球红利QDIIFOF": {
+    "code": "319119",
+    "name": "申万菱信全球红利QDII-FOF",
+    "week": "-0.46%",
+    "ytd": "+7.55%",
+    "sourceRow": 29
+  },
+  "日斗嘉泰1号": {
+    "code": "SBTE76",
+    "name": "日斗嘉泰1号",
+    "week": "-0.78%",
+    "ytd": "-8.43%",
+    "sourceRow": 30
+  },
+  "易同先锋1号": {
+    "code": "SCP304",
+    "name": "易同先锋1号",
+    "week": "-0.65%",
+    "ytd": "-7.83%",
+    "sourceRow": 31
+  },
+  "睿郡兴泰1号1期": {
+    "code": "STP099",
+    "name": "睿郡兴泰1号1期",
+    "week": "-0.32%",
+    "ytd": "-10.41%",
+    "sourceRow": 32
+  },
+  "惠理中国丰泰3号": {
+    "code": "SNF604",
+    "name": "惠理中国丰泰3号",
+    "week": "-0.64%",
+    "ytd": "-8.95%",
+    "sourceRow": 33
+  },
+  "兴聚润泰1号": {
+    "code": "SCA000",
+    "name": "兴聚润泰1号",
+    "week": "-0.53%",
+    "ytd": "-11.13%",
+    "sourceRow": 34
+  },
+  "拾贝开泰1号": {
+    "code": "SJZ975",
+    "name": "拾贝开泰1号",
+    "week": "-1.03%",
+    "ytd": "-9.40%",
+    "sourceRow": 35
+  },
+  "泉果基金桃源一期三年持有66号": {
+    "code": "2E0066",
+    "name": "泉果基金桃源一期三年持有66号",
+    "week": "-5.73%",
+    "ytd": "+11.05%",
+    "sourceRow": 36
+  },
+  "名禹嘉泰1期": {
+    "code": "STC806",
+    "name": "名禹嘉泰1期",
+    "week": "-4.93%",
+    "ytd": "+3.08%",
+    "sourceRow": 37
+  },
+  "名禹嘉泰2号1期": {
+    "code": "SZS875",
+    "name": "名禹嘉泰2号1期",
+    "week": "-5.14%",
+    "ytd": "+2.65%",
+    "sourceRow": 38
+  },
+  "创新精选": {
+    "code": "940126",
+    "name": "创新精选",
+    "week": "-7.39%",
+    "ytd": "+8.19%",
+    "sourceRow": 39
+  },
+  "睿扬尊享18号": {
+    "code": "SNH500",
+    "name": "睿扬尊享18号",
+    "week": "-7.84%",
+    "ytd": "+65.48%",
+    "sourceRow": 40
+  },
+  "相聚嘉泰1号A期": {
+    "code": "SSN507",
+    "name": "相聚嘉泰1号A期",
+    "week": "-7.08%",
+    "ytd": "-3.68%",
+    "sourceRow": 41
+  },
+  "希瓦小牛10号": {
+    "code": "SCG297",
+    "name": "希瓦小牛10号",
+    "week": "-6.86%",
+    "ytd": "+36.21%",
+    "sourceRow": 42
+  },
+  "希瓦小牛2号": {
+    "code": "SY1044",
+    "name": "希瓦小牛2号",
+    "week": "-6.79%",
+    "ytd": "+35.79%",
+    "sourceRow": 43
+  },
+  "兴全兴泰1号": {
+    "code": "343619",
+    "name": "兴全兴泰1号",
+    "week": "-6.32%",
+    "ytd": "+10.53%",
+    "sourceRow": 44
+  },
+  "兴全兴泰2号": {
+    "code": "343626",
+    "name": "兴全兴泰2号",
+    "week": "-6.01%",
+    "ytd": "+13.15%",
+    "sourceRow": 45
+  },
+  "理成兴泰进取1号1期": {
+    "code": "SQQ865",
+    "name": "理成兴泰进取1号1期",
+    "week": "-9.77%",
+    "ytd": "+23.80%",
+    "sourceRow": 46
+  },
+  "远望角嘉泰探索8号1期": {
+    "code": "SAHL05",
+    "name": "远望角嘉泰探索8号1期",
+    "week": "-11.32%",
+    "ytd": "-5.54%",
+    "sourceRow": 47
+  },
+  "勤辰创赢成长嘉泰1号": {
+    "code": "STY183",
+    "name": "勤辰创赢成长嘉泰1号",
+    "week": "-9.67%",
+    "ytd": "+54.20%",
+    "sourceRow": 48
+  },
+  "复胜嘉泰正能量27号": {
+    "code": "SST216",
+    "name": "复胜嘉泰正能量27号",
+    "week": "+1.03%",
+    "ytd": "-0.22%",
+    "sourceRow": 49
+  },
+  "陆港通1号": {
+    "code": "941827",
+    "name": "陆港通1号",
+    "week": "-8.43%",
+    "ytd": "-3.13%",
+    "sourceRow": 50
+  },
+  "华泰智远1号": {
+    "code": "942014",
+    "name": "华泰智远1号",
+    "week": "-10.76%",
+    "ytd": "+0.14%",
+    "sourceRow": 51
+  },
+  "博鸿聚义兴泰1号C份额": {
+    "code": "STW167",
+    "name": "博鸿聚义兴泰1号C份额",
+    "week": "-10.88%",
+    "ytd": "+11.21%",
+    "sourceRow": 52
+  },
+  "源乐晟九晟兴泰1号": {
+    "code": "SQG731",
+    "name": "源乐晟九晟兴泰1号",
+    "week": "-7.51%",
+    "ytd": "+33.45%",
+    "sourceRow": 53
+  },
+  "同犇16期1号": {
+    "code": "SQJ505",
+    "name": "同犇16期1号",
+    "week": "-7.37%",
+    "ytd": "+26.17%",
+    "sourceRow": 54
+  },
+  "同犇16期3号": {
+    "code": "SQY761",
+    "name": "同犇16期3号",
+    "week": "-7.37%",
+    "ytd": "+26.12%",
+    "sourceRow": 55
+  },
+  "同犇16期2号": {
+    "code": "SQX505",
+    "name": "同犇16期2号",
+    "week": "-7.37%",
+    "ytd": "+26.14%",
+    "sourceRow": 56
+  },
+  "望正精英鹏辉9号2期": {
+    "code": "SLW946",
+    "name": "望正精英鹏辉9号2期",
+    "week": "-7.27%",
+    "ytd": "+17.72%",
+    "sourceRow": 57
+  },
+  "望正精英鹏辉9号1期": {
+    "code": "SLW945",
+    "name": "望正精英鹏辉9号1期",
+    "week": "-7.27%",
+    "ytd": "+17.73%",
+    "sourceRow": 58
+  },
+  "望正精英鹏辉2号证券投资基金1期": {
+    "code": "SJ4871",
+    "name": "望正精英鹏辉2号证券投资基金1期",
+    "week": "-7.71%",
+    "ytd": "+17.85%",
+    "sourceRow": 59
+  },
+  "量锐兴泰进取2号": {
+    "code": "SQU415",
+    "name": "量锐兴泰进取2号",
+    "week": "-12.88%",
+    "ytd": "+2.02%",
+    "sourceRow": 63
+  },
+  "量锐兴泰进取1号": {
+    "code": "SNK782",
+    "name": "量锐兴泰进取1号",
+    "week": "-12.82%",
+    "ytd": "+2.04%",
+    "sourceRow": 64
+  },
+  "世纪前沿兴泰进取B期": {
+    "code": "SSV422",
+    "name": "世纪前沿兴泰进取B期",
+    "week": "-12.53%",
+    "ytd": "+2.60%",
+    "sourceRow": 65
+  },
+  "世纪前沿兴泰进取A期": {
+    "code": "SSV417",
+    "name": "世纪前沿兴泰进取A期",
+    "week": "-12.64%",
+    "ytd": "+2.55%",
+    "sourceRow": 66
+  },
+  "九坤兴泰进取10号": {
+    "code": "SAKD13",
+    "name": "九坤兴泰进取10号",
+    "week": "-13.36%",
+    "ytd": "-16.18%",
+    "sourceRow": 67
+  },
+  "九坤兴泰进取7号": {
+    "code": "SAAK24",
+    "name": "九坤兴泰进取7号",
+    "week": "-13.39%",
+    "ytd": "-16.24%",
+    "sourceRow": 68
+  },
+  "九坤兴泰进取3号": {
+    "code": "SAAL25",
+    "name": "九坤兴泰进取3号",
+    "week": "-13.36%",
+    "ytd": "-16.27%",
+    "sourceRow": 69
+  },
+  "九坤兴泰进取1号": {
+    "code": "SAAH49",
+    "name": "九坤兴泰进取1号",
+    "week": "-13.43%",
+    "ytd": "-16.29%",
+    "sourceRow": 70
+  },
+  "九坤兴泰进取2号": {
+    "code": "SAAK30",
+    "name": "九坤兴泰进取2号",
+    "week": "-13.32%",
+    "ytd": "-16.31%",
+    "sourceRow": 71
+  },
+  "九坤兴泰进取6号": {
+    "code": "SAAH43",
+    "name": "九坤兴泰进取6号",
+    "week": "-13.32%",
+    "ytd": "-16.33%",
+    "sourceRow": 72
+  },
+  "九坤兴泰进取11号": {
+    "code": "SAAK14",
+    "name": "九坤兴泰进取11号",
+    "week": "-13.32%",
+    "ytd": "-16.33%",
+    "sourceRow": 73
+  },
+  "九坤兴泰进取5号": {
+    "code": "SAAL27",
+    "name": "九坤兴泰进取5号",
+    "week": "-13.41%",
+    "ytd": "-16.35%",
+    "sourceRow": 74
+  },
+  "九坤兴泰进取9号": {
+    "code": "SAKC27",
+    "name": "九坤兴泰进取9号",
+    "week": "-13.39%",
+    "ytd": "-16.36%",
+    "sourceRow": 75
+  },
+  "九坤兴泰进取8号": {
+    "code": "SAAJ63",
+    "name": "九坤兴泰进取8号",
+    "week": "-13.41%",
+    "ytd": "-16.37%",
+    "sourceRow": 76
+  },
+  "诚奇兴泰进取1号": {
+    "code": "SQN232",
+    "name": "诚奇兴泰进取1号",
+    "week": "-12.90%",
+    "ytd": "+5.50%",
+    "sourceRow": 77
+  },
+  "诚奇兴泰进取2号": {
+    "code": "SST179",
+    "name": "诚奇兴泰进取2号",
+    "week": "-12.73%",
+    "ytd": "+5.39%",
+    "sourceRow": 78
+  },
+  "诚奇兴泰进取3号": {
+    "code": "SST182",
+    "name": "诚奇兴泰进取3号",
+    "week": "-12.68%",
+    "ytd": "+3.62%",
+    "sourceRow": 79
+  },
+  "九坤兴泰进取16号": {
+    "code": "SANG06",
+    "name": "九坤兴泰进取16号",
+    "week": "-12.37%",
+    "ytd": "-17.90%",
+    "sourceRow": 80
+  },
+  "因诺兴泰进取1号3期": {
+    "code": "SSX042",
+    "name": "因诺兴泰进取1号3期",
+    "week": "-13.03%",
+    "ytd": "-0.62%",
+    "sourceRow": 81
+  },
+  "因诺兴泰进取1号2期": {
+    "code": "SQY454",
+    "name": "因诺兴泰进取1号2期",
+    "week": "-13.07%",
+    "ytd": "-0.64%",
+    "sourceRow": 82
+  },
+  "因诺兴泰进取1号1期": {
+    "code": "SQY446",
+    "name": "因诺兴泰进取1号1期",
+    "week": "-13.07%",
+    "ytd": "-0.65%",
+    "sourceRow": 83
+  },
+  "宽德兴泰进取2号1期": {
+    "code": "SAKK29",
+    "name": "宽德兴泰进取2号1期",
+    "week": "-13.84%",
+    "ytd": "-6.77%",
+    "sourceRow": 84
+  },
+  "九坤兴泰进取12号": {
+    "code": "SAEW64",
+    "name": "九坤兴泰进取12号",
+    "week": "-13.34%",
+    "ytd": "-18.96%",
+    "sourceRow": 85
+  },
+  "九坤兴泰进取15号": {
+    "code": "SAEX31",
+    "name": "九坤兴泰进取15号",
+    "week": "-13.40%",
+    "ytd": "-18.99%",
+    "sourceRow": 86
+  },
+  "九坤兴泰进取13号": {
+    "code": "SAEX49",
+    "name": "九坤兴泰进取13号",
+    "week": "-13.36%",
+    "ytd": "-19.03%",
+    "sourceRow": 87
+  },
+  "幻方量化专享71号2期": {
+    "code": "SNY433",
+    "name": "幻方量化专享71号2期",
+    "week": "-15.74%",
+    "ytd": "-1.02%",
+    "sourceRow": 88
+  },
+  "卓识兴泰伟业十八号": {
+    "code": "SZE699",
+    "name": "卓识兴泰伟业十八号",
+    "week": "-14.54%",
+    "ytd": "-5.86%",
+    "sourceRow": 89
+  },
+  "幻方量化专享71号1期": {
+    "code": "SNY432",
+    "name": "幻方量化专享71号1期",
+    "week": "-16.04%",
+    "ytd": "+3.38%",
+    "sourceRow": 90
+  },
+  "启林泰享2号": {
+    "code": "SNG270",
+    "name": "启林泰享2号",
+    "week": "-13.96%",
+    "ytd": "-5.12%",
+    "sourceRow": 91
+  },
+  "启林泰享1号": {
+    "code": "SNE085",
+    "name": "启林泰享1号",
+    "week": "-14.09%",
+    "ytd": "-5.40%",
+    "sourceRow": 92
+  },
+  "明汯兴泰1号3期": {
+    "code": "SLR032",
+    "name": "明汯兴泰1号3期",
+    "week": "-15.60%",
+    "ytd": "-1.04%",
+    "sourceRow": 93
+  },
+  "明汯兴泰1号2期": {
+    "code": "SLR031",
+    "name": "明汯兴泰1号2期",
+    "week": "-15.74%",
+    "ytd": "-0.68%",
+    "sourceRow": 94
+  },
+  "进化论500锐泰3号": {
+    "code": "SBLM86",
+    "name": "进化论500锐泰3号",
+    "week": "-16.32%",
+    "ytd": "-5.42%",
+    "sourceRow": 95
+  },
+  "进化论500锐泰1号": {
+    "code": "SBLM84",
+    "name": "进化论500锐泰1号",
+    "week": "-16.26%",
+    "ytd": "-5.19%",
+    "sourceRow": 96
+  },
+  "进化论500锐泰2号": {
+    "code": "SBLM85",
+    "name": "进化论500锐泰2号",
+    "week": "-16.31%",
+    "ytd": "-5.33%",
+    "sourceRow": 97
+  },
+  "明汯兴泰1号1期": {
+    "code": "SLP634",
+    "name": "明汯兴泰1号1期",
+    "week": "-15.70%",
+    "ytd": "-1.82%",
+    "sourceRow": 98
+  },
+  "明汯兴泰1号5期": {
+    "code": "SLS282",
+    "name": "明汯兴泰1号5期",
+    "week": "-15.71%",
+    "ytd": "-1.80%",
+    "sourceRow": 99
+  },
+  "弈倍兴泰锐进5号": {
+    "code": "SBVW69",
+    "name": "弈倍兴泰锐进5号",
+    "week": "-8.05%",
+    "ytd": "-8.06%",
+    "sourceRow": 101
+  },
+  "弈倍兴泰锐进3号": {
+    "code": "SBVW60",
+    "name": "弈倍兴泰锐进3号",
+    "week": "-8.11%",
+    "ytd": "-8.12%",
+    "sourceRow": 102
+  },
+  "赫富兴泰锐进1号1期": {
+    "code": "SBBT50",
+    "name": "赫富兴泰锐进1号1期",
+    "week": "-12.53%",
+    "ytd": "+1.05%",
+    "sourceRow": 103
+  },
+  "赫富兴泰锐进1号6期": {
+    "code": "SBQA29",
+    "name": "赫富兴泰锐进1号6期",
+    "week": "-12.52%",
+    "ytd": "-13.24%",
+    "sourceRow": 104
+  },
+  "赫富兴泰锐进1号2期": {
+    "code": "SBQA94",
+    "name": "赫富兴泰锐进1号2期",
+    "week": "-12.52%",
+    "ytd": "-13.23%",
+    "sourceRow": 105
+  },
+  "赫富兴泰锐进1号5期": {
+    "code": "SBQA27",
+    "name": "赫富兴泰锐进1号5期",
+    "week": "-12.53%",
+    "ytd": "-7.06%",
+    "sourceRow": 106
+  },
+  "赫富兴泰锐进1号3期": {
+    "code": "SBQA26",
+    "name": "赫富兴泰锐进1号3期",
+    "week": "-12.53%",
+    "ytd": "-13.25%",
+    "sourceRow": 107
+  },
+  "量锐嘉泰进取2号1期": {
+    "code": "SZY306",
+    "name": "量锐嘉泰进取2号1期",
+    "week": "-12.36%",
+    "ytd": "-0.17%",
+    "sourceRow": 108
+  },
+  "衍复兴泰锐进3期": {
+    "code": "STQ385",
+    "name": "衍复兴泰锐进3期",
+    "week": "-12.86%",
+    "ytd": "+3.49%",
+    "sourceRow": 109
+  },
+  "衍复兴泰锐进2期": {
+    "code": "STQ384",
+    "name": "衍复兴泰锐进2期",
+    "week": "-12.73%",
+    "ytd": "+3.40%",
+    "sourceRow": 110
+  },
+  "衍复兴泰锐进1期": {
+    "code": "STQ383",
+    "name": "衍复兴泰锐进1期",
+    "week": "-12.72%",
+    "ytd": "+3.37%",
+    "sourceRow": 111
+  },
+  "世纪前沿兴泰锐进B期": {
+    "code": "SBFE20",
+    "name": "世纪前沿兴泰锐进B期",
+    "week": "-14.13%",
+    "ytd": "+1.71%",
+    "sourceRow": 112
+  },
+  "世纪前沿兴泰锐进A期": {
+    "code": "SBEB96",
+    "name": "世纪前沿兴泰锐进A期",
+    "week": "-14.12%",
+    "ytd": "+1.79%",
+    "sourceRow": 113
+  },
+  "九坤兴泰锐进A期": {
+    "code": "SXG268",
+    "name": "九坤兴泰锐进A期",
+    "week": "-13.71%",
+    "ytd": "+2.65%",
+    "sourceRow": 114
+  },
+  "世纪前沿兴泰锐进C期": {
+    "code": "SBFH00",
+    "name": "世纪前沿兴泰锐进C期",
+    "week": "-14.26%",
+    "ytd": "+1.51%",
+    "sourceRow": 115
+  },
+  "诚奇兴泰锐进2号": {
+    "code": "SBFJ12",
+    "name": "诚奇兴泰锐进2号",
+    "week": "-13.41%",
+    "ytd": "+3.87%",
+    "sourceRow": 116
+  },
+  "倍漾兴泰锐进2号2期": {
+    "code": "SBFR53",
+    "name": "倍漾兴泰锐进2号2期",
+    "week": "-13.75%",
+    "ytd": "-2.70%",
+    "sourceRow": 117
+  },
+  "倍漾兴泰锐进2号1期": {
+    "code": "SBFR51",
+    "name": "倍漾兴泰锐进2号1期",
+    "week": "-13.75%",
+    "ytd": "-2.70%",
+    "sourceRow": 118
+  },
+  "倍漾兴泰锐进2号3期": {
+    "code": "SBJW39",
+    "name": "倍漾兴泰锐进2号3期",
+    "week": "-13.76%",
+    "ytd": "-2.70%",
+    "sourceRow": 119
+  },
+  "倍漾兴泰锐进2号5期": {
+    "code": "SBJW40",
+    "name": "倍漾兴泰锐进2号5期",
+    "week": "-13.77%",
+    "ytd": "-2.71%",
+    "sourceRow": 120
+  },
+  "诚奇兴泰锐进1号": {
+    "code": "SAYD60",
+    "name": "诚奇兴泰锐进1号",
+    "week": "-14.85%",
+    "ytd": "+3.19%",
+    "sourceRow": 121
+  },
+  "诚奇兴泰锐进8号": {
+    "code": "SBPM13",
+    "name": "诚奇兴泰锐进8号",
+    "week": "-14.79%",
+    "ytd": "-7.90%",
+    "sourceRow": 122
+  },
+  "诚奇兴泰锐进6号": {
+    "code": "SBMZ37",
+    "name": "诚奇兴泰锐进6号",
+    "week": "-14.78%",
+    "ytd": "-8.33%",
+    "sourceRow": 123
+  },
+  "诚奇兴泰锐进7号": {
+    "code": "SBMZ38",
+    "name": "诚奇兴泰锐进7号",
+    "week": "-14.82%",
+    "ytd": "-8.30%",
+    "sourceRow": 124
+  },
+  "诚奇兴泰锐进9号": {
+    "code": "SBPR65",
+    "name": "诚奇兴泰锐进9号",
+    "week": "-14.84%",
+    "ytd": "-8.09%",
+    "sourceRow": 125
+  },
+  "诚奇兴泰锐进3号": {
+    "code": "SBMZ28",
+    "name": "诚奇兴泰锐进3号",
+    "week": "-14.83%",
+    "ytd": "-8.40%",
+    "sourceRow": 126
+  },
+  "诚奇兴泰锐进5号": {
+    "code": "SBMZ33",
+    "name": "诚奇兴泰锐进5号",
+    "week": "-14.84%",
+    "ytd": "-8.43%",
+    "sourceRow": 127
+  },
+  "千衍兴泰锐进六和62号": {
+    "code": "SBQV56",
+    "name": "千衍兴泰锐进六和62号",
+    "week": "-14.22%",
+    "ytd": "-2.54%",
+    "sourceRow": 128
+  },
+  "稳博兴泰进取2号2期": {
+    "code": "SB5386",
+    "name": "稳博兴泰进取2号2期",
+    "week": "-16.70%",
+    "ytd": "-12.36%",
+    "sourceRow": 129
+  },
+  "稳博兴泰进取2号1期": {
+    "code": "SB3962",
+    "name": "稳博兴泰进取2号1期",
+    "week": "-16.80%",
+    "ytd": "-12.52%",
+    "sourceRow": 130
+  },
+  "启林兴泰锐进心享1号": {
+    "code": "SAZJ69",
+    "name": "启林兴泰锐进心享1号",
+    "week": "-16.03%",
+    "ytd": "-9.30%",
+    "sourceRow": 131
+  },
+  "启林兴泰锐进心享2号": {
+    "code": "SBDB05",
+    "name": "启林兴泰锐进心享2号",
+    "week": "-16.03%",
+    "ytd": "-9.81%",
+    "sourceRow": 132
+  },
+  "启林兴泰锐进心享5号": {
+    "code": "SBRD12",
+    "name": "启林兴泰锐进心享5号",
+    "week": "-16.10%",
+    "ytd": "-14.82%",
+    "sourceRow": 133
+  },
+  "启林兴泰锐进心享3号": {
+    "code": "SBRD11",
+    "name": "启林兴泰锐进心享3号",
+    "week": "-16.13%",
+    "ytd": "-14.58%",
+    "sourceRow": 134
+  },
+  "衍复兴泰进享1号": {
+    "code": "SANX58",
+    "name": "衍复兴泰进享1号",
+    "week": "-6.75%",
+    "ytd": "+4.49%",
+    "sourceRow": 136
+  },
+  "九坤兴泰进享3号": {
+    "code": "SBFK50",
+    "name": "九坤兴泰进享3号",
+    "week": "-8.59%",
+    "ytd": "+6.59%",
+    "sourceRow": 138
+  },
+  "九坤兴泰进享2号": {
+    "code": "SBFK32",
+    "name": "九坤兴泰进享2号",
+    "week": "-8.52%",
+    "ytd": "+6.04%",
+    "sourceRow": 139
+  },
+  "九坤兴泰进享8号": {
+    "code": "SBHQ86",
+    "name": "九坤兴泰进享8号",
+    "week": "-8.61%",
+    "ytd": "+6.38%",
+    "sourceRow": 140
+  },
+  "九坤兴泰进享5号": {
+    "code": "SBFK60",
+    "name": "九坤兴泰进享5号",
+    "week": "-8.57%",
+    "ytd": "+6.21%",
+    "sourceRow": 141
+  },
+  "九坤兴泰进享1号": {
+    "code": "SBCY39",
+    "name": "九坤兴泰进享1号",
+    "week": "-8.66%",
+    "ytd": "+5.95%",
+    "sourceRow": 142
+  },
+  "九坤兴泰进享6号": {
+    "code": "SBGY11",
+    "name": "九坤兴泰进享6号",
+    "week": "-8.68%",
+    "ytd": "+6.17%",
+    "sourceRow": 143
+  },
+  "九坤兴泰进享9号": {
+    "code": "SBHQ88",
+    "name": "九坤兴泰进享9号",
+    "week": "-8.62%",
+    "ytd": "+6.44%",
+    "sourceRow": 144
+  },
+  "致远中证A500兴泰2号1期": {
+    "code": "SAUS91",
+    "name": "致远中证A500兴泰2号1期",
+    "week": "-8.93%",
+    "ytd": "-1.17%",
+    "sourceRow": 145
+  },
+  "宽德中证A500兴泰进享3号": {
+    "code": "SATD74",
+    "name": "宽德中证A500兴泰进享3号",
+    "week": "-10.17%",
+    "ytd": "-3.22%",
+    "sourceRow": 146
+  },
+  "宽德中证A500兴泰进享1号": {
+    "code": "SASK35",
+    "name": "宽德中证A500兴泰进享1号",
+    "week": "-10.14%",
+    "ytd": "-3.21%",
+    "sourceRow": 147
+  },
+  "量派中证A500兴泰1号1期": {
+    "code": "SAZG00",
+    "name": "量派中证A500兴泰1号1期",
+    "week": "-10.01%",
+    "ytd": "+0.25%",
+    "sourceRow": 148
+  },
+  "黑翼兴泰进享1号": {
+    "code": "SATG48",
+    "name": "黑翼兴泰进享1号",
+    "week": "-11.23%",
+    "ytd": "-2.97%",
+    "sourceRow": 149
+  },
+  "衍复兴泰小市值1期": {
+    "code": "SB4307",
+    "name": "衍复兴泰小市值1期",
+    "week": "-6.07%",
+    "ytd": "-2.61%",
+    "sourceRow": 151
+  },
+  "衍复兴泰小市值2期": {
+    "code": "SB8183",
+    "name": "衍复兴泰小市值2期",
+    "week": "-5.96%",
+    "ytd": "-4.85%",
+    "sourceRow": 152
+  },
+  "衍复兴泰中证全指3号": {
+    "code": "SAUN40",
+    "name": "衍复兴泰中证全指3号",
+    "week": "-9.35%",
+    "ytd": "+3.96%",
+    "sourceRow": 154
+  },
+  "衍复兴泰中证全指1号": {
+    "code": "SARL30",
+    "name": "衍复兴泰中证全指1号",
+    "week": "-9.34%",
+    "ytd": "+4.77%",
+    "sourceRow": 155
+  },
+  "衍复兴泰中证全指6号": {
+    "code": "SBNV94",
+    "name": "衍复兴泰中证全指6号",
+    "week": "-9.29%",
+    "ytd": "-5.15%",
+    "sourceRow": 156
+  },
+  "衍复兴泰中证全指8号": {
+    "code": "SBNV99",
+    "name": "衍复兴泰中证全指8号",
+    "week": "-9.31%",
+    "ytd": "-4.79%",
+    "sourceRow": 157
+  },
+  "衍复兴泰中证全指10号": {
+    "code": "SBNW59",
+    "name": "衍复兴泰中证全指10号",
+    "week": "-9.33%",
+    "ytd": "-5.32%",
+    "sourceRow": 158
+  },
+  "衍复兴泰中证全指5号": {
+    "code": "SAWR23",
+    "name": "衍复兴泰中证全指5号",
+    "week": "-9.37%",
+    "ytd": "-5.01%",
+    "sourceRow": 159
+  },
+  "衍复兴泰中证全指9号": {
+    "code": "SBNW02",
+    "name": "衍复兴泰中证全指9号",
+    "week": "-9.46%",
+    "ytd": "-4.98%",
+    "sourceRow": 160
+  },
+  "衍复兴泰中证全指7号": {
+    "code": "SBNV97",
+    "name": "衍复兴泰中证全指7号",
+    "week": "-9.45%",
+    "ytd": "-5.54%",
+    "sourceRow": 161
+  },
+  "信弘兴泰中证全指2号": {
+    "code": "SBKE17",
+    "name": "信弘兴泰中证全指2号",
+    "week": "-13.02%",
+    "ytd": "-18.79%",
+    "sourceRow": 162
+  },
+  "天演兴泰12号": {
+    "code": "SBUH71",
+    "name": "天演兴泰12号",
+    "week": "-7.84%",
+    "ytd": "-17.49%",
+    "sourceRow": 165
+  },
+  "天演兴泰7号": {
+    "code": "SBTC14",
+    "name": "天演兴泰7号",
+    "week": "-7.94%",
+    "ytd": "-17.64%",
+    "sourceRow": 166
+  },
+  "天演兴泰5号": {
+    "code": "SBTC04",
+    "name": "天演兴泰5号",
+    "week": "-7.87%",
+    "ytd": "-17.49%",
+    "sourceRow": 167
+  },
+  "天演兴泰6号": {
+    "code": "SBTC09",
+    "name": "天演兴泰6号",
+    "week": "-7.87%",
+    "ytd": "-17.49%",
+    "sourceRow": 168
+  },
+  "天演兴泰9号": {
+    "code": "SBTC28",
+    "name": "天演兴泰9号",
+    "week": "-7.91%",
+    "ytd": "-17.47%",
+    "sourceRow": 169
+  },
+  "天演兴泰8号": {
+    "code": "SBTC19",
+    "name": "天演兴泰8号",
+    "week": "-7.99%",
+    "ytd": "-17.66%",
+    "sourceRow": 170
+  },
+  "天演兴泰10号": {
+    "code": "SBTC31",
+    "name": "天演兴泰10号",
+    "week": "-7.96%",
+    "ytd": "-17.66%",
+    "sourceRow": 171
+  },
+  "天演兴泰2号": {
+    "code": "SBAM79",
+    "name": "天演兴泰2号",
+    "week": "-7.85%",
+    "ytd": "-3.49%",
+    "sourceRow": 172
+  },
+  "天演兴泰11号": {
+    "code": "SBUH70",
+    "name": "天演兴泰11号",
+    "week": "-8.07%",
+    "ytd": "-17.72%",
+    "sourceRow": 173
+  },
+  "天演兴泰1号C期": {
+    "code": "SSM604",
+    "name": "天演兴泰1号C期",
+    "week": "-7.98%",
+    "ytd": "-4.08%",
+    "sourceRow": 174
+  },
+  "天演兴泰1号D期": {
+    "code": "SSP483",
+    "name": "天演兴泰1号D期",
+    "week": "-8.01%",
+    "ytd": "-4.13%",
+    "sourceRow": 175
+  },
+  "世纪前沿兴泰精选A期": {
+    "code": "SAHY68",
+    "name": "世纪前沿兴泰精选A期",
+    "week": "-13.54%",
+    "ytd": "-13.03%",
+    "sourceRow": 176
+  },
+  "天演兴泰1号B期": {
+    "code": "SSM594",
+    "name": "天演兴泰1号B期",
+    "week": "-8.31%",
+    "ytd": "-4.05%",
+    "sourceRow": 177
+  },
+  "天演兴泰1号A期": {
+    "code": "SSJ699",
+    "name": "天演兴泰1号A期",
+    "week": "-8.37%",
+    "ytd": "-4.38%",
+    "sourceRow": 178
+  },
+  "知行通达兴泰汇智量选1号5期": {
+    "code": "SABN27",
+    "name": "知行通达兴泰汇智量选1号5期",
+    "week": "-9.29%",
+    "ytd": "-7.97%",
+    "sourceRow": 179
+  },
+  "知行通达兴泰汇智量选1号1期": {
+    "code": "SBTQ49",
+    "name": "知行通达兴泰汇智量选1号1期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 180
+  },
+  "知行通达兴泰汇智量选1号3期": {
+    "code": "SABP17",
+    "name": "知行通达兴泰汇智量选1号3期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 181
+  },
+  "知行通达兴泰汇智量选1号2期": {
+    "code": "SABG72",
+    "name": "知行通达兴泰汇智量选1号2期",
+    "week": "-9.29%",
+    "ytd": "-7.96%",
+    "sourceRow": 182
+  },
+  "知行通达兴泰汇智量选6号5期": {
+    "code": "SABQ48",
+    "name": "知行通达兴泰汇智量选6号5期",
+    "week": "-9.32%",
+    "ytd": "-8.05%",
+    "sourceRow": 183
+  },
+  "知行通达兴泰汇智量选6号2期": {
+    "code": "SABN29",
+    "name": "知行通达兴泰汇智量选6号2期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 184
+  },
+  "知行通达兴泰汇智量选6号1期": {
+    "code": "SABR24",
+    "name": "知行通达兴泰汇智量选6号1期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 185
+  },
+  "知行通达兴泰汇智量选6号3期": {
+    "code": "SABQ89",
+    "name": "知行通达兴泰汇智量选6号3期",
+    "week": "-9.33%",
+    "ytd": "-8.05%",
+    "sourceRow": 186
+  },
+  "信弘兴泰征程2号": {
+    "code": "SZY501",
+    "name": "信弘兴泰征程2号",
+    "week": "-8.75%",
+    "ytd": "-11.64%",
+    "sourceRow": 187
+  },
+  "信弘兴泰征程1号": {
+    "code": "SZU834",
+    "name": "信弘兴泰征程1号",
+    "week": "-8.75%",
+    "ytd": "-11.48%",
+    "sourceRow": 188
+  },
+  "明汯兴泰股票精选1号": {
+    "code": "SSV813",
+    "name": "明汯兴泰股票精选1号",
+    "week": "-11.02%",
+    "ytd": "+0.55%",
+    "sourceRow": 189
+  },
+  "宽德兴泰飞虹27号": {
+    "code": "SATU00",
+    "name": "宽德兴泰飞虹27号",
+    "week": "-10.94%",
+    "ytd": "-7.40%",
+    "sourceRow": 190
+  },
+  "卓识锐泰一号1期": {
+    "code": "SB1954",
+    "name": "卓识锐泰一号1期",
+    "week": "-10.83%",
+    "ytd": "-6.89%",
+    "sourceRow": 191
+  },
+  "宽德兴泰飞虹1期": {
+    "code": "SB9876",
+    "name": "宽德兴泰飞虹1期",
+    "week": "-10.76%",
+    "ytd": "-9.57%",
+    "sourceRow": 192
+  },
+  "宽德兴泰飞虹42号": {
+    "code": "SAUZ38",
+    "name": "宽德兴泰飞虹42号",
+    "week": "-11.05%",
+    "ytd": "-7.14%",
+    "sourceRow": 193
+  },
+  "致远精选二十三号1期": {
+    "code": "SVS984",
+    "name": "致远精选二十三号1期",
+    "week": "-11.63%",
+    "ytd": "-9.16%",
+    "sourceRow": 194
+  },
+  "致远精选十七号": {
+    "code": "SZZ370",
+    "name": "致远精选十七号",
+    "week": "-12.00%",
+    "ytd": "-8.38%",
+    "sourceRow": 195
+  },
+  "致远精选二十号": {
+    "code": "SJE255",
+    "name": "致远精选二十号",
+    "week": "-11.67%",
+    "ytd": "-9.67%",
+    "sourceRow": 196
+  },
+  "诚奇兴泰股票优选1号": {
+    "code": "SXM769",
+    "name": "诚奇兴泰股票优选1号",
+    "week": "-13.44%",
+    "ytd": "+0.45%",
+    "sourceRow": 197
+  },
+  "平方和鼎盛": {
+    "code": "SXD492",
+    "name": "平方和鼎盛",
+    "week": "-15.98%",
+    "ytd": "+7.00%",
+    "sourceRow": 198
+  },
+  "龙旗锐泰一号1期": {
+    "code": "SAAF69",
+    "name": "龙旗锐泰一号1期",
+    "week": "-14.27%",
+    "ytd": "-5.58%",
+    "sourceRow": 199
+  },
+  "龙旗锐泰一号2期": {
+    "code": "SBNS64",
+    "name": "龙旗锐泰一号2期",
+    "week": "-14.28%",
+    "ytd": "-13.47%",
+    "sourceRow": 200
+  },
+  "龙旗锐泰一号3期": {
+    "code": "SBNS67",
+    "name": "龙旗锐泰一号3期",
+    "week": "-14.28%",
+    "ytd": "-13.47%",
+    "sourceRow": 201
+  },
+  "九坤股票多空配置26号": {
+    "code": "SLN860",
+    "name": "九坤股票多空配置26号",
+    "week": "-4.82%",
+    "ytd": "+4.57%",
+    "sourceRow": 204
+  },
+  "九坤股票多空配置58号": {
+    "code": "SAEK13",
+    "name": "九坤股票多空配置58号",
+    "week": "-5.28%",
+    "ytd": "+4.15%",
+    "sourceRow": 205
+  },
+  "九坤股票多空配置25号": {
+    "code": "SLN859",
+    "name": "九坤股票多空配置25号",
+    "week": "-5.28%",
+    "ytd": "+4.05%",
+    "sourceRow": 206
+  },
+  "九坤股票多空配置7号": {
+    "code": "SLE619",
+    "name": "九坤股票多空配置7号",
+    "week": "-5.52%",
+    "ytd": "+4.21%",
+    "sourceRow": 207
+  },
+  "进化论三维锐泰1号": {
+    "code": "SAAX97",
+    "name": "进化论三维锐泰1号",
+    "week": "-5.91%",
+    "ytd": "-6.64%",
+    "sourceRow": 208
+  },
+  "橡木悦泰省心享1号": {
+    "code": "SXL818",
+    "name": "橡木悦泰省心享1号",
+    "week": "-9.30%",
+    "ytd": "-13.35%",
+    "sourceRow": 209
+  },
+  "盛丰灵泰灵活对冲1号": {
+    "code": "SBGA33",
+    "name": "盛丰灵泰灵活对冲1号",
+    "week": "-11.80%",
+    "ytd": "-16.50%",
+    "sourceRow": 210
+  },
+  "龙旗猎豹1号1期": {
+    "code": "STS694",
+    "name": "龙旗猎豹1号1期",
+    "week": "-13.46%",
+    "ytd": "-8.80%",
+    "sourceRow": 211
+  },
+  "申万菱信华泰配置宝": {
+    "code": "319117",
+    "name": "申万菱信华泰配置宝",
+    "week": "-0.80%",
+    "ytd": "+1.69%",
+    "sourceRow": 214
+  },
+  "泓湖永泰均衡配置六号2期": {
+    "code": "SBTR16",
+    "name": "泓湖永泰均衡配置六号2期",
+    "week": "-1.80%",
+    "ytd": "+0.39%",
+    "sourceRow": 215
+  },
+  "泓湖永泰均衡配置六号3期": {
+    "code": "SBTR18",
+    "name": "泓湖永泰均衡配置六号3期",
+    "week": "-1.80%",
+    "ytd": "+0.39%",
+    "sourceRow": 216
+  },
+  "凯丰宏观策略泰享2号": {
+    "code": "SQG203",
+    "name": "凯丰宏观策略泰享2号",
+    "week": "-3.57%",
+    "ytd": "-6.03%",
+    "sourceRow": 217
+  },
+  "凯丰宏观策略泰享1号": {
+    "code": "SJT990",
+    "name": "凯丰宏观策略泰享1号",
+    "week": "-7.29%",
+    "ytd": "-7.34%",
+    "sourceRow": 218
+  },
+  "润洲正行灵泰多策略1号": {
+    "code": "SB5132",
+    "name": "润洲正行灵泰多策略1号",
+    "week": "+0.34%",
+    "ytd": "-5.76%",
+    "sourceRow": 221
+  },
+  "艾方波动率均衡6号1期": {
+    "code": "STG903",
+    "name": "艾方波动率均衡6号1期",
+    "week": "+1.33%",
+    "ytd": "+5.42%",
+    "sourceRow": 222
+  },
+  "艾方波动率均衡6号2期": {
+    "code": "SVD363",
+    "name": "艾方波动率均衡6号2期",
+    "week": "+1.32%",
+    "ytd": "+5.42%",
+    "sourceRow": 223
+  },
+  "展弘灵泰多策略10号": {
+    "code": "SBKP23",
+    "name": "展弘灵泰多策略10号",
+    "week": "-0.27%",
+    "ytd": "+3.36%",
+    "sourceRow": 224
+  },
+  "展弘灵泰多策略9号": {
+    "code": "SAAP23",
+    "name": "展弘灵泰多策略9号",
+    "week": "-0.40%",
+    "ytd": "+3.16%",
+    "sourceRow": 225
+  },
+  "展弘灵泰多策略3号": {
+    "code": "SZB040",
+    "name": "展弘灵泰多策略3号",
+    "week": "-0.40%",
+    "ytd": "+3.12%",
+    "sourceRow": 226
+  },
+  "展弘灵泰多策略2号": {
+    "code": "SVJ469",
+    "name": "展弘灵泰多策略2号",
+    "week": "-0.43%",
+    "ytd": "+3.17%",
+    "sourceRow": 227
+  },
+  "展弘灵泰多策略1号": {
+    "code": "SQW322",
+    "name": "展弘灵泰多策略1号",
+    "week": "-0.39%",
+    "ytd": "+3.29%",
+    "sourceRow": 228
+  },
+  "申毅灵泰多策略1号A期": {
+    "code": "SQF745",
+    "name": "申毅灵泰多策略1号A期",
+    "week": "-0.64%",
+    "ytd": "-0.12%",
+    "sourceRow": 229
+  },
+  "黑翼灵泰CTA多策略1号": {
+    "code": "SAXQ76",
+    "name": "黑翼灵泰CTA多策略1号",
+    "week": "+0.24%",
+    "ytd": "+1.75%",
+    "sourceRow": 230
+  },
+  "睿泰稳见1号": {
+    "code": "6E0511",
+    "name": "睿泰稳见1号",
+    "week": "-0.03%",
+    "ytd": "-2.18%",
+    "sourceRow": 231
+  },
+  "睿远基金睿泰稳见2号": {
+    "code": "6E0512",
+    "name": "睿远基金睿泰稳见2号",
+    "week": "-0.08%",
+    "ytd": "-4.23%",
+    "sourceRow": 232
+  },
+  "艾方波动率均衡2号": {
+    "code": "SQM071",
+    "name": "艾方波动率均衡2号",
+    "week": "+1.16%",
+    "ytd": "+1.39%",
+    "sourceRow": 233
+  },
+  "洛书灵泰CTA对冲多策略1号1期": {
+    "code": "SBHJ98",
+    "name": "洛书灵泰CTA对冲多策略1号1期",
+    "week": "-0.43%",
+    "ytd": "-1.86%",
+    "sourceRow": 234
+  },
+  "千衍灵泰多策略六贞29号": {
+    "code": "SAXV30",
+    "name": "千衍灵泰多策略六贞29号",
+    "week": "+0.20%",
+    "ytd": "+3.26%",
+    "sourceRow": 235
+  },
+  "千象全景多元灵泰22号1期": {
+    "code": "SBJM39",
+    "name": "千象全景多元灵泰22号1期",
+    "week": "-1.01%",
+    "ytd": "-1.13%",
+    "sourceRow": 236
+  },
+  "蒙玺稳泰2号1期": {
+    "code": "SACV36",
+    "name": "蒙玺稳泰2号1期",
+    "week": "-3.75%",
+    "ytd": "-0.10%",
+    "sourceRow": 237
+  },
+  "黑翼灵泰精选多策略9号": {
+    "code": "SBTJ57",
+    "name": "黑翼灵泰精选多策略9号",
+    "week": "-1.67%",
+    "ytd": "-6.71%",
+    "sourceRow": 238
+  },
+  "省心享蒙玺稳泰1号": {
+    "code": "SXG312",
+    "name": "省心享蒙玺稳泰1号",
+    "week": "-3.64%",
+    "ytd": "-1.92%",
+    "sourceRow": 239
+  },
+  "黑翼灵泰精选多策略10号": {
+    "code": "SBTJ58",
+    "name": "黑翼灵泰精选多策略10号",
+    "week": "-1.77%",
+    "ytd": "-6.84%",
+    "sourceRow": 240
+  },
+  "黑翼灵泰精选多策略5号": {
+    "code": "SBMH31",
+    "name": "黑翼灵泰精选多策略5号",
+    "week": "-1.75%",
+    "ytd": "-6.78%",
+    "sourceRow": 241
+  },
+  "黑翼灵泰精选多策略6号": {
+    "code": "SBMH32",
+    "name": "黑翼灵泰精选多策略6号",
+    "week": "-1.76%",
+    "ytd": "-6.80%",
+    "sourceRow": 242
+  },
+  "黑翼灵泰精选多策略3号": {
+    "code": "SBMH29",
+    "name": "黑翼灵泰精选多策略3号",
+    "week": "-1.76%",
+    "ytd": "-6.82%",
+    "sourceRow": 243
+  },
+  "黑翼灵泰精选多策略2号": {
+    "code": "SBMH28",
+    "name": "黑翼灵泰精选多策略2号",
+    "week": "-1.77%",
+    "ytd": "-6.80%",
+    "sourceRow": 244
+  },
+  "黑翼灵泰精选多策略7号": {
+    "code": "SBQE66",
+    "name": "黑翼灵泰精选多策略7号",
+    "week": "-1.78%",
+    "ytd": "-6.81%",
+    "sourceRow": 245
+  },
+  "黑翼灵泰精选多策略1号": {
+    "code": "SBLQ98",
+    "name": "黑翼灵泰精选多策略1号",
+    "week": "-1.78%",
+    "ytd": "-6.84%",
+    "sourceRow": 246
+  },
+  "黑翼灵泰精选多策略8号": {
+    "code": "SBTJ56",
+    "name": "黑翼灵泰精选多策略8号",
+    "week": "-1.80%",
+    "ytd": "-6.84%",
+    "sourceRow": 247
+  },
+  "省心享翔云灵泰多策略1号": {
+    "code": "SZB239",
+    "name": "省心享翔云灵泰多策略1号",
+    "week": "-1.67%",
+    "ytd": "+0.02%",
+    "sourceRow": 248
+  },
+  "洛书灵泰多策略1期": {
+    "code": "STD876",
+    "name": "洛书灵泰多策略1期",
+    "week": "-5.24%",
+    "ytd": "+2.55%",
+    "sourceRow": 249
+  },
+  "宽德灵泰飞凡1期": {
+    "code": "SZH125",
+    "name": "宽德灵泰飞凡1期",
+    "week": "-11.57%",
+    "ytd": "-5.27%",
+    "sourceRow": 250
+  },
+  "黑翼优选灵泰多策略1号": {
+    "code": "SSM185",
+    "name": "黑翼优选灵泰多策略1号",
+    "week": "-13.75%",
+    "ytd": "-2.52%",
+    "sourceRow": 251
+  },
+  "省心享殊馥馥源套利2号": {
+    "code": "SXM934",
+    "name": "省心享殊馥馥源套利2号",
+    "week": "+1.14%",
+    "ytd": "+3.96%",
+    "sourceRow": 254
+  },
+  "量客稳泰套利1号1期": {
+    "code": "SAKS75",
+    "name": "量客稳泰套利1号1期",
+    "week": "+0.38%",
+    "ytd": "+2.91%",
+    "sourceRow": 255
+  },
+  "申毅稳泰千里马1号": {
+    "code": "SBBP07",
+    "name": "申毅稳泰千里马1号",
+    "week": "-0.48%",
+    "ytd": "-0.28%",
+    "sourceRow": 256
+  },
+  "申毅稳泰千里马3号": {
+    "code": "SBPF91",
+    "name": "申毅稳泰千里马3号",
+    "week": "-0.43%",
+    "ytd": "-0.18%",
+    "sourceRow": 257
+  },
+  "申毅稳泰千里马2号": {
+    "code": "SBPF86",
+    "name": "申毅稳泰千里马2号",
+    "week": "-0.43%",
+    "ytd": "-0.20%",
+    "sourceRow": 258
+  },
+  "展弘优选套利A期": {
+    "code": "SB2689",
+    "name": "展弘优选套利A期",
+    "week": "-0.22%",
+    "ytd": "+2.21%",
+    "sourceRow": 259
+  },
+  "世纪前沿稳泰对冲A期": {
+    "code": "SACP76",
+    "name": "世纪前沿稳泰对冲A期",
+    "week": "-2.82%",
+    "ytd": "+2.93%",
+    "sourceRow": 262
+  },
+  "信弘稳泰量化对冲1号1期": {
+    "code": "SADD76",
+    "name": "信弘稳泰量化对冲1号1期",
+    "week": "-1.20%",
+    "ytd": "-6.01%",
+    "sourceRow": 263
+  },
+  "衍复稳泰对冲1期": {
+    "code": "SXC706",
+    "name": "衍复稳泰对冲1期",
+    "week": "-1.18%",
+    "ytd": "+4.04%",
+    "sourceRow": 264
+  },
+  "致远稳泰对冲2号": {
+    "code": "SAAL02",
+    "name": "致远稳泰对冲2号",
+    "week": "-2.23%",
+    "ytd": "-3.29%",
+    "sourceRow": 265
+  },
+  "致远稳泰对冲1号": {
+    "code": "SXS850",
+    "name": "致远稳泰对冲1号",
+    "week": "-2.07%",
+    "ytd": "-2.42%",
+    "sourceRow": 266
+  },
+  "诚奇稳泰对冲1号": {
+    "code": "SQN230",
+    "name": "诚奇稳泰对冲1号",
+    "week": "-1.99%",
+    "ytd": "+2.03%",
+    "sourceRow": 267
+  },
+  "启林稳泰对冲心享1号": {
+    "code": "SAZM22",
+    "name": "启林稳泰对冲心享1号",
+    "week": "-2.43%",
+    "ytd": "-4.91%",
+    "sourceRow": 268
+  },
+  "平方和衡盛稳泰对冲18号": {
+    "code": "SB7837",
+    "name": "平方和衡盛稳泰对冲18号",
+    "week": "-4.51%",
+    "ytd": "+0.99%",
+    "sourceRow": 269
+  },
+  "进化论稳泰对冲1号": {
+    "code": "SNJ907",
+    "name": "进化论稳泰对冲1号",
+    "week": "-3.52%",
+    "ytd": "+1.77%",
+    "sourceRow": 270
+  },
+  "博普锐泰1号": {
+    "code": "SQS916",
+    "name": "博普锐泰1号",
+    "week": "+1.16%",
+    "ytd": "-10.75%",
+    "sourceRow": 273
+  },
+  "元盛九号A": {
+    "code": "246043",
+    "name": "元盛九号A",
+    "week": "+0.96%",
+    "ytd": "-6.02%",
+    "sourceRow": 274
+  },
+  "平安信托臻泰星耀1号": {
+    "code": "B66708",
+    "name": "平安信托臻泰星耀1号",
+    "week": "-1.57%",
+    "ytd": "+11.02%",
+    "sourceRow": 277
+  },
+  "平安信托臻泰星耀2号": {
+    "code": "B66709",
+    "name": "平安信托臻泰星耀2号",
+    "week": "-2.65%",
+    "ytd": "+13.43%",
+    "sourceRow": 278
+  },
+  "省心享华泰商品CTA单策略FOF1号": {
+    "code": "941982",
+    "name": "省心享-华泰商品CTA单策略FOF1号",
+    "week": "+0.83%",
+    "ytd": "+2.95%",
+    "sourceRow": 279
+  },
+  "华泰期货锐泰FOF7号": {
+    "code": "SQX362",
+    "name": "华泰期货锐泰FOF7号",
+    "week": "-0.11%",
+    "ytd": "+0.08%",
+    "sourceRow": 280
+  },
+  "省心享华泰固收增强单策略FOF1号": {
+    "code": "942202",
+    "name": "省心享-华泰固收增强单策略FOF1号",
+    "week": "-0.59%",
+    "ytd": "-0.39%",
+    "sourceRow": 281
+  },
+  "华泰睿选大类资产配置FOF1号": {
+    "code": "942484",
+    "name": "华泰睿选大类资产配置FOF1号",
+    "week": "-0.70%",
+    "ytd": "+1.28%",
+    "sourceRow": 282
+  },
+  "省心享华泰套利对冲单策略FOF1号": {
+    "code": "941980",
+    "name": "省心享-华泰套利对冲单策略FOF1号",
+    "week": "-1.30%",
+    "ytd": "+0.73%",
+    "sourceRow": 283
+  },
+  "省心享华泰套利对冲单策略FOF5号": {
+    "code": "942030",
+    "name": "省心享-华泰套利对冲单策略FOF5号",
+    "week": "-1.32%",
+    "ytd": "+0.89%",
+    "sourceRow": 284
+  },
+  "省心享华泰套利对冲单策略FOF2号": {
+    "code": "941981",
+    "name": "省心享-华泰套利对冲单策略FOF2号",
+    "week": "-1.43%",
+    "ytd": "+0.92%",
+    "sourceRow": 285
+  },
+  "启泰精英FOF1号": {
+    "code": "941746",
+    "name": "启泰精英FOF1号",
+    "week": "-1.87%",
+    "ytd": "+1.21%",
+    "sourceRow": 286
+  },
+  "启泰沪航FOF1号": {
+    "code": "941748",
+    "name": "启泰沪航FOF1号",
+    "week": "-3.41%",
+    "ytd": "-0.15%",
+    "sourceRow": 287
+  },
+  "睿泰精英FOF5号": {
+    "code": "941289",
+    "name": "睿泰精英FOF5号",
+    "week": "-3.91%",
+    "ytd": "+0.24%",
+    "sourceRow": 288
+  },
+  "睿泰华盛FOF1号": {
+    "code": "941743",
+    "name": "睿泰华盛FOF1号",
+    "week": "-5.32%",
+    "ytd": "+1.37%",
+    "sourceRow": 289
+  },
+  "睿泰平衡FOF1号": {
+    "code": "941808",
+    "name": "睿泰平衡FOF1号",
+    "week": "-5.00%",
+    "ytd": "-3.40%",
+    "sourceRow": 290
+  },
+  "鹏泰指增FOF2号": {
+    "code": "941850",
+    "name": "鹏泰指增FOF2号",
+    "week": "-6.34%",
+    "ytd": "+1.24%",
+    "sourceRow": 291
+  },
+  "睿泰精英FOF2号": {
+    "code": "941287",
+    "name": "睿泰精英FOF2号",
+    "week": "-5.30%",
+    "ytd": "-0.36%",
+    "sourceRow": 292
+  },
+  "省心享华泰沪深300量化单策略FOF1号": {
+    "code": "942100",
+    "name": "省心享-华泰沪深300量化单策略FOF1号",
+    "week": "-7.05%",
+    "ytd": "+3.66%",
+    "sourceRow": 293
+  },
+  "明晟东诚兴泰1期1号": {
+    "code": "SQF748",
+    "name": "明晟东诚兴泰1期1号",
+    "week": "-7.44%",
+    "ytd": "+23.09%",
+    "sourceRow": 294
+  },
+  "鹏泰精英FOF1号": {
+    "code": "941815",
+    "name": "鹏泰精英FOF1号",
+    "week": "-6.58%",
+    "ytd": "-2.81%",
+    "sourceRow": 295
+  },
+  "鹏泰指增FOF1号": {
+    "code": "941849",
+    "name": "鹏泰指增FOF1号",
+    "week": "-7.79%",
+    "ytd": "-0.13%",
+    "sourceRow": 296
+  },
+  "省心享汇升天山七号": {
+    "code": "SAUN48",
+    "name": "省心享汇升天山七号",
+    "week": "-7.87%",
+    "ytd": "-4.56%",
+    "sourceRow": 297
+  },
+  "明晟东诚兴泰1期2号": {
+    "code": "SQJ585",
+    "name": "明晟东诚兴泰1期2号",
+    "week": "-8.31%",
+    "ytd": "+22.23%",
+    "sourceRow": 298
+  },
+  "省心享华泰量化多头单策略FOF1号": {
+    "code": "941983",
+    "name": "省心享-华泰量化多头单策略FOF1号",
+    "week": "-12.99%",
+    "ytd": "-4.09%",
+    "sourceRow": 299
+  },
+  "先锋MOM1号": {
+    "code": "941901",
+    "name": "先锋MOM1号",
+    "week": "-6.16%",
+    "ytd": "+14.11%",
+    "sourceRow": 300
+  },
+  "华泰荣泰海外美元配置1号QDII": {
+    "code": "942261",
+    "name": "华泰荣泰海外美元配置1号QDII",
+    "week": "0.00%",
+    "ytd": "-1.46%",
+    "sourceRow": 303
+  },
+  "申万菱信周周鑫2号QDII": {
+    "code": "319118",
+    "name": "申万菱信周周鑫2号（QDII）",
+    "week": "+0.04%",
+    "ytd": "-1.76%",
+    "sourceRow": 304
+  },
+  "固安鑫量金2号": {
+    "code": "HT2502",
+    "name": "固安鑫量金2号",
+    "week": "+0.04%",
+    "ytd": "+1.40%",
+    "sourceRow": 305
+  },
+  "国寿资产源流2158": {
+    "code": "601130",
+    "name": "国寿资产-源流2158",
+    "week": "+0.03%",
+    "ytd": "+1.20%",
+    "sourceRow": 306
+  },
+  "固安鑫量金1号": {
+    "code": "HT2501",
+    "name": "固安鑫量金1号",
+    "week": "+0.02%",
+    "ytd": "+1.67%",
+    "sourceRow": 307
+  },
+  "掘金信用1号": {
+    "code": "941508",
+    "name": "掘金信用1号",
+    "week": "+0.03%",
+    "ytd": "+1.73%",
+    "sourceRow": 308
+  },
+  "平安信托周周添利泰享5号": {
+    "code": "B35988",
+    "name": "平安信托周周添利（泰享5号）",
+    "week": "+0.04%",
+    "ytd": "+1.12%",
+    "sourceRow": 309
+  },
+  "平安信托周周添利泰享1号": {
+    "code": "B77428",
+    "name": "平安信托周周添利（泰享1号）",
+    "week": "+0.03%",
+    "ytd": "+1.11%",
+    "sourceRow": 310
+  },
+  "华泰紫金月享2号": {
+    "code": "942161",
+    "name": "华泰紫金月享2号",
+    "week": "+0.02%",
+    "ytd": "+0.41%",
+    "sourceRow": 311
+  },
+  "信用1号": {
+    "code": "941119",
+    "name": "信用1号",
+    "week": "+0.02%",
+    "ytd": "+1.35%",
+    "sourceRow": 312
+  },
+  "海富通华海1号QDIIFOF": {
+    "code": "236609",
+    "name": "海富通华海1号QDII-FOF",
+    "week": "-0.15%",
+    "ytd": "-2.03%",
+    "sourceRow": 313
+  },
+  "申万菱信目标盈1号QDII": {
+    "code": "319116",
+    "name": "申万菱信目标盈1号（QDII）",
+    "week": "-0.08%",
+    "ytd": "-3.21%",
+    "sourceRow": 314
+  },
+  "元盛十五号A": {
+    "code": "246174",
+    "name": "元盛十五号A",
+    "week": "+1.63%",
+    "ytd": "-4.69%",
+    "sourceRow": 317
+  },
+  "沪港深": {
+    "code": "941509",
+    "name": "沪港深",
+    "week": "+2.59%",
+    "ytd": "-6.96%",
+    "sourceRow": 318
+  },
+  "均成灵泰1号1期": {
+    "code": "SALB33",
+    "name": "均成灵泰1号1期",
+    "week": "+1.69%",
+    "ytd": "-1.42%",
+    "sourceRow": 319
+  },
+  "省心享华泰全球配置稳泰FOF1号": {
+    "code": "942301",
+    "name": "省心享-华泰全球配置稳泰FOF1号",
+    "week": "-0.43%",
+    "ytd": "-1.92%",
+    "sourceRow": 320
+  },
+  "华泰紫金月享5号": {
+    "code": "942420",
+    "name": "华泰紫金月享5号",
+    "week": "+0.01%",
+    "ytd": "+0.23%",
+    "sourceRow": 321
+  },
+  "华泰紫金月享3号": {
+    "code": "944323",
+    "name": "华泰紫金月享3号",
+    "week": "+0.01%",
+    "ytd": "+0.09%",
+    "sourceRow": 322
+  },
+  "启泰金阊FOF1号": {
+    "code": "941725",
+    "name": "启泰金阊FOF1号",
+    "week": "+0.01%",
+    "ytd": "+2.96%",
+    "sourceRow": 323
+  },
+  "石锋资产重剑11号嘉泰B期": {
+    "code": "SQB623",
+    "name": "石锋资产重剑11号嘉泰B期",
+    "week": "-0.59%",
+    "ytd": "-1.90%",
+    "sourceRow": 324
+  },
+  "启泰沪航FOF2号": {
+    "code": "941825",
+    "name": "启泰沪航FOF2号",
+    "week": "-3.08%",
+    "ytd": "+2.70%",
+    "sourceRow": 325
+  },
+  "启泰精英FOF2号": {
+    "code": "941747",
+    "name": "启泰精英FOF2号",
+    "week": "-1.81%",
+    "ytd": "+1.48%",
+    "sourceRow": 326
+  },
+  "睿泰精英FOF1号": {
+    "code": "941286",
+    "name": "睿泰精英FOF1号",
+    "week": "-4.86%",
+    "ytd": "-1.51%",
+    "sourceRow": 327
+  },
+  "省心享东恺兴泰进取一号1期": {
+    "code": "SB2942",
+    "name": "省心享东恺兴泰进取一号1期",
+    "week": "-5.35%",
+    "ytd": "+1.59%",
+    "sourceRow": 328
+  },
+  "省心享华泰股多单策略FOF1号": {
+    "code": "941978",
+    "name": "省心享-华泰股多单策略FOF1号",
+    "week": "-7.73%",
+    "ytd": "+10.61%",
+    "sourceRow": 329
+  },
+  "陆港通5号": {
+    "code": "941841",
+    "name": "陆港通5号",
+    "week": "-7.74%",
+    "ytd": "-0.32%",
+    "sourceRow": 330
+  },
+  "陆港通6号": {
+    "code": "941938",
+    "name": "陆港通6号",
+    "week": "-7.90%",
+    "ytd": "-2.64%",
+    "sourceRow": 331
+  },
+  "陆港通2号": {
+    "code": "941839",
+    "name": "陆港通2号",
+    "week": "-8.71%",
+    "ytd": "-3.47%",
+    "sourceRow": 332
+  }
+};
+  const splitCodes = (code) => String(code || '')
+    .split(/[\/、,，;；\s]+/)
+    .map(item => item.trim())
+    .filter(Boolean);
+  const normName = (name) => String(name || '').replace(/[\s\-—－（）()]/g, '');
+  data.EVENTS.forEach((event) => {
+    let hit = splitCodes(event.code).map(code => byCode[code]).find(Boolean);
+    if(!hit) hit = byName[normName(event.name)];
+    if(!hit) return;
+    event.week = hit.week || '-';
+    event.ytd = hit.ytd || '-';
+  });
+})();
+
+// BEGIN private-calendar-factor-enrichment
+(function(){
+  const data = window.productCalendarData && window.productCalendarData.private;
+  if(!data || !Array.isArray(data.EVENTS)) return;
+  const COEF = {"SBMH31":{"holding":"3.5","sales":"3.5"},"SCA000":{"holding":"3.5","sales":"3.5"},"SASK35":{"holding":"3.5","sales":"3.5"},"SBRD12":{"holding":"3.5","sales":"3.5"},"023451":{"holding":"3","sales":"3"},"STQ384":{"holding":"3.5","sales":"3.5"},"942202":{"holding":"2","sales":"1.3"},"017094":{"holding":"3","sales":"2"},"SB9876":{"holding":"3.5","sales":"3.5"},"SBTE76":{"holding":"3.5","sales":"3.5"},"941743":{"holding":"2","sales":"2.6"},"SB3962":{"holding":"3.5","sales":"3.5"},"SAEX31":{"holding":"3.5","sales":"4"},"941508":{"holding":"0.7","sales":"0.7"},"SBFH00":{"holding":"3.5","sales":"4"},"018063":{"holding":"3","sales":"2.6"},"589070":{"holding":"0.7","sales":"1.7"},"SXD492":{"holding":"3.5","sales":"3.5"},"SLE619":{"holding":"3.5","sales":"3.5"},"SB2689":{"holding":"3.5","sales":"4"},"SAZG00":{"holding":"3.5","sales":"3.5"},"941938":{"holding":"3.5","sales":"3.5"},"SQS916":{"holding":"3.5","sales":"3.5"},"SAAP23":{"holding":"3.5","sales":"4"},"SATD74":{"holding":"3.5","sales":"3.5"},"SBBT50":{"holding":"3.5","sales":"3.5"},"STS694":{"holding":"3.5","sales":"3.5"},"942030":{"holding":"2","sales":"1.3"},"SSM604":{"holding":"3.5","sales":"3.5"},"SAHY68":{"holding":"3.5","sales":"4"},"SBRD11":{"holding":"3.5","sales":"3.5"},"SZZ370":{"holding":"3.5","sales":"3.5"},"SAHY00":{"holding":"3.5","sales":"4"},"SQM071":{"holding":"3.5","sales":"3.5"},"SQN230":{"holding":"3.5","sales":"3.5"},"SJ4871":{"holding":"3.5","sales":"3.5"},"027575":{"holding":"0.7","sales":"0.7"},"941765":{"holding":"0.7","sales":"0.7"},"017893":{"holding":"3","sales":"3"},"SBKE17":{"holding":"3.5","sales":"3.5"},"942261":{"holding":"0.7","sales":"1"},"SVT649":{"holding":"1","sales":"1"},"SXC706":{"holding":"3.5","sales":"3.5"},"941850":{"holding":"2","sales":"2.6"},"020159":{"holding":"3","sales":"3"},"SAUS91":{"holding":"3.5","sales":"4"},"SBAM79":{"holding":"3.5","sales":"3.5"},"SBTC09":{"holding":"3.5","sales":"3.5"},"SAXQ76":{"holding":"3.5","sales":"3.5"},"SLR031":{"holding":"3.5","sales":"3.5"},"942111":{"holding":"0.7","sales":"0.7"},"SBJM39":{"holding":"3.5","sales":"3.5"},"941839":{"holding":"3.5","sales":"3.5"},"SXG312":{"holding":"1","sales":"1"},"942301":{"holding":"2","sales":"1.3"},"SBEB96":{"holding":"3.5","sales":"4"},"SVD363":{"holding":"3.5","sales":"3.5"},"006113":{"holding":"2","sales":"2"},"SBMH32":{"holding":"3.5","sales":"3.5"},"SST179":{"holding":"3.5","sales":"3.5"},"SACV36":{"holding":"3.5","sales":"3.5"},"SBJW39":{"holding":"3.5","sales":"3.5"},"SAUZ38":{"holding":"3.5","sales":"3.5"},"940126":{"holding":"3.5","sales":"3.5"},"027574":{"holding":"0.7","sales":"0.7"},"SCP304":{"holding":"3.5","sales":"3.5"},"STQ383":{"holding":"3.5","sales":"3.5"},"SADD76":{"holding":"3.5","sales":"3.5"},"SAKC27":{"holding":"3.5","sales":"4"},"319118":{"holding":"0.7","sales":"1"},"SBTR18":{"holding":"3.5","sales":"3.5"},"SB7837":{"holding":"3.5","sales":"3.5"},"SAWR23":{"holding":"3.5","sales":"3.5"},"017828":{"holding":"3","sales":"3"},"008405":{"holding":"3","sales":"3.5"},"STQ385":{"holding":"3.5","sales":"3.5"},"SAAL27":{"holding":"3.5","sales":"4"},"SQN232":{"holding":"3.5","sales":"3.5"},"SBDB05":{"holding":"3.5","sales":"3.5"},"SSM594":{"holding":"3.5","sales":"3.5"},"024344":{"holding":"2","sales":"2"},"SAHL05":{"holding":"3.5","sales":"3.5"},"SZB040":{"holding":"3.5","sales":"4"},"941978":{"holding":"2","sales":"1.3"},"SZH125":{"holding":"3.5","sales":"3.5"},"SBGA33":{"holding":"3.5","sales":"3.5"},"016865":{"holding":"3","sales":"2.6"},"SZB239":{"holding":"1","sales":"1"},"SLN859":{"holding":"3.5","sales":"3.5"},"942420":{"holding":"0.7","sales":"0.7"},"SBFK60":{"holding":"3.5","sales":"4"},"016866":{"holding":"3","sales":"2.6"},"SBQA27":{"holding":"3.5","sales":"3.5"},"SALB33":{"holding":"3.5","sales":"3.5"},"010115":{"holding":"3","sales":"2"},"941827":{"holding":"3.5","sales":"3.5"},"SCG297":{"holding":"3.5","sales":"3.5"},"SZU834":{"holding":"3.5","sales":"3.5"},"SQG731":{"holding":"3.5","sales":"3.5"},"007490":{"holding":"3","sales":"2"},"SNB074":{"holding":"3.5","sales":"3.5"},"SBFR51":{"holding":"3.5","sales":"3.5"},"SBCY39":{"holding":"3.5","sales":"4"},"SBGY11":{"holding":"3.5","sales":"4"},"SB5132":{"holding":"3.5","sales":"3.5"},"SVS984":{"holding":"3.5","sales":"3.5"},"SASH94":{"holding":"","sales":"3.5"},"SBMZ28":{"holding":"3.5","sales":"3.5"},"159263":{"holding":"0.7","sales":"0.7"},"SSV422":{"holding":"3.5","sales":"4"},"SARL30":{"holding":"3.5","sales":"3.5"},"SBMZ37":{"holding":"3.5","sales":"3.5"},"SAEK13":{"holding":"3.5","sales":"3.5"},"SBTC28":{"holding":"3.5","sales":"3.5"},"SLR032":{"holding":"3.5","sales":"3.5"},"SNJ907":{"holding":"3.5","sales":"3.5"},"SAAH49":{"holding":"3.5","sales":"4"},"023452":{"holding":"3","sales":"3"},"027430":{"holding":"3","sales":"2"},"SABG72":{"holding":"3.5","sales":"3.5"},"SB4307":{"holding":"3.5","sales":"3.5"},"SSX042":{"holding":"3.5","sales":"3.5"},"SBTC19":{"holding":"3.5","sales":"3.5"},"SBVW69":{"holding":"3.5","sales":"4"},"SB2942":{"holding":"1","sales":"1"},"SST216":{"holding":"3.5","sales":"3.5"},"SSV813":{"holding":"3.5","sales":"4"},"SLP634":{"holding":"3.5","sales":"3.5"},"STG903":{"holding":"3.5","sales":"3.5"},"SNY432":{"holding":"3.5","sales":"3.5"},"SAHY76":{"holding":"3.5","sales":"4"},"SBQA94":{"holding":"3.5","sales":"3.5"},"STC806":{"holding":"3.5","sales":"3.5"},"STW167":{"holding":"3.5","sales":"3.5"},"343626":{"holding":"3.5","sales":"3.5"},"023584":{"holding":"3","sales":"3"},"SBPR65":{"holding":"3.5","sales":"3.5"},"SATU00":{"holding":"3.5","sales":"3.5"},"SBPF86":{"holding":"3.5","sales":"3.5"},"SLW945":{"holding":"3.5","sales":"3.5"},"SANG06":{"holding":"3.5","sales":"4"},"SAJH00":{"holding":"3.5","sales":"4"},"SBTC14":{"holding":"3.5","sales":"3.5"},"SASJ31":{"holding":"","sales":"3.5"},"SAZM22":{"holding":"3.5","sales":"3.5"},"SAKD13":{"holding":"3.5","sales":"4"},"SAAK14":{"holding":"3.5","sales":"4"},"SXM934":{"holding":"1","sales":"1"},"SJT990":{"holding":"3.5","sales":"3.5"},"SAAH43":{"holding":"3.5","sales":"4"},"SAAL25":{"holding":"3.5","sales":"4"},"SBNV99":{"holding":"3.5","sales":"3.5"},"SAAX97":{"holding":"3.5","sales":"3.5"},"SBTJ58":{"holding":"3.5","sales":"3.5"},"STD876":{"holding":"3.5","sales":"3.5"},"SXM769":{"holding":"3.5","sales":"3.5"},"SAKS75":{"holding":"3.5","sales":"3.5"},"941980":{"holding":"2","sales":"1.3"},"SBTJ57":{"holding":"3.5","sales":"3.5"},"246043":{"holding":"3.5","sales":"3.5"},"159259":{"holding":"0.7","sales":"0.7"},"SBTR16":{"holding":"3.5","sales":"3.5"},"026177":{"holding":"3","sales":"3"},"SJE255":{"holding":"3.5","sales":"3.5"},"941286":{"holding":"2","sales":"2.6"},"SBFK32":{"holding":"3.5","sales":"4"},"SQU415":{"holding":"3.5","sales":"3.5"},"025657":{"holding":"3","sales":"3"},"SBHJ98":{"holding":"3.5","sales":"3.5"},"SSV417":{"holding":"3.5","sales":"4"},"SABQ48":{"holding":"3.5","sales":"3.5"},"SBTJ56":{"holding":"3.5","sales":"3.5"},"SQF745":{"holding":"3.5","sales":"3.5"},"SLW946":{"holding":"3.5","sales":"3.5"},"SBQE66":{"holding":"3.5","sales":"3.5"},"SAKK29":{"holding":"3.5","sales":"3.5"},"SQX362":{"holding":"2","sales":"2"},"SSJ699":{"holding":"3.5","sales":"3.5"},"SBNW02":{"holding":"3.5","sales":"3.5"},"SBTQ49":{"holding":"3.5","sales":"3.5"},"SZY501":{"holding":"3.5","sales":"3.5"},"942161":{"holding":"0.7","sales":"0.7"},"SSM185":{"holding":"3.5","sales":"3.5"},"941815":{"holding":"2","sales":"2.6"},"SBJW40":{"holding":"3.5","sales":"3.5"},"SBNS64":{"holding":"3.5","sales":"3.5"},"941509":{"holding":"3.5","sales":"3.5"},"SQF748":{"holding":"2","sales":"2"},"018424":{"holding":"3","sales":"3"},"SAAF69":{"holding":"3.5","sales":"3.5"},"941981":{"holding":"2","sales":"1.3"},"SVJ469":{"holding":"3.5","sales":"4"},"020158":{"holding":"3","sales":"3"},"SXL818":{"holding":"1","sales":"1"},"SAAL02":{"holding":"3.5","sales":"3.5"},"SABN27":{"holding":"3.5","sales":"3.5"},"SY1044":{"holding":"3.5","sales":"3.5"},"SJZ975":{"holding":"3.5","sales":"3.5"},"SB5386":{"holding":"3.5","sales":"3.5"},"942014":{"holding":"3.5","sales":"3.5"},"SBLM85":{"holding":"3.5","sales":"3.5"},"SBQA29":{"holding":"3.5","sales":"3.5"},"508059":{"holding":"0.1","sales":"0.7"},"SZE699":{"holding":"3.5","sales":"3.5"},"025656":{"holding":"3","sales":"3"},"SBNV94":{"holding":"3.5","sales":"3.5"},"018062":{"holding":"3","sales":"2.6"},"SANX58":{"holding":"3.5","sales":"3.5"},"SAEX49":{"holding":"3.5","sales":"4"},"SQW322":{"holding":"3.5","sales":"3.5"},"941725":{"holding":"2","sales":"2.6"},"SLS282":{"holding":"3.5","sales":"3.5"},"SQX505":{"holding":"3.5","sales":"3.5"},"SABR24":{"holding":"3.5","sales":"3.5"},"SAAK30":{"holding":"3.5","sales":"4"},"941289":{"holding":"2","sales":"2.6"},"026178":{"holding":"3","sales":"3"},"SBHQ86":{"holding":"3.5","sales":"4"},"SQB623":{"holding":"3.5","sales":"3.5"},"159072":{"holding":"0.1","sales":"2"},"941849":{"holding":"2","sales":"2.6"},"SBFK50":{"holding":"3.5","sales":"4"},"SNY433":{"holding":"3.5","sales":"3.5"},"941747":{"holding":"2","sales":"2.6"},"SBTC31":{"holding":"3.5","sales":"3.5"},"SBMZ33":{"holding":"3.5","sales":"3.5"},"319119":{"holding":"2","sales":"1"},"SZY306":{"holding":"3.5","sales":"3.5"},"236609":{"holding":"0.7","sales":"1"},"SAEW64":{"holding":"3.5","sales":"4"},"SAZJ69":{"holding":"3.5","sales":"3.5"},"SATG48":{"holding":"3.5","sales":"3.5"},"SABQ89":{"holding":"3.5","sales":"3.5"},"SBMH29":{"holding":"3.5","sales":"3.5"},"SQY761":{"holding":"3.5","sales":"3.5"},"SQG203":{"holding":"3.5","sales":"3.5"},"944323":{"holding":"0.7","sales":"0.7"},"SZS875":{"holding":"3.5","sales":"3.5"},"SNK782":{"holding":"3.5","sales":"3.5"},"SBMZ38":{"holding":"3.5","sales":"3.5"},"SBUH70":{"holding":"3.5","sales":"3.5"},"941982":{"holding":"2","sales":"1.3"},"SQJ585":{"holding":"2","sales":"2"},"008404":{"holding":"3","sales":"3.5"},"SSP483":{"holding":"3.5","sales":"3.5"},"SAYD60":{"holding":"3.5","sales":"3.5"},"017829":{"holding":"3","sales":"3"},"942171":{"holding":"0.7","sales":"0.7"},"017892":{"holding":"3","sales":"3"},"SAXV30":{"holding":"3.5","sales":"3.5"},"007491":{"holding":"3","sales":"2"},"601130":{"holding":"0.1","sales":"0.1"},"SAMX31":{"holding":"0.1","sales":"0.1"},"941746":{"holding":"2","sales":"2.6"},"STY183":{"holding":"3.5","sales":"3.5"},"SB1954":{"holding":"3.5","sales":"3.5"},"SBBP07":{"holding":"3.5","sales":"3.5"},"941901":{"holding":"2","sales":"2.6"},"SBVW60":{"holding":"3.5","sales":"4"},"027150":{"holding":"2","sales":"2"},"SBQA26":{"holding":"3.5","sales":"3.5"},"SBFJ12":{"holding":"3.5","sales":"3.5"},"SBNS67":{"holding":"3.5","sales":"3.5"},"319117":{"holding":"2","sales":"1"},"HT2502":{"holding":"0.7","sales":"0.7"},"SBFE20":{"holding":"3.5","sales":"4"},"SABN29":{"holding":"3.5","sales":"3.5"},"SNH500":{"holding":"3.5","sales":"3.5"},"SAUN40":{"holding":"3.5","sales":"3.5"},"941808":{"holding":"2","sales":"2.6"},"SAAK24":{"holding":"3.5","sales":"4"},"SBMH28":{"holding":"3.5","sales":"3.5"},"SLN860":{"holding":"3.5","sales":"3.5"},"017095":{"holding":"3","sales":"2"},"588030":{"holding":"0.7","sales":"0.7"},"SBNV97":{"holding":"3.5","sales":"3.5"},"027149":{"holding":"2","sales":"2"},"941841":{"holding":"3.5","sales":"3.5"},"SBPF91":{"holding":"3.5","sales":"3.5"},"SBPM13":{"holding":"3.5","sales":"3.5"},"941287":{"holding":"2","sales":"2.6"},"SBLM86":{"holding":"3.5","sales":"3.5"},"SABP17":{"holding":"3.5","sales":"3.5"},"SAAJ63":{"holding":"3.5","sales":"4"},"941119":{"holding":"0.7","sales":"0.7"},"942484":{"holding":"2","sales":"2.6"},"SSN507":{"holding":"3.5","sales":"3.5"},"SQJ505":{"holding":"3.5","sales":"3.5"},"SQQ865":{"holding":"3.5","sales":"4"},"SBTC04":{"holding":"3.5","sales":"3.5"},"HT2501":{"holding":"0.7","sales":"0.7"},"018425":{"holding":"3","sales":"3"},"942100":{"holding":"2","sales":"1.3"},"SBLQ98":{"holding":"3.5","sales":"3.5"},"SBKP23":{"holding":"3.5","sales":"4"},"SACP76":{"holding":"3.5","sales":"3.5"},"SNG270":{"holding":"3.5","sales":"3.5"},"941748":{"holding":"2","sales":"2.6"},"SXS850":{"holding":"3.5","sales":"3.5"},"941983":{"holding":"2","sales":"1.3"},"561633":{"holding":"0.7","sales":"1.7"},"SNE085":{"holding":"3.5","sales":"3.5"},"SNF604":{"holding":"3.5","sales":"3.5"},"023585":{"holding":"3","sales":"3"},"SAHY75":{"holding":"3.5","sales":"4"},"SQY454":{"holding":"3.5","sales":"3.5"},"941825":{"holding":"2","sales":"2.6"},"SBHQ88":{"holding":"3.5","sales":"4"},"319116":{"holding":"0.7","sales":"1"},"SQY446":{"holding":"3.5","sales":"3.5"},"SST182":{"holding":"3.5","sales":"3.5"},"SBUH71":{"holding":"3.5","sales":"3.5"},"SAUN48":{"holding":"2","sales":"1"},"SBFR53":{"holding":"3.5","sales":"3.5"},"STP099":{"holding":"3.5","sales":"3.5"},"343619":{"holding":"3.5","sales":"3.5"},"SAHY46":{"holding":"3.5","sales":"4"},"246174":{"holding":"3.5","sales":"3.5"},"SAHX60":{"holding":"3.5","sales":"4"},"SBLM84":{"holding":"3.5","sales":"3.5"},"027431":{"holding":"3","sales":"2"},"SB8183":{"holding":"3.5","sales":"3.5"},"011412":{"holding":"3","sales":"2"},"SBQV56":{"holding":"3.5","sales":"3.5"},"SBNW59":{"holding":"3.5","sales":"3.5"},"SXG268":{"holding":"3.5","sales":"3.5"}};
+  const STRATEGY = {"SNB074":{"strategy":"主观股票多头策略","tertiary":""},"SAJH00":{"strategy":"主观股票多头策略","tertiary":""},"319119":{"strategy":"主观股票多头策略","tertiary":""},"SBTE76":{"strategy":"主观股票多头策略","tertiary":""},"SCP304":{"strategy":"主观股票多头策略","tertiary":""},"STP099":{"strategy":"主观股票多头策略","tertiary":""},"SNF604":{"strategy":"主观股票多头策略","tertiary":""},"SCA000":{"strategy":"主观股票多头策略","tertiary":""},"SJZ975":{"strategy":"主观股票多头策略","tertiary":""},"STC806":{"strategy":"主观股票多头策略","tertiary":""},"SZS875":{"strategy":"主观股票多头策略","tertiary":""},"940126":{"strategy":"主观股票多头策略","tertiary":""},"SNH500":{"strategy":"主观股票多头策略","tertiary":""},"SSN507":{"strategy":"主观股票多头策略","tertiary":""},"SCG297":{"strategy":"主观股票多头策略","tertiary":""},"SY1044":{"strategy":"主观股票多头策略","tertiary":""},"343619":{"strategy":"主观股票多头策略","tertiary":""},"343626":{"strategy":"主观股票多头策略","tertiary":""},"SQQ865":{"strategy":"主观股票多头策略","tertiary":""},"SAHL05":{"strategy":"主观股票多头策略","tertiary":""},"STY183":{"strategy":"主观股票多头策略","tertiary":""},"SST216":{"strategy":"主观股票多头策略","tertiary":""},"941827":{"strategy":"主观股票多头策略","tertiary":""},"942014":{"strategy":"主观股票多头策略","tertiary":""},"STW167":{"strategy":"主观股票多头策略","tertiary":""},"SQG731":{"strategy":"主观股票多头策略","tertiary":""},"SQJ505":{"strategy":"主观股票多头策略","tertiary":""},"SQY761":{"strategy":"主观股票多头策略","tertiary":""},"SQX505":{"strategy":"主观股票多头策略","tertiary":""},"SLW946":{"strategy":"主观股票多头策略","tertiary":""},"SLW945":{"strategy":"主观股票多头策略","tertiary":""},"SJ4871":{"strategy":"主观股票多头策略","tertiary":""},"SQU415":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SNK782":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SSV422":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SSV417":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAKD13":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAK24":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAL25":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAH49":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAK30":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAH43":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAK14":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAL27":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAKC27":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAAJ63":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SQN232":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SST179":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SST182":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SANG06":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SSX042":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SQY454":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SQY446":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAKK29":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAEW64":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAEX31":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SAEX49":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SNY433":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SZE699":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SNY432":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SNG270":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SNE085":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SLR032":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SLR031":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SBLM86":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SBLM84":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SBLM85":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SLP634":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SLS282":{"strategy":"量化股票多头策略","tertiary":"中证500"},"SBVW69":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBVW60":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBBT50":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBQA29":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBQA94":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBQA27":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBQA26":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SZY306":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"STQ385":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"STQ384":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"STQ383":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBFE20":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBEB96":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SXG268":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBFH00":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBFJ12":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBFR53":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBFR51":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBJW39":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBJW40":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SAYD60":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBPM13":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBMZ37":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBMZ38":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBPR65":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBMZ28":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBMZ33":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBQV56":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SB5386":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SB3962":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SAZJ69":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBDB05":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBRD12":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SBRD11":{"strategy":"量化股票多头策略","tertiary":"中证1000"},"SANX58":{"strategy":"量化股票多头策略","tertiary":"沪深300"},"SBFK50":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBFK32":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBHQ86":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBFK60":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBCY39":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBGY11":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SBHQ88":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SAUS91":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SATD74":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SASK35":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SAZG00":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SATG48":{"strategy":"量化股票多头策略","tertiary":"中证A500"},"SB4307":{"strategy":"量化股票多头策略","tertiary":"万得小市值"},"SB8183":{"strategy":"量化股票多头策略","tertiary":"万得小市值"},"SAUN40":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SARL30":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBNV94":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBNV99":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBNW59":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SAWR23":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBNW02":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBNV97":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBKE17":{"strategy":"量化股票多头策略","tertiary":"中证全指"},"SBUH71":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC14":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC04":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC09":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC28":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC19":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTC31":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBAM79":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBUH70":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SSM604":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SSP483":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SAHY68":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SSM594":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SSJ699":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABN27":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBTQ49":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABP17":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABG72":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABQ48":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABN29":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABR24":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SABQ89":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SZY501":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SZU834":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SSV813":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SATU00":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SB1954":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SB9876":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SAUZ38":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SVS984":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SZZ370":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SJE255":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SXM769":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SXD492":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SAAF69":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBNS64":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SBNS67":{"strategy":"量化股票多头策略","tertiary":"全市场选股"},"SLN860":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SAEK13":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SLN859":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SLE619":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SAAX97":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SXL818":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"SBGA33":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"STS694":{"strategy":"量化股票多头策略","tertiary":"量化择时"},"319117":{"strategy":"宏观策略","tertiary":""},"SBTR16":{"strategy":"宏观策略","tertiary":""},"SBTR18":{"strategy":"宏观策略","tertiary":""},"SQG203":{"strategy":"宏观策略","tertiary":""},"SJT990":{"strategy":"宏观策略","tertiary":""},"SB5132":{"strategy":"复合策略","tertiary":""},"STG903":{"strategy":"复合策略","tertiary":""},"SVD363":{"strategy":"复合策略","tertiary":""},"SBKP23":{"strategy":"复合策略","tertiary":""},"SAAP23":{"strategy":"复合策略","tertiary":""},"SZB040":{"strategy":"复合策略","tertiary":""},"SVJ469":{"strategy":"复合策略","tertiary":""},"SQW322":{"strategy":"复合策略","tertiary":""},"SQF745":{"strategy":"复合策略","tertiary":""},"SAXQ76":{"strategy":"复合策略","tertiary":""},"SQM071":{"strategy":"复合策略","tertiary":""},"SBHJ98":{"strategy":"复合策略","tertiary":""},"SAXV30":{"strategy":"复合策略","tertiary":""},"SBJM39":{"strategy":"复合策略","tertiary":""},"SACV36":{"strategy":"复合策略","tertiary":""},"SBTJ57":{"strategy":"复合策略","tertiary":""},"SXG312":{"strategy":"复合策略","tertiary":""},"SBTJ58":{"strategy":"复合策略","tertiary":""},"SBMH31":{"strategy":"复合策略","tertiary":""},"SBMH32":{"strategy":"复合策略","tertiary":""},"SBMH29":{"strategy":"复合策略","tertiary":""},"SBMH28":{"strategy":"复合策略","tertiary":""},"SBQE66":{"strategy":"复合策略","tertiary":""},"SBLQ98":{"strategy":"复合策略","tertiary":""},"SBTJ56":{"strategy":"复合策略","tertiary":""},"SZB239":{"strategy":"复合策略","tertiary":""},"STD876":{"strategy":"复合策略","tertiary":""},"SZH125":{"strategy":"复合策略","tertiary":""},"SSM185":{"strategy":"复合策略","tertiary":""},"SXM934":{"strategy":"套利策略","tertiary":""},"SAKS75":{"strategy":"套利策略","tertiary":""},"SBBP07":{"strategy":"套利策略","tertiary":""},"SBPF91":{"strategy":"套利策略","tertiary":""},"SBPF86":{"strategy":"套利策略","tertiary":""},"SB2689":{"strategy":"套利策略","tertiary":""},"SACP76":{"strategy":"市场中性策略","tertiary":""},"SADD76":{"strategy":"市场中性策略","tertiary":""},"SXC706":{"strategy":"市场中性策略","tertiary":""},"SAAL02":{"strategy":"市场中性策略","tertiary":""},"SXS850":{"strategy":"市场中性策略","tertiary":""},"SQN230":{"strategy":"市场中性策略","tertiary":""},"SAZM22":{"strategy":"市场中性策略","tertiary":""},"SB7837":{"strategy":"市场中性策略","tertiary":""},"SNJ907":{"strategy":"市场中性策略","tertiary":""},"SQS916":{"strategy":"CTA策略","tertiary":""},"246043":{"strategy":"CTA策略","tertiary":""},"941982":{"strategy":"组合基金","tertiary":""},"SQX362":{"strategy":"组合基金","tertiary":""},"942202":{"strategy":"组合基金","tertiary":""},"942484":{"strategy":"组合基金","tertiary":""},"941980":{"strategy":"组合基金","tertiary":""},"942030":{"strategy":"组合基金","tertiary":""},"941981":{"strategy":"组合基金","tertiary":""},"941746":{"strategy":"组合基金","tertiary":""},"941748":{"strategy":"组合基金","tertiary":""},"941289":{"strategy":"组合基金","tertiary":""},"941743":{"strategy":"组合基金","tertiary":""},"941808":{"strategy":"组合基金","tertiary":""},"941850":{"strategy":"组合基金","tertiary":""},"941287":{"strategy":"组合基金","tertiary":""},"942100":{"strategy":"组合基金","tertiary":""},"SQF748":{"strategy":"组合基金","tertiary":""},"941815":{"strategy":"组合基金","tertiary":""},"941849":{"strategy":"组合基金","tertiary":""},"SAUN48":{"strategy":"组合基金","tertiary":""},"SQJ585":{"strategy":"组合基金","tertiary":""},"941983":{"strategy":"组合基金","tertiary":""},"941901":{"strategy":"组合基金","tertiary":""},"942261":{"strategy":"债券策略","tertiary":""},"319118":{"strategy":"债券策略","tertiary":""},"HT2502":{"strategy":"债券策略","tertiary":""},"601130":{"strategy":"债券策略","tertiary":""},"HT2501":{"strategy":"债券策略","tertiary":""},"941508":{"strategy":"债券策略","tertiary":""},"942161":{"strategy":"债券策略","tertiary":""},"941119":{"strategy":"债券策略","tertiary":""},"236609":{"strategy":"债券策略","tertiary":""},"319116":{"strategy":"债券策略","tertiary":""},"246174":{"strategy":"规模不足500万","tertiary":""},"941509":{"strategy":"规模不足500万","tertiary":""},"SALB33":{"strategy":"规模不足500万","tertiary":""},"942301":{"strategy":"规模不足500万","tertiary":""},"942420":{"strategy":"规模不足500万","tertiary":""},"944323":{"strategy":"规模不足500万","tertiary":""},"941725":{"strategy":"规模不足500万","tertiary":""},"SQB623":{"strategy":"规模不足500万","tertiary":""},"941825":{"strategy":"规模不足500万","tertiary":""},"941747":{"strategy":"规模不足500万","tertiary":""},"941286":{"strategy":"规模不足500万","tertiary":""},"SB2942":{"strategy":"规模不足500万","tertiary":""},"941978":{"strategy":"规模不足500万","tertiary":""},"941841":{"strategy":"规模不足500万","tertiary":""},"941938":{"strategy":"规模不足500万","tertiary":""},"941839":{"strategy":"规模不足500万","tertiary":""}};
+  const tertiaryMap = {
+    '中证500':'500指增',
+    '中证1000':'1000指增',
+    '沪深300':'300指增',
+    '中证A500':'A500指增',
+    '万得小市值':'小市值',
+    '中证全指':'中证全指指增',
+    '全市场选股':'全市场选股',
+    '量化择时':'量化择时'
+  };
+  function codesOf(code){
+    return String(code||'').toUpperCase().match(/[A-Z]{2,5}\d{2,5}|9\d{5}|\d{6}/g)||[];
+  }
+  function uniq(values){
+    return Array.from(new Set(values.filter(v=>v!==undefined&&v!==null&&String(v).trim()&&String(v).trim()!=='-').map(v=>String(v).trim())));
+  }
+  function valueFor(codes, key){
+    return uniq(codes.map(code=>COEF[code]&&COEF[code][key])).join(' / ');
+  }
+  function firstStrategy(codes){
+    return codes.map(code=>STRATEGY[code]).find(Boolean)||null;
+  }
+  function normalizeStrategy(strategy){
+    if(strategy==='量化股票多头策略'||strategy==='量化多头'||strategy==='量化股票多头') return '量化多头';
+    if(strategy==='市场中性策略') return '市场中性策略';
+    if(strategy==='主观股票多头策略') return '主观股票多头策略';
+    return strategy || '';
+  }
+  data.EVENTS.forEach(e=>{
+    const codes = codesOf(e.code);
+    let sales = valueFor(codes, 'sales');
+    let holding = valueFor(codes, 'holding');
+    if(e.type==='launch'){
+      if(!sales) sales = '4';
+      if(!holding) holding = '3.5';
+    }
+    e.standardSales = sales || '-';
+    e.standardHolding = holding || '-';
+    const fromSheet = firstStrategy(codes);
+    const normalized = normalizeStrategy((fromSheet&&fromSheet.strategy)||e.strategy);
+    if(normalized) e.strategy = normalized;
+    if(e.strategy==='量化多头' && fromSheet && fromSheet.tertiary){
+      e.subStrategy = tertiaryMap[fromSheet.tertiary] || fromSheet.tertiary;
+    }
+    if(e.strategy==='量化股票多头策略') e.strategy = '量化多头';
+  });
+})();
+// END private-calendar-factor-enrichment

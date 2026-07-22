@@ -42,7 +42,7 @@
       height:100vh;
       overflow:hidden;
       display:grid;
-      grid-template-columns:248px minmax(0,1fr);
+      grid-template-columns:186px minmax(0,1fr);
     }
 
     .sidebar {
@@ -52,7 +52,7 @@
       padding:18px 14px;
       background:linear-gradient(180deg,var(--nav),var(--nav-2));
       color:#dce6fa;
-      z-index:40;
+      z-index:200;
     }
 
     .brand {
@@ -195,8 +195,8 @@
       min-height:44px;
       padding:9px 10px;
       border-radius:7px;
-      font-size:16px;
-      font-weight:850;
+      font-size:14px;
+      font-weight:750;
     }
 
     .flyout button:hover,
@@ -214,6 +214,8 @@
     }
 
     main {
+      position:relative;
+      z-index:1;
       min-width:0;
       height:100vh;
       overflow:hidden;
@@ -244,6 +246,20 @@
       border:0;
       display:block;
       background:#fff;
+    }
+
+    .nav-shield {
+      position:fixed;
+      left:186px;
+      top:0;
+      right:0;
+      bottom:0;
+      z-index:120;
+      background:transparent;
+    }
+
+    .nav-shield[hidden] {
+      display:none;
     }
 
     .placeholder {
@@ -310,9 +326,10 @@
       }
 
       .workspace { padding:0; }
+      .nav-shield { left:0; }
     }
   </style>
-<script src="data/productCalendarData.js?v=20260720_public_calendar_metrics_v3"></script><script src="data/productReportData.js?v=20260710_002"></script><script src="data/productMaterialData.js?v=20260720-heji-report-stack"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
+<script src="data/productCalendarData.js?v=20260722_private_factors_visible"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260722-mengxi-layout-fix"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -339,10 +356,10 @@
         <button class="nav-item" type="button" data-module="fof"><span>FOF产品运作情况</span></button>
         <div class="nav-group">
           <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" data-module="broadcast" data-nav-trigger>
-            <span>销售播报</span>
+            <span>产品销售</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="flyout" role="menu" aria-label="销售播报">
+          <div class="flyout" role="menu" aria-label="产品销售">
             <button class="active" type="button" role="menuitem" data-sales-entry="standard">公私募标准销量</button>
             <button type="button" role="menuitem" data-sales-entry="products">重点产品首发播报</button>
           </div>
@@ -350,30 +367,31 @@
       </div>
       <span id="sideCurrent" hidden>产品日历</span>
     </aside>
+    <button class="nav-shield" id="navShield" type="button" aria-label="收起二级菜单" hidden></button>
 
     <main>
       <div class="workspace">
         <section class="module-view" id="calendarView">
           <div class="frame-shell">
-            <iframe class="content-frame calendar-frame" id="calendarFrame" src="嵌入-私募日历.html?v=20260720-heji-report-stack" title="产品日历内容"></iframe>
+            <iframe class="content-frame calendar-frame" id="calendarFrame" src="about:blank" title="产品日历内容"></iframe>
           </div>
         </section>
 
         <section class="module-view" id="trackingView" hidden>
           <div class="frame-shell">
-            <iframe class="content-frame tracking-frame" id="trackingFrame" src="嵌入-私募数据跟踪.html?v=20260710_002" title="私募数据跟踪内容"></iframe>
+            <iframe class="content-frame tracking-frame" id="trackingFrame" src="about:blank" title="私募数据跟踪内容"></iframe>
           </div>
         </section>
 
         <section class="module-view" id="fofView" hidden>
           <div class="frame-shell">
-            <iframe class="content-frame fof-frame" id="fofFrame" src="嵌入-FOF产品运行情况.html?v=20260708_0846" title="FOF产品运作情况内容"></iframe>
+            <iframe class="content-frame fof-frame" id="fofFrame" src="about:blank" title="FOF产品运作情况内容"></iframe>
           </div>
         </section>
 
         <section class="module-view" id="broadcastView" hidden>
           <div class="frame-shell">
-            <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="销售播报.html?v=20260708_0846" title="销售播报内容"></iframe>
+            <iframe class="content-frame broadcast-frame" id="broadcastFrame" src="about:blank" title="产品销售内容"></iframe>
           </div>
         </section>
       </div>
@@ -395,15 +413,24 @@
         view: document.getElementById('fofView')
       },
       broadcast: {
-        title: '销售播报',
+        title: '产品销售',
         view: document.getElementById('broadcastView')
       }
     };
 
     const calendars = {
-      private: '嵌入-私募日历.html?v=20260720-heji-report-stack',
-      public: '嵌入-公募日历.html?v=20260720_public_calendar_metrics_v3',
-      fixed: '嵌入-固收结构化日历.html?v=20260716_structured_auto_ki_v6'
+      private: '嵌入-私募日历.html?v=20260722_005_quant_filter_label',
+      public: '嵌入-公募日历.html?v=20260722_002',
+      fixed: '嵌入-固收结构化日历.html?v=20260722_002'
+    };
+    const lazyFrames = {
+      tracking: '嵌入-私募数据跟踪.html?v=20260722_006_table_scroll',
+      fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
+      broadcast: '嵌入-公私募标准销量.html?v=20260722_001'
+    };
+    const salesPages = {
+      standard: '嵌入-公私募标准销量.html?v=20260722_001',
+      products: '嵌入-重点产品首发播报.html?v=20260722_001'
     };
 
     const sideCurrent = document.getElementById('sideCurrent');
@@ -411,7 +438,42 @@
     const trackingFrame = document.getElementById('trackingFrame');
     const fofFrame = document.getElementById('fofFrame');
     const broadcastFrame = document.getElementById('broadcastFrame');
+    const navShield = document.getElementById('navShield');
     let pendingSalesModule = 'standard';
+
+    function beijingDateParts() {
+      const parts = new Intl.DateTimeFormat('zh-CN', {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).formatToParts(new Date()).reduce((acc, part) => {
+        acc[part.type] = part.value;
+        return acc;
+      }, {});
+      return {
+        year: Number(parts.year),
+        month: Number(parts.month),
+        day: Number(parts.day),
+        stamp: `${parts.year}${parts.month}${parts.day}`
+      };
+    }
+
+    function withRuntimeDate(url) {
+      const date = beijingDateParts();
+      const glue = url.includes('?') ? '&' : '?';
+      return `${url}${glue}runtime_date=${date.stamp}`;
+    }
+
+    function closeNavGroups(exceptGroup = null) {
+      document.querySelectorAll('.nav-group.open').forEach(group => {
+        if (group === exceptGroup) return;
+        group.classList.remove('open');
+        group.querySelector('[data-nav-trigger]')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!exceptGroup && navShield) navShield.hidden = true;
+      if (exceptGroup && navShield) navShield.hidden = false;
+    }
 
     function fitFrameHeight(frame) {
       try {
@@ -426,8 +488,11 @@
       try {
         const doc = frame.contentDocument;
         if (!doc) return;
-        const modalWidth = Math.round(window.innerWidth * 0.9);
-        const modalHeight = Math.round(window.innerHeight * 0.9);
+        const frameRect = frame.getBoundingClientRect();
+        const availableWidth = Math.max(320, frameRect.width - 32);
+        const availableHeight = Math.max(360, frameRect.height - 32);
+        const modalWidth = Math.round(Math.min(window.innerWidth * 0.9, availableWidth));
+        const modalHeight = Math.round(Math.min(window.innerHeight * 0.9, availableHeight));
         doc.documentElement.style.setProperty('--outer-modal-width', `${modalWidth}px`);
         doc.documentElement.style.setProperty('--outer-modal-height', `${modalHeight}px`);
       } catch (error) {
@@ -517,8 +582,7 @@
           .hub-card-foot,
           .hub-card div,
           .hub-copy,
-          .public-tab-shell:before,
-          .section-head {
+          .public-tab-shell:before {
             display: none !important;
           }
 
@@ -691,9 +755,28 @@
         `;
         doc.head.appendChild(style);
         syncEmbeddedViewport(frame);
-        doc.addEventListener('click', () => syncEmbeddedViewport(frame), true);
+        doc.addEventListener('click', () => {
+          syncEmbeddedViewport(frame);
+          window.parent?.postMessage({ type: 'close-nav-groups' }, '*');
+        }, true);
       } catch (error) {
         console.warn('嵌入页精简样式未生效', error);
+      }
+    }
+
+    function bindFrameCloseNav(frame) {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || doc.documentElement.dataset.closeNavBound) return;
+        doc.documentElement.dataset.closeNavBound = '1';
+        doc.addEventListener('pointerdown', () => {
+          closeNavGroups();
+        }, true);
+        doc.addEventListener('click', () => {
+          closeNavGroups();
+        }, true);
+      } catch (error) {
+        console.warn('嵌入页菜单收起监听未绑定', error);
       }
     }
 
@@ -709,7 +792,10 @@
       const current = modules[moduleName];
       if (sideCurrent) sideCurrent.textContent = current.title;
 
-      if (moduleName === 'calendar' && calendarFrame.getAttribute('src') === 'about:blank') openCalendar('private');
+      if (moduleName === 'calendar' && calendarFrame.getAttribute('src') === 'about:blank') calendarFrame.src = withRuntimeDate(calendars.private);
+      if (moduleName === 'tracking' && trackingFrame.getAttribute('src') === 'about:blank') trackingFrame.src = lazyFrames.tracking;
+      if (moduleName === 'fof' && fofFrame.getAttribute('src') === 'about:blank') fofFrame.src = lazyFrames.fof;
+      if (moduleName === 'broadcast' && broadcastFrame.getAttribute('src') === 'about:blank') broadcastFrame.src = lazyFrames.broadcast;
     }
 
     function openCalendar(calendarName) {
@@ -718,34 +804,20 @@
       document.querySelectorAll('[data-calendar-entry]').forEach(button => {
         button.classList.toggle('active', button.dataset.calendarEntry === calendarName);
       });
-      calendarFrame.src = calendars[calendarName];
+      calendarFrame.src = withRuntimeDate(calendars[calendarName]);
       window.setTimeout(() => fitFrameHeight(calendarFrame), 120);
     }
 
     function openSalesBroadcast(moduleName) {
       pendingSalesModule = moduleName || 'standard';
       setModule('broadcast');
+      const nextSrc = salesPages[pendingSalesModule] || salesPages.standard;
+      if (broadcastFrame.getAttribute('src') !== nextSrc) broadcastFrame.src = nextSrc;
       document.querySelectorAll('[data-sales-entry]').forEach(button => {
         button.classList.toggle('active', button.dataset.salesEntry === pendingSalesModule);
       });
-      function syncSalesModule() {
-        try {
-          broadcastFrame.contentWindow?.postMessage({
-            type: 'set-sales-module',
-            module: pendingSalesModule
-          }, '*');
-          fitFrameHeight(broadcastFrame);
-          window.setTimeout(() => fitFrameHeight(broadcastFrame), 120);
-          return true;
-        } catch (error) {
-          console.warn('销售播报模块切换未同步', error);
-        }
-        return false;
-      }
-      if (!syncSalesModule()) {
-        window.setTimeout(syncSalesModule, 250);
-        window.setTimeout(syncSalesModule, 600);
-      }
+      fitFrameHeight(broadcastFrame);
+      window.setTimeout(() => fitFrameHeight(broadcastFrame), 120);
     }
 
     function bindCalendarCards(frame) {
@@ -775,6 +847,10 @@
 
     window.addEventListener('message', event => {
       const data = event.data;
+      if (data && data.type === 'close-nav-groups') {
+        closeNavGroups();
+        return;
+      }
       if (!data || data.type !== 'open-calendar') return;
       openCalendar(data.calendar);
     });
@@ -784,6 +860,7 @@
       if (navTrigger) {
         const navGroup = navTrigger.closest('.nav-group');
         const open = !navGroup.classList.contains('open');
+        closeNavGroups(navGroup);
         if (navTrigger.dataset.module === 'broadcast') {
           openSalesBroadcast(pendingSalesModule || 'standard');
         } else if (navTrigger.dataset.module) {
@@ -791,6 +868,7 @@
         }
         navGroup.classList.toggle('open', open);
         navTrigger.setAttribute('aria-expanded', String(open));
+        if (navShield) navShield.hidden = !open;
         return;
       }
 
@@ -801,6 +879,7 @@
         const navTrigger = navGroup?.querySelector('[data-nav-trigger]');
         navGroup?.classList.remove('open');
         navTrigger?.setAttribute('aria-expanded', 'false');
+        if (navShield) navShield.hidden = true;
         return;
       }
 
@@ -811,6 +890,7 @@
         const navTrigger = navGroup?.querySelector('[data-nav-trigger]');
         navGroup?.classList.remove('open');
         navTrigger?.setAttribute('aria-expanded', 'false');
+        if (navShield) navShield.hidden = true;
         return;
       }
 
@@ -821,35 +901,36 @@
         const navTrigger = navGroup?.querySelector('[data-nav-trigger]');
         navGroup?.classList.remove('open');
         navTrigger?.setAttribute('aria-expanded', 'false');
+        if (navShield) navShield.hidden = true;
+        return;
       }
+
+      if (!event.target.closest('.nav-group')) closeNavGroups();
     });
+    navShield?.addEventListener('click', () => closeNavGroups());
 
     calendarFrame.addEventListener('load', () => {
       tuneEmbeddedPage(calendarFrame);
+      bindFrameCloseNav(calendarFrame);
       bindCalendarCards(calendarFrame);
       fitFrameHeight(calendarFrame);
       window.setTimeout(() => fitFrameHeight(calendarFrame), 400);
     });
     trackingFrame.addEventListener('load', () => {
       tuneEmbeddedPage(trackingFrame);
+      bindFrameCloseNav(trackingFrame);
       fitFrameHeight(trackingFrame);
       window.setTimeout(() => fitFrameHeight(trackingFrame), 400);
     });
     fofFrame.addEventListener('load', () => {
       tuneEmbeddedPage(fofFrame);
+      bindFrameCloseNav(fofFrame);
       fitFrameHeight(fofFrame);
       window.setTimeout(() => fitFrameHeight(fofFrame), 400);
     });
     broadcastFrame.addEventListener('load', () => {
       tuneEmbeddedPage(broadcastFrame);
-      try {
-        broadcastFrame.contentWindow?.postMessage({
-          type: 'set-sales-module',
-          module: pendingSalesModule
-        }, '*');
-      } catch (error) {
-        console.warn('销售播报模块切换未同步', error);
-      }
+      bindFrameCloseNav(broadcastFrame);
       fitFrameHeight(broadcastFrame);
       window.setTimeout(() => fitFrameHeight(broadcastFrame), 400);
     });
@@ -862,6 +943,7 @@
       setModule,
       fitAllFrames
     });
+    openCalendar('private');
   </script>
 </body>
 </html>

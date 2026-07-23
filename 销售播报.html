@@ -42,40 +42,29 @@
     .crumb strong { color:var(--ink); font-size:16px; margin-left:8px; }
     .hero {
       position:relative;
-      overflow:hidden;
       border:1px solid #dce4f4;
       border-radius:8px;
-      background:
-        linear-gradient(135deg, rgba(66,104,214,.96), rgba(23,35,59,.98)),
-        radial-gradient(circle at 80% 18%, rgba(255,255,255,.25), transparent 32%);
-      color:#fff;
+      background:#fff;
+      color:var(--ink);
       box-shadow:var(--shadow);
-      padding:26px 30px;
+      padding:22px 30px;
+      text-align:center;
     }
-    .hero:after {
-      content:"";
-      position:absolute;
-      right:-90px;
-      top:-110px;
-      width:340px;
-      height:340px;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:50%;
-    }
-    .hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:end; }
-    .eyebrow { margin:0 0 8px; color:#dbe6ff; font-weight:750; }
-    h1 { margin:0; font-size:32px; letter-spacing:0; line-height:1.15; }
+    .hero-inner { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:24px; align-items:center; }
+    .title-block { min-width:0; }
+    h1 { margin:0; font-size:28px; letter-spacing:0; line-height:1.15; }
+    .sales-subtitle { margin:8px 0 0; color:#536176; font-size:15px; font-weight:850; }
     .asof {
       display:grid;
       gap:4px;
       min-width:260px;
       padding:14px 16px;
-      border:1px solid rgba(255,255,255,.22);
+      border:1px solid #dce4f4;
       border-radius:8px;
-      background:rgba(255,255,255,.1);
-      backdrop-filter:blur(10px);
+      background:#fbfcff;
+      text-align:left;
     }
-    .asof span { color:#dbe6ff; font-size:12px; }
+    .asof span { color:#6d7788; font-size:12px; }
     .asof strong { font-size:22px; }
     .date-stack { display:grid; grid-template-columns:minmax(220px,1fr); gap:10px; }
     .summary-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:18px; }
@@ -221,6 +210,7 @@
     @media (max-width:1100px) {
       .sales-report { padding:18px; }
       .hero-inner, .top-grid, .product-grid, .product-body, .date-stack { grid-template-columns:1fr; }
+      .asof { text-align:center; }
       .bucket-matrix { grid-template-columns:1fr; }
       .bucket-label-column { display:none; }
       .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -239,13 +229,13 @@
   <main class="sales-report">
     <div class="topbar">
       <div class="crumb">产品运营工作台 / <strong>销售播报</strong></div>
-      <span class="pill">2026-07-07更新</span>
+      <span class="pill" id="salesUpdatePill">2026-07-20更新</span>
     </div>
     <section class="hero">
       <div class="hero-inner">
-        <div>
-          <p class="eyebrow">山东分公司 / 7月销售播报</p>
+        <div class="title-block">
           <h1>销售播报</h1>
+          <p class="sales-subtitle" id="salesSubtitle">公私募标准销量</p>
         </div>
         <div class="date-stack">
           <div class="asof"><span id="asOfLabel">标准销量统计日</span><strong id="asOf">-</strong></div>
@@ -480,13 +470,16 @@
     function updateSalesDate(moduleName) {
       const label = document.getElementById('asOfLabel');
       const value = document.getElementById('asOf');
+      const subtitle = document.getElementById('salesSubtitle');
       if (moduleName === 'products') {
         label.textContent = '重点首发产品销售统计日';
         value.textContent = '20260707';
+        if (subtitle) subtitle.textContent = '重点产品首发播报';
         return;
       }
       label.textContent = '标准销量统计日';
       value.textContent = reportData.standard.as_of || '-';
+      if (subtitle) subtitle.textContent = '公私募标准销量';
     }
 
     function setSalesModule(moduleName) {
@@ -518,6 +511,277 @@
     renderBuckets();
     renderProducts();
     updateSalesDate('standard');
+  </script>
+  <script src="data/salesBroadcastUpdateData.js?v=20260722_001"></script>
+  <script>
+    (function(){
+      const update = window.salesBroadcastUpdateData;
+      if(!update) return;
+      if(update.standard) {
+        reportData.standard.as_of = update.standard.as_of;
+        reportData.standard.totals = update.standard.totals;
+        reportData.standard.branches = update.standard.branches;
+      }
+      if(update.employees) reportData.employees.splice(0, reportData.employees.length, ...update.employees);
+      if(update.employeeTop) {
+        reportData.employeeTop.public = update.employeeTop.public || [];
+        reportData.employeeTop.private = update.employeeTop.private || [];
+        reportData.employeeTop.combined = update.employeeTop.combined || [];
+      }
+      if(update.employeeBuckets) {
+        reportData.employeeBuckets.public = update.employeeBuckets.public || [];
+        reportData.employeeBuckets.private = update.employeeBuckets.private || [];
+        reportData.employeeBuckets.combined = update.employeeBuckets.combined || [];
+      }
+      if(update.sourceFiles) reportData.sourceFiles = {...(reportData.sourceFiles || {}), ...update.sourceFiles};
+      renderSummary();
+      renderBranches();
+      renderEmployees();
+      renderBuckets();
+      updateSalesDate(document.querySelector('[data-sales-tab].active')?.dataset.salesTab || 'standard');
+      const pill = document.getElementById('salesUpdatePill');
+      if(pill && reportData.standard.as_of){
+        const d = String(reportData.standard.as_of);
+        pill.textContent = `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}更新`;
+      }
+      window.dispatchEvent(new CustomEvent('sales-data-ready'));
+    })();
+  </script>
+  <script src="data/productCalendarData.js?v=20260722_001"></script>
+  <script src="data/productCoefficientData.js?v=20260722_001"></script>
+  <script src="data/productDecisionTools.js?v=20260722_004"></script>
+  <script>
+    (function(){
+      const tools = window.ProductDecisionTools;
+      if(!tools) return;
+      tools.injectStyle();
+      const summary = document.getElementById('summary');
+      if(!summary || document.getElementById('salesActionTools')) return;
+
+      summary.insertAdjacentHTML('afterend', `
+        <section class="section" id="salesActionTools">
+          <div class="section-head">
+            <h2 class="section-title">销售行动测算</h2>
+            <span class="pill">输入产品与金额，直接测算标销贡献和赶超缺口</span>
+          </div>
+          <div class="content-pad sales-action-grid">
+            <div class="sales-action-panel">
+              <h3>营业部标准销量测算</h3>
+              <div class="sales-action-body">
+                <div class="sales-action-row">
+                  <div class="decision-field"><label>产品代码/名称</label><input class="decision-input" data-sales-product list="salesProductsList" placeholder="如 027592 / 龙旗 / 进化论"></div>
+                  <div class="decision-field"><label>拟销售金额（万元）</label><input class="decision-input" data-sales-amount type="number" min="0" step="10" value="100"></div>
+                </div>
+                <div class="sales-action-row">
+                  <div class="decision-field"><label>所属营业部</label><select class="decision-select" data-sales-branch></select></div>
+                  <div class="decision-field"><label>新增标准销量（万元）</label><input class="decision-input" data-sales-increment readonly placeholder="点击测算后生成"></div>
+                </div>
+                <button class="decision-tool-btn primary" type="button" data-run-sales-calc>测算增量</button>
+                <datalist id="salesProductsList"></datalist>
+                <div class="sales-result" data-sales-result>
+                  <span>输入产品和金额后，展示营业部可贡献的标准销量。</span>
+                </div>
+              </div>
+            </div>
+            <div class="sales-action-panel">
+              <h3>营业部对比与赶超测算</h3>
+              <div class="sales-action-body">
+                <div class="sales-action-row">
+                  <div class="decision-field"><label>本营业部</label><select class="decision-select" data-branch-a></select></div>
+                  <div class="decision-field"><label>目标营业部</label><select class="decision-select" data-branch-b></select></div>
+                </div>
+                <button class="decision-tool-btn primary" type="button" data-run-branch-calc>生成赶超方案</button>
+                <div class="sales-result" data-branch-result>
+                  <span>选择两个营业部后，展示完成率对比、差距和可选产品组合。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-pad sales-action-full">
+            <div class="sales-action-panel">
+              <h3>员工标准销量测算</h3>
+              <div class="sales-action-body">
+                <div class="sales-action-row">
+                  <div class="decision-field"><label>选择营业部</label><select class="decision-select" data-employee-branch></select></div>
+                  <div class="decision-field"><label>批量产品代码/名称</label><input class="decision-input" data-employee-product list="salesProductsList" placeholder="可填后批量应用"></div>
+                </div>
+                <div class="employee-calc-layout">
+                  <div class="employee-calc-table-wrap">
+                    <table class="employee-calc-table">
+                      <thead><tr><th>名字</th><th>公募标准销量</th><th>私募标准销量</th><th>公私募标准销量</th><th>产品代码</th><th>拟销售金额（万元）</th><th>新增标准销量（万元）</th><th>营业部提升比例</th></tr></thead>
+                      <tbody data-employee-calc-rows></tbody>
+                    </table>
+                  </div>
+                  <div class="employee-lift-card">
+                    <span>预计营业部提升</span>
+                    <strong data-employee-total-lift>0.0%</strong>
+                    <span class="decision-muted" data-employee-total-detail>所有员工新增销量带来的营业部完成率提升总量。</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `);
+
+      const productData = tools.collectProducts('');
+      const products = productData.items;
+      const productList = document.getElementById('salesProductsList');
+      productList.innerHTML = products.slice(0, 800).map(item => `<option value="${item.code || item.name}">${item.name} ${item.strategy || ''}</option>`).join('');
+
+      const branches = reportData.standard.branches || [];
+      const branchOptions = branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
+      document.querySelector('[data-sales-branch]').innerHTML = branchOptions;
+      document.querySelector('[data-employee-branch]').innerHTML = branchOptions;
+      document.querySelector('[data-branch-a]').innerHTML = branchOptions;
+      document.querySelector('[data-branch-b]').innerHTML = branchOptions;
+      if(branches[2]) document.querySelector('[data-branch-a]').value = branches[2].branch;
+      if(branches[0]) document.querySelector('[data-branch-b]').value = branches[0].branch;
+      if(branches[0]) document.querySelector('[data-employee-branch]').value = branches[0].branch;
+
+      function fmtWan(v){
+        const n = Number(v || 0);
+        return n.toLocaleString('zh-CN', {maximumFractionDigits: n % 1 === 0 ? 0 : 1});
+      }
+
+      function pctText(v){
+        return `${(Number(v || 0) * 100).toFixed(1)}%`;
+      }
+
+      function branchByName(name){
+        return branches.find(row => row.branch === name) || branches[0];
+      }
+
+      function productType(item){
+        const source = item && item.category;
+        if(source === 'public') return 'public';
+        if(source === 'private' || source === 'privateTracking') return 'private';
+        return 'combined';
+      }
+
+      function productTypeText(item){
+        const type = productType(item);
+        if(type === 'public') return '公募';
+        if(type === 'private') return '私募';
+        return '产品';
+      }
+
+      function candidateReason(item){
+        const parts = [productTypeText(item), item.section || '持营'];
+        if(item.raisePeriod) parts.push(item.raisePeriod);
+        else if(item.raw && item.raw.month && item.raw.day) parts.push(`${item.raw.month}/${item.raw.day}`);
+        else if(item.openText) parts.push(item.openText);
+        return parts.join('｜');
+      }
+
+      function renderSalesCalc(){
+        const productQuery = document.querySelector('[data-sales-product]').value;
+        const amount = Number(document.querySelector('[data-sales-amount]').value || 0);
+        const branch = branchByName(document.querySelector('[data-sales-branch]').value);
+        const item = tools.findProduct(productQuery, productData.map);
+        const target = document.querySelector('[data-sales-result]');
+        if(!item || !amount){
+          document.querySelector('[data-sales-increment]').value = '';
+          target.innerHTML = '<span>未找到产品或金额为空，请换产品代码/名称再试。</span>';
+          return;
+        }
+        const factor = tools.factorFrom(item.salesCoef);
+        const holdingFactor = tools.factorFrom(item.holdingCoef);
+        const increment = tools.calcStandardAmount(amount, factor);
+        const holdingIncrement = tools.calcStandardAmount(amount, holdingFactor);
+        document.querySelector('[data-sales-increment]').value = fmtWan(increment);
+        const type = productType(item);
+        const branchBase = type === 'public' ? branch.public_amount : (type === 'private' ? branch.private_amount : branch.combined_amount);
+        const branchTarget = type === 'public' ? branch.public_target : (type === 'private' ? branch.private_target : branch.combined_target);
+        const newRate = branchTarget ? (branchBase + increment) / branchTarget : 0;
+        target.innerHTML = `
+          <span>${item.name} 当前按 <b>${factor}</b> 倍标准销量、<b>${holdingFactor}</b> 倍标准保有测算。</span>
+          <strong>预计新增 ${fmtWan(increment)} 万元标销</strong>
+          <span>若销售 ${fmtWan(amount)} 万元，可为 ${branch.branch} 带来约 ${fmtWan(increment)} 万元标准销量、${fmtWan(holdingIncrement)} 万元标准保有；对应口径完成率可提升至 ${pctText(newRate)}。</span>
+          <span class="decision-muted">说明：若底层系数暂未接入，系统按 1 倍保守测算，最终以公司系数底表为准。</span>
+        `;
+      }
+
+      function employeesForBranch(branchName){
+        return (reportData.employees || [])
+          .filter(row => row.branch === branchName)
+          .sort((a,b) => Number(b.combined_amount || 0) - Number(a.combined_amount || 0));
+      }
+
+      function productIncrement(productQuery, amount){
+        const item = tools.findProduct(productQuery, productData.map);
+        if(!item || !Number(amount || 0)) return {item:null, increment:0, factor:1};
+        const factor = tools.factorFrom(item.salesCoef);
+        return {item, increment: tools.calcStandardAmount(amount, factor), factor};
+      }
+
+      function renderEmployeeRows(){
+        const branch = branchByName(document.querySelector('[data-employee-branch]').value);
+        const rows = employeesForBranch(branch.branch);
+        const body = document.querySelector('[data-employee-calc-rows]');
+        body.innerHTML = rows.map((row, index) => `
+          <tr data-employee-row="${index}">
+            <td><strong>${row.name}</strong></td>
+            <td>${fmtWan(row.public_amount)}</td>
+            <td>${fmtWan(row.private_amount)}</td>
+            <td>${fmtWan(row.combined_amount)}</td>
+            <td><input data-employee-row-product value="${document.querySelector('[data-employee-product]').value || ''}" placeholder="代码/名称"></td>
+            <td><input data-employee-row-amount type="number" min="0" step="10" placeholder="万元"></td>
+            <td data-employee-row-increment>0</td>
+            <td data-employee-row-lift>0.0%</td>
+          </tr>
+        `).join('');
+        renderEmployeeCalc();
+      }
+
+      function renderEmployeeCalc(){
+        const branch = branchByName(document.querySelector('[data-employee-branch]').value);
+        const target = Number(branch.combined_target || 0);
+        let totalIncrement = 0;
+        document.querySelectorAll('[data-employee-row]').forEach(tr => {
+          const productQuery = tr.querySelector('[data-employee-row-product]').value.trim();
+          const amount = Number(tr.querySelector('[data-employee-row-amount]').value || 0);
+          const {increment} = productIncrement(productQuery, amount);
+          totalIncrement += increment;
+          tr.querySelector('[data-employee-row-increment]').textContent = fmtWan(increment);
+          tr.querySelector('[data-employee-row-lift]').textContent = target ? pctText(increment / target) : '0.0%';
+        });
+        document.querySelector('[data-employee-total-lift]').textContent = target ? pctText(totalIncrement / target) : '0.0%';
+        document.querySelector('[data-employee-total-detail]').textContent = `${branch.branch} 预计新增 ${fmtWan(totalIncrement)} 万元标销，按公私募目标 ${fmtWan(target)} 万测算。`;
+      }
+
+      function renderBranchCalc(){
+        const a = branchByName(document.querySelector('[data-branch-a]').value);
+        const b = branchByName(document.querySelector('[data-branch-b]').value);
+        const gap = Math.max(0, b.combined_amount - a.combined_amount);
+        const needForRate = Math.max(0, b.combined_rate * a.combined_target - a.combined_amount);
+        const needed = Math.max(gap, needForRate);
+        const candidates = tools.candidateProducts(5);
+        const list = candidates.map(item => {
+          const factor = tools.factorFrom(item.salesCoef);
+          const saleNeed = needed > 0 ? needed / factor : 0;
+          return `<div class="candidate-item"><b>${item.name}</b><span>${candidateReason(item)}｜销量${factor}｜约售 ${fmtWan(saleNeed)} 万元</span></div>`;
+        }).join('');
+        document.querySelector('[data-branch-result]').innerHTML = `
+          <span>${a.branch} 汇总完成率 ${pctText(a.combined_rate)}，${b.branch} 汇总完成率 ${pctText(b.combined_rate)}。</span>
+          <strong>赶超参考缺口 ${fmtWan(needed)} 万元标销</strong>
+          <span>公募完成率：${pctText(a.public_rate)} vs ${pctText(b.public_rate)}；私募完成率：${pctText(a.private_rate)} vs ${pctText(b.private_rate)}。</span>
+          <div class="candidate-list">${list || '<div class="decision-empty">暂无可推荐的高系数候选产品。</div>'}</div>
+          <span class="decision-muted">候选产品仅取当前在售、或从今天到本月底可销售的产品，并兼顾公募/私募与销量系数；金额单位为万元。</span>
+        `;
+      }
+
+      document.querySelector('[data-run-sales-calc]').addEventListener('click', renderSalesCalc);
+      document.querySelector('[data-run-branch-calc]').addEventListener('click', renderBranchCalc);
+      document.querySelector('[data-employee-branch]').addEventListener('change', renderEmployeeRows);
+      document.querySelector('[data-employee-product]').addEventListener('input', () => {
+        const value = document.querySelector('[data-employee-product]').value;
+        document.querySelectorAll('[data-employee-row-product]').forEach(input => { input.value = value; });
+        renderEmployeeCalc();
+      });
+      document.querySelector('[data-employee-calc-rows]').addEventListener('input', renderEmployeeCalc);
+      renderEmployeeRows();
+    })();
   </script>
   <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
 </body>

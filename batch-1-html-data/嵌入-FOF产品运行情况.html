@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>产品配置工作台｜FOF产品运行情况</title>
+  <style>
+    :root {
+      --ink:#1f2a3d;
+      --muted:#6d7788;
+      --line:#e8edf5;
+      --soft:#f5f7fb;
+      --panel:#ffffff;
+      --blue:#4268d6;
+      --blue-soft:#eef3ff;
+      --gold:#b99035;
+      --gold-soft:#fff7e6;
+      --red:#c9554d;
+      --green:#2f9e62;
+      --shadow:0 10px 24px rgba(28,41,70,.08);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      color:var(--ink);
+      background:#f2f5fa;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    button,
+    input { font:inherit; }
+
+    .app { min-height:100vh; }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:20;
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 28px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+
+    .crumb {
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .crumb strong {
+      margin-left:8px;
+      color:var(--ink);
+      font-size:16px;
+    }
+
+    .toolbar {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .search {
+      width:300px;
+      height:36px;
+      border:1px solid var(--line);
+      border-radius:6px;
+      padding:0 12px;
+      outline:none;
+      background:#fafbfd;
+      color:var(--ink);
+    }
+
+    .search:focus {
+      border-color:#b8c7ff;
+      box-shadow:0 0 0 3px rgba(66,104,214,.12);
+    }
+
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--blue-soft);
+      color:var(--blue);
+      font-weight:700;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .workspace {
+      padding:24px 28px 96px;
+    }
+
+    .page-head {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    h1 {
+      margin:0;
+      color:var(--ink);
+      font-size:24px;
+      line-height:1.25;
+      letter-spacing:0;
+    }
+
+    .meta {
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:650;
+    }
+
+    .summary-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .kpi {
+      min-height:92px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:var(--shadow);
+    }
+
+    .kpi span {
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .kpi strong {
+      display:block;
+      margin-top:5px;
+      color:var(--ink);
+      font-size:24px;
+      line-height:1.2;
+    }
+
+    .kpi em {
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12px;
+      font-style:normal;
+    }
+
+    .product-tabs {
+      position:sticky;
+      top:64px;
+      z-index:15;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:18px;
+      padding:10px 0;
+      background:#f2f5fa;
+    }
+
+    .tab-btn {
+      min-height:86px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:12px 14px;
+      background:#fff;
+      color:var(--ink);
+      text-align:left;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(28,41,70,.04);
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      border-color:#b8c7ff;
+      background:linear-gradient(180deg,#fff,#f8faff);
+      box-shadow:var(--shadow);
+    }
+
+    .tab-btn strong {
+      display:block;
+      font-size:15px;
+      line-height:1.32;
+    }
+
+    .tab-btn span {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .report-stack {
+      display:grid;
+      gap:18px;
+    }
+
+    .product-report {
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .product-report[hidden] { display:none; }
+
+    .report-head {
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      background:#fbfcff;
+    }
+
+    .title-row {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .report-title {
+      margin:0;
+      font-size:20px;
+      line-height:1.3;
+    }
+
+    .tag {
+      display:inline-flex;
+      align-items:center;
+      min-height:24px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:var(--gold-soft);
+      color:#8a6618;
+      font-size:12px;
+      font-weight:750;
+      white-space:nowrap;
+    }
+
+    .brief {
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:650;
+      text-wrap:pretty;
+    }
+
+    .metric-card {
+      border:1px solid #ead8b8;
+      border-radius:8px;
+      overflow:hidden;
+      background:#fffaf2;
+    }
+
+    .metric-row {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      padding:8px 12px;
+      border-bottom:1px solid rgba(185,144,53,.18);
+      font-variant-numeric:tabular-nums;
+    }
+
+    .metric-row:last-child { border-bottom:0; }
+    .metric-row span:first-child { color:#5c6470; }
+    .metric-row strong { font-weight:750; }
+
+    .section {
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .section:last-child { border-bottom:0; }
+
+    .section-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .section-title {
+      margin:0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:17px;
+      line-height:1.25;
+    }
+
+    .section-title:before {
+      content:"";
+      width:4px;
+      height:20px;
+      border-radius:2px;
+      background:#5f7be8;
+    }
+
+    .index-grid {
+      display:grid;
+      grid-template-columns:repeat(7,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .index-card {
+      min-height:62px;
+      display:grid;
+      align-content:center;
+      gap:2px;
+      padding:10px;
+      border:1px solid #ead8b8;
+      border-radius:8px;
+      background:#fffdf8;
+      text-align:center;
+    }
+
+    .index-card strong {
+      font-size:15px;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .index-card span {
+      color:#4d5666;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .pos { color:var(--red); font-weight:750; }
+    .neg { color:var(--green); font-weight:750; }
+    .flat { color:#6d7788; font-weight:750; }
+
+    .chart-wrap {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(270px,360px);
+      gap:16px;
+      align-items:stretch;
+    }
+
+    .spark-panel {
+      min-height:238px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:linear-gradient(180deg,#fff,#fbfcff);
+      padding:12px;
+    }
+
+    .spark-panel svg {
+      display:block;
+      width:100%;
+      height:250px;
+    }
+
+    .spark-grid line {
+      stroke:#e7ecf4;
+      stroke-width:1;
+    }
+
+    .axis-label {
+      fill:#697386;
+      font-size:12px;
+      font-weight:650;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .axis-title {
+      fill:#8a94a6;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .spark-line {
+      fill:none;
+      stroke:#d72b2b;
+      stroke-width:3;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .spark-line.dark {
+      stroke:#d9bd86;
+    }
+
+    .drawdown-zone {
+      fill:rgba(68,70,75,.22);
+    }
+
+    .chart-side {
+      display:grid;
+      gap:10px;
+    }
+
+    .chart-notes {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .side-note {
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fbfcff;
+    }
+
+    .side-note strong {
+      display:block;
+      margin-bottom:5px;
+      font-size:13px;
+    }
+
+    .side-note span {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+    }
+
+    .table-wrap {
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+    }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:980px;
+    }
+
+    th {
+      position:sticky;
+      top:0;
+      z-index:1;
+      padding:10px 12px;
+      background:#edf2fb;
+      color:#4c63b3;
+      text-align:left;
+      font-size:12px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    td {
+      padding:10px 12px;
+      border-top:1px solid var(--line);
+      color:#2a3446;
+      vertical-align:middle;
+      white-space:nowrap;
+      font-size:13px;
+    }
+
+    td.product-name {
+      min-width:320px;
+      white-space:normal;
+      font-weight:650;
+    }
+
+    tbody tr:hover { background:#fffdf0; }
+
+    .note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    .disclosure {
+      display:grid;
+      gap:6px;
+      padding:14px 20px 18px;
+      border-top:1px solid var(--line);
+      background:#fbfcff;
+      color:#6d7788;
+      font-size:12px;
+    }
+
+    .empty {
+      display:none;
+      min-height:260px;
+      place-items:center;
+      border:1px dashed #cfd8e8;
+      border-radius:8px;
+      background:#fff;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .empty.show { display:grid; }
+
+    @media (max-width:900px) {
+      .summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .product-tabs { grid-template-columns:1fr; position:static; }
+      .report-head,
+      .chart-wrap { grid-template-columns:1fr; }
+      .chart-notes { grid-template-columns:1fr; }
+      .index-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+
+    @media (max-width:760px) {
+      .topbar {
+        position:static;
+        align-items:flex-start;
+        flex-direction:column;
+        padding:14px 18px;
+      }
+
+      .toolbar,
+      .search { width:100%; }
+
+      .workspace { padding:18px 18px 96px; }
+      .page-head { display:block; }
+      .summary-grid,
+      .index-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="crumb">产品配置工作台 / <strong>FOF产品运行情况</strong></div>
+      <div class="toolbar">
+        <input id="searchBox" class="search" placeholder="搜索产品名称、底层产品、收益数据">
+        <span class="pill">报告区间 2026-07-10 至 2026-07-17</span>
+      </div>
+    </div>
+
+    <main class="workspace">
+      <div class="page-head">
+        <div>
+          <h1>FOF产品运行情况</h1>
+          <div class="meta">省心享系列 FOF 产品周度运行简报，数据截至 2026-07-17。</div>
+        </div>
+        <span class="pill">华泰证券资产管理 · WeFund</span>
+      </div>
+
+      <section class="summary-grid" aria-label="FOF产品汇总">
+        <div class="kpi"><span>覆盖产品</span><strong>3只</strong><em>FOF199 / FOF123 / FOF3</em></div>
+        <div class="kpi"><span>本周最佳</span><strong class="neg">-2.52%</strong><em>安泰尊享优选FOF199号</em></div>
+        <div class="kpi"><span>累计收益最高</span><strong class="pos">4.23%</strong><em>安泰尊享优选FOF199号</em></div>
+        <div class="kpi"><span>成立以来年化收益最高</span><strong class="pos">2.83%</strong><em>安泰尊享优选FOF199号</em></div>
+      </section>
+
+      <nav class="product-tabs" aria-label="产品切换">
+        <button class="tab-btn active" type="button" data-product-tab="fof199">
+          <strong>省心享-华泰WEFUND安泰尊享优选FOF199号</strong>
+          <span><b>本周 -2.52%</b><b>累计 4.23%</b></span>
+        </button>
+        <button class="tab-btn" type="button" data-product-tab="fof123">
+          <strong>省心享-华泰齐鲁晟泰优选FOF123号</strong>
+          <span><b>本周 -4.62%</b><b>累计 1.15%</b></span>
+        </button>
+        <button class="tab-btn" type="button" data-product-tab="fof3">
+          <strong>省心享-华泰齐鲁泉泰甄选FOF3号</strong>
+          <span><b>本周 -9.51%</b><b>累计 -11.71%</b></span>
+        </button>
+      </nav>
+
+      <div id="emptyState" class="empty">没有匹配的产品或明细，请调整搜索条件。</div>
+      <div id="reportStack" class="report-stack"></div>
+    </main>
+  </div>
+
+  <script>
+    const INDEX_PERFORMANCE = [
+      { name: "上证综指", value: "-5.81%", tone: "neg" },
+      { name: "深证成指", value: "-8.90%", tone: "neg" },
+      { name: "创业板指", value: "-10.78%", tone: "neg" },
+      { name: "上证50", value: "-4.33%", tone: "neg" },
+      { name: "沪深300", value: "-5.26%", tone: "neg" },
+      { name: "中证500", value: "-11.64%", tone: "neg" },
+      { name: "中证1000", value: "-12.57%", tone: "neg" }
+    ];
+
+    const PRODUCTS = [
+      {
+        id: "fof199",
+        theme: "light",
+        title: "省心享-华泰WEFUND安泰尊享优选FOF199号集合资产管理计划",
+        shortTitle: "安泰尊享优选FOF199号",
+        period: "2026-07-10 至 2026-07-17",
+        reportTitle: "省心享-华泰WEFUND安泰尊享优选FOF199号集合资产管理计划业绩简报",
+        established: "2025.01.21",
+        nav: "1.0423",
+        cumulative: "4.23%",
+        maxDrawdown: "-4.09%",
+        weekReturn: "-2.52%",
+        annualized: "2.83%",
+        footerNav: "1.0423",
+        summary: "产品本周回落 -2.52%，累计收益 4.23%，成立以来年化收益 2.83%。区间持仓中，套利和择时对冲类标的整体承压。",
+        drawdownLabel: "2026-05 至 2026-07 最大回撤区间",
+        spark: "M8 156 C70 154 86 140 130 138 C185 134 210 146 265 140 C330 134 332 154 385 148 C430 146 438 164 482 162 C522 159 526 150 548 156 C568 171 548 144 580 148 C612 149 612 124 638 116 C660 104 648 78 676 84 C706 94 694 58 730 52 C758 48 754 70 792 62 C828 58 825 46 858 30 C890 16 895 30 922 22 C948 18 952 34 978 25 C1000 25 1016 46 1032 78",
+        drawdownZone: { x: 920, width: 120 },
+        yTicks: ["1.09", "1.08", "1.06", "1.04", "1.02", "1.00"],
+        xTicks: [
+          { x: 120, label: "2025-03-01" },
+          { x: 300, label: "2025-07-01" },
+          { x: 480, label: "2025-11-01" },
+          { x: 660, label: "2026-01-01" },
+          { x: 840, label: "2026-05-01" },
+          { x: 1030, label: "2026-07-17" }
+        ],
+        holdings: [
+          ["本产品", "-2.52%", "4.23%", "--", "2025-01-21", "2026-07-17"],
+          ["省心享量瀛悦泰1号私募证券投资基金B类（量化对冲-择时对冲）", "-3.8%", "-9.5%", "20.08%", "2026-04-17", "2026-07-17"],
+          ["进化论省心享臻乾1号私募证券投资基金B类（量化对冲-择时对冲）", "-4.99%", "9.99%", "19.85%", "2025-08-27", "2026-07-17"],
+          ["盛泉恒元量化套利15号专项私募证券投资基金（套利-其他套利）", "-1.66%", "7.1%", "23.47%", "2025-08-26", "2026-07-17"],
+          ["申毅尊享稳健1号证券投资私募基金（套利-期权套利）", "-0.39%", "3.6%", "10.72%", "2025-06-18", "2026-07-17"]
+        ]
+      },
+      {
+        id: "fof123",
+        theme: "light",
+        title: "省心享-华泰齐鲁晟泰优选FOF123号集合资产管理计划",
+        shortTitle: "齐鲁晟泰优选FOF123号",
+        period: "2026-07-10 至 2026-07-17",
+        reportTitle: "省心享-华泰齐鲁晟泰优选FOF123号集合资产管理计划业绩简报",
+        established: "2025.07.29",
+        nav: "1.0115",
+        cumulative: "1.15%",
+        maxDrawdown: "-8.47%",
+        weekReturn: "-4.62%",
+        annualized: "1.19%",
+        footerNav: "1.0115",
+        summary: "产品本周回落 -4.62%，累计收益 1.15%，最大回撤扩大至 -8.47%。区间内 CTA 标的为少数正贡献来源。",
+        drawdownLabel: "2026-05 至 2026-07 最大回撤区间",
+        spark: "M8 154 C42 154 58 150 82 154 C102 158 112 146 132 152 C156 160 166 142 194 150 C220 156 226 140 252 146 C278 150 282 130 310 126 C336 123 338 113 365 112 C390 112 382 158 410 154 C438 151 430 128 460 130 C492 132 498 128 525 125 C548 116 558 108 580 102 C605 95 606 76 632 70 C660 64 662 84 694 78 C730 70 728 51 760 50 C790 50 790 80 824 82 C850 82 854 54 882 43 C908 34 908 24 938 24 C966 24 970 72 996 92 C1018 106 1022 132 1038 156",
+        drawdownZone: { x: 830, width: 210 },
+        yTicks: ["1.11", "1.10", "1.08", "1.06", "1.04", "1.02", "1.00"],
+        xTicks: [
+          { x: 60, label: "2025-08-01" },
+          { x: 220, label: "2025-10-01" },
+          { x: 380, label: "2025-12-01" },
+          { x: 540, label: "2026-02-01" },
+          { x: 700, label: "2026-04-01" },
+          { x: 860, label: "2026-06-01" },
+          { x: 1030, label: "2026-07-17" }
+        ],
+        holdings: [
+          ["本产品", "-4.62%", "1.15%", "--", "2025-07-29", "2026-07-17"],
+          ["超量子省心享量选1号私募证券投资基金B类（指数增强-中小盘指增）", "-10.13%", "-7.55%", "19.86%", "2025-08-20", "2026-07-17"],
+          ["致远中证A500兴泰2号私募证券投资基金B类（指数增强-大盘指增）", "-8.64%", "9.3%", "19.67%", "2025-08-15", "2026-07-17"],
+          ["鸣石省心享和甲2号择时对冲量化私募证券投资基金B类（量化对冲-择时对冲）", "-5.07%", "-1.36%", "14.67%", "2026-04-22", "2026-07-17"],
+          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "2.19%", "0.19%", "22.57%", "2026-06-23", "2026-07-17"]
+        ]
+      },
+      {
+        id: "fof3",
+        theme: "dark",
+        title: "省心享-华泰齐鲁泉泰甄选FOF3号集合资产管理计划",
+        shortTitle: "齐鲁泉泰甄选FOF3号",
+        period: "2026-07-10 至 2026-07-17",
+        reportTitle: "省心享-华泰齐鲁泉泰甄选FOF3号集合资产管理计划业绩简报",
+        established: "2026.04.29",
+        nav: "0.8829",
+        cumulative: "-11.71%",
+        maxDrawdown: "-12.77%",
+        weekReturn: "-9.51%",
+        annualized: "--",
+        footerNav: "0.8829",
+        summary: "产品本周收益 -9.51%，累计收益 -11.71%，最大回撤 -12.77%。区间内多数指增类持仓承压，CTA 标的相对表现较好。",
+        drawdownLabel: "2026-07 最大回撤区间",
+        spark: "M8 66 C72 66 122 66 178 66 C232 67 272 68 318 64 C356 60 382 60 410 64 C445 72 448 80 482 82 C520 84 548 82 580 86 C620 92 630 94 666 96 C700 98 718 92 734 48 C742 24 754 18 782 18 C832 18 850 26 902 30 C956 34 990 36 1016 92 C1028 118 1035 154 1042 190",
+        drawdownZone: { x: 910, width: 132 },
+        yTicks: ["1.02", "0.99", "0.96", "0.93", "0.90", "0.88"],
+        xTicks: [
+          { x: 45, label: "2026-04-29" },
+          { x: 180, label: "2026-05-08" },
+          { x: 315, label: "2026-05-22" },
+          { x: 450, label: "2026-06-01" },
+          { x: 585, label: "2026-06-08" },
+          { x: 720, label: "2026-06-15" },
+          { x: 875, label: "2026-06-29" },
+          { x: 1030, label: "2026-07-17" }
+        ],
+        holdings: [
+          ["本产品", "-9.51%", "-11.71%", "--", "2026-04-29", "2026-07-17"],
+          ["世纪前沿中证A500指数增强8号私募证券投资基金B类（指数增强-大盘指增）", "-9.41%", "-7.06%", "10.48%", "2026-05-21", "2026-07-17"],
+          ["超量子省心享兴泰进取1号私募证券投资基金B类（指数增强-中小盘指增）", "-12.74%", "-16.21%", "12.91%", "2026-05-21", "2026-07-17"],
+          ["远澜HT翠柏8号私募证券投资基金B类（期货CTA-中低频）", "1.69%", "-0.77%", "11.19%", "2026-05-20", "2026-07-17"],
+          ["知行通达省心享兴泰锐进元合3号私募证券投资基金B类（指数增强-中小盘指增）", "-12.97%", "-10.2%", "3.9%", "2026-06-08", "2026-07-17"],
+          ["明泓兴泰1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-15.91%", "-18.24%", "16.47%", "2026-05-25", "2026-07-17"],
+          ["龙旗锐泰一号私募证券投资基金B类（指数增强-中小盘指增）", "-14.23%", "-19.38%", "11.39%", "2026-05-26", "2026-07-17"],
+          ["磐松HT全市场指数增强进取1号私募证券投资基金（指数增强-中小盘指增）", "-9.77%", "-16.6%", "3.75%", "2026-05-26", "2026-07-17"],
+          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "2.03%", "1.0%", "11.39%", "2026-05-22", "2026-07-17"],
+          ["世纪前沿兴泰进取1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-12.65%", "-14.83%", "6.21%", "2026-06-26", "2026-07-17"]
+        ]
+      }
+    ];
+
+    function valueTone(value) {
+      const text = String(value ?? "");
+      if (text.startsWith("-")) return "neg";
+      if (text === "--") return "flat";
+      return "pos";
+    }
+
+    function renderIndexCards() {
+      return INDEX_PERFORMANCE.map(item => `
+        <div class="index-card">
+          <strong class="${item.tone}">${item.value}</strong>
+          <span>${item.name}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderRows(rows) {
+      return rows.map(row => `
+        <tr>
+          <td class="product-name">${row[0]}</td>
+          <td class="${valueTone(row[1])}">${row[1]}</td>
+          <td class="${valueTone(row[2])}">${row[2]}</td>
+          <td>${row[3]}</td>
+          <td>${row[4]}</td>
+          <td>${row[5]}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderYAxis(ticks) {
+      const top = 30;
+      const bottom = 190;
+      const step = ticks.length > 1 ? (bottom - top) / (ticks.length - 1) : 0;
+      return ticks.map((label, index) => {
+        const y = top + step * index + 4;
+        return `<text class="axis-label" x="10" y="${y}" text-anchor="start">${label}</text>`;
+      }).join("");
+    }
+
+    function renderXAxis(ticks) {
+      return ticks.map(item => `
+        <text class="axis-label" x="${item.x}" y="232" text-anchor="middle" transform="rotate(-34 ${item.x} 232)">${item.label}</text>
+      `).join("");
+    }
+
+    function renderReport(product) {
+      const lineClass = product.theme === "dark" ? "spark-line dark" : "spark-line";
+      return `
+        <article class="product-report" id="${product.id}" data-search="${[product.title, product.shortTitle, product.holdings.flat().join(" ")].join(" ")}">
+          <div class="report-head">
+            <div>
+              <div class="title-row">
+                <h2 class="report-title">${product.reportTitle}</h2>
+                <span class="tag">${product.period}</span>
+              </div>
+              <p class="brief">${product.summary}</p>
+            </div>
+          </div>
+
+          <section class="section">
+            <div class="section-head">
+              <h3 class="section-title">净值运行概览</h3>
+              <span class="pill">最大回撤区间已标注</span>
+            </div>
+            <div class="chart-wrap">
+              <div class="spark-panel">
+                <svg viewBox="0 0 1060 260" role="img" aria-label="${product.shortTitle}净值走势示意">
+                  <g class="spark-grid">
+                    <line x1="0" y1="30" x2="1060" y2="30"></line>
+                    <line x1="0" y1="70" x2="1060" y2="70"></line>
+                    <line x1="0" y1="110" x2="1060" y2="110"></line>
+                    <line x1="0" y1="150" x2="1060" y2="150"></line>
+                    <line x1="0" y1="190" x2="1060" y2="190"></line>
+                    <line x1="120" y1="20" x2="120" y2="204"></line>
+                    <line x1="300" y1="20" x2="300" y2="204"></line>
+                    <line x1="480" y1="20" x2="480" y2="204"></line>
+                    <line x1="660" y1="20" x2="660" y2="204"></line>
+                    <line x1="840" y1="20" x2="840" y2="204"></line>
+                  </g>
+                  <rect class="drawdown-zone" x="${product.drawdownZone.x}" y="20" width="${product.drawdownZone.width}" height="184" rx="2"></rect>
+                  <path class="${lineClass}" d="${product.spark}"></path>
+                  <text class="axis-title" x="10" y="18">单位净值</text>
+                  ${renderYAxis(product.yTicks)}
+                  ${renderXAxis(product.xTicks)}
+                </svg>
+              </div>
+              <div class="chart-side">
+                <div class="metric-card" aria-label="${product.shortTitle}关键指标">
+                  <div class="metric-row"><span>产品成立日</span><strong>${product.established}</strong></div>
+                  <div class="metric-row"><span>复权单位净值</span><strong>${product.nav}</strong></div>
+                  <div class="metric-row"><span>累计收益</span><strong class="${valueTone(product.cumulative)}">${product.cumulative}</strong></div>
+                  <div class="metric-row"><span>最大回撤</span><strong class="neg">${product.maxDrawdown}</strong></div>
+                  <div class="metric-row"><span>本周收益</span><strong class="${valueTone(product.weekReturn)}">${product.weekReturn}</strong></div>
+                  ${product.annualized === "--" ? "" : `<div class="metric-row"><span>成立以来年化收益</span><strong>${product.annualized}</strong></div>`}
+                </div>
+              </div>
+            </div>
+            <div class="chart-notes">
+                <div class="side-note"><strong>观察口径</strong><span>净值数据已扣除母层管理费、子层管理费和业绩报酬。</span></div>
+                <div class="side-note"><strong>回撤提示</strong><span>${product.drawdownLabel}</span></div>
+                <div class="side-note"><strong>期末净值</strong><span>截至 2026-07-17，单位净值为 ${product.footerNav}。</span></div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="section-head">
+              <h3 class="section-title">本报告期内各大指数表现</h3>
+              <span class="note">红色为上涨，绿色为下跌。</span>
+            </div>
+            <div class="index-grid">${renderIndexCards()}</div>
+          </section>
+
+          <section class="section">
+            <div class="section-head">
+              <h3 class="section-title">区间业绩信息</h3>
+              <span class="note">注：仅披露持仓 3% 以上的持仓标的。</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>产品名称</th>
+                    <th>本周收益</th>
+                    <th>累计收益</th>
+                    <th>期末占比</th>
+                    <th>起始日</th>
+                    <th>结束日</th>
+                  </tr>
+                </thead>
+                <tbody>${renderRows(product.holdings)}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="disclosure">
+            <strong>截至2026-07-17，${product.title}，单位净值为${product.footerNav}</strong>
+            <span>注：本报告仅供「${product.title}」投资者阅览，净值数据已扣除母层管理费、子层管理费和业绩报酬，风险揭示：产品历史业绩并不构成投资者所投资产品业绩表现的保证。</span>
+            <span>数据来源：Wind、华泰证券资管。</span>
+          </div>
+        </article>
+      `;
+    }
+
+    const reportStack = document.getElementById("reportStack");
+    const emptyState = document.getElementById("emptyState");
+    const searchBox = document.getElementById("searchBox");
+
+    reportStack.innerHTML = PRODUCTS.map(renderReport).join("");
+
+    function setActiveProduct(productId) {
+      document.querySelectorAll("[data-product-tab]").forEach(button => {
+        button.classList.toggle("active", button.dataset.productTab === productId);
+      });
+      document.querySelectorAll(".product-report").forEach(report => {
+        report.hidden = report.id !== productId;
+      });
+      searchBox.value = "";
+      emptyState.classList.remove("show");
+      reportStack.style.display = "";
+    }
+
+    function applySearch() {
+      const keyword = searchBox.value.trim().toLowerCase();
+      const reports = Array.from(document.querySelectorAll(".product-report"));
+      if (!keyword) {
+        const active = document.querySelector("[data-product-tab].active")?.dataset.productTab || "fof199";
+        setActiveProduct(active);
+        return;
+      }
+      let visibleCount = 0;
+      document.querySelectorAll("[data-product-tab]").forEach(button => button.classList.remove("active"));
+      reports.forEach(report => {
+        const matched = report.dataset.search.toLowerCase().includes(keyword);
+        report.hidden = !matched;
+        if (matched) visibleCount += 1;
+      });
+      reportStack.style.display = visibleCount ? "" : "none";
+      emptyState.classList.toggle("show", visibleCount === 0);
+    }
+
+    document.addEventListener("click", event => {
+      const tab = event.target.closest("[data-product-tab]");
+      if (!tab) return;
+      setActiveProduct(tab.dataset.productTab);
+    });
+
+    searchBox.addEventListener("input", applySearch);
+    setActiveProduct("fof199");
+  </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
+</body>
+</html>

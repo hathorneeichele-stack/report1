@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>蒙玺兴泰量化光翼系列实盘业绩报告</title>
+  <style>
+    :root{--bg:#f6f8fb;--panel:#fff;--ink:#17243a;--muted:#65758b;--line:#dbe4f1;--blue:#255fb8;--deep:#183c78;--red:#c5484f;--green:#2f9b72;--gold:#b58a2a;--soft:#edf4ff;--shadow:0 10px 26px rgba(29,55,91,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#f9fbff,var(--bg));color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.58}
+    .report{max-width:1280px;margin:0 auto;padding:24px 28px 38px}
+    .hero,.card,.chart-card,.risk{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+    .hero{padding:24px 26px;background:linear-gradient(135deg,#fff,#eef6ff)}
+    .badge,.pill{display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:850}
+    .badge{padding:4px 11px;border:1px solid #cbdcff;background:#eaf2ff;color:#245aa6}
+    .pill{padding:3px 9px;background:var(--soft);color:var(--blue);margin-bottom:8px}
+    h1{margin:10px 0 6px;font-size:28px;line-height:1.22;letter-spacing:0;color:#12213a}
+    h2{display:flex;align-items:center;gap:8px;margin:0 0 12px;padding-bottom:9px;border-bottom:1px solid var(--line);font-size:20px;color:#15233a}
+    h2:before{content:"";width:4px;height:22px;border-radius:2px;background:var(--blue)}
+    h3{margin:0 0 8px;font-size:15px;color:#162541}
+    p{margin:0;color:#536176}
+    .subtitle{max-width:1020px;color:var(--muted)}
+    .source{margin-top:8px;color:#76879e;font-size:12px}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .metric{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:8px;padding:13px 14px;min-height:82px}
+    .metric span{display:block;color:var(--muted);font-size:12px;font-weight:700}.metric strong{display:block;margin-top:4px;font-size:24px;color:var(--blue);line-height:1.2}
+    .metric small{display:block;margin-top:3px;color:#7a8797;font-size:11px}
+    .section{margin-top:20px}.grid{display:grid;gap:12px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{padding:15px 16px}.card.highlight{border-left:4px solid var(--blue)}.card.green{border-left:4px solid var(--green)}.card.caution{border-left:4px solid var(--gold)}
+    .card ul{margin:8px 0 0;padding-left:18px;color:#536176}.card li{margin:4px 0}
+    .chart-card{padding:16px;overflow:auto}.chart-title{margin-bottom:10px;color:#244b82;font-weight:900}
+    svg{width:100%;min-width:0;height:auto;display:block;background:#fbfdff;border:1px solid #e2ebf6;border-radius:7px}
+    .axis{stroke:#9aa9bc;stroke-width:1.2}.grid-line{stroke:#e5ecf5;stroke-width:1}.line-main{fill:none;stroke:var(--blue);stroke-width:3.2}.area-main{fill:rgba(37,95,184,.12)}.dot-main{fill:var(--blue);stroke:#fff;stroke-width:2}.bar-pos{fill:#d75a61}.bar-neg{fill:#3aa276}.bar-bench{fill:#7fa7e2}.chart-text{fill:#66758b;font-size:12px}.chart-label{fill:#17243a;font-size:13px;font-weight:800}.value-pos{color:#c5484f;font-weight:850}.value-neg{color:#24966f;font-weight:850}
+    table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}th,td{padding:10px 12px;border-bottom:1px solid #edf2f8;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#eaf3ff;color:#244b82;font-weight:850;white-space:nowrap}tr.total td{background:#f2f7ff;font-weight:850}
+    .monthly-table td,.monthly-table th{text-align:center;white-space:nowrap}.monthly-table td:first-child,.monthly-table th:first-child{text-align:left}
+    .monthly-detail td,.monthly-detail th{text-align:left}.monthly-detail td:nth-child(2),.monthly-detail td:nth-child(3){font-weight:850;white-space:nowrap}.monthly-detail td:last-child{min-width:360px;color:#536176}
+    .note{margin-top:10px;color:#69788b;font-size:12px}
+    .stack{display:grid;gap:12px}.net-layout{display:grid;grid-template-columns:minmax(0,1.45fr) 360px;gap:12px;align-items:stretch}.net-layout .chart-card{min-width:0}.net-table table{min-width:0;height:100%}.net-table td:first-child{color:#244b82;font-weight:850;white-space:nowrap}.explain-card{border-left:4px solid var(--green)}
+    .index-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+    .index-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .index-item{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfdff}
+    .index-item strong{display:block;color:var(--deep);font-size:15px;margin-bottom:4px}
+    .risk{margin-top:20px;padding:13px 15px;border-color:#ead7a8;background:#fff9e9;color:#6a5629;font-size:12px}
+    .footer-note{margin-top:18px;color:#7a8797;font-size:12px;text-align:right}
+    @media(max-width:980px){.report{padding:18px}.metrics,.grid.two,.grid.three,.grid.four,.index-grid,.index-list,.net-layout{grid-template-columns:1fr}h1{font-size:23px}}
+  </style>
+</head>
+<body>
+  <main class="report">
+    <section class="hero">
+      <span class="badge">内部材料 | 实盘业绩报告</span>
+      <h1>蒙玺兴泰量化光翼12号1期</h1>
+      <p class="subtitle">产品定位为量化多头策略，对标万得全A等权指数。策略通过全市场选股、分钟级精细化换仓、30分钟至3天多周期预测，以及机器学习/深度学习模型，力争在宽覆盖、低相关、分散化的指数赛道中获取超额收益。</p>
+      <div class="source">资料来源：蒙玺兴泰量化光翼12号推介材料、思维导图及管理人路演文字口径。历史业绩不预示未来表现。</div>
+      <div class="metrics">
+        <div class="metric"><span>年化收益</span><strong>52.35%</strong><small>2025/6/26-2026/7/3</small></div>
+        <div class="metric"><span>运作以来绝对收益</span><strong>+53.59%</strong><small>同策略代表产品口径</small></div>
+        <div class="metric"><span>对标周胜率</span><strong>66.04%</strong><small>对标万得全A等权指数</small></div>
+        <div class="metric"><span>最大回撤</span><strong>-10.07%</strong><small>运作区间最大回撤</small></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>产品净值走势</h2>
+      <div class="net-layout">
+        <div class="chart-card">
+          <div class="chart-title">蒙玺量化光翼系列产品（同策略）净值与规模走势</div>
+          <svg id="netValueChart" viewBox="0 0 980 430" role="img" aria-label="蒙玺代表产品净值走势与规模变化"></svg>
+          <p class="note">数据来自对客推介材料第 18 页，走势按材料披露的月度收益重构展示；单位净值、累计净值均为计提业绩报酬前净值。</p>
+        </div>
+        <div class="chart-card net-table">
+          <div class="chart-title">代表产品关键指标</div>
+          <table>
+            <tbody>
+              <tr><td>产品成立日期</td><td>2025/5/8</td></tr>
+              <tr><td>起始运作日期</td><td>2025/6/26</td></tr>
+              <tr><td>统计截止日期</td><td>2026/7/3</td></tr>
+              <tr><td>起始运作净值</td><td>0.9999</td></tr>
+              <tr><td>单位净值</td><td>1.5357</td></tr>
+              <tr><td>运作以来收益</td><td class="value-pos">53.59%</td></tr>
+              <tr><td>成立以来最大回撤</td><td class="value-neg">-10.07%</td></tr>
+              <tr><td>夏普比率</td><td>2.98</td></tr>
+              <tr><td>卡玛比率</td><td>5.20</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>核心结论</h2>
+      <div class="grid three">
+        <div class="card highlight"><span class="pill">业绩结果</span><h3>代表产品跑赢对标指数</h3><p>推介材料第 18-19 页披露，代表产品运作以来绝对收益 +53.59%，同区间万得全A等权指数涨幅 +21.49%，超额约 32 个百分点。</p></div>
+        <div class="card green"><span class="pill">指数价值</span><h3>万得全A等权具备稀缺性</h3><p>万得全A等权由 Wind 自主研发，覆盖约 5500+ 只股票，等权再平衡、极致分散，且当前缺少对应公募 ETF，是偏私募专属的全市场赛道。</p></div>
+        <div class="card caution"><span class="pill">策略优势</span><h3>高频能力迁移到全频段选股</h3><p>路演口径强调，蒙玺早期高频与低延迟积累，已迁移到股票全频段 Alpha 策略：短周期日内信号可增厚超额，也有助于平滑组合波动。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>万得全A等权指数优势</h2>
+      <div class="index-grid">
+        <div class="card highlight">
+          <h3>等权、分散、再平衡，形成长期盈利能力</h3>
+          <div class="index-list">
+            <div class="index-item"><strong>全市场覆盖</strong><p>成分股约 5500+ 只，与万得全A样本同步，覆盖行业与市值，不局限于少数权重龙头。</p></div>
+            <div class="index-item"><strong>个股声量相同</strong><p>单只成分股权重约 0.02%，降低单票冲击和权重股集中风险。</p></div>
+            <div class="index-item"><strong>每日再平衡</strong><p>上涨个股被动减仓、下跌个股被动补仓，天然带有高抛低吸属性。</p></div>
+            <div class="index-item"><strong>捕捉新股溢价</strong><p>新股上市满 10 个交易日即可纳入指数，较快纳入市场新增机会。</p></div>
+            <div class="index-item"><strong>私募专属赛道</strong><p>指数暂无对应公募 ETF，普通被动工具较难直接复制跟踪。</p></div>
+            <div class="index-item"><strong>考验选股能力</strong><p>指数本身长期表现较强，叠加 Alpha 挖掘难度更高，更能检验管理人选股能力。</p></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">万得全A等权相对宽基的长期优势</div>
+          <table>
+            <thead><tr><th>维度</th><th>披露数据</th><th>说明</th></tr></thead>
+            <tbody>
+              <tr><td>2005/7/15-2026/5/29</td><td class="value-pos">+4093.03%</td><td>点位从 569.85 升至 23894.18，涨幅 40 倍以上。</td></tr>
+              <tr><td>近 3 年跑赢沪深300</td><td class="value-pos">+23.79%</td><td>等权全市场风格相对传统市值加权宽基更有弹性。</td></tr>
+              <tr><td>近 5 年跑赢中证全指</td><td class="value-pos">+60.50%</td><td>体现全市场等权再平衡与中小盘弹性的综合效果。</td></tr>
+              <tr><td>2025 年收益</td><td class="value-pos">39.32%</td><td>材料披露同年高于沪深300、中证500、中证1000、中证全指。</td></tr>
+            </tbody>
+          </table>
+          <p class="note">以上为推介材料第 10-14 页指数展示口径，指数历史表现不代表未来表现。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>运作以来业绩</h2>
+      <div class="stack">
+        <div class="chart-card">
+          <div class="chart-title">代表产品逐月收益 | 单位：%</div>
+          <svg id="monthlyChart" viewBox="0 0 1180 430" role="img" aria-label="蒙玺量化光翼逐月收益"></svg>
+          <p class="note">代表产品起始运作日 2025/6/26，数据截至 2026/7/3；单位净值、累计净值均为计提业绩报酬前净值。</p>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">每月涨跌与备注</div>
+          <table class="monthly-detail">
+            <thead><tr><th>月份</th><th>产品收益</th><th>阶段累计</th><th>备注</th></tr></thead>
+            <tbody>
+              <tr><td>25-06</td><td class="value-pos">+0.57%</td><td class="value-pos">+0.57%</td><td>起始运作后首月小幅正收益，策略进入实盘观察期。</td></tr>
+              <tr><td>25-07</td><td class="value-pos">+4.61%</td><td class="value-pos">+5.21%</td><td>全市场选股收益释放，净值开始抬升。</td></tr>
+              <tr><td>25-08</td><td class="value-pos">+8.43%</td><td class="value-pos">+14.07%</td><td>阶段弹性最突出，短周期信号和市场 beta 共同贡献。</td></tr>
+              <tr><td>25-09</td><td class="value-pos">+3.40%</td><td class="value-pos">+17.95%</td><td>上涨节奏放缓，仍保持正收益积累。</td></tr>
+              <tr><td>25-10</td><td class="value-pos">+3.94%</td><td class="value-pos">+22.60%</td><td>延续稳步上行，组合分散选股继续贡献。</td></tr>
+              <tr><td>25-11</td><td class="value-pos">+2.77%</td><td class="value-pos">+26.00%</td><td>收益温和扩张，净值曲线保持向上斜率。</td></tr>
+              <tr><td>25-12</td><td class="value-pos">+1.65%</td><td class="value-pos">+28.08%</td><td>年末收官为正，2025年6-12月累计收益 +28.08%。</td></tr>
+              <tr><td>26-01</td><td class="value-pos">+9.18%</td><td class="value-pos">+9.18%</td><td>开年收益突出，成为 2026 年阶段贡献最大的月份之一。</td></tr>
+              <tr><td>26-02</td><td class="value-pos">+4.97%</td><td class="value-pos">+14.61%</td><td>上涨延续，策略短周期信号继续贡献正收益。</td></tr>
+              <tr><td>26-03</td><td class="value-neg">-7.96%</td><td class="value-pos">+5.49%</td><td>市场波动中出现阶段回撤，也是区间内主要回撤月份。</td></tr>
+              <tr><td>26-04</td><td class="value-pos">+10.01%</td><td class="value-pos">+16.05%</td><td>回撤后快速修复，单月收益贡献明显。</td></tr>
+              <tr><td>26-05</td><td class="value-neg">-0.91%</td><td class="value-pos">+14.99%</td><td>小幅调整，整体累计收益保持较高水平。</td></tr>
+              <tr><td>26-06</td><td class="value-pos">+1.58%</td><td class="value-pos">+16.81%</td><td>收益恢复为正，净值继续缓慢上行。</td></tr>
+              <tr><td>26-07</td><td class="value-pos">+2.65%</td><td class="value-pos">+19.91%</td><td>截至 7月3日，2026年累计收益达到 +19.91%。</td></tr>
+            </tbody>
+          </table>
+          <p class="note">备注为内部销售解读口径，用于辅助理解月度收益节奏；历史业绩不代表未来表现。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>区间收益对比</h2>
+      <div class="stack">
+        <div class="chart-card">
+          <div class="chart-title">产品与主要指数同区间收益 | 2025/6/26-2026/7/3</div>
+          <svg id="benchmarkChart" viewBox="0 0 1180 390" role="img" aria-label="蒙玺产品与指数区间收益对比"></svg>
+        </div>
+        <div class="card explain-card">
+          <h3>超额收益来源拆解</h3>
+          <p>路演口径将指数增强收益拆成两部分：一部分来自被动跟踪指数本身的阶段收益，另一部分来自管理人在该指数风格上的选股 Alpha。代表产品同区间收益 +53.59%，对标万得全A等权指数 +21.49%，剩余约 32 个百分点可理解为管理人全频段选股能力贡献。</p>
+          <ul>
+            <li>同区间沪深300：+22.71%。</li>
+            <li>同区间中证500：+49.79%。</li>
+            <li>同区间中证1000：+37.98%。</li>
+            <li>同区间中证2000：+31.49%。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>量化光翼策略特点</h2>
+      <div class="grid four">
+        <div class="card"><span class="pill">全市场选股</span><h3>600-1400只持仓</h3><p>选股范围剔除 ST 和退市风险股票，组合高度分散，避免对少数权重股的集中暴露。</p></div>
+        <div class="card"><span class="pill">因子结构</span><h3>量价因子为主</h3><p>量价因子 80%以上，叠加中低频基本面因子，持续迭代全频段信号。</p></div>
+        <div class="card"><span class="pill">模型方式</span><h3>机器学习和深度学习</h3><p>100%采用机器学习和深度学习模型，覆盖神经网络等多种模型类别。</p></div>
+        <div class="card"><span class="pill">交易执行</span><h3>自研低延迟系统</h3><p>依托自研算法交易系统和精细化交易执行，高效响应市场行情和中短周期日内波动。</p></div>
+      </div>
+      <div class="grid two" style="margin-top:12px">
+        <div class="card highlight">
+          <h3>全频段 Alpha：从高频积累到股票策略</h3>
+          <p>路演文字中提到，蒙玺早期优势集中在低延迟自营和高频方法论，随后将数据、因子、模型、风控、交易执行串联为工程化流水线。短周期日内信号不是简单提高换手，而是用于增厚超额、降低回撤与超额波动。</p>
+        </div>
+        <div class="card highlight">
+          <h3>收益来源更复合</h3>
+          <p>策略收益来源涵盖长期风格收益、短期风格波动收益、Pure Alpha 和交易型收益。与传统宽基指增相比，产品更强调低相关性和差异化配置价值。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>管理人与投研体系</h2>
+      <div class="grid three">
+        <div class="card"><h3>规模与发展</h3><p>路演口径披露，公司 2016 年成立，2019 年正式布局资管业务，当前管理规模约 250 亿，团队约 100 人。</p></div>
+        <div class="card"><h3>创始人与团队</h3><p>核心负责人具备较长量化交易和投研管理经验，投研与 IT 人员占比较高，团队背景覆盖物理金融、理工、AI、海外大型对冲基金等方向。</p></div>
+        <div class="card"><h3>工程化研发</h3><p>策略开发以流水线方式推进，从数据采集清洗、因子挖掘、模型拟合，到优化风控和交易执行，强调工程化最优和持续迭代。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>适配客户</h2>
+      <div class="grid two">
+        <div class="card green">
+          <span class="pill">组合分散配置</span>
+          <h3>已有较大量化私募持仓的客户</h3>
+          <p>核心痛点是主流宽基指增布局充分，同类产品相关性高，组合同质化较重。蒙玺量化光翼对标万得全A等权，和常见沪深300、中证500、中证1000、中证2000指增形成差异，可作为组合风险分散工具。</p>
+        </div>
+        <div class="card green">
+          <span class="pill">一键布局 A 股整体</span>
+          <h3>配置体量有限或选指数困难的客户</h3>
+          <p>客户若难以覆盖各类宽基指增、也难以判断风格轮动，可用万得全A等权的广泛市场覆盖与等权分散特征，一站式参与 A 股整体收益，同时规避权重股过度集中的风险。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>产品与销售口径</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>产品要素</h3>
+          <p>蒙玺兴泰量化光翼12号1期（SBHG77），中高风险，首发时间 2026/7/23-7/30，7/31 为最后一天冷静期。锁定期 180 天，持有 360 天以上无赎回费，管理费 2%，业绩报酬 20%单人单笔份额高水位法。</p>
+        </div>
+        <div class="card caution">
+          <h3>销售与对价</h3>
+          <p>认购费全额创收，管理费创收年化 1%，业绩报酬创收为管理人提取部分的 20%，首发募集参与给予一次性交易收入 1%。零售份额和 B 份额合计提供 1:1 对价，并合并计算对价排名。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk">本报告仅供内部产品展示和销售培训使用。过往业绩、同策略表现、指数历史表现、路演口径及示意图不代表未来表现，也不构成任何收益承诺。请以基金合同、风险揭示书、正式推介材料及公司合规审核口径为准。</section>
+    <div class="footer-note">蒙玺兴泰量化光翼系列 | 实盘业绩报告</div>
+  </main>
+
+  <script>
+    const monthlyReturns=[
+      ['25-06',0.57],['25-07',4.61],['25-08',8.43],['25-09',3.40],['25-10',3.94],['25-11',2.77],['25-12',1.65],
+      ['26-01',9.18],['26-02',4.97],['26-03',-7.96],['26-04',10.01],['26-05',-0.91],['26-06',1.58],['26-07',2.65]
+    ];
+    function cumulativeSeries(){
+      let nav=0.9999;
+      return monthlyReturns.map(([label,value])=> {
+        nav=nav*(1+value/100);
+        return [label,nav];
+      });
+    }
+    function drawNetValueChart(){
+      const svg=document.getElementById('netValueChart');
+      const navData=[['起运',0.9999],...cumulativeSeries()];
+      navData[navData.length-1][1]=1.5357;
+      const scaleData=[0,4500,7600,9800,15000,21000,26000,31000,36000,42000,48000,52000,50000,54000,56000];
+      const x0=70,y0=48,w=810,h=285,min=0.9,max=1.65,scaleMax=60000;
+      let out='';
+      out+=`<text x="24" y="28" fill="#244b82" font-size="17" font-weight="900">单位净值 / 规模（万元）</text>`;
+      out+=`<rect x="370" y="18" width="18" height="10" fill="#bfc7d2" opacity=".72"/><text class="chart-text" x="394" y="28">规模（万元）</text><line x1="500" y1="23" x2="540" y2="23" stroke="#255fb8" stroke-width="4"/><text class="chart-text" x="548" y="28">单位净值</text>`;
+      for(let i=0;i<=5;i++){const v=min+(max-min)*i/5;const y=y0+h-(v-min)/(max-min)*h;out+=`<line class="grid-line" x1="${x0}" y1="${y}" x2="${x0+w}" y2="${y}"/><text class="chart-text" x="${x0-12}" y="${y+4}" text-anchor="end">${v.toFixed(2)}</text>`}
+      scaleData.forEach((s,i)=>{const x=x0+i*w/(scaleData.length-1)-10;const bh=s/scaleMax*h*.82;out+=`<rect x="${x}" y="${y0+h-bh}" width="20" height="${bh}" rx="3" fill="#c4c9d1" opacity=".65"/>`});
+      const pts=navData.map((d,i)=>{const x=x0+i*w/(navData.length-1);const y=y0+h-(d[1]-min)/(max-min)*h;return [x,y,d]});
+      const area=`${x0},${y0+h} `+pts.map(p=>`${p[0]},${p[1]}`).join(' ')+` ${x0+w},${y0+h}`;
+      out+=`<polygon points="${area}" class="area-main"/><polyline points="${pts.map(p=>`${p[0]},${p[1]}`).join(' ')}" class="line-main"/>`;
+      pts.forEach((p,i)=>{if(i===0||i===4||i===8||i===11||i===14){out+=`<circle class="dot-main" cx="${p[0]}" cy="${p[1]}" r="4.5"/><text class="chart-label" x="${p[0]}" y="${p[1]-12}" text-anchor="middle">${p[2][1].toFixed(4)}</text>`}});
+      navData.forEach((d,i)=>{if(i%2===0||i===navData.length-1){const x=x0+i*w/(navData.length-1);out+=`<text class="chart-text" x="${x}" y="${y0+h+28}" text-anchor="middle">${d[0]}</text>`}});
+      out+=`<text x="${x0+w-82}" y="${y0+28}" fill="#255fb8" font-size="16" font-weight="900">累计收益 +53.59%</text>`;
+      svg.innerHTML=out;
+    }
+    function drawMonthlyChart(){
+      const svg=document.getElementById('monthlyChart');
+      const data=monthlyReturns;
+      const x0=68,y0=38,w=1040,h=305,min=-10,max=12,zero=y0+h-(0-min)/(max-min)*h,bw=46,gap=28;
+      let out='';
+      for(let i=0;i<=5;i++){const v=min+(max-min)*i/5;const y=y0+h-(v-min)/(max-min)*h;out+=`<line class="grid-line" x1="${x0}" y1="${y}" x2="${x0+w}" y2="${y}"/><text class="chart-text" x="${x0-10}" y="${y+4}" text-anchor="end">${v.toFixed(0)}%</text>`}
+      out+=`<line class="axis" x1="${x0}" y1="${zero}" x2="${x0+w}" y2="${zero}"/>`;
+      data.forEach((d,i)=>{const x=x0+22+i*(bw+gap);const val=d[1];const y=y0+h-(Math.max(val,0)-min)/(max-min)*h;const yNeg=zero;const bh=Math.abs(val)/(max-min)*h;const rectY=val>=0?y:zero;const cls=val>=0?'bar-pos':'bar-neg';out+=`<rect class="${cls}" x="${x}" y="${rectY}" width="${bw}" height="${bh}" rx="5"/><text class="chart-text" x="${x+bw/2}" y="${y0+h+28}" text-anchor="middle">${d[0]}</text><text class="chart-label" x="${x+bw/2}" y="${val>=0?rectY-8:rectY+bh+18}" text-anchor="middle">${val.toFixed(2)}%</text>`});
+      svg.innerHTML=out;
+    }
+    function drawBenchmarkChart(){
+      const svg=document.getElementById('benchmarkChart');
+      const data=[['产品',53.59],['万得全A等权',21.49],['沪深300',22.71],['中证500',49.79],['中证1000',37.98],['中证2000',31.49]];
+      const x0=120,y0=36,w=920,h=260,max=60;
+      let out='';
+      for(let i=0;i<=4;i++){const x=x0+i*w/4;out+=`<line class="grid-line" x1="${x}" y1="${y0}" x2="${x}" y2="${y0+h}"/><text class="chart-text" x="${x}" y="${y0+h+28}" text-anchor="middle">${max*i/4}%</text>`}
+      data.forEach((d,i)=>{const y=y0+16+i*40;const bw=d[1]/max*w;const cls=i===0?'bar-pos':'bar-bench';out+=`<text class="chart-text" x="${x0-14}" y="${y+19}" text-anchor="end">${d[0]}</text><rect class="${cls}" x="${x0}" y="${y}" width="${bw}" height="25" rx="5"/><text class="chart-label" x="${x0+bw+10}" y="${y+18}">${d[1].toFixed(2)}%</text>`});
+      svg.innerHTML=out;
+    }
+    drawNetValueChart();
+    drawMonthlyChart();
+    drawBenchmarkChart();
+  </script>
+</body>
+</html>

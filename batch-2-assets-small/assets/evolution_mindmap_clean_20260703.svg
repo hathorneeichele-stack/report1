@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="2600" viewBox="0 0 1920 2600">
+<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.10"/></filter><style><![CDATA[text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif}.small{font-size:24px;fill:#334155}.tiny{font-size:20px;fill:#475569}.label{font-size:25px;font-weight:800;fill:white}.head{font-size:34px;font-weight:900;fill:#0f172a}.sub{font-size:22px;fill:#64748b}.nodeTitle{font-size:25px;font-weight:850;fill:#0f172a}.line{stroke:#94a3b8;stroke-width:3;fill:none}.mainline{stroke:#334155;stroke-width:5;fill:none}.bullet{fill:#334155;font-size:22px}]]></style></defs>
+<rect width="100%" height="100%" fill="#f8fbff"/>
+<rect x="40" y="40" width="1840" height="2520" rx="28" fill="#ffffff" stroke="#d9e6f6" stroke-width="2"/>
+<text x="96" y="120" class="head">进化论1000锐泰系列思维导图</text>
+<text x="96" y="158" class="sub">对内材料｜请勿转发</text>
+<rect x="92" y="1288" width="310" height="64" rx="12" fill="#b91c1c" filter="url(#shadow)"/>
+<text x="247" y="1330" text-anchor="middle" class="label">进化论1000锐泰</text>
+<path d="M 402 1348 C 460 1348, 465 170, 520 170 L 580 170" class="mainline"/>
+<path d="M 402 1352 C 460 1352, 465 2585, 520 2585 L 580 2585" class="mainline"/>
+<path d="M 402 1320 C 500 1320, 492 210, 610 210" class="line"/>
+<rect x="570" y="180" width="180" height="54" rx="16" fill="#2563eb" filter="url(#shadow)"/>
+<text x="660" y="216" text-anchor="middle" class="label">公司介绍</text>
+<path d="M 750 207 C 800 207, 810 198, 865 198" class="line"/>
+<text x="880" y="206" class="nodeTitle">发展历程</text>
+<text x="1050" y="240" class="tiny">• 2015年发行首只产品</text>
+<text x="1050" y="268" class="tiny">• 2016年管理规模突破10亿</text>
+<text x="1050" y="296" class="tiny">• 2017年发行量化策略产品，形成基本面+量化双轮驱动</text>
+<text x="1050" y="324" class="tiny">• 2019年规模突破50亿，量化25亿</text>
+<text x="1050" y="352" class="tiny">• 2020年规模突破100亿，量化50亿</text>
+<text x="1050" y="380" class="tiny">• 2023年新策略完成迭代上线，超额显著提升</text>
+<text x="1050" y="408" class="tiny">• 2026年规模突破300亿</text>
+<path d="M 750 207 C 800 207, 810 430, 865 430" class="line"/>
+<text x="880" y="438" class="nodeTitle">股权结构</text>
+<text x="1050" y="472" class="tiny">• 深圳市橡木投资有限公司（100%）</text>
+<path d="M 750 207 C 800 207, 810 494, 865 494" class="line"/>
+<text x="880" y="502" class="nodeTitle">总规模</text>
+<text x="1050" y="536" class="tiny">• 300亿+，指数增强150，对冲类150，复合策略50</text>
+<path d="M 750 207 C 800 207, 810 558, 865 558" class="line"/>
+<text x="880" y="566" class="nodeTitle">资金来源</text>
+<text x="1050" y="600" class="tiny">• 直销50%，代销50%</text>
+<path d="M 750 207 C 800 207, 810 622, 865 622" class="line"/>
+<text x="880" y="630" class="nodeTitle">人员结构</text>
+<text x="1050" y="664" class="tiny">• 主观团队11人，量化团队8人</text>
+<path d="M 402 1320 C 500 1320, 492 570, 610 570" class="line"/>
+<rect x="570" y="540" width="180" height="54" rx="16" fill="#f59e0b" filter="url(#shadow)"/>
+<text x="660" y="576" text-anchor="middle" class="label">核心团队</text>
+<path d="M 750 567 C 800 567, 810 558, 865 558" class="line"/>
+<text x="880" y="566" class="nodeTitle">王一平</text>
+<text x="1050" y="600" class="tiny">• 创始人/首席投资官</text>
+<text x="1050" y="628" class="tiny">• 19年资本市场投资经验，国内少数兼具基本面投资和量化投资能力的策略型基金</text>
+<text x="1050" y="656" class="tiny">  经理</text>
+<text x="1050" y="684" class="tiny">• 近三年获证券时报“金牛奖”十五周年金牛杰出投资经理、中国基金报“英华奖”</text>
+<text x="1050" y="712" class="tiny">  五年期最佳私募投资经理等荣誉</text>
+<path d="M 402 1320 C 500 1320, 492 880, 610 880" class="line"/>
+<rect x="570" y="850" width="180" height="54" rx="16" fill="#22c55e" filter="url(#shadow)"/>
+<text x="660" y="886" text-anchor="middle" class="label">策略情况</text>
+<path d="M 750 877 C 800 877, 810 868, 865 868" class="line"/>
+<text x="880" y="876" class="nodeTitle">对标指数</text>
+<text x="1050" y="910" class="tiny">• 中证1000</text>
+<path d="M 750 877 C 800 877, 810 932, 865 932" class="line"/>
+<text x="880" y="940" class="nodeTitle">因子结构</text>
+<text x="1050" y="974" class="tiny">• 量价因子50-70%，基本面因子15-30%，市场逻辑因子10-20%，少量另类因子</text>
+<text x="1050" y="1002" class="tiny">  ，纯人工挖掘</text>
+<path d="M 750 877 C 800 877, 810 1024, 865 1024" class="line"/>
+<text x="880" y="1032" class="nodeTitle">成分股占比</text>
+<text x="1050" y="1066" class="tiny">• 前800占比20%，1000占比40%，前3800占比80%，小微盘占比10%左右</text>
+<path d="M 750 877 C 800 877, 810 1088, 865 1088" class="line"/>
+<text x="880" y="1096" class="nodeTitle">换手率</text>
+<text x="1050" y="1130" class="tiny">• 50-60倍</text>
+<path d="M 750 877 C 800 877, 810 1152, 865 1152" class="line"/>
+<text x="880" y="1160" class="nodeTitle">风格因子暴露</text>
+<text x="1050" y="1194" class="tiny">• +/-0.5个标准差</text>
+<path d="M 750 877 C 800 877, 810 1216, 865 1216" class="line"/>
+<text x="880" y="1224" class="nodeTitle">行业偏离度</text>
+<text x="1050" y="1258" class="tiny">• 不超过±8%</text>
+<path d="M 750 877 C 800 877, 810 1280, 865 1280" class="line"/>
+<text x="880" y="1288" class="nodeTitle">单票集中度</text>
+<text x="1050" y="1322" class="tiny">• 除宽基指数权重股占比1%的个股外，单一股票不超过1%</text>
+<path d="M 750 877 C 800 877, 810 1344, 865 1344" class="line"/>
+<text x="880" y="1352" class="nodeTitle">持仓数量</text>
+<text x="1050" y="1386" class="tiny">• 1000只左右</text>
+<path d="M 402 1320 C 500 1320, 492 1270, 610 1270" class="line"/>
+<rect x="570" y="1240" width="180" height="54" rx="16" fill="#dc2626" filter="url(#shadow)"/>
+<text x="660" y="1276" text-anchor="middle" class="label">近期超额</text>
+<path d="M 750 1267 C 800 1267, 810 1258, 865 1258" class="line"/>
+<text x="880" y="1266" class="nodeTitle">2023年11-12月</text>
+<text x="1050" y="1300" class="tiny">• 5.00%</text>
+<path d="M 750 1267 C 800 1267, 810 1322, 865 1322" class="line"/>
+<text x="880" y="1330" class="nodeTitle">2024年</text>
+<text x="1050" y="1364" class="tiny">• 43.78%</text>
+<path d="M 750 1267 C 800 1267, 810 1386, 865 1386" class="line"/>
+<text x="880" y="1394" class="nodeTitle">2025年</text>
+<text x="1050" y="1428" class="tiny">• 22.61%</text>
+<path d="M 750 1267 C 800 1267, 810 1450, 865 1450" class="line"/>
+<text x="880" y="1458" class="nodeTitle">2026年1-4月</text>
+<text x="1050" y="1492" class="tiny">• 6.05%</text>
+<path d="M 750 1267 C 800 1267, 810 1514, 865 1514" class="line"/>
+<text x="880" y="1522" class="nodeTitle">计算方式</text>
+<text x="1050" y="1556" class="tiny">• 超额收益（几何）=（基金收益+1）/（基准收益+1）-1</text>
+<path d="M 402 1320 C 500 1320, 492 1540, 610 1540" class="line"/>
+<rect x="570" y="1510" width="180" height="54" rx="16" fill="#ea580c" filter="url(#shadow)"/>
+<text x="660" y="1546" text-anchor="middle" class="label">策略特点</text>
+<path d="M 750 1537 C 800 1537, 810 1528, 865 1528" class="line"/>
+<text x="880" y="1536" class="nodeTitle">大容量、低换手</text>
+<text x="1050" y="1570" class="tiny">• 策略不依赖小市值和高换手</text>
+<path d="M 750 1537 C 800 1537, 810 1592, 865 1592" class="line"/>
+<text x="880" y="1600" class="nodeTitle">策略精细化处理</text>
+<text x="1050" y="1634" class="tiny">• 基于对市场和行业更深刻的理解，策略对行业做了更加精细化的处理</text>
+<path d="M 750 1537 C 800 1537, 810 1656, 865 1656" class="line"/>
+<text x="880" y="1664" class="nodeTitle">易归因</text>
+<text x="1050" y="1698" class="tiny">• 策略可解释性强，出现回撤时能快速归因调整；强化策略迭代效率，可快速明确因子研发方向</text>
+<path d="M 750 1537 C 800 1537, 810 1720, 865 1720" class="line"/>
+<text x="880" y="1728" class="nodeTitle">配置价值</text>
+<text x="1050" y="1762" class="tiny">• 业内独特的“逻辑类+统计类”因子库，超额与同类策略相关度低，具备较好配置价值</text>
+<path d="M 402 1320 C 500 1320, 492 1860, 610 1860" class="line"/>
+<rect x="570" y="1830" width="180" height="54" rx="16" fill="#ef4444" filter="url(#shadow)"/>
+<text x="660" y="1866" text-anchor="middle" class="label">管理人优势</text>
+<path d="M 750 1857 C 800 1857, 810 1848, 865 1848" class="line"/>
+<text x="880" y="1856" class="nodeTitle">多维度因子构建多元稳健模型</text>
+<text x="1050" y="1890" class="tiny">• 基于进化论过去多年的“主动+量化”复合投资经验，除量价、基本面等常见因子外，自主研发</text>
+<text x="1050" y="1918" class="tiny">  市场逻辑因子，旨在从更多角度分析市场，提高决策胜率和模型稳定性</text>
+<path d="M 750 1857 C 800 1857, 810 1940, 865 1940" class="line"/>
+<text x="880" y="1948" class="nodeTitle">具备极端风险应对能力，追求夏普更优</text>
+<text x="1050" y="1982" class="tiny">• 进化论通过科学实证方式，研发端能应对市场尾部风险的长尾因子，弥补概率统计方法难以解决</text>
+<text x="1050" y="2010" class="tiny">  的小样本事件问题，使模型更好应对极端风险，力争让超额更加稳健</text>
+<path d="M 402 1320 C 500 1320, 492 2180, 610 2180" class="line"/>
+<rect x="570" y="2150" width="180" height="54" rx="16" fill="#6d28d9" filter="url(#shadow)"/>
+<text x="660" y="2186" text-anchor="middle" class="label">产品要素</text>
+<path d="M 750 2177 C 800 2177, 810 2168, 865 2168" class="line"/>
+<text x="880" y="2176" class="nodeTitle">认申购费</text>
+<text x="1050" y="2210" class="tiny">• 0-300万：1%；300万（含）-1000万：0.5%；1000万（含）以上：0</text>
+<path d="M 750 2177 C 800 2177, 810 2232, 865 2232" class="line"/>
+<text x="880" y="2240" class="nodeTitle">管理费</text>
+<text x="1050" y="2274" class="tiny">• 2%</text>
+<path d="M 750 2177 C 800 2177, 810 2296, 865 2296" class="line"/>
+<text x="880" y="2304" class="nodeTitle">赎回费</text>
+<text x="1050" y="2338" class="tiny">• 持有92天以上无赎回费（防止临近特殊情况）</text>
+<path d="M 750 2177 C 800 2177, 810 2360, 865 2360" class="line"/>
+<text x="880" y="2368" class="nodeTitle">流动性</text>
+<text x="1050" y="2402" class="tiny">• 申购开放日为每自然月5日和20日；如遇非交易日顺延至下一交易日。赎回开放日为每自然月</text>
+<text x="1050" y="2430" class="tiny">  20日，如遇非交易日顺延至下一交易日</text>
+<path d="M 750 2177 C 800 2177, 810 2452, 865 2452" class="line"/>
+<text x="880" y="2460" class="nodeTitle">业绩报酬</text>
+<text x="1050" y="2494" class="tiny">• 单个投资者单份额高水位法，计提20%；在基金收益分配、份额持有人赎回或基金终止时提取</text>
+<path d="M 402 1320 C 500 1320, 492 2480, 610 2480" class="line"/>
+<rect x="570" y="2450" width="180" height="54" rx="16" fill="#64748b" filter="url(#shadow)"/>
+<text x="660" y="2486" text-anchor="middle" class="label">架上同策略管理人</text>
+<path d="M 750 2477 C 800 2477, 810 2468, 865 2468" class="line"/>
+<text x="880" y="2476" class="nodeTitle">已上架</text>
+<text x="1050" y="2510" class="tiny">• 衍复、九坤（已封盘）、世纪前沿、赫富、诚奇、启林</text>
+<path d="M 402 1320 C 500 1320, 492 2610, 610 2610" class="line"/>
+<rect x="570" y="2580" width="180" height="54" rx="16" fill="#1d4ed8" filter="url(#shadow)"/>
+<text x="660" y="2616" text-anchor="middle" class="label">管理人其他产品</text>
+<path d="M 750 2607 C 800 2607, 810 2598, 865 2598" class="line"/>
+<text x="880" y="2606" class="nodeTitle">产品线</text>
+<text x="1050" y="2640" class="tiny">• 进化论500锐泰（即将封盘）、进化论三维锐泰（已封盘）、进化论稳泰对冲</text>
+</svg>

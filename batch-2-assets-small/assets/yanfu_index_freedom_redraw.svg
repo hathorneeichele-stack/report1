@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600">
+<rect width="1180" height="600" rx="18" fill="#ffffff"/>
+<style>.title{font:850 30px Arial,"Microsoft YaHei",sans-serif;fill:#0b6f9f}.axis{stroke:#0b6895;stroke-width:3}.label{font:700 17px Arial,"Microsoft YaHei",sans-serif;fill:#374151}.boxtext{font:850 18px Arial,"Microsoft YaHei",sans-serif;fill:#fff}.tickline{stroke:#e8eef5;stroke-width:1}.curve{stroke:#0b5c8d;stroke-width:3;fill:none}.dot{fill:#0b5c8d}.note{font:700 15px Arial,"Microsoft YaHei",sans-serif;fill:#69788b}</style>
+<text x="42" y="54" class="title">量化选股（对标指数）的选股自由度</text>
+<line x1="118" y1="120" x2="118" y2="510" class="axis"/><line x1="118" y1="510" x2="1100" y2="510" class="axis"/>
+<text x="42" y="190" class="label">选股自由度</text>
+<line x1="250" y1="120" x2="250" y2="510" class="tickline"/>
+<line x1="455" y1="120" x2="455" y2="510" class="tickline"/>
+<line x1="660" y1="120" x2="660" y2="510" class="tickline"/>
+<line x1="865" y1="120" x2="865" y2="510" class="tickline"/>
+<line x1="1035" y1="120" x2="1035" y2="510" class="tickline"/>
+<rect x="190" y="145" width="170" height="118" rx="18" fill="#0a6094"/>
+<text x="275.0" y="189" text-anchor="middle" class="boxtext"><tspan x="275.0" dy="0">量化选股</tspan><tspan x="275.0" dy="28">（对标中证全指指数）</tspan></text>
+<rect x="395" y="215" width="170" height="118" rx="18" fill="#2f7fae"/>
+<text x="480.0" y="259" text-anchor="middle" class="boxtext"><tspan x="480.0" dy="0">量化选股</tspan><tspan x="480.0" dy="28">（对标万得小市值指数）</tspan></text>
+<rect x="600" y="215" width="170" height="118" rx="18" fill="#2f7fae"/>
+<text x="685.0" y="259" text-anchor="middle" class="boxtext"><tspan x="685.0" dy="0">量化选股</tspan><tspan x="685.0" dy="28">（对标中证1000指数）</tspan></text>
+<rect x="805" y="285" width="170" height="118" rx="18" fill="#4b9dc8"/>
+<text x="890.0" y="329" text-anchor="middle" class="boxtext"><tspan x="890.0" dy="0">量化选股</tspan><tspan x="890.0" dy="28">（对标中证500指数）</tspan></text>
+<rect x="1010" y="345" width="140" height="118" rx="18" fill="#78bbe5"/>
+<text x="1080.0" y="389" text-anchor="middle" class="boxtext"><tspan x="1080.0" dy="0">量化选股</tspan><tspan x="1080.0" dy="28">（对标沪深300指数）</tspan></text>
+<polyline points="275.0,298.0 480.0,368.0 685.0,368.0 890.0,438.0 1080.0,498.0" class="curve"/>
+<circle cx="275.0" cy="298.0" r="7" class="dot"/>
+<circle cx="480.0" cy="368.0" r="7" class="dot"/>
+<circle cx="685.0" cy="368.0" r="7" class="dot"/>
+<circle cx="890.0" cy="438.0" r="7" class="dot"/>
+<circle cx="1080.0" cy="498.0" r="7" class="dot"/>
+<text x="118" y="552" class="note">结论：指数覆盖越宽、可选股票池越大，量化选股的超配与低配空间越高。</text>
+</svg>

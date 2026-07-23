@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 590">
+<rect width="1180" height="590" rx="18" fill="#ffffff"/>
+<style>
+.title{font:800 28px Arial,"Microsoft YaHei",sans-serif;fill:#164a8b}
+.axis{font:700 17px Arial,"Microsoft YaHei",sans-serif;fill:#6d7786}
+.tick{font:600 15px Arial,"Microsoft YaHei",sans-serif;fill:#828a96}
+.date{font-size:16px}
+.legend{font:700 16px Arial,"Microsoft YaHei",sans-serif;fill:#505b69}
+.grid{stroke:#d9d9d9;stroke-width:1.2}
+.axisline{stroke:#b9b9b9;stroke-width:1.4}
+.product{stroke:#076091;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.index{stroke:#a8dcf7;stroke-width:3.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.excess{stroke:#d50012;stroke-width:3.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.note{font:600 18px Arial,"Microsoft YaHei",sans-serif;fill:#8a8a8a}
+</style>
+<text x="32" y="44" class="title">衍复兴泰中证全指1号净值走势</text>
+<text x="28" y="260" class="axis" transform="rotate(-90 28 260)">净值</text>
+<line x1="92" y1="74.0" x2="1110" y2="74.0" class="grid"/><text x="74" y="79.0" text-anchor="end" class="tick">1.75</text><line x1="92" y1="159.2" x2="1110" y2="159.2" class="grid"/><text x="74" y="164.2" text-anchor="end" class="tick">1.5</text><line x1="92" y1="244.5" x2="1110" y2="244.5" class="grid"/><text x="74" y="249.5" text-anchor="end" class="tick">1.25</text><line x1="92" y1="329.8" x2="1110" y2="329.8" class="grid"/><text x="74" y="334.8" text-anchor="end" class="tick">1</text><line x1="92" y1="415.0" x2="1110" y2="415.0" class="grid"/><text x="74" y="420.0" text-anchor="end" class="tick">0.75</text>
+<line x1="92" y1="415" x2="1110" y2="415" class="axisline"/>
+<line x1="92" y1="74.0" x2="92" y2="415" class="axisline"/>
+<line x1="92.0" y1="415" x2="92.0" y2="423" class="axisline"/><text x="92.0" y="447" text-anchor="middle" class="tick date">2025-03-18</text><line x1="291.6" y1="415" x2="291.6" y2="423" class="axisline"/><text x="291.6" y="447" text-anchor="middle" class="tick date">2025-06-01</text><line x1="491.2" y1="415" x2="491.2" y2="423" class="axisline"/><text x="491.2" y="447" text-anchor="middle" class="tick date">2025-09-01</text><line x1="710.8" y1="415" x2="710.8" y2="423" class="axisline"/><text x="710.8" y="447" text-anchor="middle" class="tick date">2025-12-01</text><line x1="910.4" y1="415" x2="910.4" y2="423" class="axisline"/><text x="910.4" y="447" text-anchor="middle" class="tick date">2026-03-01</text><line x1="1110.0" y1="415" x2="1110.0" y2="423" class="axisline"/><text x="1110.0" y="447" text-anchor="middle" class="tick date">2026-06-26</text>
+<polyline points="92.0,329.8 112.0,331.9 131.9,347.0 151.9,357.9 171.8,350.9 191.8,343.7 211.8,348.4 231.7,353.8 251.7,343.7 271.6,329.8 291.6,326.7 311.6,326.3 331.5,315.0 351.5,299.2 371.5,295.5 391.4,296.2 411.4,285.4 431.3,269.7 451.3,267.0 471.3,268.9 491.2,258.9 511.2,244.0 531.1,240.9 551.1,244.0 571.1,237.8 591.0,226.8 611.0,226.1 630.9,230.3 650.9,222.4 670.9,206.5 690.8,199.6 710.8,199.8 730.7,199.9 750.7,195.2 770.7,201.3 790.6,216.0 810.6,217.6 830.5,200.3 850.5,190.2 870.5,187.1 890.4,175.9 910.4,159.1 930.4,151.2 950.3,154.1 970.3,152.3 990.2,150.0 1010.2,154.8 1030.2,168.4 1050.1,168.8 1070.1,153.7 1090.0,144.2 1110.0,144.9" class="product"/>
+<polyline points="92.0,329.8 112.0,335.3 131.9,353.0 151.9,361.4 171.8,354.9 191.8,351.8 211.8,356.8 231.7,358.7 251.7,347.0 271.6,333.9 291.6,330.8 311.6,331.2 331.5,324.4 351.5,313.5 371.5,310.0 391.4,310.0 411.4,301.0 431.3,284.5 451.3,278.0 471.3,282.2 491.2,283.4 511.2,277.6 531.1,275.4 551.1,281.2 571.1,283.6 591.0,275.2 611.0,266.2 630.9,265.3 650.9,265.7 670.9,259.0 690.8,249.8 710.8,248.6 730.7,259.4 750.7,262.0 770.7,257.2 790.6,258.9 810.6,266.5 830.5,264.8 850.5,256.3 870.5,251.6 890.4,254.8 910.4,254.3 930.4,243.0 950.3,231.4 970.3,231.1 990.2,241.4 1010.2,244.5 1030.2,245.4 1050.1,249.7 1070.1,253.7 1090.0,248.3 1110.0,239.5" class="index"/>
+<polyline points="92.0,329.8 112.0,326.3 131.9,323.3 151.9,326.0 171.8,325.4 191.8,321.0 211.8,320.6 231.7,324.4 251.7,326.3 271.6,325.5 291.6,325.7 311.6,324.8 331.5,320.5 351.5,316.2 371.5,316.1 391.4,316.7 411.4,315.4 431.3,316.8 451.3,320.2 471.3,318.1 491.2,308.2 511.2,300.6 531.1,299.9 551.1,297.1 571.1,289.4 591.0,288.0 611.0,296.0 630.9,300.4 650.9,293.3 670.9,286.3 690.8,289.1 710.8,290.3 730.7,280.4 750.7,274.1 770.7,283.7 790.6,294.3 810.6,288.5 830.5,275.6 850.5,275.4 870.5,277.3 890.4,265.1 910.4,251.8 930.4,256.6 950.3,269.7 970.3,268.6 990.2,257.2 1010.2,258.0 1030.2,268.1 1050.1,264.2 1070.1,248.0 1090.0,245.8 1110.0,255.0" class="excess"/>
+<line x1="320" y1="475" x2="350" y2="475" class="product"/><text x="366" y="481" class="legend">本产品复权净值</text>
+<line x1="520" y1="475" x2="550" y2="475" class="index"/><text x="566" y="481" class="legend">中证全指指数净值</text>
+<line x1="745" y1="475" x2="775" y2="475" class="excess"/><text x="791" y="481" class="legend">超额净值</text>
+</svg>

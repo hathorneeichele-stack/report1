@@ -53,6 +53,7 @@
       background:linear-gradient(180deg,var(--nav),var(--nav-2));
       color:#dce6fa;
       z-index:200;
+      overflow-y:auto;
     }
 
     .brand {
@@ -66,18 +67,21 @@
     .brand-mark {
       width:32px;
       height:32px;
+      flex:0 0 32px;
       border-radius:8px;
       display:grid;
       place-items:center;
       background:#4c6fff;
       color:#fff;
       font-weight:850;
+      font-size:17px;
     }
 
     .brand strong {
       display:block;
       color:#fff;
-      font-size:16px;
+      font-size:17px;
+      line-height:1.2;
     }
 
     .brand span {
@@ -87,7 +91,11 @@
       font-size:12px;
     }
 
-    .nav-section { margin-top:18px; }
+    .nav-section {
+      display:grid;
+      gap:4px;
+      margin-top:18px;
+    }
 
     .nav-title {
       padding:8px;
@@ -115,7 +123,8 @@
       padding:11px 10px;
       border-radius:8px;
       margin:4px 0;
-      font-weight:750;
+      font-size:15px;
+      font-weight:850;
     }
 
     .nav-item:hover,
@@ -125,7 +134,7 @@
     .nav-trigger.active {
       background:var(--nav-active);
       color:#fff;
-      box-shadow:inset 3px 0 0 var(--blue-2);
+      box-shadow:inset 4px 0 0 var(--blue-2);
     }
 
     .nav-dot {
@@ -136,8 +145,8 @@
     }
 
     .chevron {
-      width:18px;
-      height:18px;
+      width:28px;
+      height:28px;
       display:grid;
       place-items:center;
       color:#dce6fa;
@@ -146,10 +155,10 @@
 
     .chevron:before {
       content:"";
-      width:8px;
-      height:8px;
-      border-right:3px solid currentColor;
-      border-bottom:3px solid currentColor;
+      width:14px;
+      height:14px;
+      border-right:5px solid currentColor;
+      border-bottom:5px solid currentColor;
       transform:rotate(-45deg);
     }
 
@@ -164,20 +173,17 @@
     }
 
     .flyout {
-      position:absolute;
-      left:100%;
-      top:0;
-      width:184px;
+      position:static;
+      width:100%;
+      margin:4px 0 10px;
       padding:8px;
       border:1px solid rgba(255,255,255,.14);
       border-radius:8px;
       background:#182641;
-      box-shadow:0 20px 50px rgba(5,12,24,.32);
-      opacity:0;
-      pointer-events:none;
-      transform:translateX(-6px);
-      transition:opacity .16s ease, transform .16s ease;
-      z-index:80;
+      box-shadow:none;
+      opacity:1;
+      pointer-events:auto;
+      transform:none;
     }
 
     .nav-group:hover .flyout,
@@ -185,7 +191,7 @@
     .nav-group.open .flyout {
       opacity:1;
       pointer-events:auto;
-      transform:translateX(0);
+      transform:none;
     }
 
     .flyout button {
@@ -195,8 +201,8 @@
       min-height:44px;
       padding:9px 10px;
       border-radius:7px;
-      font-size:14px;
-      font-weight:750;
+      font-size:15px;
+      font-weight:850;
     }
 
     .flyout button:hover,
@@ -250,12 +256,13 @@
 
     .nav-shield {
       position:fixed;
-      left:186px;
+      left:330px;
       top:0;
       right:0;
       bottom:0;
       z-index:120;
       background:transparent;
+      display:none;
     }
 
     .nav-shield[hidden] {
@@ -329,7 +336,7 @@
       .nav-shield { left:0; }
     }
   </style>
-<script src="data/productCalendarData.js?v=20260722_private_factors_visible"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260722-mengxi-layout-fix"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
+<script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_expanded"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260722-mengxi-layout-fix"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -420,11 +427,11 @@
 
     const calendars = {
       private: '嵌入-私募日历.html?v=20260722_005_quant_filter_label',
-      public: '嵌入-公募日历.html?v=20260722_002',
+      public: '嵌入-公募日历.html?v=20260723_eastmoney_20260722_expanded',
       fixed: '嵌入-固收结构化日历.html?v=20260722_002'
     };
     const lazyFrames = {
-      tracking: '嵌入-私募数据跟踪.html?v=20260722_006_table_scroll',
+      tracking: '嵌入-私募数据跟踪.html?v=20260722_009_auto_fit_table',
       fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
       broadcast: '嵌入-公私募标准销量.html?v=20260722_001'
     };

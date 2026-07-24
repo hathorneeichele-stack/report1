@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>私募销售历史数据</title>
+  <style>
+    :root{--ink:#1f2a3d;--muted:#6d7788;--line:#e6ecf5;--bg:#f2f5fa;--panel:#fff;--blue:#4268d6;--blue-soft:#eef3ff;--shadow:0 10px 24px rgba(28,41,70,.08)}
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.45}
+    button,input,select{font:inherit}
+    .topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 28px;position:sticky;top:0;z-index:10}
+    .crumb{color:var(--muted);font-size:13px}.crumb strong{color:var(--ink);font-size:16px;margin-left:8px}
+    .pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:800;white-space:nowrap}
+    .workspace{padding:24px 28px 36px}
+    .page-head{display:grid;grid-template-columns:minmax(280px,1fr) minmax(520px,820px);align-items:end;gap:22px;margin-bottom:18px}
+    h1{margin:0;font-size:24px;line-height:1.25}.meta{margin-top:6px;color:var(--muted);font-size:13px;font-weight:650}
+    .filter-panel{display:grid;grid-template-columns:1.05fr 1fr .8fr 1fr;gap:10px;align-items:center}
+    .filter-field{min-width:0}.filter-label{display:block;margin-bottom:5px;color:var(--muted);font-size:12px;font-weight:800}
+    .select{width:100%;height:38px;border:1px solid var(--line);border-radius:6px;padding:0 12px;background:#fff;color:var(--ink);outline:none;box-shadow:0 4px 12px rgba(30,48,82,.04)}
+    .select:focus{border-color:#9cb4f8;box-shadow:0 0 0 3px rgba(66,104,214,.12)}
+    .summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+    .metric-card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:14px 16px}
+    .metric-card span{display:block;color:var(--muted);font-size:12px}.metric-card strong{display:block;margin-top:4px;font-size:22px}
+    .section{border:1px solid var(--line);border-radius:8px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+    .section-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fbfcff}
+    .section-title{margin:0;font-size:18px;display:flex;align-items:center;gap:10px}.section-title:before{content:"";width:4px;height:20px;border-radius:2px;background:var(--blue);display:block}
+    .content-pad{padding:18px}.empty{min-height:220px;border:1px dashed #cbd6eb;border-radius:8px;background:#fbfcff;display:none;place-items:center;text-align:center;color:#6d7788;padding:26px}
+    table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:1120px;font-size:13px}th{background:#edf2fb;color:#4c63b3;font-weight:800;padding:9px 8px;text-align:center;white-space:nowrap}td{padding:9px 8px;border-bottom:1px solid #eef2f7;text-align:center;vertical-align:middle}.nowrap{white-space:nowrap}.product-cell{word-break:break-word}.amount{font-variant-numeric:tabular-nums;font-weight:700}.table-scroll{overflow:auto}
+    .sort-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;border:0;border-radius:999px;background:#dfe8ff;color:#3659c9;font-size:12px;font-weight:900;line-height:1;padding:5px 8px;margin-left:6px;cursor:pointer;vertical-align:middle}
+    .sort-btn:hover{background:#d4e0ff}.sort-btn:focus-visible{outline:3px solid rgba(66,104,214,.22);outline-offset:2px}
+    @media(max-width:1100px){.page-head{grid-template-columns:1fr}.filter-panel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.topbar{height:auto;align-items:flex-start;flex-direction:column;padding:14px 18px}.workspace{padding:18px}.summary-grid,.filter-panel{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="crumb">产品销售 / <strong>私募销售历史数据</strong></div>
+    <span class="pill" id="dataPill">数据已接入</span>
+  </div>
+  <main class="workspace">
+    <div class="page-head">
+      <div>
+        <h1>私募销售历史数据</h1>
+        <div class="meta">用于按营业部、员工、月份和产品类型查询私募产品实际销量、客户数与交易明细。</div>
+      </div>
+      <div class="filter-panel" aria-label="私募销售历史筛选">
+        <label class="filter-field"><span class="filter-label">营业部</span><select id="branchFilter" class="select"></select></label>
+        <label class="filter-field"><span class="filter-label">员工姓名</span><select id="employeeFilter" class="select"></select></label>
+        <label class="filter-field"><span class="filter-label">月份</span><select id="monthFilter" class="select"></select></label>
+        <label class="filter-field"><span class="filter-label">产品类型</span><select id="typeFilter" class="select"></select></label>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="metric-card"><span>销售产品</span><strong id="kpiProducts">0只</strong></div>
+      <div class="metric-card"><span>覆盖客户</span><strong id="kpiClients">0户</strong></div>
+      <div class="metric-card"><span>实际销量</span><strong id="kpiAmount">0万</strong></div>
+      <div class="metric-card"><span>销售笔数</span><strong id="kpiRows">0笔</strong></div>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">员工销售明细</h2>
+        <span class="pill" id="resultPill">匹配 0 条</span>
+      </div>
+      <div class="content-pad table-scroll">
+        <table>
+          <colgroup>
+            <col style="width:96px">
+            <col style="width:108px">
+            <col style="width:82px">
+            <col style="width:82px">
+            <col>
+            <col style="width:92px">
+            <col style="width:82px">
+            <col style="width:138px">
+            <col style="width:132px">
+          </colgroup>
+          <thead><tr><th>交易日期</th><th>营业部</th><th>员工姓名</th><th>产品类型</th><th>产品名称</th><th>产品代码</th><th>客户名称</th><th>客户号</th><th>实际销量<button id="amountSortBtn" class="sort-btn" type="button" title="按实际销量降序">降序</button></th></tr></thead>
+          <tbody id="historyRows"></tbody>
+        </table>
+        <div class="empty" id="emptyState">当前筛选条件下暂无销售明细。</div>
+      </div>
+    </section>
+  </main>
+  <script src="data/privateSalesHistoryData.js?v=20260723_002"></script>
+  <script>
+    const PAYLOAD = window.privateSalesHistoryData || {rows:[],filters:{}};
+    const DATA = Array.isArray(PAYLOAD.rows) ? PAYLOAD.rows : [];
+    const els = {
+      branch: document.getElementById('branchFilter'),
+      employee: document.getElementById('employeeFilter'),
+      month: document.getElementById('monthFilter'),
+      type: document.getElementById('typeFilter'),
+      rows: document.getElementById('historyRows'),
+      empty: document.getElementById('emptyState'),
+      result: document.getElementById('resultPill'),
+      data: document.getElementById('dataPill'),
+      amountSort: document.getElementById('amountSortBtn')
+    };
+    const labels = {all:'全部', retailAll:'零售-全部'};
+    const fmt = new Intl.NumberFormat('zh-CN',{maximumFractionDigits:2});
+    let sortMode = 'dateDesc';
+    function fillSelect(select, values, allLabel){
+      select.innerHTML = [`<option value="">${allLabel}</option>`].concat(values.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)).join('');
+    }
+    function escapeHtml(value){
+      return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    }
+    function displayType(row){
+      return row.saleType === '零售' && row.retailStage ? `零售/${row.retailStage}` : row.saleType || '';
+    }
+    function maskCustomerName(value){
+      const text = String(value || '').trim();
+      return text ? `${text.slice(0,1)}*` : '';
+    }
+    function maskCustomerId(value){
+      const text = String(value || '').trim();
+      if(!text) return '';
+      const visible = text.slice(-4);
+      return '*'.repeat(Math.max(0, text.length - 4)) + visible;
+    }
+    function currentRows(){
+      const branch = els.branch.value;
+      const employee = els.employee.value;
+      const month = els.month.value;
+      const type = els.type.value;
+      return DATA.filter(row => {
+        if(branch && row.branch !== branch) return false;
+        if(employee && row.employee !== employee) return false;
+        if(month && row.month !== month) return false;
+        if(type === '零售' && row.saleType !== '零售') return false;
+        if(type && type !== '零售' && row.productType !== type) return false;
+        return true;
+      }).sort((a,b) => {
+        if(sortMode === 'amountDesc'){
+          const amountDiff = Number(b.amount || 0) - Number(a.amount || 0);
+          if(amountDiff) return amountDiff;
+        }
+        return String(b.date).localeCompare(String(a.date));
+      });
+    }
+    function syncEmployees(){
+      const branch = els.branch.value;
+      const selected = els.employee.value;
+      const names = [...new Set(DATA.filter(row => !branch || row.branch === branch).map(row => row.employee).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
+      fillSelect(els.employee, names, labels.all);
+      els.employee.value = names.includes(selected) ? selected : '';
+    }
+    function render(){
+      const rows = currentRows();
+      els.rows.innerHTML = rows.map(row => `<tr><td class="nowrap">${escapeHtml(row.date)}</td><td class="nowrap">${escapeHtml(row.branch)}</td><td>${escapeHtml(row.employee)}</td><td>${escapeHtml(displayType(row))}</td><td class="product-cell">${escapeHtml(row.product)}</td><td>${escapeHtml(row.code)}</td><td>${escapeHtml(maskCustomerName(row.customer))}</td><td class="nowrap">${escapeHtml(maskCustomerId(row.customerId))}</td><td class="amount">${fmt.format(Number(row.amount || 0))}</td></tr>`).join('');
+      els.empty.style.display = rows.length ? 'none' : 'grid';
+      els.result.textContent = `匹配 ${rows.length} 条`;
+      document.getElementById('kpiProducts').textContent = new Set(rows.map(row => row.code || row.product).filter(Boolean)).size + '只';
+      document.getElementById('kpiClients').textContent = new Set(rows.map(row => row.customerId || row.customer).filter(Boolean)).size + '户';
+      document.getElementById('kpiAmount').textContent = fmt.format(rows.reduce((sum,row)=>sum+Number(row.amount||0),0)) + '万';
+      document.getElementById('kpiRows').textContent = rows.length + '笔';
+    }
+    function init(){
+      const filters = PAYLOAD.filters || {};
+      fillSelect(els.branch, filters.branches || [], labels.all);
+      fillSelect(els.month, filters.months || [], labels.all);
+      els.type.innerHTML = '<option value="">全部类型</option><option value="零售">零售-全部</option><option value="零售-首发">零售-首发</option><option value="零售-持营">零售-持营</option><option value="定制">定制</option>';
+      syncEmployees();
+      els.data.textContent = PAYLOAD.updatedAt ? `数据至 ${PAYLOAD.updatedAt}` : '数据已接入';
+      [els.branch, els.employee, els.month, els.type].forEach(select => select.addEventListener('change', () => {
+        if(select === els.branch) syncEmployees();
+        render();
+      }));
+      els.amountSort.addEventListener('click', () => {
+        sortMode = 'amountDesc';
+        render();
+      });
+      render();
+    }
+    init();
+  </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
+</body>
+</html>

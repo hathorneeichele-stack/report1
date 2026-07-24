@@ -24,11 +24,12 @@
     html,
     body {
       height:100%;
-      overflow:hidden;
+      overflow:auto;
     }
 
     body {
       margin:0;
+      min-width:1440px;
       color:var(--ink);
       background:var(--bg);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
@@ -40,9 +41,10 @@
 
     .shell {
       height:100vh;
+      min-width:1440px;
       overflow:hidden;
       display:grid;
-      grid-template-columns:264px minmax(0,1fr);
+      grid-template-columns:264px minmax(1176px,1fr);
     }
 
     .sidebar {
@@ -219,10 +221,20 @@
       background:var(--blue-2);
     }
 
+    .flyout-sub {
+      min-height:36px !important;
+      margin-left:14px;
+      padding-left:14px !important;
+      font-size:13px !important;
+      font-weight:750 !important;
+      color:#aebcda !important;
+      border-left:1px solid rgba(255,255,255,.14) !important;
+    }
+
     main {
       position:relative;
       z-index:1;
-      min-width:0;
+      min-width:1176px;
       height:100vh;
       overflow:hidden;
     }
@@ -247,6 +259,7 @@
 
     .content-frame {
       width:100%;
+      min-width:1176px;
       height:100vh;
       min-height:900px;
       border:0;
@@ -305,35 +318,11 @@
     }
 
     @media (max-width:980px) {
-      .shell {
-        height:auto;
-        min-height:100vh;
-        overflow:visible;
-        grid-template-columns:1fr;
-      }
-
-      .sidebar {
-        position:static;
-        height:auto;
-      }
-
-      main {
-        height:auto;
-        overflow:visible;
-      }
-
-      .flyout {
-        position:static;
-        width:100%;
-        margin-top:4px;
-        opacity:1;
-        pointer-events:auto;
-        transform:none;
-        box-shadow:none;
-      }
-
+      .shell { min-width:1440px; }
+      .sidebar { position:sticky; height:100vh; }
+      main { height:100vh; overflow:hidden; }
       .workspace { padding:0; }
-      .nav-shield { left:0; }
+      .nav-shield { left:330px; }
     }
   </style>
 <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_expanded"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260722-mengxi-layout-fix"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
@@ -368,7 +357,10 @@
           </button>
           <div class="flyout" role="menu" aria-label="产品销售">
             <button class="active" type="button" role="menuitem" data-sales-entry="standard">公私募标准销量</button>
+            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="action">销售行动测算</button>
+            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="report">标准销量销售情况</button>
             <button type="button" role="menuitem" data-sales-entry="products">重点产品首发播报</button>
+            <button type="button" role="menuitem" data-sales-entry="privateHistory">私募销售历史数据</button>
           </div>
         </div>
       </div>
@@ -433,11 +425,14 @@
     const lazyFrames = {
       tracking: '嵌入-私募数据跟踪.html?v=20260722_009_auto_fit_table',
       fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
-      broadcast: '嵌入-公私募标准销量.html?v=20260722_001'
+      broadcast: '嵌入-公私募标准销量.html?v=20260723_heji_history#action'
     };
     const salesPages = {
-      standard: '嵌入-公私募标准销量.html?v=20260722_001',
-      products: '嵌入-重点产品首发播报.html?v=20260722_004'
+      standard: '嵌入-公私募标准销量.html?v=20260723_heji_history#action',
+      action: '嵌入-公私募标准销量.html?v=20260723_heji_history#action',
+      report: '嵌入-公私募标准销量.html?v=20260723_heji_history#report',
+      products: '嵌入-重点产品首发播报.html?v=20260722_004',
+      privateHistory: '嵌入-私募销售历史数据.html?v=20260723_001'
     };
 
     const sideCurrent = document.getElementById('sideCurrent');

@@ -219,6 +219,16 @@
       background:var(--blue-2);
     }
 
+    .flyout-sub {
+      min-height:36px !important;
+      margin-left:14px;
+      padding-left:14px !important;
+      font-size:13px !important;
+      font-weight:750 !important;
+      color:#aebcda !important;
+      border-left:1px solid rgba(255,255,255,.14) !important;
+    }
+
     main {
       position:relative;
       z-index:1;
@@ -368,7 +378,10 @@
           </button>
           <div class="flyout" role="menu" aria-label="产品销售">
             <button class="active" type="button" role="menuitem" data-sales-entry="standard">公私募标准销量</button>
+            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="action">销售行动测算</button>
+            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="report">标准销量销售情况</button>
             <button type="button" role="menuitem" data-sales-entry="products">重点产品首发播报</button>
+            <button type="button" role="menuitem" data-sales-entry="privateHistory">私募销售历史数据</button>
           </div>
         </div>
       </div>
@@ -433,11 +446,14 @@
     const lazyFrames = {
       tracking: '嵌入-私募数据跟踪.html?v=20260722_009_auto_fit_table',
       fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
-      broadcast: '嵌入-公私募标准销量.html?v=20260722_001'
+      broadcast: '嵌入-公私募标准销量.html?v=20260723_heji_history#action'
     };
     const salesPages = {
-      standard: '嵌入-公私募标准销量.html?v=20260722_001',
-      products: '嵌入-重点产品首发播报.html?v=20260722_004'
+      standard: '嵌入-公私募标准销量.html?v=20260723_heji_history#action',
+      action: '嵌入-公私募标准销量.html?v=20260723_heji_history#action',
+      report: '嵌入-公私募标准销量.html?v=20260723_heji_history#report',
+      products: '嵌入-重点产品首发播报.html?v=20260722_004',
+      privateHistory: '嵌入-私募销售历史数据.html?v=20260723_001'
     };
 
     const sideCurrent = document.getElementById('sideCurrent');

@@ -1226,7 +1226,8 @@
         document.querySelectorAll('[data-standard-entry]').forEach(button => {
           button.addEventListener('click', () => showPanel(button.dataset.standardEntry));
         });
-        showPanel('action');
+        showPanel((location.hash || '#action').replace('#','') === 'report' ? 'report' : 'action');
+        window.addEventListener('hashchange', () => showPanel((location.hash || '#action').replace('#','') === 'report' ? 'report' : 'action'));
       }
       setupStandardSplit();
     })();

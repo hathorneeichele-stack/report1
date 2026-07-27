@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>材料查看</title>
+<style>
+:root{--ink:#17233b;--muted:#64748b;--line:#dbe6f3;--blue:#255fbd;--bg:#eef3f8;--panel:#fff;--shadow:0 14px 34px rgba(22,37,65,.12)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif}
+body{display:flex;flex-direction:column}
+.viewer-top{height:58px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 22px;position:sticky;top:0;z-index:10}
+.title-zone{min-width:0;display:flex;align-items:baseline;gap:10px}
+.title-zone h1{margin:0;font-size:18px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.title-zone span{color:var(--muted);font-size:12px;white-space:nowrap}
+.actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.actions a,.actions button{height:34px;border:1px solid #cbd8eb;background:#fff;color:#24456f;border-radius:7px;padding:0 12px;font:inherit;font-size:13px;font-weight:750;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.actions a:hover,.actions button:hover{background:#edf4ff;border-color:#a9c2ee}
+.stage{flex:1;min-height:0;padding:18px 24px 28px}
+.content-shell{height:calc(100vh - 104px);min-height:520px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+.content-shell.image-shell{overflow:auto;text-align:center;padding:18px;background:#f8fbff}
+iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff;border:1px solid #e3ebf6;border-radius:6px;box-shadow:0 10px 28px rgba(22,37,65,.08)}
+.empty{height:100%;display:grid;place-items:center;color:var(--muted);font-size:14px}
+@media(max-width:760px){
+  .viewer-top{height:auto;min-height:58px;padding:12px 14px;align-items:flex-start;flex-direction:column}
+  .title-zone{width:100%;display:grid;gap:4px}
+  .title-zone h1{white-space:normal}
+  .actions{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .stage{padding:12px}
+  .content-shell{height:calc(100vh - 142px);min-height:420px}
+}
+</style>
+</head>
+<body>
+<header class="viewer-top">
+  <div class="title-zone">
+    <h1 id="viewerTitle">材料查看</h1>
+    <span id="viewerMeta">独立页面</span>
+  </div>
+  <div class="actions">
+    <a id="openRaw" href="#" target="_blank" rel="noopener">原文件</a>
+    <button id="closePage" type="button">关闭</button>
+  </div>
+</header>
+<main class="stage">
+  <section id="contentShell" class="content-shell">
+    <div class="empty">材料加载中...</div>
+  </section>
+</main>
+<script>
+(function(){
+  const params=new URLSearchParams(location.search);
+  const title=params.get('title')||'材料查看';
+  const type=params.get('type')||'pdf';
+  const src=params.get('src')||'';
+  const shell=document.getElementById('contentShell');
+  const openRaw=document.getElementById('openRaw');
+  document.title=title;
+  document.getElementById('viewerTitle').textContent=title;
+  document.getElementById('viewerMeta').textContent=type==='image'?'图片材料':'PDF材料';
+  document.getElementById('closePage').addEventListener('click',()=>{window.close();});
+  if(!src){
+    shell.innerHTML='<div class="empty">没有找到材料地址</div>';
+    openRaw.hidden=true;
+    return;
+  }
+  const rawUrl=type==='pdf'&&src.indexOf('#')<0?src+'#toolbar=1&navpanes=0':src;
+  openRaw.href=rawUrl;
+  if(type==='image'){
+    shell.classList.add('image-shell');
+    const img=document.createElement('img');
+    img.src=src;
+    img.alt=title;
+    shell.textContent='';
+    shell.appendChild(img);
+    return;
+  }
+  const iframe=document.createElement('iframe');
+  iframe.src=rawUrl;
+  iframe.title=title;
+  shell.textContent='';
+  shell.appendChild(iframe);
+})();
+</script>
+</body>
+</html>

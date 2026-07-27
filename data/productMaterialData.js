@@ -5,7 +5,7 @@ window.productMaterialData = {
   '进化论1000锐泰系列':{
     overview:`<div class="modal-text"><h4>产品销售概览</h4><p><strong>路演回放：</strong><a href="https://meeting.tencent.com/crm/Km8pXG8J63" target="_blank">https://meeting.tencent.com/crm/Km8pXG8J63</a>，密码：0616。对内路演，严禁转发。</p><p><strong>产品代码：</strong>进化论1000锐泰1号、2号（SASJ31、SASH94）。</p><p><strong>风险等级：</strong>中高风险。</p><p><strong>首发时间：</strong>2026/7/1-7/8，交易日9点-15点可认购下单，7/9为最后一天冷静期。</p><h4>零售份额产品要素</h4><ul><li>184天锁定期。</li><li>认购费：0-300万为1%；300万（含）-1000万为0.5%；1000万（含）以上为0。</li><li>赎回费：持有92天以上无赎回费。</li><li>管理费：2%。</li><li>业绩报酬：20%单人单笔份额高水位法。</li></ul><h4>产品亮点</h4><ul><li><strong>多维度因子构建多元稳健模型：</strong>在量价、基本面等常见因子之外，自主研发市场逻辑因子，从更多角度观察市场并提升决策胜率。</li><li><strong>归纳+演绎，追求夏普更优：</strong>用科学实证补足统计模型对小样本事件的覆盖不足，通过演绎法开发长尾因子，以提升极端行情下的超额稳定性。</li><li><strong>换手低、容量大：</strong>策略不依赖小市值和高换手，拥挤度相对较低，力争适应不同市场周期。</li></ul><h4>销售政策</h4><ul><li>认购费全额创收（投顾绩效计提比例×2）。</li><li>销售服务费创收（年化1%）。</li><li>业绩报酬创收（管理人提取部分的20%）。</li><li>首发募集参与给予一次性交易收入（1%）。</li></ul></div>`,
     mindmap:'<div class="modal-media image-media"><img src="assets/evolution_mindmap_original_copy_20260703.jpg" alt="进化论1000锐泰系列思维导图"></div>',
-    performance:'<div class="modal-media pdf-media"><iframe src="assets/evolution_performance_report.html?v=20260721-performance-external" title="进化论1000锐泰系列实盘业绩报告"></iframe></div>',
+    performance:'<div class="modal-media pdf-media"><iframe src="assets/evolution_performance_report.html?v=20260727-evolution-report-shell" title="进化论1000锐泰系列实盘业绩报告"></iframe></div>',
     single:'<div class="modal-media pdf-media"><iframe src="assets/evolution_single.pdf#toolbar=1&navpanes=0" title="进化论1000锐泰系列单页材料"></iframe></div>',
     full:'<div class="modal-media pdf-media"><iframe src="assets/evolution_full.pdf#toolbar=1&navpanes=0" title="进化论1000锐泰系列完整材料"></iframe></div>'
   },
@@ -31,6 +31,13 @@ window.productMaterialData = {
     full:'<div class="modal-media pdf-media"><iframe src="assets/mengxi_full.pdf#toolbar=1&navpanes=0" title="蒙玺兴泰量化光翼系列完整材料"></iframe></div>'
   }
 },
+    EXTERNAL_MATERIALS: {
+      '进化论1000锐泰系列': {
+        mindmap: 'assets/evolution_mindmap_original_copy_20260703.jpg',
+        single: 'assets/evolution_single.pdf#toolbar=1&navpanes=0',
+        full: 'assets/evolution_full.pdf#toolbar=1&navpanes=0'
+      }
+    },
     MATERIAL_LABELS: {overview:'产品销售概览',mindmap:'思维导图',performance:'实盘业绩报告',single:'对客推介材料-单页',full:'对客推介材料-完整'}
   },
   fixed: {

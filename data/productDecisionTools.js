@@ -37,9 +37,11 @@
       .decision-muted{color:#6d7788;font-size:12px;line-height:1.55}
       .decision-empty{padding:20px;border:1px dashed #cfd8e8;border-radius:8px;text-align:center;color:#6d7788;background:#fbfcff}
       .sales-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+      .sales-action-grid.sales-action-calc-grid{grid-template-columns:minmax(0,1fr) minmax(320px,.82fr)}
       .sales-action-grid.with-employee{grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr)}
       .sales-action-stack{display:grid;gap:14px;min-width:0}
       .sales-action-full{padding-top:0!important}
+      .sales-action-catchup{padding-top:0!important}
       .sales-action-panel{border:1px solid var(--line,#e6ecf5);border-radius:8px;background:#fff;box-shadow:var(--shadow,0 10px 24px rgba(28,41,70,.08));overflow:hidden}
       .sales-action-panel h3{margin:0;padding:13px 15px;border-bottom:1px solid var(--line,#e6ecf5);font-size:15px;background:#fbfcff}
       .sales-action-body{padding:14px 15px;display:grid;gap:10px}
@@ -47,6 +49,10 @@
       .sales-result{display:grid;gap:8px;padding:12px;border:1px solid #e6ebf4;border-radius:8px;background:#fbfcff}
       .sales-result strong{font-size:20px;color:#1f2a3d}
       .sales-result span{color:#536176}
+      .catchup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .catchup-card{display:grid;gap:10px;border:1px solid #e6ebf4;border-radius:8px;background:#fbfcff;padding:12px;min-width:0}
+      .catchup-card h4{margin:0;font-size:14px;color:#1f2a3d}
+      .catchup-card strong{font-size:18px;color:#1f2a3d}
       .employee-calc-layout{display:grid;grid-template-columns:minmax(0,1fr) 178px;gap:12px;align-items:start}
       .employee-calc-table-wrap{overflow:auto;border:1px solid #e6ebf4;border-radius:8px}
       .employee-calc-table{min-width:860px;width:100%;border-collapse:collapse;font-size:12px}
@@ -59,7 +65,7 @@
       .candidate-list{display:grid;gap:8px}
       .candidate-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #e6ebf4;border-radius:8px;padding:9px 10px;background:#fff}
       .candidate-item b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      @media(max-width:900px){.decision-query,.sales-action-grid,.sales-action-grid.with-employee,.sales-action-row,.employee-calc-layout{grid-template-columns:1fr}.decision-grid{grid-template-columns:118px repeat(var(--compare-cols,2),minmax(150px,1fr))}.employee-lift-card{position:static}}
+      @media(max-width:900px){.decision-query,.sales-action-grid,.sales-action-grid.with-employee,.sales-action-grid.sales-action-calc-grid,.sales-action-row,.employee-calc-layout,.catchup-grid{grid-template-columns:1fr}.decision-grid{grid-template-columns:118px repeat(var(--compare-cols,2),minmax(150px,1fr))}.employee-lift-card{position:static}}
     `;
     document.head.appendChild(style);
   }
@@ -88,6 +94,67 @@
 
   function isLaunchProduct(item){
     return String(item && item.section || '').includes('首发') || String(item && item.raw && item.raw.type || '').includes('launch');
+  }
+
+  function isPublicPrivateProduct(item){
+    return ['public', 'private', 'privateTracking'].includes(item && item.category);
+  }
+
+  function isKeyHoldingProduct(item){
+    if(isLaunchProduct(item) || !isPublicPrivateProduct(item)) return false;
+    if(item && item.category === 'public' && String(item.section || '').includes('持营')) return true;
+    const joined = [
+      item?.section,
+      item?.name,
+      item?.strategy,
+      item?.subStrategy,
+      item?.raw?.type,
+      item?.raw?.level,
+      item?.raw?.tag,
+      item?.raw?.section
+    ].join(' ');
+    return /重点持营|重点营销|私享持营池|私享池|pool/.test(joined);
+  }
+
+  function productCategoryRank(item){
+    if(item && item.category === 'public') return 0;
+    if(item && item.category === 'private') return 1;
+    if(item && item.category === 'privateTracking') return 1;
+    if(item && item.category === 'fixed') return 2;
+    return 3;
+  }
+
+  function productPriorityRank(item){
+    if(isPublicPrivateProduct(item) && isLaunchProduct(item)) return 0;
+    if(isKeyHoldingProduct(item)) return 1;
+    if(isPublicPrivateProduct(item)) return 2;
+    if(isLaunchProduct(item)) return 3;
+    return 4;
+  }
+
+  function productDateValue(item){
+    const year = new Date().getFullYear();
+    const rawMonth = Number(item?.raw?.month);
+    const rawDay = Number(item?.raw?.day);
+    if(rawMonth && rawDay) return new Date(year, rawMonth - 1, rawDay).getTime();
+    const raw = [item?.raisePeriod, item?.openText, item?.raw?.date, item?.raw?.period].filter(Boolean).join(' ');
+    const range = raw.match(/((?:20\d{2}[./-])?\d{1,2}[./-]\d{1,2})\s*[-至~—]\s*((?:20\d{2}[./-])?\d{1,2}[./-]\d{1,2})/);
+    const parsed = parseDateToken(range ? range[1] : raw, year);
+    return parsed ? parsed.getTime() : Number.MAX_SAFE_INTEGER;
+  }
+
+  function productDisplaySort(a,b){
+    const priorityDiff = productPriorityRank(a) - productPriorityRank(b);
+    if(priorityDiff) return priorityDiff;
+    const categoryDiff = productCategoryRank(a) - productCategoryRank(b);
+    if(categoryDiff) return categoryDiff;
+    const activeDiff = Number(inSalesWindow(b)) - Number(inSalesWindow(a));
+    if(activeDiff) return activeDiff;
+    const dateDiff = productDateValue(a) - productDateValue(b);
+    if(dateDiff) return dateDiff;
+    const factorDiff = factorFrom(b.salesCoef) - factorFrom(a.salesCoef);
+    if(factorDiff) return factorDiff;
+    return String(a.name || '').localeCompare(String(b.name || ''), 'zh-CN');
   }
 
   function isPrivateLike(item){
@@ -322,7 +389,8 @@
     const filtered = scope ? items.filter(item => item.category === scope || item.source === scope) : items;
     const map = new Map();
     filtered.map(enrichWithCoefficient).forEach(item => upsert(map, item));
-    return { items: Array.from(new Set(map.values())), map };
+    const uniqueItems = Array.from(new Set(map.values())).sort(productDisplaySort);
+    return { items: uniqueItems, map };
   }
 
   function findProduct(query, map){
@@ -603,13 +671,7 @@
       .filter(item => item.source !== 'coefficient')
       .filter(item => factorFrom(item.salesCoef) > 1 || item.section === '首发')
       .filter(inSalesWindow)
-      .sort((a,b) => {
-        const launchDiff = Number(isLaunchProduct(b)) - Number(isLaunchProduct(a));
-        if(launchDiff) return launchDiff;
-        const factorDiff = factorFrom(b.salesCoef) - factorFrom(a.salesCoef);
-        if(factorDiff) return factorDiff;
-        return String(a.name || '').localeCompare(String(b.name || ''), 'zh-CN');
-      });
+      .sort(productDisplaySort);
     const publicItems = sorted.filter(item => item.category === 'public');
     const privateItems = sorted.filter(item => item.category !== 'public');
     const mixed = [];
@@ -631,6 +693,7 @@
     factorFrom,
     calcStandardAmount,
     candidateProducts,
+    productDisplaySort,
     annotateCoefficientTables,
     mountProductCompare
   };

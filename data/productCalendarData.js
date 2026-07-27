@@ -6351,28 +6351,14 @@ window.productCalendarData = {
           {
                     "section": "首发",
                     "category": "主动权益",
-                    "style": "量化-量化选股",
-                    "name": "汇添富睿选成长",
-                    "code": "027592/027593",
-                    "period": "2026/7/13-2026/7/24",
-                    "custody": "券结",
-                    "salesCoef": "3.5",
-                    "holdingCoef": "3",
-                    "policy": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户管理费*50%，非个人客户管理费*30%（持有不足一年管理费1.2%，此后可能随业绩上下浮动 ）。（管理费收入） / 3、【更新】按成立月保有给予A类2.8%、C类2.4%计创收，限额3亿，超出按比例稀释",
-                    "metrics": [],
-                    "intro": "产品定位于对标中证500指数的主动量化产品，力争取得可持续稳定的超额收益。策略上将线性因子与AI非线性因子深度融合，AI权重超50%，采用「长周期静态+短周期动态」双轨配置，依托汇添富主动投研平台，将行业研究员调研、产业洞察转化为量化因子；日内微调组合，短链路转化策略信号，降低执行损耗，捕捉瞬时定价偏差；配套全流程量化风控体系，事前定风险目标、事中控因子暴露、事后做业绩归因优化。"
-          },
-          {
-                    "section": "首发",
-                    "category": "主动权益",
                     "style": "周期",
                     "name": "平安周期精选",
                     "code": "027149/027150",
                     "period": "2026/7/15-2026/7/29",
                     "custody": "券结",
-                    "salesCoef": "3",
+                    "salesCoef": "3.5",
                     "holdingCoef": "3",
-                    "policy": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入） / 3、按成立月保有给予A类2.8%、C类2.4%计创收，限额1亿，超出按比例稀释",
+                    "policy": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费；个人年日均保有*0.60%，机构客户*0.36%。 / 2、按成立月保有给予A类2.8%、C类2.4%计创收，限额1亿，超出按比例稀释",
                     "metrics": [],
                     "intro": "基金经理陈默，深耕泛周期行业，关注行业格局变化的拔估值机会和技术突破型的行业机会。选股时重点选择业产量增长明确、业绩兑现能力强、股东背景稳定、海外矿权获取能力突出的公司。在管产品平安资源精选去年10月以来超额收益超5%。"
           },
@@ -6386,9 +6372,37 @@ window.productCalendarData = {
                     "custody": "托管",
                     "salesCoef": "1.7",
                     "holdingCoef": "0.7",
-                    "policy": "1、认购费（不打折）； / 2、个人客户年日均保有额*0.075%，机构客户*0.045%。（管理费收入）",
+                    "policy": "1、认购费（不打折）； / 2、个人客户年日均保有额*0.075%，机构客户*0.045%。（管理费收入） / 3、按成立月保有给予2.0%计创收，限额5000万，超额不稀释",
                     "metrics": [],
-                    "intro": "聚焦科创板中市值偏小、流动性良好的200家创新企业，行业分布集中于半导体、电力设备、医药和机械设备等硬科技领域，专精特新企业占比突出，是布局科创板成长型中小企业的核心工具之一。"
+                    "intro": "本产品跟踪上证科创板200指数，聚焦科创板中市值偏小、流动性良好的200家创新企业，行业分布集中于半导体、电力设备、医药和机械设备等硬科技领域，专精特新企业占比突出，具备鲜明的“硬科技”风格，是布局科创板成长型中小企业的核心工具之一。"
+          },
+          {
+                    "section": "首发",
+                    "category": "权益指数",
+                    "style": "价值",
+                    "name": "嘉实价值100ETF",
+                    "code": "待定",
+                    "period": "2026/8/3-2026/8/14",
+                    "custody": "券结",
+                    "salesCoef": "1.7",
+                    "holdingCoef": "0.7",
+                    "policy": "待定",
+                    "metrics": [],
+                    "intro": "待定"
+          },
+          {
+                    "section": "首发",
+                    "category": "权益指数",
+                    "style": "价值",
+                    "name": "华夏价值100ETF",
+                    "code": "待定",
+                    "period": "2026/8/3-2026/8/14",
+                    "custody": "券结",
+                    "salesCoef": "1.7",
+                    "holdingCoef": "0.7",
+                    "policy": "待定",
+                    "metrics": [],
+                    "intro": "待定"
           },
           {
                     "section": "持营",
@@ -6672,7 +6686,7 @@ window.productCalendarData = {
                     "holdingCoef": "3",
                     "policy": "1、申购费（不打折,手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入） / 3、2026年7月1日-9月30日，按确认的新增参与金额A类*1.5%计创收，限额3亿（超过限额当月开始稀释）； / 4、2026年Q3，按客户维度每月日均规模较上月日均新增规模*0.23%计创收，AC份额合计3亿。",
                     "metrics": [],
-                    "intro": "对标中证全指量化基金，以机器学习为核心，在量化体系中注重风格切换。通过神经网络模型完成个股筛选，并采用自上而下的框架构建选股逻辑。成立以来收益为27.4%，超额+18.82%，最大回撤-11.08%。",
+                    "intro": "对标中证全指量化基金，以机器学习为核心，在量化体系中注重风格切换。通过神经网络模型完成个股筛选，并采用自上而下的框架构建选股逻辑。成立以来收益为27.4%，超额+18.82%，最大回撤-20.54%。",
                     "tagColor": "#E2F0D9"
           },
           {
@@ -6695,7 +6709,7 @@ window.productCalendarData = {
                     "category": "量化",
                     "style": "量化-量化选股",
                     "name": "鑫元鑫趋势",
-                    "code": "A:020158 / C:020159",
+                    "code": "A:004944 / C:004948",
                     "period": "2026/7/20-2026/9/30",
                     "custody": "券结",
                     "salesCoef": "3",
@@ -6703,7 +6717,23 @@ window.productCalendarData = {
                     "policy": "1、申购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.40%，机构客户*0.24%。（管理费收入） / 3、2026年7月20日-9月30日，按确认的新增参与金额A类*1.5%计创收，限额5000万； / 4、2026年Q3，按客户维度每月日均规模较上月日均新增规模*0.23%计创收，AC份额合计限额5000万。",
                     "metrics": [],
                     "intro": "采用“量化+主动”选股策略，先靠量化模型筛出低波低估备选池，再经深度主动研究精选标的，动态平衡风格偏离，全程量化控尾部风险，持仓分散，追求稳健收益。产品近一年回报+20.16%，超额+12.84%，最大回撤-12.52%。",
-                    "tagColor": "#FFFF00"
+                    "tagColor": "#E2F0D9"
+          },
+          {
+                    "section": "首发",
+                    "category": "主动权益",
+                    "style": "量化-量化选股",
+                    "name": "汇添富睿选成长",
+                    "code": "027592/027593",
+                    "period": "2026/7/13-2026/7/24",
+                    "custody": "券结",
+                    "salesCoef": "3.5",
+                    "holdingCoef": "3",
+                    "policy": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户管理费*50%，非个人客户管理费*30%（持有不足一年管理费1.2%，此后可能随业绩上下浮动 ）。（管理费收入） / 3、【更新】按成立月保有给予A类2.8%、C类2.4%计创收，限额3亿，超出按比例稀释",
+                    "metrics": [],
+                    "intro": "产品定位于对标中证500指数的主动量化产品，力争取得可持续稳定的超额收益。策略上将线性因子与AI非线性因子深度融合，AI权重超50%，采用「长周期静态+短周期动态」双轨配置，依托汇添富主动投研平台，将行业研究员调研、产业洞察转化为量化因子；日内微调组合，短链路转化策略信号，降低执行损耗，捕捉瞬时定价偏差；配套全流程量化风控体系，事前定风险目标、事中控因子暴露、事后做业绩归因优化。",
+                    "status": "已结束",
+                    "legacyRetained": true
           },
           {
                     "section": "首发",
@@ -6771,9 +6801,10 @@ window.productCalendarData = {
           }
 ],
     "POLICY_BY_NAME": {
-          "汇添富睿选成长": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户管理费*50%，非个人客户管理费*30%（持有不足一年管理费1.2%，此后可能随业绩上下浮动 ）。（管理费收入） / 3、【更新】按成立月保有给予A类2.8%、C类2.4%计创收，限额3亿，超出按比例稀释",
-          "平安周期精选": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入） / 3、按成立月保有给予A类2.8%、C类2.4%计创收，限额1亿，超出按比例稀释",
-          "华宝科创200ETF": "1、认购费（不打折）； / 2、个人客户年日均保有额*0.075%，机构客户*0.045%。（管理费收入）",
+          "平安周期精选": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费；个人年日均保有*0.60%，机构客户*0.36%。 / 2、按成立月保有给予A类2.8%、C类2.4%计创收，限额1亿，超出按比例稀释",
+          "华宝科创200ETF": "1、认购费（不打折）； / 2、个人客户年日均保有额*0.075%，机构客户*0.045%。（管理费收入） / 3、按成立月保有给予2.0%计创收，限额5000万，超额不稀释",
+          "嘉实价值100ETF": "待定",
+          "华夏价值100ETF": "待定",
           "华泰紫金泰盈": "1、申购费（A类不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有*0.50%，非个人客户*0.30%（管理费分成）。 / 3、【更新日期】2026年1-12月，按日均保有规模*1%（年化）计创收 / 4、【更新日期】2026年1-12月，按客户维度每月日均保有较2025年10月日均保有新增规模给予5%（年化，每月发放0.42%）计创收",
           "华商品质甄选混合型证券投资基金": "1、申购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入） / 3、2026年7月1日-9月30日，按确认的新增参与金额A类*1.5%计创收，限额1亿； / 4、2026年Q3，按客户维度每月日均规模较上月日均新增规模*0.33%计创收，AC份额合计1亿。",
           "富国时代精选": "1、申购费（A类不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有*0.48%，机构客户*0.36%。（管理费收入） / 3、4月1日-9月30日，按确认的新增参与金额A类*1.5%计创收，6月1日-9月30日，按确认的新增参与金额C类*0.5%计创收，限额合计3亿； / 4、按客户维度，Q3每月日均规模较上月日均新增规模*0.33%计创收（合计约1%），限额3亿。",
@@ -6795,6 +6826,7 @@ window.productCalendarData = {
           "国金智远量化选股": "1、申购费（不打折,手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入） / 3、2026年7月1日-9月30日，按确认的新增参与金额A类*1.5%计创收，限额3亿（超过限额当月开始稀释）； / 4、2026年Q3，按客户维度每月日均规模较上月日均新增规模*0.23%计创收，AC份额合计3亿。",
           "信澳核心智选混合型证券投资基金": "1、申购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有*0.6%，机构客户*0.36%。（管理费收入） / 3、2026年6月1日-7月31日，按确认的新增参与金额A类*1.5%计创收，限额5000万；",
           "鑫元鑫趋势": "1、申购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户年日均保有额*0.40%，机构客户*0.24%。（管理费收入） / 3、2026年7月20日-9月30日，按确认的新增参与金额A类*1.5%计创收，限额5000万； / 4、2026年Q3，按客户维度每月日均规模较上月日均新增规模*0.23%计创收，AC份额合计限额5000万。",
+          "汇添富睿选成长": "1、认购费（不打折，手续费计提比例上浮50%）、销售服务费； / 2、个人客户管理费*50%，非个人客户管理费*30%（持有不足一年管理费1.2%，此后可能随业绩上下浮动 ）。（管理费收入） / 3、【更新】按成立月保有给予A类2.8%、C类2.4%计创收，限额3亿，超出按比例稀释",
           "天弘智航锐进": "1、认购费（不打折）、销售服务费；个人年日均保有*0.60%，机构客户*0.36%。 / 2、按成立月保有给予A类2.4%、C类2.1%计创收，限额3亿，超出按比例稀释",
           "华泰柏瑞红利质量ETF": "1、认购费（不打折）； / 2、个人客户年日均保有额*0.25%，机构客户*0.15%。（管理费收入） / 3、按成立月保有给予2.0%计创收，限额2亿，超额不稀释",
           "景顺长城国证粮食产业ETF": "1、认购费（不打折）；个人客户年日均*0.25%，机构*0.10%。 / 2、按成立月保有给予2.4%计创收，限额1.5亿，超额不稀释",
@@ -6806,22 +6838,22 @@ window.productCalendarData = {
             "sourceUrl": "https://fund.eastmoney.com/008405.html",
             "fundName": "华泰紫金泰盈混合C(008405)",
             "inceptionDate": "2020-01-21",
-            "asOf": "2026-07-22",
-            "unitNav": "1.4248",
-            "dailyChange": "-0.34%",
-            "oneWeek": "-1.01%",
-            "oneMonth": "-6.15%",
-            "threeMonth": "-5.48%",
-            "ytd": "-3.28%",
-            "oneYear": "3.13%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "2067 | 5341",
-            "rankYtd": "3206 | 5009",
-            "rankOneYear": "3240 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "1.4215",
+            "dailyChange": "-1.59%",
+            "oneWeek": "2.14%",
+            "oneMonth": "-5.46%",
+            "threeMonth": "-5.65%",
+            "ytd": "-3.50%",
+            "oneYear": "2.63%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "1901 | 5451",
+            "rankYtd": "3103 | 5037",
+            "rankOneYear": "3127 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -7310,32 +7342,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -6.86
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -5.58
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -7.08
                   }
             ],
-            "rankOneWeek": "1410 | 5328",
-            "rankThreeMonth": "2753 | 5244"
+            "rankOneWeek": "1609 | 5478",
+            "rankThreeMonth": "2723 | 5280"
       },
       "华商品质甄选混合型证券投资基金": {
             "code": "026178",
             "sourceUrl": "https://fund.eastmoney.com/026178.html",
             "fundName": "华商品质甄选混合C(026178)",
             "inceptionDate": "2026-01-27",
-            "asOf": "2026-07-22",
-            "unitNav": "0.9695",
-            "dailyChange": "-5.12%",
-            "oneWeek": "-14.13%",
-            "oneMonth": "-32.19%",
-            "threeMonth": "-16.26%",
+            "asOf": "2026-07-24",
+            "unitNav": "0.9199",
+            "dailyChange": "-3.48%",
+            "oneWeek": "-5.13%",
+            "oneMonth": "-35.70%",
+            "threeMonth": "-19.93%",
             "ytd": "--",
             "oneYear": "--",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "5252 | 5341",
-            "rankYtd": "-- | 5009",
-            "rankOneYear": "-- | 4623",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "5410 | 5451",
+            "rankYtd": "-- | 5037",
+            "rankOneYear": "-- | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-27",
@@ -7740,32 +7780,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -3.05
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -4.69
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -8.01
                   }
             ],
-            "rankOneWeek": "5140 | 5328",
-            "rankThreeMonth": "4589 | 5244"
+            "rankOneWeek": "5232 | 5478",
+            "rankThreeMonth": "4858 | 5280"
       },
       "富国时代精选": {
             "code": "017829",
             "sourceUrl": "https://fund.eastmoney.com/017829.html",
             "fundName": "富国时代精选混合C(017829)",
             "inceptionDate": "2023-03-28",
-            "asOf": "2026-07-22",
-            "unitNav": "2.5708",
-            "dailyChange": "-4.64%",
-            "oneWeek": "-9.79%",
-            "oneMonth": "-21.64%",
-            "threeMonth": "0.36%",
-            "ytd": "37.87%",
-            "oneYear": "125.35%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "4483 | 5341",
-            "rankYtd": "452 | 5009",
-            "rankOneYear": "158 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "2.4995",
+            "dailyChange": "-1.60%",
+            "oneWeek": "-1.31%",
+            "oneMonth": "-23.18%",
+            "threeMonth": "0.22%",
+            "ytd": "34.05%",
+            "oneYear": "119.66%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "4615 | 5451",
+            "rankYtd": "450 | 5037",
+            "rankOneYear": "147 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -8254,32 +8302,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 34.06
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 32.46
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 30.34
                   }
             ],
-            "rankOneWeek": "4481 | 5328",
-            "rankThreeMonth": "1507 | 5244"
+            "rankOneWeek": "4349 | 5478",
+            "rankThreeMonth": "1457 | 5280"
       },
       "易方达远见成长": {
             "code": "011412",
             "sourceUrl": "https://fund.eastmoney.com/011412.html",
             "fundName": "易方达远见成长混合C(011412)",
             "inceptionDate": "2021-03-05",
-            "asOf": "2026-07-22",
-            "unitNav": "3.3595",
-            "dailyChange": "-4.57%",
-            "oneWeek": "-12.10%",
-            "oneMonth": "-26.85%",
-            "threeMonth": "1.73%",
-            "ytd": "64.50%",
-            "oneYear": "148.65%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "5029 | 5341",
-            "rankYtd": "100 | 5009",
-            "rankOneYear": "85 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "3.2396",
+            "dailyChange": "-1.98%",
+            "oneWeek": "-2.44%",
+            "oneMonth": "-26.12%",
+            "threeMonth": "3.87%",
+            "ytd": "58.63%",
+            "oneYear": "142.16%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "4962 | 5451",
+            "rankYtd": "100 | 5037",
+            "rankOneYear": "80 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -8768,32 +8824,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 64.5
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 61.84
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 58.63
                   }
             ],
-            "rankOneWeek": "4958 | 5328",
-            "rankThreeMonth": "1300 | 5244"
+            "rankOneWeek": "4710 | 5478",
+            "rankThreeMonth": "986 | 5280"
       },
       "南方信息创新混合": {
             "code": "007491",
             "sourceUrl": "https://fund.eastmoney.com/007491.html",
             "fundName": "南方信息创新混合C(007491)",
             "inceptionDate": "2019-06-19",
-            "asOf": "2026-07-22",
-            "unitNav": "5.1627",
-            "dailyChange": "-1.62%",
-            "oneWeek": "-6.06%",
-            "oneMonth": "2.97%",
-            "threeMonth": "60.40%",
-            "ytd": "104.12%",
-            "oneYear": "188.48%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "672 | 5341",
-            "rankYtd": "12 | 5009",
-            "rankOneYear": "21 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "4.9909",
+            "dailyChange": "1.73%",
+            "oneWeek": "3.12%",
+            "oneMonth": "-8.53%",
+            "threeMonth": "56.02%",
+            "ytd": "97.33%",
+            "oneYear": "166.81%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "2322 | 5451",
+            "rankYtd": "12 | 5037",
+            "rankOneYear": "30 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -9282,32 +9346,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 57.9
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 50.04
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 52.64
                   }
             ],
-            "rankOneWeek": "3359 | 5328",
-            "rankThreeMonth": "19 | 5244"
+            "rankOneWeek": "835 | 5478",
+            "rankThreeMonth": "22 | 5280"
       },
       "中欧信息科技": {
             "code": "023452",
             "sourceUrl": "https://fund.eastmoney.com/023452.html",
             "fundName": "中欧信息科技混合发起C(023452)",
             "inceptionDate": "2025-02-26",
-            "asOf": "2026-07-22",
-            "unitNav": "2.9559",
-            "dailyChange": "-3.92%",
-            "oneWeek": "-9.09%",
-            "oneMonth": "-26.23%",
-            "threeMonth": "5.77%",
-            "ytd": "46.77%",
-            "oneYear": "141.83%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "4978 | 5341",
-            "rankYtd": "283 | 5009",
-            "rankOneYear": "98 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "2.8525",
+            "dailyChange": "-2.09%",
+            "oneWeek": "0.40%",
+            "oneMonth": "-27.00%",
+            "threeMonth": "7.48%",
+            "ytd": "41.63%",
+            "oneYear": "132.67%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "5033 | 5451",
+            "rankYtd": "298 | 5037",
+            "rankOneYear": "101 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -9796,32 +9868,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 43.66
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 41.59
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 38.63
                   }
             ],
-            "rankOneWeek": "4309 | 5328",
-            "rankThreeMonth": "887 | 5244"
+            "rankOneWeek": "3235 | 5478",
+            "rankThreeMonth": "656 | 5280"
       },
       "中欧红利智选": {
             "code": "023585",
             "sourceUrl": "https://fund.eastmoney.com/023585.html",
             "fundName": "中欧红利智选混合C(023585)",
             "inceptionDate": "2025-04-08",
-            "asOf": "2026-07-22",
-            "unitNav": "0.9612",
-            "dailyChange": "0.19%",
-            "oneWeek": "0.60%",
-            "oneMonth": "3.59%",
-            "threeMonth": "-5.55%",
-            "ytd": "-2.77%",
-            "oneYear": "-1.27%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "570 | 5341",
-            "rankYtd": "3133 | 5009",
-            "rankOneYear": "3558 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "0.9573",
+            "dailyChange": "-1.19%",
+            "oneWeek": "1.17%",
+            "oneMonth": "4.19%",
+            "threeMonth": "-5.14%",
+            "ytd": "-3.17%",
+            "oneYear": "-1.53%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "613 | 5451",
+            "rankYtd": "3041 | 5037",
+            "rankOneYear": "3484 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -10310,32 +10390,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -8.53
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -7.8
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -8.9
                   }
             ],
-            "rankOneWeek": "871 | 5328",
-            "rankThreeMonth": "2775 | 5244"
+            "rankOneWeek": "2562 | 5478",
+            "rankThreeMonth": "2582 | 5280"
       },
       "路博迈中国机遇": {
             "code": "018425",
             "sourceUrl": "https://fund.eastmoney.com/018425.html",
             "fundName": "路博迈中国机遇混合C(018425)",
             "inceptionDate": "2023-06-16",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3202",
-            "dailyChange": "0.23%",
-            "oneWeek": "-3.72%",
-            "oneMonth": "-16.33%",
-            "threeMonth": "-0.53%",
-            "ytd": "14.23%",
-            "oneYear": "36.45%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "3753 | 5341",
-            "rankYtd": "1280 | 5009",
-            "rankOneYear": "1337 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "1.2940",
+            "dailyChange": "-2.67%",
+            "oneWeek": "2.81%",
+            "oneMonth": "-17.73%",
+            "threeMonth": "-1.87%",
+            "ytd": "11.97%",
+            "oneYear": "32.64%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "3848 | 5451",
+            "rankYtd": "1251 | 5037",
+            "rankOneYear": "1348 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -10824,32 +10912,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 6.31
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 7.06
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 4.2
                   }
             ],
-            "rankOneWeek": "2506 | 5328",
-            "rankThreeMonth": "1705 | 5244"
+            "rankOneWeek": "1016 | 5478",
+            "rankThreeMonth": "1825 | 5280"
       },
       "汇添富创新医药混合": {
             "code": "024344",
             "sourceUrl": "https://fund.eastmoney.com/024344.html",
             "fundName": "汇添富创新医药混合C(024344)",
             "inceptionDate": "2025-05-28",
-            "asOf": "2026-07-22",
-            "unitNav": "1.7913",
-            "dailyChange": "-0.36%",
-            "oneWeek": "-2.92%",
-            "oneMonth": "26.58%",
-            "threeMonth": "0.55%",
-            "ytd": "4.61%",
-            "oneYear": "-6.70%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "28 | 5341",
-            "rankYtd": "2140 | 5009",
-            "rankOneYear": "3924 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "1.7415",
+            "dailyChange": "-2.67%",
+            "oneWeek": "0.91%",
+            "oneMonth": "17.25%",
+            "threeMonth": "-0.03%",
+            "ytd": "1.71%",
+            "oneYear": "-9.41%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "26 | 5451",
+            "rankYtd": "2339 | 5037",
+            "rankOneYear": "3978 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -11338,32 +11434,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -2.07
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -2.18
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -4.79
                   }
             ],
-            "rankOneWeek": "2182 | 5328",
-            "rankThreeMonth": "1472 | 5244"
+            "rankOneWeek": "2802 | 5478",
+            "rankThreeMonth": "1494 | 5280"
       },
       "易方达国证价值100ETF": {
             "code": "159263",
             "sourceUrl": "https://fund.eastmoney.com/159263.html",
             "fundName": "价值ETF易方达(159263)",
             "inceptionDate": "2025-06-30",
-            "asOf": "2026-07-22",
-            "unitNav": "1.1340",
-            "dailyChange": "0.76%",
-            "oneWeek": "2.20%",
-            "oneMonth": "3.62%",
-            "threeMonth": "-3.73%",
-            "ytd": "3.18%",
-            "oneYear": "9.33%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "690 | 5247",
-            "rankYtd": "2065 | 4781",
-            "rankOneYear": "2503 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.1308",
+            "dailyChange": "-1.23%",
+            "oneWeek": "2.73%",
+            "oneMonth": "6.04%",
+            "threeMonth": "-4.38%",
+            "ytd": "2.89%",
+            "oneYear": "9.52%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "438 | 5276",
+            "rankYtd": "1632 | 4781",
+            "rankOneYear": "2298 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -11852,32 +11956,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 0.56
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 1.53
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 0.27
                   }
             ],
-            "rankOneWeek": "404 | 5309",
-            "rankThreeMonth": "2419 | 5047"
+            "rankOneWeek": "1352 | 5347",
+            "rankThreeMonth": "2409 | 5056"
       },
       "易方达国证成长100ETF": {
             "code": "159259",
             "sourceUrl": "https://fund.eastmoney.com/159259.html",
             "fundName": "成长ETF易方达(159259)",
             "inceptionDate": "2025-08-20",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3296",
-            "dailyChange": "-3.65%",
-            "oneWeek": "-14.07%",
-            "oneMonth": "-27.01%",
-            "threeMonth": "0.69%",
-            "ytd": "25.72%",
+            "asOf": "2026-07-24",
+            "unitNav": "1.2940",
+            "dailyChange": "-2.49%",
+            "oneWeek": "-5.51%",
+            "oneMonth": "-27.47%",
+            "threeMonth": "-0.25%",
+            "ytd": "22.35%",
             "oneYear": "--",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "5202 | 5247",
-            "rankYtd": "420 | 4781",
-            "rankOneYear": "-- | 4091",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "5249 | 5276",
+            "rankYtd": "396 | 4781",
+            "rankOneYear": "-- | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -12366,32 +12478,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 17.59
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 17.36
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 14.44
                   }
             ],
-            "rankOneWeek": "5260 | 5309",
-            "rankThreeMonth": "1076 | 5047"
+            "rankOneWeek": "5307 | 5347",
+            "rankThreeMonth": "1063 | 5056"
       },
       "博时科创100ETF": {
             "code": "588030",
             "sourceUrl": "https://fund.eastmoney.com/588030.html",
             "fundName": "科创100ETF博时(588030)",
             "inceptionDate": "2023-09-06",
-            "asOf": "2026-07-22",
-            "unitNav": "1.7187",
-            "dailyChange": "-2.01%",
-            "oneWeek": "-10.52%",
-            "oneMonth": "-16.15%",
-            "threeMonth": "5.67%",
-            "ytd": "24.13%",
-            "oneYear": "62.82%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "4296 | 5247",
-            "rankYtd": "472 | 4781",
-            "rankOneYear": "430 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.6598",
+            "dailyChange": "-1.45%",
+            "oneWeek": "-1.18%",
+            "oneMonth": "-20.76%",
+            "threeMonth": "3.76%",
+            "ytd": "19.88%",
+            "oneYear": "53.50%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4938 | 5276",
+            "rankYtd": "469 | 4781",
+            "rankOneYear": "464 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -12880,32 +13000,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 8.74
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 6.55
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 5.01
                   }
             ],
-            "rankOneWeek": "5184 | 5309",
-            "rankThreeMonth": "590 | 5047"
+            "rankOneWeek": "4530 | 5347",
+            "rankThreeMonth": "673 | 5056"
       },
       "天弘上证科创板芯片设计主题ETF发起联接": {
             "code": "027575",
             "sourceUrl": "https://fund.eastmoney.com/027575.html",
             "fundName": "天弘上证科创板芯片设计主题ETF发起联接C(027575)",
             "inceptionDate": "2026-06-05",
-            "asOf": "2026-07-22",
-            "unitNav": "1.0429",
-            "dailyChange": "-0.95%",
-            "oneWeek": "-7.36%",
-            "oneMonth": "-13.35%",
+            "asOf": "2026-07-24",
+            "unitNav": "1.0018",
+            "dailyChange": "-0.47%",
+            "oneWeek": "3.78%",
+            "oneMonth": "-18.56%",
             "threeMonth": "--",
             "ytd": "--",
             "oneYear": "--",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "3841 | 5247",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4553 | 5276",
             "rankYtd": "-- | 4781",
-            "rankOneYear": "-- | 4091",
+            "rankOneYear": "-- | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-06-05",
@@ -13030,32 +13158,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 4.29
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 0.65
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 0.18
                   }
             ],
-            "rankOneWeek": "4684 | 5309",
-            "rankThreeMonth": "-- | 5047"
+            "rankOneWeek": "629 | 5347",
+            "rankThreeMonth": "-- | 5056"
       },
       "天弘上证科创板芯片设计主题ETF": {
             "code": "589070",
             "sourceUrl": "https://fund.eastmoney.com/589070.html",
             "fundName": "科创芯片设计ETF天弘(589070)",
             "inceptionDate": "2026-01-15",
-            "asOf": "2026-07-22",
-            "unitNav": "1.1463",
-            "dailyChange": "-1.01%",
-            "oneWeek": "-7.62%",
-            "oneMonth": "-14.38%",
-            "threeMonth": "12.98%",
+            "asOf": "2026-07-24",
+            "unitNav": "1.0987",
+            "dailyChange": "-0.50%",
+            "oneWeek": "3.64%",
+            "oneMonth": "-19.79%",
+            "threeMonth": "7.54%",
             "ytd": "--",
             "oneYear": "--",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "4002 | 5247",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4847 | 5276",
             "rankYtd": "-- | 4781",
-            "rankOneYear": "-- | 4091",
+            "rankOneYear": "-- | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-22",
@@ -13532,32 +13668,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 13.91
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 9.73
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": 9.18
                   }
             ],
-            "rankOneWeek": "4766 | 5309",
-            "rankThreeMonth": "281 | 5047"
+            "rankOneWeek": "768 | 5347",
+            "rankThreeMonth": "388 | 5056"
       },
       "华泰紫金中证500指数增强": {
             "code": "016866",
             "sourceUrl": "https://fund.eastmoney.com/016866.html",
             "fundName": "华泰紫金中证500指数增强发起C(016866)",
             "inceptionDate": "2023-02-22",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3445",
-            "dailyChange": "-0.56%",
-            "oneWeek": "-6.20%",
-            "oneMonth": "-13.98%",
-            "threeMonth": "-5.58%",
-            "ytd": "5.38%",
-            "oneYear": "24.76%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "3924 | 5247",
-            "rankYtd": "1496 | 4781",
-            "rankOneYear": "1210 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.3140",
+            "dailyChange": "-2.13%",
+            "oneWeek": "0.18%",
+            "oneMonth": "-16.25%",
+            "threeMonth": "-6.80%",
+            "ytd": "2.99%",
+            "oneYear": "21.02%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4112 | 5276",
+            "rankYtd": "1617 | 4781",
+            "rankOneYear": "1248 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -14046,32 +14190,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -4.57
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -4.71
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -6.74
                   }
             ],
-            "rankOneWeek": "4443 | 5309",
-            "rankThreeMonth": "2936 | 5047"
+            "rankOneWeek": "3900 | 5347",
+            "rankThreeMonth": "3099 | 5056"
       },
       "华泰紫金中证1000指数增强": {
             "code": "018063",
             "sourceUrl": "https://fund.eastmoney.com/018063.html",
             "fundName": "华泰紫金中证1000指数增强发起C(018063)",
             "inceptionDate": "2023-06-08",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3018",
-            "dailyChange": "-1.77%",
-            "oneWeek": "-10.08%",
-            "oneMonth": "-21.61%",
-            "threeMonth": "-15.65%",
-            "ytd": "-4.23%",
-            "oneYear": "11.21%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "5011 | 5247",
-            "rankYtd": "3294 | 4781",
-            "rankOneYear": "2331 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.2786",
+            "dailyChange": "-2.16%",
+            "oneWeek": "-3.01%",
+            "oneMonth": "-22.79%",
+            "threeMonth": "-15.50%",
+            "ytd": "-5.94%",
+            "oneYear": "8.44%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "5120 | 5276",
+            "rankYtd": "3344 | 4781",
+            "rankOneYear": "2385 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -14560,32 +14712,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -12.34
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -12.0
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -13.9
                   }
             ],
-            "rankOneWeek": "5144 | 5309",
-            "rankThreeMonth": "4296 | 5047"
+            "rankOneWeek": "5024 | 5347",
+            "rankThreeMonth": "4265 | 5056"
       },
       "易方达中证1000指数增强": {
             "code": "017095",
             "sourceUrl": "https://fund.eastmoney.com/017095.html",
             "fundName": "易方达中证1000量化增强C(017095)",
             "inceptionDate": "2023-04-25",
-            "asOf": "2026-07-22",
-            "unitNav": "1.4445",
-            "dailyChange": "-1.29%",
-            "oneWeek": "-7.87%",
-            "oneMonth": "-18.36%",
-            "threeMonth": "-11.21%",
-            "ytd": "0.60%",
-            "oneYear": "21.71%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "4655 | 5247",
-            "rankYtd": "2607 | 4781",
-            "rankOneYear": "1376 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.4142",
+            "dailyChange": "-2.58%",
+            "oneWeek": "-1.87%",
+            "oneMonth": "-19.73%",
+            "threeMonth": "-11.51%",
+            "ytd": "-1.51%",
+            "oneYear": "18.02%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4834 | 5276",
+            "rankYtd": "2762 | 4781",
+            "rankOneYear": "1462 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -15074,32 +15234,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -8.06
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -7.61
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -9.99
                   }
             ],
-            "rankOneWeek": "4839 | 5309",
-            "rankThreeMonth": "3864 | 5047"
+            "rankOneWeek": "4706 | 5347",
+            "rankThreeMonth": "3866 | 5056"
       },
       "鹏华国证2000指数增强型证券投资基金": {
             "code": "017893",
             "sourceUrl": "https://fund.eastmoney.com/017893.html",
             "fundName": "鹏华国证2000指数增强C(017893)",
             "inceptionDate": "2023-02-21",
-            "asOf": "2026-07-22",
-            "unitNav": "1.4928",
-            "dailyChange": "-0.91%",
-            "oneWeek": "-8.83%",
-            "oneMonth": "-18.05%",
-            "threeMonth": "-16.37%",
-            "ytd": "-5.27%",
-            "oneYear": "10.32%",
-            "avgOneWeek": "-2.63%",
-            "avgOneMonth": "-7.22%",
-            "avgThreeMonth": "-4.17%",
-            "avgYtd": "2.38%",
-            "avgOneYear": "18.64%",
-            "rankOneMonth": "4597 | 5247",
-            "rankYtd": "3456 | 4781",
-            "rankOneYear": "2406 | 4091",
+            "asOf": "2026-07-24",
+            "unitNav": "1.4742",
+            "dailyChange": "-2.76%",
+            "oneWeek": "-1.77%",
+            "oneMonth": "-18.87%",
+            "threeMonth": "-15.96%",
+            "ytd": "-6.45%",
+            "oneYear": "8.56%",
+            "avgOneWeek": "1.36%",
+            "avgOneMonth": "-7.72%",
+            "avgThreeMonth": "-4.90%",
+            "avgYtd": "0.52%",
+            "avgOneYear": "15.30%",
+            "rankOneMonth": "4618 | 5276",
+            "rankYtd": "3403 | 4781",
+            "rankOneYear": "2375 | 4111",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -15588,32 +15756,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -13.07
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -11.72
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -14.16
                   }
             ],
-            "rankOneWeek": "5012 | 5309",
-            "rankThreeMonth": "4340 | 5047"
+            "rankOneWeek": "4667 | 5347",
+            "rankThreeMonth": "4306 | 5056"
       },
       "国金智远量化选股": {
             "code": "025657",
             "sourceUrl": "https://fund.eastmoney.com/025657.html",
             "fundName": "国金智远量化选股混合C(025657)",
             "inceptionDate": "2025-11-04",
-            "asOf": "2026-07-22",
-            "unitNav": "1.0354",
-            "dailyChange": "-0.93%",
-            "oneWeek": "-8.44%",
-            "oneMonth": "-18.99%",
-            "threeMonth": "-15.02%",
-            "ytd": "1.69%",
+            "asOf": "2026-07-24",
+            "unitNav": "1.0156",
+            "dailyChange": "-2.31%",
+            "oneWeek": "-1.33%",
+            "oneMonth": "-19.77%",
+            "threeMonth": "-15.90%",
+            "ytd": "-0.26%",
             "oneYear": "--",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "4144 | 5341",
-            "rankYtd": "2526 | 5009",
-            "rankOneYear": "-- | 4623",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "4132 | 5451",
+            "rankYtd": "2596 | 5037",
+            "rankOneYear": "-- | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-23",
@@ -16082,32 +16258,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": -7.45
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": -7.07
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -9.22
                   }
             ],
-            "rankOneWeek": "4127 | 5328",
-            "rankThreeMonth": "4446 | 5244"
+            "rankOneWeek": "4357 | 5478",
+            "rankThreeMonth": "4541 | 5280"
       },
       "信澳核心智选混合型证券投资基金": {
             "code": "020159",
             "sourceUrl": "https://fund.eastmoney.com/020159.html",
             "fundName": "信澳核心智选混合C(020159)",
             "inceptionDate": "2024-02-02",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3575",
-            "dailyChange": "-0.57%",
-            "oneWeek": "-2.32%",
-            "oneMonth": "-6.40%",
-            "threeMonth": "-1.87%",
-            "ytd": "3.55%",
-            "oneYear": "15.85%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "2110 | 5341",
-            "rankYtd": "2287 | 5009",
-            "rankOneYear": "2338 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "1.3438",
+            "dailyChange": "-1.91%",
+            "oneWeek": "1.93%",
+            "oneMonth": "-5.93%",
+            "threeMonth": "-2.29%",
+            "ytd": "2.50%",
+            "oneYear": "14.43%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "1977 | 5451",
+            "rankYtd": "2224 | 5037",
+            "rankOneYear": "2302 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -16596,32 +16780,40 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 0.38
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 1.3
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -0.63
                   }
             ],
-            "rankOneWeek": "1922 | 5328",
-            "rankThreeMonth": "1895 | 5244"
+            "rankOneWeek": "1838 | 5478",
+            "rankThreeMonth": "1921 | 5280"
       },
       "鑫元鑫趋势": {
             "code": "020159",
             "sourceUrl": "https://fund.eastmoney.com/020159.html",
             "fundName": "信澳核心智选混合C(020159)",
             "inceptionDate": "2024-02-02",
-            "asOf": "2026-07-22",
-            "unitNav": "1.3575",
-            "dailyChange": "-0.57%",
-            "oneWeek": "-2.32%",
-            "oneMonth": "-6.40%",
-            "threeMonth": "-1.87%",
-            "ytd": "3.55%",
-            "oneYear": "15.85%",
-            "avgOneWeek": "-4.50%",
-            "avgOneMonth": "-9.95%",
-            "avgThreeMonth": "-3.71%",
-            "avgYtd": "5.58%",
-            "avgOneYear": "23.83%",
-            "rankOneMonth": "2110 | 5341",
-            "rankYtd": "2287 | 5009",
-            "rankOneYear": "2338 | 4623",
+            "asOf": "2026-07-24",
+            "unitNav": "1.3438",
+            "dailyChange": "-1.91%",
+            "oneWeek": "1.93%",
+            "oneMonth": "-5.93%",
+            "threeMonth": "-2.29%",
+            "ytd": "2.50%",
+            "oneYear": "14.43%",
+            "avgOneWeek": "0.75%",
+            "avgOneMonth": "-10.93%",
+            "avgThreeMonth": "-4.27%",
+            "avgYtd": "3.71%",
+            "avgOneYear": "20.65%",
+            "rankOneMonth": "1977 | 5451",
+            "rankYtd": "2224 | 5037",
+            "rankOneYear": "2302 | 4652",
             "sixMonthTrend": [
                   {
                         "date": "2026-01-19",
@@ -17110,15 +17302,24 @@ window.productCalendarData = {
                   {
                         "date": "2026-07-22",
                         "value": 0.38
+                  },
+                  {
+                        "date": "2026-07-23",
+                        "value": 1.3
+                  },
+                  {
+                        "date": "2026-07-24",
+                        "value": -0.63
                   }
             ],
-            "rankOneWeek": "1922 | 5328",
-            "rankThreeMonth": "1895 | 5244"
+            "rankOneWeek": "1838 | 5478",
+            "rankThreeMonth": "1921 | 5280"
       }
 },
     "LAUNCH_RICH_CONTENT": {
       "汇添富睿选成长": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">首发产品资料更新</div><div class="launch-grid"><span>认购代码</span><strong>A类027592 / C类027593</strong><span>产品档期</span><strong>2026.7.13-7.24</strong><span>基金经理</span><strong>王星星</strong><span>风险等级</span><strong>R4</strong><span>标准销量折算系数</span><strong>3.5</strong><span>封闭期</span><strong>预计3个月（以管理人实际公告为准）</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折，手续费计提比例上浮50%）、销售服务费。</li><li>个人客户管理费*50%，非个人客户管理费*30%（持有不足一年管理费1.2%，此后可能随业绩上下浮动）。（管理费收入）</li><li><span class="hot-pink">【更新】</span>按成立月保有给予A类<span class="xiumi-strong">2.8%</span>、C类<span class="xiumi-strong">2.4%</span>计创收，限额3亿，超出按比例稀释。</li></ul></section><section class="xiumi-card"><h4>产品资料与路演</h4><ul class="xiumi-list"><li><span class="xiumi-strong">产品重点产品内参、企微圈客及群发话术、产品重点Q&A：</span><a href="https://d.xiumius.cn/board/v5/3nJMt/713761523" target="_blank" rel="noopener">打开资料链接</a></li><li><span class="xiumi-strong">首发路演：</span><a href="https://meeting.tencent.com/crm/KnnAEzO9fd" target="_blank" rel="noopener">打开腾讯会议链接</a><br><span class="launch-source">会议密码：KPJT</span></li></ul></section><section class="xiumi-card"><h4>产品简介</h4><p>${product.intro}</p></section></div>`},
-      "平安周期精选": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">公司券结首发产品资料</div><div class="launch-grid"><span>认购代码</span><strong>A类027149 / C类027150</strong><span>产品档期</span><strong>2026.7.15-7.29</strong><span>基金经理</span><strong>陈默</strong><span>标准销量折算系数</span><strong>3</strong><span>封闭期</span><strong>预计一个月，以管理人实际公告/通知为准</strong><span>募集状态</span><strong>首发中</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折，手续费计提比例上浮50%）、销售服务费。</li><li>个人客户年日均保有额*0.60%，机构客户*0.36%。（管理费收入）</li><li>按成立月保有给予A类<span class="xiumi-strong">2.8%</span>、C类<span class="xiumi-strong">2.4%</span>计创收，限额1亿，超出按比例稀释。</li></ul></section><section class="xiumi-card"><h4>产品亮点</h4><ul class="xiumi-list"><li><span class="xiumi-strong">泛周期定位，基建+军工+AI 三重需求共振：</span>财政发力、美国电网投资加码、全球再武装浪潮、AI算力军备竞赛，共同驱动有色、化工、新材料等泛周期行业需求放量。</li><li><span class="xiumi-strong">供给刚性叠加估值重估：</span>全球铜矿、化工资本开支持续收缩，关键矿产战略属性强化，实物资产估值体系正在重塑。</li><li><span class="xiumi-strong">基金经理实盘经验丰富：</span>拟任基金经理陈默（CFA，8年周期研究经验），在有色、化工、油气等周期赛道具备完整的自上而下研究框架。</li></ul></section><section class="xiumi-card"><h4>产品资料与路演</h4><ul class="xiumi-list"><li><span class="xiumi-strong">首发路演录制：</span><a href="https://meeting.tencent.com/crm/2MLLve7699" target="_blank" rel="noopener">打开腾讯会议链接</a></li><li><span class="xiumi-strong">产品内参、企微话术、产品重点Q&A：</span><a href="https://b.xiumius.cn/board/v5/5wl5X/714751366" target="_blank" rel="noopener">打开资料链接</a></li></ul></section><section class="xiumi-card"><h4>产品简介</h4><p>${product.intro}</p></section></div>`},
+      "平安周期精选": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">首发倒计时第3天</div><div class="launch-grid"><span>认购代码</span><strong>A类027149 / C类027150</strong><span>产品档期</span><strong>2026.7.15-7.29</strong><span>标准销量折算系数</span><strong>3.5</strong><span>封闭期</span><strong>预计一个月，以管理人实际公告/通知为准</strong><span>募集状态</span><strong>首发中</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折，手续费计提比例上浮50%）、销售服务费；个人年日均保有*0.60%，机构客户*0.36%。</li><li>按成立月保有给予A类<span class="xiumi-strong">2.8%</span>、C类<span class="xiumi-strong">2.4%</span>计创收，限额1亿，超出按比例稀释。</li></ul></section><section class="xiumi-card"><h4>产品简介</h4><p>${product.intro}</p></section></div>`},
+      "华宝科创200ETF": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">重点托管产品今日首发</div><div class="launch-grid"><span>产品代码</span><strong>589463</strong><span>募集时间</span><strong>2026.7.27-8.7</strong><span>标准销量折算系数</span><strong>1.7</strong><span>封闭期</span><strong>预计2周，以管理人实际公告为准</strong><span>风险等级</span><strong>中高风险</strong><span>产品定位</span><strong>上证科创板200指数 ETF</strong></div></section><section class="xiumi-card"><h4>产品政策</h4><ul class="xiumi-list"><li>认购费（不打折）。</li><li>个人客户年日均保有额*0.075%，机构客户*0.045%。（管理费收入）</li><li>按成立月保有给予<span class="xiumi-strong">2.0%</span>计创收，限额5000万，超额不稀释。</li></ul></section><section class="xiumi-card"><h4>产品亮点</h4><p>${product.intro}</p></section><section class="xiumi-card"><h4>路演回放</h4><ul class="xiumi-list"><li><a href="https://meeting.tencent.com/crm/2ML8XgJ4fb" target="_blank" rel="noopener">打开腾讯会议回放</a><br><span class="launch-source">密码：I7QA</span></li></ul></section></div>`},
       "华泰柏瑞红利质量ETF": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">本周三结束募集</div><div class="launch-grid"><span>产品代码</span><strong>561633</strong><span>发售时间</span><strong>2026.6.29-7.8</strong><span>封闭期/上市</span><strong>封闭期2周左右，预计7月底上市</strong><span>标准销量折算系数</span><strong>1.7</strong><span>产品定位</span><strong>红利+质量双因子 ETF</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折）。</li><li>个人客户年日均保有额*0.25%，机构客户*0.15%。（管理费收入）</li><li>按成立月保有给予<span class="xiumi-strong">2.0%</span>计创收，限额2亿，超额不稀释。</li></ul></section><section class="xiumi-card"><h4>投资逻辑</h4><ul class="xiumi-list"><li><span class="xiumi-strong">红利+质量双因子选股：</span>跟踪中证全指红利质量指数，同时筛选高股息、优质盈利企业。</li><li><span class="xiumi-strong">核心指标优势：</span>近12个月股息率4.29%，加权平均ROE 17.97%，覆盖消费、制造、有色、医药等多赛道龙头蓝筹；前三大行业合计占比仅41.48%，且不含银行板块。</li><li><span class="xiumi-strong">历史指数表现：</span>指数基期2013.12.31，价格指数累计涨幅333.14%；含分红再投资全收益涨幅568.58%，大幅跑赢中证红利、普通红利质量全收益指数。</li></ul></section><section class="xiumi-card"><h4>产品定位</h4><p>以高分红为基础，叠加优质盈利标的，行业分散不押注银行，适合想要均衡布局红利资产的投资者。</p></section><section class="xiumi-card"><h4>路演回放</h4><ul class="xiumi-list"><li><a href="https://meeting.tencent.com/crm/KEWqqXZYe5" target="_blank" rel="noopener">打开腾讯会议回放</a><br><span class="launch-source">密码：0625</span></li></ul></section></div>`},
       "景顺长城国证粮食产业ETF": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">首发倒计时资料（已结束保留展示）</div><div class="launch-grid"><span>产品代码</span><strong>159072</strong><span>产品档期</span><strong>2026.6.15-7.2</strong><span>募集提示</span><strong>若产品提前达2亿规模或可提前结束募集</strong><span>标准销量折算系数</span><strong>2.0，产品销量全额计入6月标准销量完成</strong><span>产品定位</span><strong>国证粮食产业指数 ETF</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折）；个人客户年日均*0.25%，机构*0.10%。</li><li>按成立月保有给予<span class="xiumi-strong">2.4%</span>计创收，限额1.5亿，超额不稀释。</li></ul></section><section class="xiumi-card"><h4>产品亮点</h4><ul class="xiumi-list"><li><span class="xiumi-strong">粮食全产业链精准布局：</span>跟踪国证粮食产业指数（399365.SZ），深度绑定种业和种植业，对粮食全产业链实现高纯度覆盖。</li><li><span class="xiumi-strong">政策与周期回暖双轮共振：</span>粮食安全政策锚定长期稳产目标，国内玉米、小麦价格触底回暖，全球库存消费边际趋紧，叠加地缘扰动和成本因素，粮食市场涨价动力偏强。</li><li><span class="xiumi-strong">周期特征与低估值：</span>近10年年化收益率8.92%，优于同期沪深300；与沪深300、中证1000相关性较低，具备分散化配置价值。</li></ul></section><section class="xiumi-card"><h4>产品资料与路演</h4><ul class="xiumi-list"><li><span class="xiumi-strong">路演回放（6月12日）：</span><a href="https://meeting.tencent.com/crm/Km8bRzO64a" target="_blank" rel="noopener">打开腾讯会议回放</a></li><li><span class="xiumi-strong">重点产品内参：</span><a href="https://a.xiumius.cn/board/v5/5wl5X/709067025" target="_blank" rel="noopener">打开资料链接</a></li></ul><div class="risk-note">以上为内部资料，请勿直接转发客户。</div></section></div>`},
       "天弘智航锐进": function(product){return `<div class="launch-rich"><section class="launch-hero"><h3>${product.name}</h3><div class="launch-source">公司券结首发产品资料</div><div class="launch-grid"><span>认购代码</span><strong>A类027430 / C类027431</strong><span>产品档期</span><strong>2026.7.1-7.14</strong><span>标准销量折算系数</span><strong>3</strong><span>募集状态</span><strong>已结束，保留展示</strong><span>产品定位</span><strong>小盘成长主动量化</strong></div></section><section class="xiumi-card"><h4>收入政策</h4><ul class="xiumi-list"><li>认购费（不打折）、销售服务费；个人年日均保有*0.60%，机构客户*0.36%。</li><li>按成立月保有给予A类<span class="xiumi-strong">2.4%</span>、C类<span class="xiumi-strong">2.1%</span>计创收，限额3亿，超出按比例稀释。</li></ul></section><section class="xiumi-card"><h4>产品亮点</h4><ul class="xiumi-list"><li><span class="xiumi-strong">K型分化下的精准赛道：</span>AI算力、高端装备、机器人等新经济产业趋势向上，产品聚焦小盘成长赛道，锚定新经济主线。</li><li><span class="xiumi-strong">已验证的 Alpha 引擎：</span>拟任基金经理王帅管理的天弘国证2000增强，2025年以来年化超额收益29.30%；本产品以同一Alpha引擎为基础，追求小盘成长Beta+Alpha双重收益来源。</li><li><span class="xiumi-strong">基本面+AI双轮驱动：</span>融合400+Alpha因子与1000+AI高频特征，覆盖长期基本面投资与短期AI交易，并配套全流程量化风控体系。</li></ul></section><section class="xiumi-card"><h4>产品资料</h4><ul class="xiumi-list"><li><span class="xiumi-strong">重点产品内参：</span><a href="https://v.xiumius.cn/board/v5/5wl5X/712331334" target="_blank" rel="noopener">打开资料链接</a></li></ul><div class="risk-note">以上为内部资料，请勿直接转发客户。</div></section><section class="xiumi-card"><h4>产品简介</h4><p>${product.intro}</p></section></div>`},
@@ -21347,18 +21548,3 @@ window.productCalendarData = {
   });
 })();
 // END private-calendar-factor-enrichment
-
-// BEGIN private-launch-heji-factor-override
-(function(){
-  const data = window.productCalendarData && window.productCalendarData.private;
-  if(!data || !Array.isArray(data.EVENTS)) return;
-  data.EVENTS.forEach(event => {
-    if(/SAMW75|SASS67/.test(String(event.code || ''))){
-      event.standardSales = '4.3';
-      event.salesCoef = '4.3';
-      event.standardHolding = '3.5';
-      event.holdingCoef = '3.5';
-    }
-  });
-})();
-// END private-launch-heji-factor-override

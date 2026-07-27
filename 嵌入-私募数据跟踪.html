@@ -110,12 +110,18 @@
     .top-list { display:flex; flex-wrap:wrap; gap:8px; padding-left:32px; }
     .chip { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:650; white-space:nowrap; }
     .chip.gold { background:#fff6d8; color:#96700a; }
-    .table-shell { background:#fff; }
-    .table-shell.fullscreen { position:fixed; inset:16px 16px 72px 16px; z-index:1000; border:1px solid #c9d4ee; border-radius:8px; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
-    .table-shell.fullscreen .table-wrap { flex:1; min-height:0; max-height:none; overflow-y:auto; padding-bottom:18px; }
+    .table-shell { background:#fff; --table-zoom:1; }
+    .table-shell.fullscreen { position:fixed; inset:0; z-index:1000; border:0; border-radius:0; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
+    .table-shell.fullscreen .detail-meta { padding:12px 18px; border-bottom:1px solid var(--line); background:#fff; }
+    .table-shell.fullscreen .table-wrap { flex:1; min-height:0; max-height:none; overflow:auto; padding-bottom:18px; }
+    .table-shell.fullscreen .table-scale { transform:scale(var(--table-zoom)); }
     .detail-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:0 18px 12px; color:var(--muted); font-size:12px; }
+    .table-tools { display:flex; align-items:center; gap:8px; }
     .table-action { width:30px; height:30px; border:1px solid #cbd6eb; border-radius:6px; background:#fff; color:#4268d6; display:inline-grid; place-items:center; cursor:pointer; font-size:16px; line-height:1; }
     .table-action:hover { background:#eef3ff; }
+    .zoom-tools { display:none; align-items:center; gap:6px; }
+    .table-shell.fullscreen .zoom-tools { display:flex; }
+    .zoom-value { min-width:44px; text-align:center; color:#41506a; font-weight:800; font-variant-numeric:tabular-nums; }
     .child-list { display:grid; gap:10px; padding:0 14px 14px; }
     details.child-strategy { border:1px solid #d3ddfb; border-radius:8px; background:#fff; overflow:hidden; }
     details.child-strategy summary { background:#edf3ff; color:#263b72; padding:12px 16px; }
@@ -146,6 +152,11 @@
     col.col-ytdBuildExcess { width:146px; }
     col.col-sharpe { width:106px; }
     table.detail th { position:sticky; top:0; z-index:2; background:#151b34; color:#fff; text-align:center; padding:8px 8px; font-size:10px; white-space:nowrap; }
+    table.detail th.sortable { padding:0; }
+    .sort-button { width:100%; height:100%; min-height:31px; border:0; background:transparent; color:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:4px; padding:8px 7px; font:inherit; font-weight:800; }
+    .sort-button:hover, .sort-button:focus-visible { background:#263154; outline:0; }
+    .sort-icon { width:12px; color:#aebaf0; font-size:10px; line-height:1; }
+    th.sort-asc .sort-icon, th.sort-desc .sort-icon { color:#fff; }
     table.detail td { padding:7px 8px; border-bottom:1px solid #edf0f5; white-space:nowrap; vertical-align:middle; text-align:center; font-size:11px; }
     table.detail tbody tr:hover { background:#fffdf0; }
     table.detail tbody tr.private-pool { background:#fffbe6; }
@@ -185,7 +196,7 @@
     .topbar { position:static!important; height:64px!important; }
     .workspace { padding:24px 28px 36px!important; }
     .drilldown-shell { padding:14px!important; }
-    .table-shell.fullscreen { inset:16px 16px 72px 16px!important; }
+    .table-shell.fullscreen { inset:0!important; }
     @media (max-width:1100px) {
       .topbar { height:auto!important; padding:14px 18px!important; }
       .toolbar, .search { width:100%!important; }
@@ -259,7 +270,7 @@
     </main>
   </div>
 
-  <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_trend"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260723_heji_43"></script><script src="data/productDecisionTools.js?v=20260723_launch_fallback"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
+  <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_trend"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260727_sort_001"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -290,6 +301,19 @@
       ["ytdBuildExcess", "今年以来建仓超额"],
       ["excess2025", "2025年化超额"]
     ];
+    const sortableColumns = new Set([
+      "nav",
+      "weekReturn",
+      "monthReturn",
+      "ytdReturn",
+      "return2025",
+      "maxDrawdown",
+      "sharpe",
+      "adjustedNav",
+      "weekExcess",
+      "ytdBuildExcess",
+      "excess2025"
+    ]);
     function tone(value) {
       const text = String(value ?? "");
       if (text.startsWith("+")) return "pos";
@@ -384,6 +408,13 @@
       return Number.isFinite(parsed) ? parsed / 100 : null;
     }
 
+    function parseSortValue(value) {
+      const text = String(value ?? "").trim();
+      if (!text || text === "-" || text === "--") return null;
+      const parsed = Number(text.replace(/[,%+]/g, ""));
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
     function tableMetrics(rows) {
       return {
         maxWeekAbs: Math.max(...rows.map(row => Math.abs(row.weekRaw || 0)), 0.001),
@@ -397,6 +428,16 @@
     function cellContent(key, row) {
       const value = row[key] ?? "-";
       return key === "weekReturn" || key === "ytdReturn" || key === "ytdBuildExcess" ? `<span>${value}</span>` : value;
+    }
+
+    function sortValue(key, row) {
+      if (key === "weekReturn") return row.weekRaw;
+      if (key === "monthReturn") return row.monthRaw;
+      if (key === "ytdReturn") return row.ytdRaw;
+      if (key === "weekExcess") return parsePercent(row.weekExcess);
+      if (key === "ytdBuildExcess") return parsePercent(row.ytdBuildExcess);
+      if (key === "excess2025") return parsePercent(row.excess2025);
+      return parseSortValue(row[key]);
     }
 
     function marketRows(metricKey, returnKey) {
@@ -448,20 +489,31 @@
       const tableId = `table-${Math.random().toString(36).slice(2)}`;
       const tableClass = includeExcess ? "wide-detail" : "base-detail";
       const colGroup = `<colgroup>${columns.map(([key]) => `<col class="${columnClass(key)}">`).join("")}</colgroup>`;
-      const bodyRows = rows.map(row => `
-        <tr class="${row.isPrivatePool ? "private-pool" : ""}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}">${cellContent(key, row)}</td>`).join("")}</tr>
+      const bodyRows = rows.map((row, rowIndex) => `
+        <tr class="${row.isPrivatePool ? "private-pool" : ""}" data-original-index="${rowIndex}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}" data-sort-value="${sortValue(key, row) ?? ""}">${cellContent(key, row)}</td>`).join("")}</tr>
       `).join("");
+      const headerCells = columns.map(([key,label]) => {
+        if (!sortableColumns.has(key)) return `<th class="${columnClass(key)}">${label}</th>`;
+        return `<th class="${columnClass(key)} sortable" data-sort-key="${key}" aria-sort="none"><button class="sort-button" type="button" data-sort-column="${key}" title="${label}排序">${label}<span class="sort-icon">↕</span></button></th>`;
+      }).join("");
       return `
         <div class="table-shell" id="${tableId}">
           <div class="detail-meta">
-            <span>排序规则：近一周增幅降序</span>
-            <button class="table-action" type="button" data-fullscreen="${tableId}" title="全屏展示">⛶</button>
+            <span data-sort-hint>排序规则：近一周增幅降序；累计净值及右侧指标可点击表头排序</span>
+            <div class="table-tools">
+              <div class="zoom-tools" aria-label="表格缩放">
+                <button class="table-action" type="button" data-zoom-out="${tableId}" title="缩小">−</button>
+                <span class="zoom-value" data-zoom-value>100%</span>
+                <button class="table-action" type="button" data-zoom-in="${tableId}" title="放大">+</button>
+              </div>
+              <button class="table-action" type="button" data-fullscreen="${tableId}" title="全屏展示">⛶</button>
+            </div>
           </div>
           <div class="table-wrap">
             <div class="table-scale">
               <table class="detail ${tableClass}">
                 ${colGroup}
-                <thead><tr>${columns.map(([key,label]) => `<th class="${columnClass(key)}">${label}</th>`).join("")}</tr></thead>
+                <thead><tr>${headerCells}</tr></thead>
                 <tbody>${bodyRows}</tbody>
               </table>
             </div>
@@ -471,7 +523,7 @@
     }
 
     function fitTableShell(shell) {
-      if (!shell || shell.offsetParent === null) return;
+      if (!shell || (!shell.classList.contains("fullscreen") && shell.offsetParent === null)) return;
       const wrap = shell.querySelector(".table-wrap");
       const scaleBox = shell.querySelector(".table-scale");
       const table = shell.querySelector("table.detail");
@@ -484,6 +536,17 @@
       const naturalHeight = table.offsetHeight;
       const availableWidth = Math.max(320, wrap.clientWidth - 2);
       if (!naturalWidth || !naturalHeight) return;
+      if (shell.classList.contains("fullscreen")) {
+        const zoom = Number(shell.dataset.zoom || 1);
+        const applied = Number.isFinite(zoom) ? zoom : 1;
+        scaleBox.style.width = `${naturalWidth}px`;
+        scaleBox.style.height = `${Math.ceil(naturalHeight * applied)}px`;
+        scaleBox.style.transform = `scale(${applied})`;
+        shell.style.setProperty("--table-zoom", applied);
+        wrap.classList.add("needs-scroll");
+        if (applied < 0.995) wrap.classList.add("is-scaled");
+        return;
+      }
       const minScale = shell.classList.contains("fullscreen") ? 0.46 : 0.46;
       const scale = Math.min(1, availableWidth / naturalWidth);
       const applied = Math.max(minScale, scale);
@@ -498,6 +561,59 @@
 
     function fitTables() {
       document.querySelectorAll(".table-shell").forEach(fitTableShell);
+    }
+
+    function updateZoom(shell, nextZoom) {
+      const zoom = Math.min(1.6, Math.max(0.5, nextZoom));
+      shell.dataset.zoom = zoom.toFixed(2);
+      shell.style.setProperty("--table-zoom", zoom);
+      const value = shell.querySelector("[data-zoom-value]");
+      if (value) value.textContent = `${Math.round(zoom * 100)}%`;
+      fitTableShell(shell);
+    }
+
+    function sortTable(button) {
+      const th = button.closest("th");
+      const table = button.closest("table.detail");
+      const shell = button.closest(".table-shell");
+      if (!th || !table || !shell) return;
+      const tbody = table.tBodies[0];
+      const key = button.dataset.sortColumn;
+      const headers = Array.from(table.querySelectorAll("th.sortable"));
+      const current = th.dataset.sortState || "default";
+      const next = current === "default" ? "asc" : (current === "asc" ? "desc" : "default");
+      headers.forEach(header => {
+        header.dataset.sortState = "default";
+        header.classList.remove("sort-asc", "sort-desc");
+        header.setAttribute("aria-sort", "none");
+        const icon = header.querySelector(".sort-icon");
+        if (icon) icon.textContent = "↕";
+      });
+      th.dataset.sortState = next;
+      const rows = Array.from(tbody.rows);
+      const columnIndex = Array.from(th.parentElement.children).indexOf(th);
+      if (next === "default") {
+        rows.sort((a, b) => Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex));
+      } else {
+        rows.sort((a, b) => {
+          const aValue = parseSortValue(a.cells[columnIndex]?.dataset.sortValue);
+          const bValue = parseSortValue(b.cells[columnIndex]?.dataset.sortValue);
+          if (aValue === null && bValue === null) return Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
+          if (aValue === null) return 1;
+          if (bValue === null) return -1;
+          const result = aValue - bValue;
+          return next === "asc" ? result : -result;
+        });
+      }
+      rows.forEach(row => tbody.appendChild(row));
+      th.classList.toggle("sort-asc", next === "asc");
+      th.classList.toggle("sort-desc", next === "desc");
+      th.setAttribute("aria-sort", next === "asc" ? "ascending" : (next === "desc" ? "descending" : "none"));
+      const icon = th.querySelector(".sort-icon");
+      if (icon) icon.textContent = next === "asc" ? "↑" : (next === "desc" ? "↓" : "↕");
+      const label = button.textContent.replace(/[↕↑↓]/g, "").trim();
+      const hint = shell.querySelector("[data-sort-hint]");
+      if (hint) hint.textContent = next === "default" ? "排序规则：近一周增幅降序；累计净值及右侧指标可点击表头排序" : `当前排序：${label}${next === "asc" ? "升序" : "降序"}`;
     }
 
     const tableResizeObserver = new ResizeObserver(fitTables);
@@ -570,11 +686,29 @@
     renderStrategies();
     document.getElementById("searchBox").addEventListener("input", event => renderStrategies(event.target.value));
     document.addEventListener("click", event => {
+      const sortButton = event.target.closest("[data-sort-column]");
+      if (sortButton) {
+        sortTable(sortButton);
+        return;
+      }
+      const zoomIn = event.target.closest("[data-zoom-in]");
+      if (zoomIn) {
+        const shell = document.getElementById(zoomIn.dataset.zoomIn);
+        if (shell) updateZoom(shell, Number(shell.dataset.zoom || 1) + 0.1);
+        return;
+      }
+      const zoomOut = event.target.closest("[data-zoom-out]");
+      if (zoomOut) {
+        const shell = document.getElementById(zoomOut.dataset.zoomOut);
+        if (shell) updateZoom(shell, Number(shell.dataset.zoom || 1) - 0.1);
+        return;
+      }
       const button = event.target.closest("[data-fullscreen]");
       if (!button) return;
       const shell = document.getElementById(button.dataset.fullscreen);
       if (!shell) return;
       shell.classList.toggle("fullscreen");
+      if (shell.classList.contains("fullscreen") && !shell.dataset.zoom) updateZoom(shell, 1);
       button.textContent = shell.classList.contains("fullscreen") ? "×" : "⛶";
       button.title = shell.classList.contains("fullscreen") ? "退出全屏" : "全屏展示";
       requestAnimationFrame(() => requestAnimationFrame(fitTables));

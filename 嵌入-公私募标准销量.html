@@ -846,8 +846,8 @@
     })();
   </script>
   <script src="data/productCalendarData.js?v=20260722_001"></script>
-  <script src="data/productCoefficientData.js?v=20260722_001"></script>
-  <script src="data/productDecisionTools.js?v=20260722_004"></script>
+  <script src="data/productCoefficientData.js?v=20260726_001"></script>
+  <script src="data/productDecisionTools.js?v=20260727_sort_001"></script>
   <script>
     (function(){
       const tools = window.ProductDecisionTools;
@@ -881,7 +881,7 @@
             <h2 class="section-title">销售行动测算</h2>
             <span class="pill">输入产品与金额，直接测算标销贡献和赶超缺口</span>
           </div>
-          <div class="content-pad sales-action-grid">
+          <div class="content-pad sales-action-grid sales-action-calc-grid">
             <div class="sales-action-panel">
               <h3>营业部标准销量测算</h3>
               <div class="sales-action-body">
@@ -894,11 +894,18 @@
                   <div class="decision-field"><label>新增标准销量（万元）</label><input class="decision-input" data-sales-increment readonly placeholder="点击测算后生成"></div>
                 </div>
                 <button class="decision-tool-btn primary" type="button" data-run-sales-calc>测算增量</button>
+              </div>
+            </div>
+            <div class="sales-action-panel">
+              <h3>营业部标准销量测算增量结果</h3>
+              <div class="sales-action-body">
                 <div class="sales-result" data-sales-result>
                   <span>输入产品和金额后，展示营业部可贡献的标准销量。</span>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="content-pad sales-action-catchup">
             <div class="sales-action-panel">
               <h3>营业部对比与赶超测算</h3>
               <div class="sales-action-body">
@@ -991,6 +998,56 @@
         return parts.join('｜');
       }
 
+      function candidatesForType(type, limit){
+        return tools.candidateProducts(18)
+          .filter(item => productType(item) === type)
+          .slice(0, limit);
+      }
+
+      function catchupNeed(source, target, type){
+        const amountKey = type === 'public' ? 'public_amount' : 'private_amount';
+        const targetKey = type === 'public' ? 'public_target' : 'private_target';
+        const rateKey = type === 'public' ? 'public_rate' : 'private_rate';
+        return Math.max(0, Number(target[rateKey] || 0) * Number(source[targetKey] || 0) - Number(source[amountKey] || 0));
+      }
+
+      function catchupPortfolio(needed, candidates){
+        if(!needed || !candidates.length) return [];
+        const selected = candidates.slice(0, 3);
+        const factorTotal = selected.reduce((sum, item) => sum + tools.factorFrom(item.salesCoef), 0) || selected.length;
+        return selected.map(item => {
+          const factor = tools.factorFrom(item.salesCoef);
+          const saleNeed = Math.ceil((needed / factorTotal) / 10) * 10;
+          return {item, factor, saleNeed, increment: tools.calcStandardAmount(saleNeed, factor)};
+        });
+      }
+
+      function renderCatchupCard(label, type, source, target){
+        const amountKey = type === 'public' ? 'public_amount' : 'private_amount';
+        const targetKey = type === 'public' ? 'public_target' : 'private_target';
+        const rateKey = type === 'public' ? 'public_rate' : 'private_rate';
+        const needed = catchupNeed(source, target, type);
+        const candidates = candidatesForType(type, 4);
+        const portfolio = catchupPortfolio(needed, candidates);
+        const portfolioIncrement = portfolio.reduce((sum, row) => sum + row.increment, 0);
+        const afterRate = Number(source[targetKey] || 0) ? (Number(source[amountKey] || 0) + portfolioIncrement) / Number(source[targetKey] || 0) : 0;
+        const list = portfolio.map(row => `
+          <div class="candidate-item">
+            <b>${row.item.name}</b>
+            <span>${candidateReason(row.item)}｜销量${row.factor}｜建议销售 ${fmtWan(row.saleNeed)} 万｜贡献 ${fmtWan(row.increment)} 万标销</span>
+          </div>
+        `).join('');
+        return `
+          <div class="catchup-card">
+            <h4>${label}赶超方案</h4>
+            <span>${source.branch} ${label}完成率：${pctText(source[rateKey])}，目标 ${target.branch}：${pctText(target[rateKey])}。</span>
+            <strong>${label}赶超缺口 ${fmtWan(needed)} 万元标销</strong>
+            <span>${portfolio.length ? `建议组合贡献 ${fmtWan(portfolioIncrement)} 万元标销，测算后完成率约 ${pctText(afterRate)}。` : `${label}暂无可推荐的在售候选产品。`}</span>
+            <div class="candidate-list">${list || '<div class="decision-empty">暂无可推荐的高系数候选产品。</div>'}</div>
+          </div>
+        `;
+      }
+
       function normalizeCode(value){
         return String(value || '').trim().toUpperCase();
       }
@@ -1064,7 +1121,6 @@
           <span>${item.name} 当前按 <b>${factor}</b> 倍标准销量、<b>${holdingFactor}</b> 倍标准保有测算。</span>
           <strong>预计新增 ${fmtWan(increment)} 万元标销</strong>
           <span>若销售 ${fmtWan(amount)} 万元，可为 ${branch.branch} 带来约 ${fmtWan(increment)} 万元标准销量、${fmtWan(holdingIncrement)} 万元标准保有；对应口径完成率可提升至 ${pctText(newRate)}。</span>
-          <span class="decision-muted">说明：若底层系数暂未接入，系统按 1 倍保守测算，最终以公司系数底表为准。</span>
         `;
       }
 
@@ -1119,21 +1175,17 @@
       function renderBranchCalc(){
         const a = branchByName(document.querySelector('[data-branch-a]').value);
         const b = branchByName(document.querySelector('[data-branch-b]').value);
-        const gap = Math.max(0, b.combined_amount - a.combined_amount);
         const needForRate = Math.max(0, b.combined_rate * a.combined_target - a.combined_amount);
-        const needed = Math.max(gap, needForRate);
-        const candidates = tools.candidateProducts(5);
-        const list = candidates.map(item => {
-          const factor = tools.factorFrom(item.salesCoef);
-          const saleNeed = needed > 0 ? needed / factor : 0;
-          return `<div class="candidate-item"><b>${item.name}</b><span>${candidateReason(item)}｜销量${factor}｜约售 ${fmtWan(saleNeed)} 万元</span></div>`;
-        }).join('');
+        const needed = needForRate;
         document.querySelector('[data-branch-result]').innerHTML = `
           <span>${a.branch} 汇总完成率 ${pctText(a.combined_rate)}，${b.branch} 汇总完成率 ${pctText(b.combined_rate)}。</span>
-          <strong>赶超参考缺口 ${fmtWan(needed)} 万元标销</strong>
-          <span>公募完成率：${pctText(a.public_rate)} vs ${pctText(b.public_rate)}；私募完成率：${pctText(a.private_rate)} vs ${pctText(b.private_rate)}。</span>
-          <div class="candidate-list">${list || '<div class="decision-empty">暂无可推荐的高系数候选产品。</div>'}</div>
-          <span class="decision-muted">候选产品仅取当前在售、或从今天到本月底可销售的产品，并兼顾公募/私募与销量系数；金额单位为万元。</span>
+          <strong>同完成率赶超缺口 ${fmtWan(needed)} 万元标销</strong>
+          <span>按“目标营业部汇总完成率 × 本营业部汇总目标 - 本营业部当前标销”测算；下方按公募、私募分别测算目标完成率缺口，并给出同类型产品组合。</span>
+          <div class="catchup-grid">
+            ${renderCatchupCard('公募', 'public', a, b)}
+            ${renderCatchupCard('私募', 'private', a, b)}
+          </div>
+          <span class="decision-muted">候选产品仅取当前在售、或从今天到本月底可销售的产品；金额单位为万元，组合为测算参考，最终以客户适配与产品额度为准。</span>
         `;
       }
 

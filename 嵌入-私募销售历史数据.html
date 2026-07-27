@@ -27,8 +27,13 @@
     .section-title{margin:0;font-size:18px;display:flex;align-items:center;gap:10px}.section-title:before{content:"";width:4px;height:20px;border-radius:2px;background:var(--blue);display:block}
     .content-pad{padding:18px}.empty{min-height:220px;border:1px dashed #cbd6eb;border-radius:8px;background:#fbfcff;display:none;place-items:center;text-align:center;color:#6d7788;padding:26px}
     table{width:100%;border-collapse:collapse;table-layout:fixed;min-width:1120px;font-size:13px}th{background:#edf2fb;color:#4c63b3;font-weight:800;padding:9px 8px;text-align:center;white-space:nowrap}td{padding:9px 8px;border-bottom:1px solid #eef2f7;text-align:center;vertical-align:middle}.nowrap{white-space:nowrap}.product-cell{word-break:break-word}.amount{font-variant-numeric:tabular-nums;font-weight:700}.table-scroll{overflow:auto}
-    .sort-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;border:0;border-radius:999px;background:#dfe8ff;color:#3659c9;font-size:12px;font-weight:900;line-height:1;padding:5px 8px;margin-left:6px;cursor:pointer;vertical-align:middle}
-    .sort-btn:hover{background:#d4e0ff}.sort-btn:focus-visible{outline:3px solid rgba(66,104,214,.22);outline-offset:2px}
+    tfoot td{background:#fbfcff;border-top:2px solid #dfe7f5;border-bottom:0;color:#1f2a3d;font-weight:900}
+    tfoot .total-label{text-align:right;color:#4c63b3}
+    .sortable-th{padding:0}
+    .sort-button{width:100%;height:100%;min-height:34px;border:0;background:transparent;color:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;padding:9px 8px;font:inherit;font-weight:800}
+    .sort-button:hover,.sort-button:focus-visible{background:#dfe8ff;outline:0}
+    .sort-icon{width:12px;color:#6b7fc7;font-size:10px;line-height:1}
+    th.sort-asc .sort-icon,th.sort-desc .sort-icon{color:#3659c9}
     @media(max-width:1100px){.page-head{grid-template-columns:1fr}.filter-panel{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:720px){.topbar{height:auto;align-items:flex-start;flex-direction:column;padding:14px 18px}.workspace{padding:18px}.summary-grid,.filter-panel{grid-template-columns:1fr}}
   </style>
@@ -75,14 +80,15 @@
             <col style="width:138px">
             <col style="width:132px">
           </colgroup>
-          <thead><tr><th>交易日期</th><th>营业部</th><th>员工姓名</th><th>产品类型</th><th>产品名称</th><th>产品代码</th><th>客户名称</th><th>客户号</th><th>实际销量<button id="amountSortBtn" class="sort-btn" type="button" title="按实际销量降序">降序</button></th></tr></thead>
+          <thead><tr><th>交易日期</th><th>营业部</th><th>员工姓名</th><th>产品类型</th><th>产品名称</th><th>产品代码</th><th>客户名称</th><th>客户号</th><th id="amountSortHeader" class="sortable-th" aria-sort="none"><button id="amountSortBtn" class="sort-button" type="button" title="实际销量排序">实际销量<span id="amountSortIcon" class="sort-icon">↕</span></button></th></tr></thead>
           <tbody id="historyRows"></tbody>
+          <tfoot><tr><td class="total-label" colspan="8">当前筛选实际销量合计</td><td class="amount" id="tableTotalAmount">0</td></tr></tfoot>
         </table>
         <div class="empty" id="emptyState">当前筛选条件下暂无销售明细。</div>
       </div>
     </section>
   </main>
-  <script src="data/privateSalesHistoryData.js?v=20260723_002"></script>
+  <script src="data/privateSalesHistoryData.js?v=20260727_001"></script>
   <script>
     const PAYLOAD = window.privateSalesHistoryData || {rows:[],filters:{}};
     const DATA = Array.isArray(PAYLOAD.rows) ? PAYLOAD.rows : [];
@@ -95,7 +101,10 @@
       empty: document.getElementById('emptyState'),
       result: document.getElementById('resultPill'),
       data: document.getElementById('dataPill'),
-      amountSort: document.getElementById('amountSortBtn')
+      amountSort: document.getElementById('amountSortBtn'),
+      amountSortHeader: document.getElementById('amountSortHeader'),
+      amountSortIcon: document.getElementById('amountSortIcon'),
+      tableTotal: document.getElementById('tableTotalAmount')
     };
     const labels = {all:'全部', retailAll:'零售-全部'};
     const fmt = new Intl.NumberFormat('zh-CN',{maximumFractionDigits:2});
@@ -136,6 +145,10 @@
           const amountDiff = Number(b.amount || 0) - Number(a.amount || 0);
           if(amountDiff) return amountDiff;
         }
+        if(sortMode === 'amountAsc'){
+          const amountDiff = Number(a.amount || 0) - Number(b.amount || 0);
+          if(amountDiff) return amountDiff;
+        }
         return String(b.date).localeCompare(String(a.date));
       });
     }
@@ -148,13 +161,21 @@
     }
     function render(){
       const rows = currentRows();
+      const sortTitle = sortMode === 'amountDesc' ? '当前按实际销量降序，点击切换升序' : sortMode === 'amountAsc' ? '当前按实际销量升序，点击恢复默认' : '默认按交易日期排序，点击切换金额降序';
+      els.amountSort.title = sortTitle;
+      els.amountSortIcon.textContent = sortMode === 'amountDesc' ? '↓' : sortMode === 'amountAsc' ? '↑' : '↕';
+      els.amountSortHeader.classList.toggle('sort-desc', sortMode === 'amountDesc');
+      els.amountSortHeader.classList.toggle('sort-asc', sortMode === 'amountAsc');
+      els.amountSortHeader.setAttribute('aria-sort', sortMode === 'amountDesc' ? 'descending' : sortMode === 'amountAsc' ? 'ascending' : 'none');
       els.rows.innerHTML = rows.map(row => `<tr><td class="nowrap">${escapeHtml(row.date)}</td><td class="nowrap">${escapeHtml(row.branch)}</td><td>${escapeHtml(row.employee)}</td><td>${escapeHtml(displayType(row))}</td><td class="product-cell">${escapeHtml(row.product)}</td><td>${escapeHtml(row.code)}</td><td>${escapeHtml(maskCustomerName(row.customer))}</td><td class="nowrap">${escapeHtml(maskCustomerId(row.customerId))}</td><td class="amount">${fmt.format(Number(row.amount || 0))}</td></tr>`).join('');
       els.empty.style.display = rows.length ? 'none' : 'grid';
       els.result.textContent = `匹配 ${rows.length} 条`;
+      const totalAmount = rows.reduce((sum,row)=>sum+Number(row.amount||0),0);
       document.getElementById('kpiProducts').textContent = new Set(rows.map(row => row.code || row.product).filter(Boolean)).size + '只';
       document.getElementById('kpiClients').textContent = new Set(rows.map(row => row.customerId || row.customer).filter(Boolean)).size + '户';
-      document.getElementById('kpiAmount').textContent = fmt.format(rows.reduce((sum,row)=>sum+Number(row.amount||0),0)) + '万';
+      document.getElementById('kpiAmount').textContent = fmt.format(totalAmount) + '万';
       document.getElementById('kpiRows').textContent = rows.length + '笔';
+      els.tableTotal.textContent = fmt.format(totalAmount);
     }
     function init(){
       const filters = PAYLOAD.filters || {};
@@ -168,7 +189,7 @@
         render();
       }));
       els.amountSort.addEventListener('click', () => {
-        sortMode = 'amountDesc';
+        sortMode = sortMode === 'dateDesc' ? 'amountDesc' : sortMode === 'amountDesc' ? 'amountAsc' : 'dateDesc';
         render();
       });
       render();

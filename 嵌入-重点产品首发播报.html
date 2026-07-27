@@ -572,8 +572,8 @@
     })();
   </script>
   <script src="data/productCalendarData.js?v=20260722_001"></script>
-  <script src="data/productCoefficientData.js?v=20260722_001"></script>
-  <script src="data/productDecisionTools.js?v=20260722_004"></script>
+  <script src="data/productCoefficientData.js?v=20260726_001"></script>
+  <script src="data/productDecisionTools.js?v=20260727_sort_001"></script>
   <script>
     (function(){
       const tools = window.ProductDecisionTools;
@@ -722,7 +722,6 @@
           <span>${item.name} 当前按 <b>${factor}</b> 倍标准销量、<b>${holdingFactor}</b> 倍标准保有测算。</span>
           <strong>预计新增 ${fmtWan(increment)} 万元标销</strong>
           <span>若销售 ${fmtWan(amount)} 万元，可为 ${branch.branch} 带来约 ${fmtWan(increment)} 万元标准销量、${fmtWan(holdingIncrement)} 万元标准保有；对应口径完成率可提升至 ${pctText(newRate)}。</span>
-          <span class="decision-muted">说明：若底层系数暂未接入，系统按 1 倍保守测算，最终以公司系数底表为准。</span>
         `;
       }
 

@@ -35,7 +35,7 @@ window.productMaterialData = {
       '进化论1000锐泰系列': {
         mindmap: 'material-viewer.html?type=image&title=%E8%BF%9B%E5%8C%96%E8%AE%BA1000%E9%94%90%E6%B3%B0%E7%B3%BB%E5%88%97%EF%BD%9C%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE&src=assets%2Fevolution_mindmap_original_copy_20260703.jpg',
         single: 'material-viewer.html?type=pdf&title=%E8%BF%9B%E5%8C%96%E8%AE%BA1000%E9%94%90%E6%B3%B0%E7%B3%BB%E5%88%97%EF%BD%9C%E5%AF%B9%E5%AE%A2%E6%8E%A8%E4%BB%8B%E6%9D%90%E6%96%99-%E5%8D%95%E9%A1%B5&src=assets%2Fevolution_single.pdf',
-        full: 'material-viewer.html?type=pdf&title=%E8%BF%9B%E5%8C%96%E8%AE%BA1000%E9%94%90%E6%B3%B0%E7%B3%BB%E5%88%97%EF%BD%9C%E5%AF%B9%E5%AE%A2%E6%8E%A8%E4%BB%8B%E6%9D%90%E6%96%99-%E5%AE%8C%E6%95%B4&src=assets%2Fevolution_full.pdf'
+        full: 'material-viewer.html?type=pages&title=%E8%BF%9B%E5%8C%96%E8%AE%BA1000%E9%94%90%E6%B3%B0%E7%B3%BB%E5%88%97%EF%BD%9C%E5%AF%B9%E5%AE%A2%E6%8E%A8%E4%BB%8B%E6%9D%90%E6%96%99-%E5%AE%8C%E6%95%B4&src=assets%2Fevolution_full_pages%2Fpage-&pages=35&ext=jpg&pad=2&raw=assets%2Fevolution_full.pdf'
       }
     },
     MATERIAL_LABELS: {overview:'产品销售概览',mindmap:'思维导图',performance:'实盘业绩报告',single:'对客推介材料-单页',full:'对客推介材料-完整'}

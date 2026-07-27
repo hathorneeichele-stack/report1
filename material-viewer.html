@@ -19,8 +19,11 @@ body{display:flex;flex-direction:column}
 .stage{flex:1;min-height:0;padding:18px 24px 28px}
 .content-shell{height:calc(100vh - 104px);min-height:520px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
 .content-shell.image-shell{overflow:auto;text-align:center;padding:18px;background:#f8fbff}
+.content-shell.pages-shell{overflow:auto;padding:18px;background:#e8eef6}
 iframe{display:block;width:100%;height:100%;border:0;background:#fff}
 img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff;border:1px solid #e3ebf6;border-radius:6px;box-shadow:0 10px 28px rgba(22,37,65,.08)}
+.page-img{margin:0 auto 18px}
+.page-img:last-child{margin-bottom:0}
 .empty{height:100%;display:grid;place-items:center;color:var(--muted);font-size:14px}
 @media(max-width:760px){
   .viewer-top{height:auto;min-height:58px;padding:12px 14px;align-items:flex-start;flex-direction:column}
@@ -58,14 +61,15 @@ img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff;borde
   const openRaw=document.getElementById('openRaw');
   document.title=title;
   document.getElementById('viewerTitle').textContent=title;
-  document.getElementById('viewerMeta').textContent=type==='image'?'图片材料':'PDF材料';
+  document.getElementById('viewerMeta').textContent=type==='image'?'图片材料':type==='pages'?'分页材料':'PDF材料';
   document.getElementById('closePage').addEventListener('click',()=>{window.close();});
   if(!src){
     shell.innerHTML='<div class="empty">没有找到材料地址</div>';
     openRaw.hidden=true;
     return;
   }
-  const rawUrl=type==='pdf'&&src.indexOf('#')<0?src+'#toolbar=1&navpanes=0':src;
+  const raw=params.get('raw')||src;
+  const rawUrl=type==='pdf'&&raw.indexOf('#')<0?raw+'#toolbar=1&navpanes=0':raw;
   openRaw.href=rawUrl;
   if(type==='image'){
     shell.classList.add('image-shell');
@@ -74,6 +78,26 @@ img{display:block;max-width:100%;height:auto;margin:0 auto;background:#fff;borde
     img.alt=title;
     shell.textContent='';
     shell.appendChild(img);
+    return;
+  }
+  if(type==='pages'){
+    const total=Number(params.get('pages')||0);
+    const ext=params.get('ext')||'jpg';
+    const pad=Number(params.get('pad')||2);
+    shell.classList.add('pages-shell');
+    shell.textContent='';
+    for(let i=1;i<=total;i++){
+      const img=document.createElement('img');
+      img.className='page-img';
+      img.loading=i===1?'eager':'lazy';
+      img.decoding='async';
+      img.src=src+i.toString().padStart(pad,'0')+'.'+ext;
+      img.alt=title+' 第'+i+'页';
+      shell.appendChild(img);
+    }
+    if(!total){
+      shell.innerHTML='<div class="empty">没有找到分页材料</div>';
+    }
     return;
   }
   const iframe=document.createElement('iframe');

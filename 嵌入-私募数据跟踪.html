@@ -270,7 +270,7 @@
     </main>
   </div>
 
-  <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_trend"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260727_sort_001"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
+  <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_trend"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260727_public_coef_priority"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -636,20 +636,20 @@
     function renderStrategyBlock(strategy, index) {
       if (strategy.children && strategy.children.length) {
         const children = strategy.children.map((child, childIndex) => `
-          <details class="child-strategy" ${childIndex === 0 ? "open" : ""}>
+          <details class="child-strategy" open>
             ${strategySummary(child, true)}
             ${productTable(child.rows, true, excessEnabledSubStrategies.has(child.title))}
           </details>
         `).join("");
         return `
-          <details class="strategy" ${index === 1 ? "open" : ""}>
+          <details class="strategy" open>
             ${strategySummary(strategy)}
             <div class="child-list">${children}</div>
           </details>
         `;
       }
       return `
-        <details class="strategy" ${index === 0 ? "open" : ""}>
+        <details class="strategy" open>
           ${strategySummary(strategy)}
           ${productTable(strategy.rows, false)}
         </details>

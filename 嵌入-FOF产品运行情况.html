@@ -32,7 +32,8 @@
     }
 
     button,
-    input { font:inherit; }
+    input,
+    select { font:inherit; }
 
     .app { min-height:100vh; }
 
@@ -199,6 +200,15 @@
       display:block;
       font-size:15px;
       line-height:1.32;
+    }
+
+    .tab-code {
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0;
     }
 
     .tab-btn span {
@@ -481,6 +491,94 @@
 
     tbody tr:hover { background:#fffdf0; }
 
+    tfoot td {
+      border-top:2px solid #dfe7f5;
+      background:#fbfcff;
+      color:var(--ink);
+      font-weight:900;
+    }
+
+    .total-label {
+      text-align:right;
+      color:#4c63b3;
+    }
+
+    .client-table th,
+    .client-table td {
+      text-align:center;
+    }
+
+    .client-table .total-label {
+      text-align:center;
+    }
+
+    .client-summary {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .client-summary strong {
+      color:var(--ink);
+      font-size:13px;
+    }
+
+    .client-controls {
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .client-select {
+      width:170px;
+      height:34px;
+      border:1px solid var(--line);
+      border-radius:6px;
+      padding:0 10px;
+      outline:none;
+      background:#fff;
+      color:var(--ink);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .client-select:focus {
+      border-color:#b8c7ff;
+      box-shadow:0 0 0 3px rgba(66,104,214,.12);
+    }
+
+    .sortable-th { padding:0; }
+
+    .sort-button {
+      width:100%;
+      min-height:38px;
+      border:0;
+      padding:9px 8px;
+      background:transparent;
+      color:inherit;
+      cursor:default;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      font:inherit;
+      font-weight:800;
+    }
+
+    .sort-icon {
+      width:12px;
+      color:#3659c9;
+      font-size:12px;
+      line-height:1;
+    }
+
     .note {
       color:var(--muted);
       font-size:12px;
@@ -530,6 +628,13 @@
       .toolbar,
       .search { width:100%; }
 
+      .client-controls {
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .client-select { width:100%; }
+
       .workspace { padding:18px 18px 96px; }
       .page-head { display:block; }
       .summary-grid,
@@ -543,7 +648,7 @@
       <div class="crumb">产品配置工作台 / <strong>FOF产品运行情况</strong></div>
       <div class="toolbar">
         <input id="searchBox" class="search" placeholder="搜索产品名称、底层产品、收益数据">
-        <span class="pill">报告区间 2026-07-10 至 2026-07-17</span>
+        <span class="pill">报告区间 2026-07-17 至 2026-07-24</span>
       </div>
     </div>
 
@@ -551,30 +656,33 @@
       <div class="page-head">
         <div>
           <h1>FOF产品运行情况</h1>
-          <div class="meta">省心享系列 FOF 产品周度运行简报，数据截至 2026-07-17。</div>
+          <div class="meta">省心享系列 FOF 产品周度运行简报，数据截至 2026-07-24。</div>
         </div>
         <span class="pill">华泰证券资产管理 · WeFund</span>
       </div>
 
       <section class="summary-grid" aria-label="FOF产品汇总">
         <div class="kpi"><span>覆盖产品</span><strong>3只</strong><em>FOF199 / FOF123 / FOF3</em></div>
-        <div class="kpi"><span>本周最佳</span><strong class="neg">-2.52%</strong><em>安泰尊享优选FOF199号</em></div>
-        <div class="kpi"><span>累计收益最高</span><strong class="pos">4.23%</strong><em>安泰尊享优选FOF199号</em></div>
-        <div class="kpi"><span>成立以来年化收益最高</span><strong class="pos">2.83%</strong><em>安泰尊享优选FOF199号</em></div>
+        <div class="kpi"><span>本周最佳</span><strong class="neg">-0.12%</strong><em>安泰尊享优选FOF199号</em></div>
+        <div class="kpi"><span>累计收益最高</span><strong class="pos">4.10%</strong><em>安泰尊享优选FOF199号</em></div>
+        <div class="kpi"><span>成立以来年化收益最高</span><strong class="pos">2.71%</strong><em>安泰尊享优选FOF199号</em></div>
       </section>
 
       <nav class="product-tabs" aria-label="产品切换">
         <button class="tab-btn active" type="button" data-product-tab="fof199">
           <strong>省心享-华泰WEFUND安泰尊享优选FOF199号</strong>
-          <span><b>本周 -2.52%</b><b>累计 4.23%</b></span>
+          <small class="tab-code">产品代码 942363</small>
+          <span><b>本周 -0.12%</b><b>累计 4.10%</b></span>
         </button>
         <button class="tab-btn" type="button" data-product-tab="fof123">
           <strong>省心享-华泰齐鲁晟泰优选FOF123号</strong>
-          <span><b>本周 -4.62%</b><b>累计 1.15%</b></span>
+          <small class="tab-code">产品代码 942438</small>
+          <span><b>本周 -0.23%</b><b>累计 0.92%</b></span>
         </button>
         <button class="tab-btn" type="button" data-product-tab="fof3">
           <strong>省心享-华泰齐鲁泉泰甄选FOF3号</strong>
-          <span><b>本周 -9.51%</b><b>累计 -11.71%</b></span>
+          <small class="tab-code">产品代码 942585</small>
+          <span><b>本周 -0.57%</b><b>累计 -12.21%</b></span>
         </button>
       </nav>
 
@@ -585,13 +693,13 @@
 
   <script>
     const INDEX_PERFORMANCE = [
-      { name: "上证综指", value: "-5.81%", tone: "neg" },
-      { name: "深证成指", value: "-8.90%", tone: "neg" },
-      { name: "创业板指", value: "-10.78%", tone: "neg" },
-      { name: "上证50", value: "-4.33%", tone: "neg" },
-      { name: "沪深300", value: "-5.26%", tone: "neg" },
-      { name: "中证500", value: "-11.64%", tone: "neg" },
-      { name: "中证1000", value: "-12.57%", tone: "neg" }
+      { name: "上证综指", value: "1.33%", tone: "pos" },
+      { name: "深证成指", value: "0.49%", tone: "pos" },
+      { name: "创业板指", value: "1.52%", tone: "pos" },
+      { name: "上证50", value: "4.55%", tone: "pos" },
+      { name: "沪深300", value: "2.65%", tone: "pos" },
+      { name: "中证500", value: "0.25%", tone: "pos" },
+      { name: "中证1000", value: "-2.40%", tone: "neg" }
     ];
 
     const PRODUCTS = [
@@ -600,16 +708,17 @@
         theme: "light",
         title: "省心享-华泰WEFUND安泰尊享优选FOF199号集合资产管理计划",
         shortTitle: "安泰尊享优选FOF199号",
-        period: "2026-07-10 至 2026-07-17",
+        code: "942363",
+        period: "2026-07-17 至 2026-07-24",
         reportTitle: "省心享-华泰WEFUND安泰尊享优选FOF199号集合资产管理计划业绩简报",
         established: "2025.01.21",
-        nav: "1.0423",
-        cumulative: "4.23%",
-        maxDrawdown: "-4.09%",
-        weekReturn: "-2.52%",
-        annualized: "2.83%",
-        footerNav: "1.0423",
-        summary: "产品本周回落 -2.52%，累计收益 4.23%，成立以来年化收益 2.83%。区间持仓中，套利和择时对冲类标的整体承压。",
+        nav: "1.0410",
+        cumulative: "4.10%",
+        maxDrawdown: "-4.21%",
+        weekReturn: "-0.12%",
+        annualized: "2.71%",
+        footerNav: "1.0410",
+        summary: "产品本周收益 -0.12%，累计收益 4.10%，成立以来年化收益 2.71%。区间内货币基金配置补充流动性，持仓标的涨跌分化。",
         drawdownLabel: "2026-05 至 2026-07 最大回撤区间",
         spark: "M8 156 C70 154 86 140 130 138 C185 134 210 146 265 140 C330 134 332 154 385 148 C430 146 438 164 482 162 C522 159 526 150 548 156 C568 171 548 144 580 148 C612 149 612 124 638 116 C660 104 648 78 676 84 C706 94 694 58 730 52 C758 48 754 70 792 62 C828 58 825 46 858 30 C890 16 895 30 922 22 C948 18 952 34 978 25 C1000 25 1016 46 1032 78",
         drawdownZone: { x: 920, width: 120 },
@@ -620,14 +729,20 @@
           { x: 480, label: "2025-11-01" },
           { x: 660, label: "2026-01-01" },
           { x: 840, label: "2026-05-01" },
-          { x: 1030, label: "2026-07-17" }
+          { x: 1030, label: "2026-07-24" }
         ],
         holdings: [
-          ["本产品", "-2.52%", "4.23%", "--", "2025-01-21", "2026-07-17"],
-          ["省心享量瀛悦泰1号私募证券投资基金B类（量化对冲-择时对冲）", "-3.8%", "-9.5%", "20.08%", "2026-04-17", "2026-07-17"],
-          ["进化论省心享臻乾1号私募证券投资基金B类（量化对冲-择时对冲）", "-4.99%", "9.99%", "19.85%", "2025-08-27", "2026-07-17"],
-          ["盛泉恒元量化套利15号专项私募证券投资基金（套利-其他套利）", "-1.66%", "7.1%", "23.47%", "2025-08-26", "2026-07-17"],
-          ["申毅尊享稳健1号证券投资私募基金（套利-期权套利）", "-0.39%", "3.6%", "10.72%", "2025-06-18", "2026-07-17"]
+          ["本产品", "-0.12%", "4.1%", "--", "2025-01-21", "2026-07-24"],
+          ["兴全添添益货币B", "--", "0.01%", "10.76%", "2026-07-21", "2026-07-24"],
+          ["省心享量瀛悦泰1号私募证券投资基金B类（量化对冲-择时对冲）", "0.64%", "-8.92%", "22.53%", "2026-04-17", "2026-07-24"],
+          ["进化论省心享臻乾1号私募证券投资基金B类（量化对冲-择时对冲）", "-0.76%", "9.16%", "21.97%", "2025-08-27", "2026-07-24"],
+          ["盛泉恒元量化套利15号专项私募证券投资基金（套利-其他套利）", "-0.44%", "6.63%", "26.06%", "2025-08-26", "2026-07-24"],
+          ["申毅尊享稳健1号证券投资私募基金（套利-期权套利）", "0.17%", "3.78%", "10.86%", "2025-06-18", "2026-07-24"]
+        ],
+        clients: [
+          ["济南解放路", "郗立苹", "9981", "516.3"],
+          ["莱阳昌山路", "姜建成", "6760", "208.5"],
+          ["济南解放路", "郗立苹", "1166", "204.4"]
         ]
       },
       {
@@ -635,16 +750,17 @@
         theme: "light",
         title: "省心享-华泰齐鲁晟泰优选FOF123号集合资产管理计划",
         shortTitle: "齐鲁晟泰优选FOF123号",
-        period: "2026-07-10 至 2026-07-17",
+        code: "942438",
+        period: "2026-07-17 至 2026-07-24",
         reportTitle: "省心享-华泰齐鲁晟泰优选FOF123号集合资产管理计划业绩简报",
         established: "2025.07.29",
-        nav: "1.0115",
-        cumulative: "1.15%",
-        maxDrawdown: "-8.47%",
-        weekReturn: "-4.62%",
-        annualized: "1.19%",
-        footerNav: "1.0115",
-        summary: "产品本周回落 -4.62%，累计收益 1.15%，最大回撤扩大至 -8.47%。区间内 CTA 标的为少数正贡献来源。",
+        nav: "1.0092",
+        cumulative: "0.92%",
+        maxDrawdown: "-8.68%",
+        weekReturn: "-0.23%",
+        annualized: "0.93%",
+        footerNav: "1.0092",
+        summary: "产品本周收益 -0.23%，累计收益 0.92%，最大回撤为 -8.68%。区间内 CTA 标的延续正贡献，指增类持仓表现分化。",
         drawdownLabel: "2026-05 至 2026-07 最大回撤区间",
         spark: "M8 154 C42 154 58 150 82 154 C102 158 112 146 132 152 C156 160 166 142 194 150 C220 156 226 140 252 146 C278 150 282 130 310 126 C336 123 338 113 365 112 C390 112 382 158 410 154 C438 151 430 128 460 130 C492 132 498 128 525 125 C548 116 558 108 580 102 C605 95 606 76 632 70 C660 64 662 84 694 78 C730 70 728 51 760 50 C790 50 790 80 824 82 C850 82 854 54 882 43 C908 34 908 24 938 24 C966 24 970 72 996 92 C1018 106 1022 132 1038 156",
         drawdownZone: { x: 830, width: 210 },
@@ -656,14 +772,30 @@
           { x: 540, label: "2026-02-01" },
           { x: 700, label: "2026-04-01" },
           { x: 860, label: "2026-06-01" },
-          { x: 1030, label: "2026-07-17" }
+          { x: 1030, label: "2026-07-24" }
         ],
         holdings: [
-          ["本产品", "-4.62%", "1.15%", "--", "2025-07-29", "2026-07-17"],
-          ["超量子省心享量选1号私募证券投资基金B类（指数增强-中小盘指增）", "-10.13%", "-7.55%", "19.86%", "2025-08-20", "2026-07-17"],
-          ["致远中证A500兴泰2号私募证券投资基金B类（指数增强-大盘指增）", "-8.64%", "9.3%", "19.67%", "2025-08-15", "2026-07-17"],
-          ["鸣石省心享和甲2号择时对冲量化私募证券投资基金B类（量化对冲-择时对冲）", "-5.07%", "-1.36%", "14.67%", "2026-04-22", "2026-07-17"],
-          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "2.19%", "0.19%", "22.57%", "2026-06-23", "2026-07-17"]
+          ["本产品", "-0.23%", "0.92%", "--", "2025-07-29", "2026-07-24"],
+          ["汇添富收益快线货币D", "--", "0.01%", "14.96%", "2026-07-21", "2026-07-24"],
+          ["超量子省心享量选1号私募证券投资基金B类（指数增强-中小盘指增）", "-3.11%", "-10.42%", "21.29%", "2025-08-20", "2026-07-24"],
+          ["致远中证A500兴泰2号私募证券投资基金B类（指数增强-大盘指增）", "1.0%", "10.39%", "21.98%", "2025-08-15", "2026-07-24"],
+          ["鸣石省心享和甲2号择时对冲量化私募证券投资基金B类（量化对冲-择时对冲）", "-0.41%", "-1.77%", "16.16%", "2026-04-22", "2026-07-24"],
+          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "1.31%", "1.5%", "25.31%", "2026-06-23", "2026-07-24"]
+        ],
+        clients: [
+          ["莱阳昌山路", "姜建成", "6760", "352.4"],
+          ["济南解放路", "郗立苹", "9981", "302.1"],
+          ["烟台南大街", "张慧君", "2706", "301.9"],
+          ["莱阳昌山路", "姜建成", "1912", "101.2"],
+          ["济南经七路", "赵晓娜", "9977", "101.2"],
+          ["济南经七路", "谢静", "6185", "101.2"],
+          ["济南解放东路", "马晶", "8888", "101.2"],
+          ["莱阳昌山路", "郝明辉", "9656", "101.2"],
+          ["济南解放路", "刘红霞", "4242", "101.2"],
+          ["济南解放路", "刘红霞", "6740", "101.2"],
+          ["济南解放路", "刘红霞", "5819", "101.2"],
+          ["济南解放路", "王昭峰", "2505", "101.2"],
+          ["济南解放东路", "季现坤", "4983", "101.2"]
         ]
       },
       {
@@ -671,16 +803,17 @@
         theme: "dark",
         title: "省心享-华泰齐鲁泉泰甄选FOF3号集合资产管理计划",
         shortTitle: "齐鲁泉泰甄选FOF3号",
-        period: "2026-07-10 至 2026-07-17",
+        code: "942585",
+        period: "2026-07-17 至 2026-07-24",
         reportTitle: "省心享-华泰齐鲁泉泰甄选FOF3号集合资产管理计划业绩简报",
         established: "2026.04.29",
-        nav: "0.8829",
-        cumulative: "-11.71%",
-        maxDrawdown: "-12.77%",
-        weekReturn: "-9.51%",
+        nav: "0.8779",
+        cumulative: "-12.21%",
+        maxDrawdown: "-13.26%",
+        weekReturn: "-0.57%",
         annualized: "--",
-        footerNav: "0.8829",
-        summary: "产品本周收益 -9.51%，累计收益 -11.71%，最大回撤 -12.77%。区间内多数指增类持仓承压，CTA 标的相对表现较好。",
+        footerNav: "0.8779",
+        summary: "产品本周收益 -0.57%，累计收益 -12.21%，最大回撤 -13.26%。区间内 CTA 标的保持正收益，指增类持仓仍有分化。",
         drawdownLabel: "2026-07 最大回撤区间",
         spark: "M8 66 C72 66 122 66 178 66 C232 67 272 68 318 64 C356 60 382 60 410 64 C445 72 448 80 482 82 C520 84 548 82 580 86 C620 92 630 94 666 96 C700 98 718 92 734 48 C742 24 754 18 782 18 C832 18 850 26 902 30 C956 34 990 36 1016 92 C1028 118 1035 154 1042 190",
         drawdownZone: { x: 910, width: 132 },
@@ -693,19 +826,67 @@
           { x: 585, label: "2026-06-08" },
           { x: 720, label: "2026-06-15" },
           { x: 875, label: "2026-06-29" },
-          { x: 1030, label: "2026-07-17" }
+          { x: 1030, label: "2026-07-24" }
         ],
         holdings: [
-          ["本产品", "-9.51%", "-11.71%", "--", "2026-04-29", "2026-07-17"],
-          ["世纪前沿中证A500指数增强8号私募证券投资基金B类（指数增强-大盘指增）", "-9.41%", "-7.06%", "10.48%", "2026-05-21", "2026-07-17"],
-          ["超量子省心享兴泰进取1号私募证券投资基金B类（指数增强-中小盘指增）", "-12.74%", "-16.21%", "12.91%", "2026-05-21", "2026-07-17"],
-          ["远澜HT翠柏8号私募证券投资基金B类（期货CTA-中低频）", "1.69%", "-0.77%", "11.19%", "2026-05-20", "2026-07-17"],
-          ["知行通达省心享兴泰锐进元合3号私募证券投资基金B类（指数增强-中小盘指增）", "-12.97%", "-10.2%", "3.9%", "2026-06-08", "2026-07-17"],
-          ["明泓兴泰1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-15.91%", "-18.24%", "16.47%", "2026-05-25", "2026-07-17"],
-          ["龙旗锐泰一号私募证券投资基金B类（指数增强-中小盘指增）", "-14.23%", "-19.38%", "11.39%", "2026-05-26", "2026-07-17"],
-          ["磐松HT全市场指数增强进取1号私募证券投资基金（指数增强-中小盘指增）", "-9.77%", "-16.6%", "3.75%", "2026-05-26", "2026-07-17"],
-          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "2.03%", "1.0%", "11.39%", "2026-05-22", "2026-07-17"],
-          ["世纪前沿兴泰进取1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-12.65%", "-14.83%", "6.21%", "2026-06-26", "2026-07-17"]
+          ["本产品", "-0.57%", "-12.21%", "--", "2026-04-29", "2026-07-24"],
+          ["世纪前沿中证A500指数增强8号私募证券投资基金B类（指数增强-大盘指增）", "0.72%", "-6.39%", "10.61%", "2026-05-21", "2026-07-24"],
+          ["超量子省心享兴泰进取1号私募证券投资基金B类（指数增强-中小盘指增）", "-0.91%", "-16.97%", "12.86%", "2026-05-21", "2026-07-24"],
+          ["远澜HT翠柏8号私募证券投资基金B类（期货CTA-中低频）", "0.89%", "0.11%", "11.35%", "2026-05-20", "2026-07-24"],
+          ["知行通达省心享兴泰锐进元合3号私募证券投资基金B类（指数增强-中小盘指增）", "-2.08%", "-12.07%", "3.84%", "2026-06-08", "2026-07-24"],
+          ["明泓兴泰1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-1.94%", "-19.83%", "16.24%", "2026-05-25", "2026-07-24"],
+          ["龙旗锐泰一号私募证券投资基金B类（指数增强-中小盘指增）", "-2.89%", "-21.71%", "11.12%", "2026-05-26", "2026-07-24"],
+          ["磐松HT全市场指数增强进取1号私募证券投资基金（指数增强-中小盘指增）", "-0.36%", "-16.9%", "3.75%", "2026-05-26", "2026-07-24"],
+          ["艾方博云尊享9号私募证券投资基金（期货CTA-中低频）", "1.31%", "2.32%", "11.6%", "2026-05-22", "2026-07-24"],
+          ["世纪前沿兴泰进取1号私募证券投资基金B类份额（指数增强-中小盘指增）", "-0.6%", "-15.34%", "6.2%", "2026-06-26", "2026-07-24"]
+        ],
+        clients: [
+          ["临沂北京路", "卓德凤", "0631", "883.1"],
+          ["济南解放路", "郗立苹", "9981", "441.6"],
+          ["青岛香港西路", "李陈修", "9765", "441.5"],
+          ["青岛香港西路", "张志远", "3882", "351.4"],
+          ["莱阳昌山路", "宋旭东", "4787", "281.1"],
+          ["莱阳昌山路", "杨佳佳", "4978", "263.6"],
+          ["济南解放路", "刘红霞", "9603", "184.5"],
+          ["济南解放东路", "伊长锁", "2791", "176.6"],
+          ["莱阳昌山路", "郝明辉", "9520", "176.6"],
+          ["莱阳昌山路", "郝明辉", "7777", "176.6"],
+          ["烟台南大街", "杨乐鹏", "4557", "175.7"],
+          ["济南解放东路", "王坤", "8407", "174.9"],
+          ["青岛香港西路", "徐宇宸", "1868", "159.2"],
+          ["青岛香港西路", "冯玉萍", "5192", "131.1"],
+          ["青岛香港西路", "姜曰振", "1722", "113.7"],
+          ["青岛香港西路", "王琦", "0110", "105.8"],
+          ["青岛香港西路", "张晶晶", "4323", "104.9"],
+          ["济南解放东路", "刘俊", "0006", "96.2"],
+          ["济南解放路", "何鲁豪", "4033", "89.2"],
+          ["济南解放路", "杜晶", "2137", "88.3"],
+          ["济南解放路", "杜晶", "8154", "88.3"],
+          ["青岛香港西路", "王帅", "2183", "88.3"],
+          ["莱阳昌山路", "郝明辉", "6930", "88.3"],
+          ["济南解放路", "杜晶", "0547", "88.3"],
+          ["济南解放路", "陈传翠", "9628", "88.3"],
+          ["济南解放东路", "张亚芳", "4056", "88.3"],
+          ["济南解放路", "孙丽丽", "1462", "88.3"],
+          ["济南解放路", "孙丽丽", "1276", "88.3"],
+          ["青岛香港西路", "徐宇宸", "8446", "88.3"],
+          ["济南解放路", "孙丽丽", "2398", "88.3"],
+          ["青岛香港西路", "冯玉萍", "4085", "88.3"],
+          ["济南解放路", "陈传翠", "7659", "88.3"],
+          ["青岛香港西路", "冯玉萍", "7253", "88.3"],
+          ["青岛香港西路", "连子豪", "7272", "88.3"],
+          ["青岛香港西路", "李陈修", "2010", "88.3"],
+          ["济南解放东路", "王钰翔", "6675", "88.3"],
+          ["济南解放东路", "林子渊", "2956", "88.3"],
+          ["莱阳昌山路", "姜建成", "2058", "88.3"],
+          ["济南解放路", "李越美", "5379", "88.3"],
+          ["莱阳昌山路", "姜建成", "5818", "88.3"],
+          ["济南经七路", "谢静", "0533", "88.3"],
+          ["济南解放路", "李越美", "6312", "88.3"],
+          ["济南解放路", "刘红霞", "2293", "88.3"],
+          ["济南解放路", "陈传翠", "2929", "88.3"],
+          ["济南解放路", "王昭峰", "2706", "88.3"],
+          ["济南解放路", "孙丽丽", "5268", "88.3"]
         ]
       }
     ];
@@ -739,6 +920,28 @@
       `).join("");
     }
 
+    function renderClientRows(rows) {
+      return rows.map(row => `
+        <tr>
+          <td>${row[0]}</td>
+          <td>${row[1]}</td>
+          <td class="flat">****${row[2]}</td>
+          <td class="pos">${row[3]}</td>
+        </tr>
+      `).join("");
+    }
+
+    function clientTotal(rows) {
+      return rows.reduce((sum, row) => sum + Number(row[3] || 0), 0).toFixed(1);
+    }
+
+    function optionList(values, selectedValue, allLabel) {
+      return [`<option value="">${allLabel}</option>`].concat(values.map(value => {
+        const selected = value === selectedValue ? " selected" : "";
+        return `<option value="${value}"${selected}>${value}</option>`;
+      })).join("");
+    }
+
     function renderYAxis(ticks) {
       const top = 30;
       const bottom = 190;
@@ -755,10 +958,58 @@
       `).join("");
     }
 
+    function renderClientTable(product) {
+      const branchOptions = [...new Set(product.clients.map(row => row[0]))].sort((a,b)=>a.localeCompare(b,"zh-CN"));
+      const branchRows = currentBranch ? product.clients.filter(row => row[0] === currentBranch) : product.clients;
+      const managerOptions = [...new Set(branchRows.map(row => row[1]))].sort((a,b)=>a.localeCompare(b,"zh-CN"));
+      const activeManager = managerOptions.includes(currentManager) ? currentManager : "";
+      const rows = (activeManager ? branchRows.filter(row => row[1] === activeManager) : branchRows)
+        .slice()
+        .sort((a,b) => Number(b[3] || 0) - Number(a[3] || 0));
+      const emptyRow = `<tr><td colspan="4" class="flat">当前筛选条件下暂无该产品持仓客户。</td></tr>`;
+      const rowHtml = rows.length ? renderClientRows(rows) : emptyRow;
+      const total = clientTotal(rows);
+      return `
+        <section class="section">
+          <div class="section-head">
+            <h3 class="section-title">产品持仓客户</h3>
+            <div class="client-controls" aria-label="${product.shortTitle}持仓客户筛选">
+              <select class="client-select" data-client-filter="branch" aria-label="营业部筛选">
+                ${optionList(branchOptions, currentBranch, "全部营业部")}
+              </select>
+              <select class="client-select" data-client-filter="manager" aria-label="员工筛选">
+                ${optionList(managerOptions, activeManager, "全部员工")}
+              </select>
+            </div>
+            <span class="client-summary"><strong>${rows.length}户</strong><span>保有金额 ${total} 万</span><span>产品代码 ${product.code}</span></span>
+          </div>
+          <div class="table-wrap">
+            <table class="client-table">
+              <thead>
+                <tr>
+                  <th>营业部</th>
+                  <th>服务经理</th>
+                  <th>客户号</th>
+                  <th class="sortable-th" aria-sort="descending"><button class="sort-button" type="button" title="保有金额已按降序排列">保有金额（万）<span class="sort-icon">↓</span></button></th>
+                </tr>
+              </thead>
+              <tbody>${rowHtml}</tbody>
+              <tfoot>
+                <tr>
+                  <td class="total-label" colspan="3">当前营业部保有金额合计</td>
+                  <td class="pos">${total}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
     function renderReport(product) {
       const lineClass = product.theme === "dark" ? "spark-line dark" : "spark-line";
       return `
-        <article class="product-report" id="${product.id}" data-search="${[product.title, product.shortTitle, product.holdings.flat().join(" ")].join(" ")}">
+        <article class="product-report" id="${product.id}" data-search="${[product.title, product.shortTitle, product.code, product.holdings.flat().join(" "), product.clients.flat().join(" ")].join(" ")}">
           <div class="report-head">
             <div>
               <div class="title-row">
@@ -810,7 +1061,7 @@
             <div class="chart-notes">
                 <div class="side-note"><strong>观察口径</strong><span>净值数据已扣除母层管理费、子层管理费和业绩报酬。</span></div>
                 <div class="side-note"><strong>回撤提示</strong><span>${product.drawdownLabel}</span></div>
-                <div class="side-note"><strong>期末净值</strong><span>截至 2026-07-17，单位净值为 ${product.footerNav}。</span></div>
+                <div class="side-note"><strong>期末净值</strong><span>截至 2026-07-24，单位净值为 ${product.footerNav}。</span></div>
             </div>
           </section>
 
@@ -844,8 +1095,10 @@
             </div>
           </section>
 
+          ${renderClientTable(product)}
+
           <div class="disclosure">
-            <strong>截至2026-07-17，${product.title}，单位净值为${product.footerNav}</strong>
+            <strong>截至2026-07-24，${product.title}，单位净值为${product.footerNav}</strong>
             <span>注：本报告仅供「${product.title}」投资者阅览，净值数据已扣除母层管理费、子层管理费和业绩报酬，风险揭示：产品历史业绩并不构成投资者所投资产品业绩表现的保证。</span>
             <span>数据来源：Wind、华泰证券资管。</span>
           </div>
@@ -856,6 +1109,17 @@
     const reportStack = document.getElementById("reportStack");
     const emptyState = document.getElementById("emptyState");
     const searchBox = document.getElementById("searchBox");
+    let currentBranch = "";
+    let currentManager = "";
+
+    function renderReports() {
+      const active = document.querySelector("[data-product-tab].active")?.dataset.productTab || "fof199";
+      reportStack.innerHTML = PRODUCTS.map(renderReport).join("");
+      document.querySelectorAll(".product-report").forEach(report => {
+        report.hidden = report.id !== active;
+      });
+      applySearch();
+    }
 
     reportStack.innerHTML = PRODUCTS.map(renderReport).join("");
 
@@ -894,6 +1158,18 @@
       const tab = event.target.closest("[data-product-tab]");
       if (!tab) return;
       setActiveProduct(tab.dataset.productTab);
+    });
+
+    document.addEventListener("change", event => {
+      const filter = event.target.closest("[data-client-filter]");
+      if (!filter) return;
+      if (filter.dataset.clientFilter === "branch") {
+        currentBranch = filter.value;
+        currentManager = "";
+      } else {
+        currentManager = filter.value;
+      }
+      renderReports();
     });
 
     searchBox.addEventListener("input", applySearch);

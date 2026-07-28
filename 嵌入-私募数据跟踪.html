@@ -110,18 +110,16 @@
     .top-list { display:flex; flex-wrap:wrap; gap:8px; padding-left:32px; }
     .chip { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; background:#f0f3f8; color:#536176; font-size:12px; font-weight:650; white-space:nowrap; }
     .chip.gold { background:#fff6d8; color:#96700a; }
-    .table-shell { background:#fff; --table-zoom:1; }
+    .table-shell { background:#fff; }
     .table-shell.fullscreen { position:fixed; inset:0; z-index:1000; border:0; border-radius:0; box-shadow:0 24px 80px rgba(16,24,40,.28); display:flex; flex-direction:column; overflow:hidden; }
     .table-shell.fullscreen .detail-meta { padding:12px 18px; border-bottom:1px solid var(--line); background:#fff; }
-    .table-shell.fullscreen .table-wrap { flex:1; min-height:0; max-height:none; overflow:auto; padding-bottom:18px; }
-    .table-shell.fullscreen .table-scale { transform:scale(var(--table-zoom)); }
+    .table-shell.fullscreen .table-wrap { flex:1 1 auto; min-height:0; max-height:none; overflow-x:auto; overflow-y:auto; padding:0 12px 44px 0; }
     .detail-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:0 18px 12px; color:var(--muted); font-size:12px; }
     .table-tools { display:flex; align-items:center; gap:8px; }
     .table-action { width:30px; height:30px; border:1px solid #cbd6eb; border-radius:6px; background:#fff; color:#4268d6; display:inline-grid; place-items:center; cursor:pointer; font-size:16px; line-height:1; }
     .table-action:hover { background:#eef3ff; }
-    .zoom-tools { display:none; align-items:center; gap:6px; }
-    .table-shell.fullscreen .zoom-tools { display:flex; }
-    .zoom-value { min-width:44px; text-align:center; color:#41506a; font-weight:800; font-variant-numeric:tabular-nums; }
+    .zoom-tools { display:none; }
+    .zoom-value { display:none; }
     .child-list { display:grid; gap:10px; padding:0 14px 14px; }
     details.child-strategy { border:1px solid #d3ddfb; border-radius:8px; background:#fff; overflow:hidden; }
     details.child-strategy summary { background:#edf3ff; color:#263b72; padding:12px 16px; }
@@ -130,27 +128,73 @@
     details.child-strategy .chip { background:#ffffff; color:#3153ad; border:1px solid #c6d4ff; }
     details.child-strategy .chip.gold { background:#d9e4ff; color:#244293; border-color:#b8c8f5; }
     details.child-strategy .chev { background:#d6e1ff; color:#3153ad; }
-    .table-wrap { overflow-x:hidden; overflow-y:auto; border-top:1px solid var(--line); max-height:560px; width:100%; padding-bottom:10px; scrollbar-gutter:stable both-edges; -webkit-overflow-scrolling:touch; }
-    .table-wrap.needs-scroll { overflow-x:auto; }
-    .table-scale { width:max-content; transform-origin:0 0; }
-    .table-wrap.is-scaled table.detail th { font-size:11px; }
-    .table-wrap.is-scaled table.detail td { font-size:11.5px; }
-    table.detail { width:max-content; border-collapse:collapse; table-layout:fixed; }
-    table.detail.base-detail { min-width:1660px; }
-    table.detail.wide-detail { min-width:2040px; }
-    col.col-strategyRank { width:78px; }
-    col.col-subStrategyRank { width:88px; }
-    col.col-productName { width:200px; }
-    col.col-productCode { width:96px; }
-    col.col-established { width:104px; }
-    col.col-manager { width:88px; }
-    col.col-subscriptionDay { width:104px; }
-    col.col-lockup { width:92px; }
-    col.col-nav, col.col-adjustedNav { width:94px; }
-    col.col-weekReturn, col.col-monthReturn, col.col-weekExcess { width:124px; }
-    col.col-ytdReturn, col.col-return2025, col.col-maxDrawdown, col.col-excess2025 { width:126px; }
-    col.col-ytdBuildExcess { width:146px; }
-    col.col-sharpe { width:106px; }
+    .table-wrap { overflow:auto; border-top:1px solid var(--line); max-height:560px; width:100%; padding:0 12px 10px 0; box-sizing:border-box; scrollbar-gutter:stable both-edges; -webkit-overflow-scrolling:touch; }
+    .table-wrap::-webkit-scrollbar { width:12px; height:0; }
+    .table-wrap::-webkit-scrollbar:vertical { width:12px; }
+    .table-wrap::-webkit-scrollbar:horizontal { height:0; }
+    .table-wrap::-webkit-scrollbar-track { background:#eef2f8; border-radius:999px; }
+    .table-wrap::-webkit-scrollbar-thumb { background:#b9c3d3; border:2px solid #eef2f8; border-radius:999px; }
+    .table-wrap::-webkit-scrollbar-thumb:hover { background:#909daf; }
+    .table-h-scroll { display:none; height:18px; flex:0 0 18px; background:#f8faff; border-top:1px solid var(--line); padding:4px 12px 4px 0; box-sizing:border-box; }
+    .table-shell.fullscreen .table-h-scroll { position:fixed; left:0; right:0; bottom:0; height:28px; padding:7px 18px; z-index:1002; background:#eef3ff; border-top:1px solid #cbd6eb; box-shadow:0 -2px 0 rgba(66,104,214,.12), 0 -10px 24px rgba(31,42,61,.16); }
+    .table-shell.has-horizontal-scroll .table-h-scroll { display:block; }
+    .table-h-scroll-track { position:relative; height:10px; border-radius:999px; background:#d7dfec; box-shadow:inset 0 0 0 1px rgba(126,143,168,.18); cursor:pointer; }
+    .table-h-scroll-thumb { position:absolute; top:1px; left:var(--scroll-thumb-left,0px); width:var(--scroll-thumb-width,80px); height:8px; border-radius:999px; background:#6f84a8; box-shadow:0 1px 2px rgba(31,42,61,.22); cursor:grab; }
+    .table-h-scroll-thumb:hover { background:#526987; }
+    .table-h-scroll.dragging .table-h-scroll-thumb { cursor:grabbing; background:#405875; }
+    .table-scale { width:100%; }
+    table.detail { width:max(100%, var(--table-min-width,1280px)); min-width:var(--table-min-width,1280px); border-collapse:collapse; table-layout:fixed; }
+    table.detail.base-detail { --table-min-width:1370px; }
+    table.detail.child-detail { --table-min-width:1510px; }
+    table.detail.wide-detail { --table-min-width:1840px; }
+    table.detail.base-detail col.col-strategyRank { width:82px; }
+    table.detail.base-detail col.col-productName { width:210px; }
+    table.detail.base-detail col.col-productCode { width:94px; }
+    table.detail.base-detail col.col-established { width:112px; }
+    table.detail.base-detail col.col-manager { width:92px; }
+    table.detail.base-detail col.col-subscriptionDay { width:132px; }
+    table.detail.base-detail col.col-lockup { width:180px; }
+    table.detail.base-detail col.col-nav { width:94px; }
+    table.detail.base-detail col.col-weekReturn,
+    table.detail.base-detail col.col-monthReturn,
+    table.detail.base-detail col.col-ytdReturn,
+    table.detail.base-detail col.col-return2025,
+    table.detail.base-detail col.col-maxDrawdown { width:104px; }
+    table.detail.base-detail col.col-sharpe { width:100px; }
+    table.detail.child-detail col.col-strategyRank,
+    table.detail.child-detail col.col-subStrategyRank { width:82px; }
+    table.detail.child-detail col.col-productName { width:210px; }
+    table.detail.child-detail col.col-productCode { width:94px; }
+    table.detail.child-detail col.col-established { width:112px; }
+    table.detail.child-detail col.col-manager { width:92px; }
+    table.detail.child-detail col.col-subscriptionDay { width:132px; }
+    table.detail.child-detail col.col-lockup { width:180px; }
+    table.detail.child-detail col.col-nav { width:94px; }
+    table.detail.child-detail col.col-weekReturn,
+    table.detail.child-detail col.col-monthReturn,
+    table.detail.child-detail col.col-ytdReturn,
+    table.detail.child-detail col.col-return2025,
+    table.detail.child-detail col.col-maxDrawdown { width:104px; }
+    table.detail.child-detail col.col-sharpe { width:100px; }
+    table.detail.wide-detail col.col-strategyRank,
+    table.detail.wide-detail col.col-subStrategyRank { width:64px; }
+    table.detail.wide-detail col.col-productName { width:164px; }
+    table.detail.wide-detail col.col-productCode { width:84px; }
+    table.detail.wide-detail col.col-established { width:100px; }
+    table.detail.wide-detail col.col-manager { width:72px; }
+    table.detail.wide-detail col.col-subscriptionDay { width:112px; }
+    table.detail.wide-detail col.col-lockup { width:180px; }
+    table.detail.wide-detail col.col-nav,
+    table.detail.wide-detail col.col-adjustedNav { width:82px; }
+    table.detail.wide-detail col.col-weekReturn,
+    table.detail.wide-detail col.col-monthReturn,
+    table.detail.wide-detail col.col-ytdReturn,
+    table.detail.wide-detail col.col-return2025,
+    table.detail.wide-detail col.col-maxDrawdown,
+    table.detail.wide-detail col.col-weekExcess { width:90px; }
+    table.detail.wide-detail col.col-ytdBuildExcess { width:106px; }
+    table.detail.wide-detail col.col-excess2025 { width:100px; }
+    table.detail.wide-detail col.col-sharpe { width:76px; }
     table.detail th { position:sticky; top:0; z-index:2; background:#151b34; color:#fff; text-align:center; padding:8px 8px; font-size:10px; white-space:nowrap; }
     table.detail th.sortable { padding:0; }
     .sort-button { width:100%; height:100%; min-height:31px; border:0; background:transparent; color:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:4px; padding:8px 7px; font:inherit; font-weight:800; }
@@ -174,7 +218,7 @@
     .week-bar-cell.week-negative span { color:#1f5f9f; }
     .week-bar-cell.week-flat span { color:#596579; }
     .rank-cell { color:#a67d10; font-weight:800; }
-    .product-cell { width:200px; max-width:200px; white-space:normal; overflow-wrap:break-word; line-height:1.35; text-align:center; }
+    .product-cell { width:auto; max-width:none; white-space:normal; overflow-wrap:break-word; line-height:1.35; text-align:center; }
     .source-note { padding:12px 18px 18px; color:#6e7786; font-size:12px; }
     .empty { text-align:center; color:var(--muted); padding:36px; border-top:1px solid var(--line); display:none; }
     @media (max-width:1100px) {
@@ -270,7 +314,7 @@
     </main>
   </div>
 
-  <script src="data/productCalendarData.js?v=20260723_eastmoney_20260722_trend"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260727_public_coef_priority"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
+  <script src="data/productCalendarData.js?v=20260728_heji_factor_period"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260728_public_compare_no_substrategy"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -487,7 +531,7 @@
       const columns = includeExcess ? childExcessColumns : (includeSubRank ? childBaseColumns : baseColumns);
       const metrics = tableMetrics(rows);
       const tableId = `table-${Math.random().toString(36).slice(2)}`;
-      const tableClass = includeExcess ? "wide-detail" : "base-detail";
+      const tableClass = includeExcess ? "wide-detail" : (includeSubRank ? "child-detail" : "base-detail");
       const colGroup = `<colgroup>${columns.map(([key]) => `<col class="${columnClass(key)}">`).join("")}</colgroup>`;
       const bodyRows = rows.map((row, rowIndex) => `
         <tr class="${row.isPrivatePool ? "private-pool" : ""}" data-original-index="${rowIndex}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}" data-sort-value="${sortValue(key, row) ?? ""}">${cellContent(key, row)}</td>`).join("")}</tr>
@@ -518,6 +562,9 @@
               </table>
             </div>
           </div>
+          <div class="table-h-scroll" role="scrollbar" aria-orientation="horizontal" aria-label="表格横向滚动">
+            <div class="table-h-scroll-track"><div class="table-h-scroll-thumb"></div></div>
+          </div>
         </div>
       `;
     }
@@ -527,48 +574,76 @@
       const wrap = shell.querySelector(".table-wrap");
       const scaleBox = shell.querySelector(".table-scale");
       const table = shell.querySelector("table.detail");
-      if (!wrap || !scaleBox || !table) return;
+      const hScroll = shell.querySelector(".table-h-scroll");
+      if (!wrap || !scaleBox) return;
       scaleBox.style.transform = "";
       scaleBox.style.height = "";
-      scaleBox.style.width = "";
+      scaleBox.style.width = "100%";
       wrap.classList.remove("is-scaled", "needs-scroll");
-      const naturalWidth = table.offsetWidth;
-      const naturalHeight = table.offsetHeight;
-      const availableWidth = Math.max(320, wrap.clientWidth - 2);
-      if (!naturalWidth || !naturalHeight) return;
-      if (shell.classList.contains("fullscreen")) {
-        const zoom = Number(shell.dataset.zoom || 1);
-        const applied = Number.isFinite(zoom) ? zoom : 1;
-        scaleBox.style.width = `${naturalWidth}px`;
-        scaleBox.style.height = `${Math.ceil(naturalHeight * applied)}px`;
-        scaleBox.style.transform = `scale(${applied})`;
-        shell.style.setProperty("--table-zoom", applied);
-        wrap.classList.add("needs-scroll");
-        if (applied < 0.995) wrap.classList.add("is-scaled");
-        return;
-      }
-      const minScale = shell.classList.contains("fullscreen") ? 0.46 : 0.46;
-      const scale = Math.min(1, availableWidth / naturalWidth);
-      const applied = Math.max(minScale, scale);
-      if (applied < 0.995) {
-        scaleBox.style.width = `${naturalWidth}px`;
-        scaleBox.style.height = `${Math.ceil(naturalHeight * applied)}px`;
-        scaleBox.style.transform = `scale(${applied})`;
-        wrap.classList.add("is-scaled");
-      }
-      if (scale < minScale) wrap.classList.add("needs-scroll");
+      const needsHorizontal = shell.classList.contains("fullscreen") || wrap.scrollWidth > wrap.clientWidth + 2;
+      shell.classList.toggle("has-horizontal-scroll", needsHorizontal);
+      updateHorizontalScrollbar(shell);
     }
 
     function fitTables() {
       document.querySelectorAll(".table-shell").forEach(fitTableShell);
+      postTrackingScrollState();
+    }
+
+    function updateHorizontalScrollbar(shell) {
+      const wrap = shell?.querySelector(".table-wrap");
+      const bar = shell?.querySelector(".table-h-scroll");
+      const track = shell?.querySelector(".table-h-scroll-track");
+      const thumb = shell?.querySelector(".table-h-scroll-thumb");
+      if (!wrap || !bar || !track || !thumb) return;
+      const maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      const trackWidth = track.clientWidth;
+      if (!maxScroll || !trackWidth) {
+        if (shell.classList.contains("fullscreen") && trackWidth) {
+          shell.classList.add("has-horizontal-scroll");
+          thumb.style.setProperty("--scroll-thumb-width", `${trackWidth}px`);
+          thumb.style.setProperty("--scroll-thumb-left", "0px");
+          bar.setAttribute("aria-valuemin", "0");
+          bar.setAttribute("aria-valuemax", "0");
+          bar.setAttribute("aria-valuenow", "0");
+          return;
+        }
+        shell.classList.remove("has-horizontal-scroll");
+        return;
+      }
+      shell.classList.add("has-horizontal-scroll");
+      const thumbWidth = Math.max(44, Math.round(trackWidth * wrap.clientWidth / wrap.scrollWidth));
+      const maxThumbLeft = Math.max(0, trackWidth - thumbWidth);
+      const thumbLeft = Math.round(maxThumbLeft * wrap.scrollLeft / maxScroll);
+      thumb.style.setProperty("--scroll-thumb-width", `${thumbWidth}px`);
+      thumb.style.setProperty("--scroll-thumb-left", `${thumbLeft}px`);
+      bar.setAttribute("aria-valuemin", "0");
+      bar.setAttribute("aria-valuemax", String(Math.round(maxScroll)));
+      bar.setAttribute("aria-valuenow", String(Math.round(wrap.scrollLeft)));
+      if (shell.classList.contains("fullscreen")) postTrackingScrollState(shell);
+    }
+
+    function postTrackingScrollState(sourceShell = null) {
+      const shell = sourceShell || document.querySelector(".table-shell.fullscreen");
+      const wrap = shell?.querySelector(".table-wrap");
+      if (!shell || !wrap) {
+        window.parent?.postMessage({ type: "tracking-table-scroll-state", active: false }, "*");
+        return;
+      }
+      const maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      window.parent?.postMessage({
+        type: "tracking-table-scroll-state",
+        active: true,
+        scrollLeft: wrap.scrollLeft,
+        maxScroll,
+        scrollWidth: wrap.scrollWidth,
+        clientWidth: wrap.clientWidth
+      }, "*");
     }
 
     function updateZoom(shell, nextZoom) {
-      const zoom = Math.min(1.6, Math.max(0.5, nextZoom));
-      shell.dataset.zoom = zoom.toFixed(2);
-      shell.style.setProperty("--table-zoom", zoom);
       const value = shell.querySelector("[data-zoom-value]");
-      if (value) value.textContent = `${Math.round(zoom * 100)}%`;
+      if (value) value.textContent = "100%";
       fitTableShell(shell);
     }
 
@@ -684,6 +759,52 @@
 
     renderReport();
     renderStrategies();
+    let syncingTableScroll = false;
+    document.addEventListener("scroll", event => {
+      if (syncingTableScroll) return;
+      const source = event.target;
+      if (!(source instanceof Element)) return;
+      const shell = source.closest(".table-shell");
+      if (!shell) return;
+      const wrap = shell.querySelector(".table-wrap");
+      const hScroll = shell.querySelector(".table-h-scroll");
+      if (!wrap || !hScroll) return;
+      syncingTableScroll = true;
+      if (source.classList.contains("table-wrap")) updateHorizontalScrollbar(shell);
+      if (source.classList.contains("table-wrap") && shell.classList.contains("fullscreen")) postTrackingScrollState(shell);
+      syncingTableScroll = false;
+    }, true);
+    document.addEventListener("pointerdown", event => {
+      const track = event.target.closest(".table-h-scroll-track");
+      if (!track) return;
+      const shell = track.closest(".table-shell");
+      const bar = shell?.querySelector(".table-h-scroll");
+      const wrap = shell?.querySelector(".table-wrap");
+      const thumb = shell?.querySelector(".table-h-scroll-thumb");
+      if (!shell || !bar || !wrap || !thumb) return;
+      event.preventDefault();
+      bar.classList.add("dragging");
+      const rect = track.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+      const startOffset = event.target.closest(".table-h-scroll-thumb") ? event.clientX - thumbRect.left : thumbRect.width / 2;
+      const moveTo = clientX => {
+        const maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+        const thumbWidth = thumb.getBoundingClientRect().width;
+        const maxThumbLeft = Math.max(1, rect.width - thumbWidth);
+        const nextLeft = Math.min(maxThumbLeft, Math.max(0, clientX - rect.left - startOffset));
+        wrap.scrollLeft = nextLeft / maxThumbLeft * maxScroll;
+        updateHorizontalScrollbar(shell);
+      };
+      moveTo(event.clientX);
+      const onMove = moveEvent => moveTo(moveEvent.clientX);
+      const onUp = () => {
+        bar.classList.remove("dragging");
+        document.removeEventListener("pointermove", onMove);
+        document.removeEventListener("pointerup", onUp);
+      };
+      document.addEventListener("pointermove", onMove);
+      document.addEventListener("pointerup", onUp);
+    });
     document.getElementById("searchBox").addEventListener("input", event => renderStrategies(event.target.value));
     document.addEventListener("click", event => {
       const sortButton = event.target.closest("[data-sort-column]");
@@ -711,7 +832,36 @@
       if (shell.classList.contains("fullscreen") && !shell.dataset.zoom) updateZoom(shell, 1);
       button.textContent = shell.classList.contains("fullscreen") ? "×" : "⛶";
       button.title = shell.classList.contains("fullscreen") ? "退出全屏" : "全屏展示";
-      requestAnimationFrame(() => requestAnimationFrame(fitTables));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fitTables();
+        postTrackingScrollState(shell.classList.contains("fullscreen") ? shell : null);
+      }));
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      document.querySelectorAll(".table-shell.fullscreen").forEach(shell => {
+        shell.classList.remove("fullscreen");
+        const button = document.querySelector(`[data-fullscreen="${shell.id}"]`);
+        if (button) {
+          button.textContent = "⛶";
+          button.title = "全屏展示";
+        }
+      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fitTables();
+        postTrackingScrollState();
+      }));
+    });
+    window.addEventListener("message", event => {
+      const data = event.data || {};
+      if (data.type !== "set-tracking-table-scroll") return;
+      const shell = document.querySelector(".table-shell.fullscreen");
+      const wrap = shell?.querySelector(".table-wrap");
+      if (!shell || !wrap) return;
+      const maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      wrap.scrollLeft = Math.min(maxScroll, Math.max(0, Number(data.scrollLeft || 0)));
+      updateHorizontalScrollbar(shell);
+      postTrackingScrollState(shell);
     });
     document.addEventListener("toggle", event => {
       if (event.target.matches("details.strategy, details.child-strategy")) requestAnimationFrame(() => requestAnimationFrame(fitTables));

@@ -24,12 +24,11 @@
     html,
     body {
       height:100%;
-      overflow:auto;
+      overflow:hidden;
     }
 
     body {
       margin:0;
-      min-width:1440px;
       color:var(--ink);
       background:var(--bg);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
@@ -41,10 +40,9 @@
 
     .shell {
       height:100vh;
-      min-width:1440px;
       overflow:hidden;
       display:grid;
-      grid-template-columns:264px minmax(1176px,1fr);
+      grid-template-columns:264px minmax(0,1fr);
     }
 
     .sidebar {
@@ -234,7 +232,7 @@
     main {
       position:relative;
       z-index:1;
-      min-width:1176px;
+      min-width:0;
       height:100vh;
       overflow:hidden;
     }
@@ -259,7 +257,6 @@
 
     .content-frame {
       width:100%;
-      min-width:1176px;
       height:100vh;
       min-height:900px;
       border:0;
@@ -280,6 +277,49 @@
 
     .nav-shield[hidden] {
       display:none;
+    }
+
+    .outer-table-scroll {
+      position:fixed;
+      left:264px;
+      right:0;
+      bottom:0;
+      z-index:3000;
+      height:34px;
+      padding:8px 18px;
+      background:#eef3ff;
+      border-top:1px solid #c7d4ea;
+      box-shadow:0 -2px 0 rgba(66,104,214,.14), 0 -12px 28px rgba(16,24,40,.18);
+    }
+
+    .outer-table-scroll[hidden] {
+      display:none;
+    }
+
+    .outer-table-scroll-track {
+      position:relative;
+      height:14px;
+      border-radius:999px;
+      background:#d4deee;
+      box-shadow:inset 0 0 0 1px rgba(106,124,153,.2);
+      cursor:pointer;
+    }
+
+    .outer-table-scroll-thumb {
+      position:absolute;
+      top:2px;
+      left:var(--outer-scroll-left, 0px);
+      width:var(--outer-scroll-width, 80px);
+      height:10px;
+      border-radius:999px;
+      background:#5e749c;
+      box-shadow:0 1px 3px rgba(16,24,40,.25);
+      cursor:grab;
+    }
+
+    .outer-table-scroll.dragging .outer-table-scroll-thumb {
+      cursor:grabbing;
+      background:#405875;
     }
 
     .placeholder {
@@ -318,14 +358,39 @@
     }
 
     @media (max-width:980px) {
-      .shell { min-width:1440px; }
-      .sidebar { position:sticky; height:100vh; }
-      main { height:100vh; overflow:hidden; }
+      .shell {
+        height:auto;
+        min-height:100vh;
+        overflow:visible;
+        grid-template-columns:1fr;
+      }
+
+      .sidebar {
+        position:static;
+        height:auto;
+      }
+
+      main {
+        height:auto;
+        overflow:visible;
+      }
+
+      .flyout {
+        position:static;
+        width:100%;
+        margin-top:4px;
+        opacity:1;
+        pointer-events:auto;
+        transform:none;
+        box-shadow:none;
+      }
+
       .workspace { padding:0; }
-      .nav-shield { left:330px; }
+      .nav-shield { left:0; }
+      .outer-table-scroll { left:0; }
     }
   </style>
-<script src="data/productCalendarData.js?v=20260727_metric_color"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260727-private-launch-cards"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
+<script src="data/productCalendarData.js?v=20260728_public_drawer_fit"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260728-marketing-six-sections"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -367,6 +432,9 @@
       <span id="sideCurrent" hidden>产品日历</span>
     </aside>
     <button class="nav-shield" id="navShield" type="button" aria-label="收起二级菜单" hidden></button>
+    <div class="outer-table-scroll" id="outerTableScroll" aria-label="表格横向滚动" role="scrollbar" hidden>
+      <div class="outer-table-scroll-track"><div class="outer-table-scroll-thumb"></div></div>
+    </div>
 
     <main>
       <div class="workspace">
@@ -418,12 +486,12 @@
     };
 
     const calendars = {
-      private: '嵌入-私募日历.html?v=20260728-operation-popover-sync',
-      public: '嵌入-公募日历.html?v=20260727_metric_color',
+      private: '嵌入-私募日历.html?v=20260728-overview-font-tune',
+      public: '嵌入-公募日历.html?v=20260728_public_drawer_fit',
       fixed: '嵌入-固收结构化日历.html?v=20260722_002'
     };
     const lazyFrames = {
-      tracking: '嵌入-私募数据跟踪.html?v=20260727_0859',
+      tracking: '嵌入-私募数据跟踪.html?v=20260728_parent_scrollbar',
       fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
       broadcast: '嵌入-标准销量销售情况.html?v=20260727_bucket_fit'
     };
@@ -441,7 +509,11 @@
     const fofFrame = document.getElementById('fofFrame');
     const broadcastFrame = document.getElementById('broadcastFrame');
     const navShield = document.getElementById('navShield');
+    const outerTableScroll = document.getElementById('outerTableScroll');
     let pendingSalesModule = 'report';
+    let outerScrollDragging = false;
+    let trackingScrollTimer = null;
+    let outerTrackingState = { active:false, scrollLeft:0, maxScroll:0, scrollWidth:0, clientWidth:0 };
 
     function beijingDateParts() {
       const parts = new Intl.DateTimeFormat('zh-CN', {
@@ -497,6 +569,7 @@
         const modalHeight = Math.round(Math.min(window.innerHeight * 0.9, availableHeight));
         doc.documentElement.style.setProperty('--outer-modal-width', `${modalWidth}px`);
         doc.documentElement.style.setProperty('--outer-modal-height', `${modalHeight}px`);
+        doc.documentElement.style.setProperty('--outer-drawer-height', `${Math.round(window.innerHeight)}px`);
       } catch (error) {
         console.warn('弹窗尺寸同步未生效', error);
       }
@@ -507,6 +580,39 @@
       fitFrameHeight(trackingFrame);
       fitFrameHeight(fofFrame);
       fitFrameHeight(broadcastFrame);
+      updateOuterTableScroll();
+    }
+
+    function updateOuterTableScroll() {
+      if (!outerTableScroll || modules.tracking.view.hidden || !outerTrackingState.active) {
+        if (outerTableScroll) outerTableScroll.hidden = true;
+        return;
+      }
+      outerTableScroll.hidden = false;
+      const track = outerTableScroll.querySelector('.outer-table-scroll-track');
+      const thumb = outerTableScroll.querySelector('.outer-table-scroll-thumb');
+      const trackWidth = track?.clientWidth || 0;
+      if (!trackWidth) {
+        outerTableScroll.hidden = true;
+        return;
+      }
+      const maxScroll = Math.max(0, Number(outerTrackingState.maxScroll || 0));
+      const thumbWidth = maxScroll
+        ? Math.max(48, Math.round(trackWidth * outerTrackingState.clientWidth / outerTrackingState.scrollWidth))
+        : trackWidth;
+      const maxThumbLeft = Math.max(0, trackWidth - thumbWidth);
+      const thumbLeft = maxScroll ? Math.round(maxThumbLeft * outerTrackingState.scrollLeft / maxScroll) : 0;
+      thumb.style.setProperty('--outer-scroll-width', `${thumbWidth}px`);
+      thumb.style.setProperty('--outer-scroll-left', `${thumbLeft}px`);
+      outerTableScroll.setAttribute('aria-valuemin', '0');
+      outerTableScroll.setAttribute('aria-valuemax', String(Math.round(maxScroll)));
+      outerTableScroll.setAttribute('aria-valuenow', String(Math.round(outerTrackingState.scrollLeft)));
+    }
+
+    function startTrackingScrollSync() {
+      if (trackingScrollTimer) window.clearInterval(trackingScrollTimer);
+      trackingScrollTimer = window.setInterval(updateOuterTableScroll, 160);
+      updateOuterTableScroll();
     }
 
     function tuneEmbeddedPage(frame) {
@@ -798,6 +904,8 @@
       if (moduleName === 'tracking' && trackingFrame.getAttribute('src') === 'about:blank') trackingFrame.src = lazyFrames.tracking;
       if (moduleName === 'fof' && fofFrame.getAttribute('src') === 'about:blank') fofFrame.src = lazyFrames.fof;
       if (moduleName === 'broadcast' && broadcastFrame.getAttribute('src') === 'about:blank') broadcastFrame.src = lazyFrames.broadcast;
+      if (moduleName !== 'tracking') outerTrackingState = { active:false, scrollLeft:0, maxScroll:0, scrollWidth:0, clientWidth:0 };
+      updateOuterTableScroll();
     }
 
     function openCalendar(calendarName) {
@@ -851,6 +959,17 @@
       const data = event.data;
       if (data && data.type === 'close-nav-groups') {
         closeNavGroups();
+        return;
+      }
+      if (data && data.type === 'tracking-table-scroll-state') {
+        outerTrackingState = {
+          active: !!data.active,
+          scrollLeft: Number(data.scrollLeft || 0),
+          maxScroll: Number(data.maxScroll || 0),
+          scrollWidth: Number(data.scrollWidth || 0),
+          clientWidth: Number(data.clientWidth || 0)
+        };
+        updateOuterTableScroll();
         return;
       }
       if (!data || data.type !== 'open-calendar') return;
@@ -911,6 +1030,40 @@
     });
     navShield?.addEventListener('click', () => closeNavGroups());
 
+    outerTableScroll?.addEventListener('pointerdown', event => {
+      const track = event.target.closest('.outer-table-scroll-track');
+      if (!track) return;
+      const thumb = outerTableScroll.querySelector('.outer-table-scroll-thumb');
+      if (!outerTrackingState.active || !thumb) return;
+      event.preventDefault();
+      outerScrollDragging = true;
+      outerTableScroll.classList.add('dragging');
+      const rect = track.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+      const startOffset = event.target.closest('.outer-table-scroll-thumb') ? event.clientX - thumbRect.left : thumbRect.width / 2;
+      const moveTo = clientX => {
+        const maxScroll = Math.max(0, Number(outerTrackingState.maxScroll || 0));
+        const thumbWidth = thumb.getBoundingClientRect().width;
+        const maxThumbLeft = Math.max(1, rect.width - thumbWidth);
+        const nextLeft = Math.min(maxThumbLeft, Math.max(0, clientX - rect.left - startOffset));
+        const scrollLeft = maxScroll ? nextLeft / maxThumbLeft * maxScroll : 0;
+        outerTrackingState.scrollLeft = scrollLeft;
+        trackingFrame.contentWindow?.postMessage({ type:'set-tracking-table-scroll', scrollLeft }, '*');
+        updateOuterTableScroll();
+      };
+      moveTo(event.clientX);
+      const onMove = moveEvent => moveTo(moveEvent.clientX);
+      const onUp = () => {
+        outerScrollDragging = false;
+        outerTableScroll.classList.remove('dragging');
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+        updateOuterTableScroll();
+      };
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+    });
+
     calendarFrame.addEventListener('load', () => {
       tuneEmbeddedPage(calendarFrame);
       bindFrameCloseNav(calendarFrame);
@@ -922,6 +1075,7 @@
       tuneEmbeddedPage(trackingFrame);
       bindFrameCloseNav(trackingFrame);
       fitFrameHeight(trackingFrame);
+      startTrackingScrollSync();
       window.setTimeout(() => fitFrameHeight(trackingFrame), 400);
     });
     fofFrame.addEventListener('load', () => {

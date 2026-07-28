@@ -36,7 +36,7 @@
     .monthly-detail td,.monthly-detail th{text-align:left}.monthly-detail td:nth-child(2),.monthly-detail td:nth-child(3){font-weight:850;white-space:nowrap}.monthly-detail td:last-child{min-width:360px;color:#536176}
     .note{margin-top:10px;color:#69788b;font-size:12px}
     .stack{display:grid;gap:12px}.net-layout{display:grid;grid-template-columns:minmax(0,1.45fr) 360px;gap:12px;align-items:stretch}.net-layout .chart-card{min-width:0}.net-table table{min-width:0;height:100%}.net-table td:first-child{color:#244b82;font-weight:850;white-space:nowrap}.explain-card{border-left:4px solid var(--green)}
-    .index-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+    .index-grid{display:grid;grid-template-columns:1fr;gap:12px}
     .index-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .index-item{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfdff}
     .index-item strong{display:block;color:var(--deep);font-size:15px;margin-bottom:4px}
@@ -88,6 +88,40 @@
     </section>
 
     <section class="section">
+      <h2>运作以来业绩</h2>
+      <div class="stack">
+        <div class="chart-card">
+          <div class="chart-title">代表产品逐月收益 | 单位：%</div>
+          <svg id="monthlyChart" viewBox="0 0 1180 430" role="img" aria-label="蒙玺量化光翼逐月收益"></svg>
+          <p class="note">代表产品起始运作日 2025/6/26，数据截至 2026/7/3；单位净值、累计净值均为计提业绩报酬前净值。</p>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">每月涨跌与备注</div>
+          <table class="monthly-detail">
+            <thead><tr><th>月份</th><th>产品收益</th><th>阶段累计</th><th>备注</th></tr></thead>
+            <tbody>
+              <tr><td>25-06</td><td class="value-pos">+0.57%</td><td class="value-pos">+0.57%</td><td>起始运作后首月小幅正收益，策略进入实盘观察期。</td></tr>
+              <tr><td>25-07</td><td class="value-pos">+4.61%</td><td class="value-pos">+5.21%</td><td>全市场选股收益释放，净值开始抬升。</td></tr>
+              <tr><td>25-08</td><td class="value-pos">+8.43%</td><td class="value-pos">+14.07%</td><td>阶段弹性最突出，短周期信号和市场 beta 共同贡献。</td></tr>
+              <tr><td>25-09</td><td class="value-pos">+3.40%</td><td class="value-pos">+17.95%</td><td>上涨节奏放缓，仍保持正收益积累。</td></tr>
+              <tr><td>25-10</td><td class="value-pos">+3.94%</td><td class="value-pos">+22.60%</td><td>延续稳步上行，组合分散选股继续贡献。</td></tr>
+              <tr><td>25-11</td><td class="value-pos">+2.77%</td><td class="value-pos">+26.00%</td><td>收益温和扩张，净值曲线保持向上斜率。</td></tr>
+              <tr><td>25-12</td><td class="value-pos">+1.65%</td><td class="value-pos">+28.08%</td><td>年末收官为正，2025年6-12月累计收益 +28.08%。</td></tr>
+              <tr><td>26-01</td><td class="value-pos">+9.18%</td><td class="value-pos">+9.18%</td><td>开年收益突出，成为 2026 年阶段贡献最大的月份之一。</td></tr>
+              <tr><td>26-02</td><td class="value-pos">+4.97%</td><td class="value-pos">+14.61%</td><td>上涨延续，策略短周期信号继续贡献正收益。</td></tr>
+              <tr><td>26-03</td><td class="value-neg">-7.96%</td><td class="value-pos">+5.49%</td><td>市场波动中出现阶段回撤，也是区间内主要回撤月份。</td></tr>
+              <tr><td>26-04</td><td class="value-pos">+10.01%</td><td class="value-pos">+16.05%</td><td>回撤后快速修复，单月收益贡献明显。</td></tr>
+              <tr><td>26-05</td><td class="value-neg">-0.91%</td><td class="value-pos">+14.99%</td><td>小幅调整，整体累计收益保持较高水平。</td></tr>
+              <tr><td>26-06</td><td class="value-pos">+1.58%</td><td class="value-pos">+16.81%</td><td>收益恢复为正，净值继续缓慢上行。</td></tr>
+              <tr><td>26-07</td><td class="value-pos">+2.65%</td><td class="value-pos">+19.91%</td><td>截至 7月3日，2026年累计收益达到 +19.91%。</td></tr>
+            </tbody>
+          </table>
+          <p class="note">备注为内部销售解读口径，用于辅助理解月度收益节奏；历史业绩不代表未来表现。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>核心结论</h2>
       <div class="grid three">
         <div class="card highlight"><span class="pill">业绩结果</span><h3>代表产品跑赢对标指数</h3><p>推介材料第 18-19 页披露，代表产品运作以来绝对收益 +53.59%，同区间万得全A等权指数涨幅 +21.49%，超额约 32 个百分点。</p></div>
@@ -126,39 +160,11 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>运作以来业绩</h2>
-      <div class="stack">
-        <div class="chart-card">
-          <div class="chart-title">代表产品逐月收益 | 单位：%</div>
-          <svg id="monthlyChart" viewBox="0 0 1180 430" role="img" aria-label="蒙玺量化光翼逐月收益"></svg>
-          <p class="note">代表产品起始运作日 2025/6/26，数据截至 2026/7/3；单位净值、累计净值均为计提业绩报酬前净值。</p>
-        </div>
-        <div class="chart-card">
-          <div class="chart-title">每月涨跌与备注</div>
-          <table class="monthly-detail">
-            <thead><tr><th>月份</th><th>产品收益</th><th>阶段累计</th><th>备注</th></tr></thead>
-            <tbody>
-              <tr><td>25-06</td><td class="value-pos">+0.57%</td><td class="value-pos">+0.57%</td><td>起始运作后首月小幅正收益，策略进入实盘观察期。</td></tr>
-              <tr><td>25-07</td><td class="value-pos">+4.61%</td><td class="value-pos">+5.21%</td><td>全市场选股收益释放，净值开始抬升。</td></tr>
-              <tr><td>25-08</td><td class="value-pos">+8.43%</td><td class="value-pos">+14.07%</td><td>阶段弹性最突出，短周期信号和市场 beta 共同贡献。</td></tr>
-              <tr><td>25-09</td><td class="value-pos">+3.40%</td><td class="value-pos">+17.95%</td><td>上涨节奏放缓，仍保持正收益积累。</td></tr>
-              <tr><td>25-10</td><td class="value-pos">+3.94%</td><td class="value-pos">+22.60%</td><td>延续稳步上行，组合分散选股继续贡献。</td></tr>
-              <tr><td>25-11</td><td class="value-pos">+2.77%</td><td class="value-pos">+26.00%</td><td>收益温和扩张，净值曲线保持向上斜率。</td></tr>
-              <tr><td>25-12</td><td class="value-pos">+1.65%</td><td class="value-pos">+28.08%</td><td>年末收官为正，2025年6-12月累计收益 +28.08%。</td></tr>
-              <tr><td>26-01</td><td class="value-pos">+9.18%</td><td class="value-pos">+9.18%</td><td>开年收益突出，成为 2026 年阶段贡献最大的月份之一。</td></tr>
-              <tr><td>26-02</td><td class="value-pos">+4.97%</td><td class="value-pos">+14.61%</td><td>上涨延续，策略短周期信号继续贡献正收益。</td></tr>
-              <tr><td>26-03</td><td class="value-neg">-7.96%</td><td class="value-pos">+5.49%</td><td>市场波动中出现阶段回撤，也是区间内主要回撤月份。</td></tr>
-              <tr><td>26-04</td><td class="value-pos">+10.01%</td><td class="value-pos">+16.05%</td><td>回撤后快速修复，单月收益贡献明显。</td></tr>
-              <tr><td>26-05</td><td class="value-neg">-0.91%</td><td class="value-pos">+14.99%</td><td>小幅调整，整体累计收益保持较高水平。</td></tr>
-              <tr><td>26-06</td><td class="value-pos">+1.58%</td><td class="value-pos">+16.81%</td><td>收益恢复为正，净值继续缓慢上行。</td></tr>
-              <tr><td>26-07</td><td class="value-pos">+2.65%</td><td class="value-pos">+19.91%</td><td>截至 7月3日，2026年累计收益达到 +19.91%。</td></tr>
-            </tbody>
-          </table>
-          <p class="note">备注为内部销售解读口径，用于辅助理解月度收益节奏；历史业绩不代表未来表现。</p>
-        </div>
-      </div>
-    </section>
+
+
+
+
+
 
     <section class="section">
       <h2>区间收益对比</h2>
@@ -210,32 +216,22 @@
     </section>
 
     <section class="section">
-      <h2>适配客户</h2>
+      <h2>产品特点</h2>
       <div class="grid two">
-        <div class="card green">
-          <span class="pill">组合分散配置</span>
-          <h3>已有较大量化私募持仓的客户</h3>
-          <p>核心痛点是主流宽基指增布局充分，同类产品相关性高，组合同质化较重。蒙玺量化光翼对标万得全A等权，和常见沪深300、中证500、中证1000、中证2000指增形成差异，可作为组合风险分散工具。</p>
-        </div>
-        <div class="card green">
-          <span class="pill">一键布局 A 股整体</span>
-          <h3>配置体量有限或选指数困难的客户</h3>
-          <p>客户若难以覆盖各类宽基指增、也难以判断风格轮动，可用万得全A等权的广泛市场覆盖与等权分散特征，一站式参与 A 股整体收益，同时规避权重股过度集中的风险。</p>
-        </div>
+        <div class="card highlight"><span class="pill">指数优势</span><h3>对标万得全A等权</h3><p>指数覆盖约5500+只股票，等权分散、每日再平衡，兼具全市场覆盖和低单票集中度；当前缺少对应公募ETF，具备私募配置稀缺性。</p></div>
+        <div class="card highlight"><span class="pill">全频段 Alpha</span><h3>分钟级换仓，覆盖30分钟至3天</h3><p>策略将高频与低延迟积累迁移到股票全频段选股，短周期日内信号可增厚超额，也有助于平滑组合波动。</p></div>
+        <div class="card green"><span class="pill">分散持仓</span><h3>600-1400只股票，追求 Pure Alpha</h3><p>在全市场范围内选股，严控风险敞口与个股偏离，避免收益过度依赖少数权重股或单一风格。</p></div>
+        <div class="card"><span class="pill">工程化投研</span><h3>深度学习/机器学习与自研交易执行</h3><p>实盘运用数千量价与基本面因子，采用深度学习和机器学习模型，并依托自研低延迟系统进行分钟级精细化换仓。</p></div>
       </div>
     </section>
 
     <section class="section">
-      <h2>产品与销售口径</h2>
+      <h2>目标客户分析</h2>
       <div class="grid two">
-        <div class="card">
-          <h3>产品要素</h3>
-          <p>蒙玺兴泰量化光翼12号1期（SBHG77），中高风险，首发时间 2026/7/23-7/30，7/31 为最后一天冷静期。锁定期 180 天，持有 360 天以上无赎回费，管理费 2%，业绩报酬 20%单人单笔份额高水位法。</p>
-        </div>
-        <div class="card caution">
-          <h3>销售与对价</h3>
-          <p>认购费全额创收，管理费创收年化 1%，业绩报酬创收为管理人提取部分的 20%，首发募集参与给予一次性交易收入 1%。零售份额和 B 份额合计提供 1:1 对价，并合并计算对价排名。</p>
-        </div>
+        <div class="card green"><span class="pill">组合分散配置</span><h3>已有较大量化私募持仓的客户</h3><p>主流宽基指增布局充分、同类产品相关性较高时，可用万得全A等权赛道补充差异化收益来源，降低组合同质化。</p></div>
+        <div class="card green"><span class="pill">一键布局 A 股整体</span><h3>配置体量有限或选指数困难的客户</h3><p>客户若难以覆盖各类宽基指增、也难以判断风格轮动，可借助万得全A等权的广泛覆盖与等权分散特征参与A股整体收益。</p></div>
+        <div class="card highlight"><span class="pill">低相关增强</span><h3>希望优化权益组合结构的客户</h3><p>适合已配置沪深300、中证500、中证1000等产品，仍希望增加低相关、低拥挤、考验管理人全市场选股能力的私募策略客户。</p></div>
+        <div class="card caution"><span class="pill">风险边界</span><h3>不适配客户</h3><p>低风险偏好、无法承受权益波动、投资期限短，或要求保本、短期确定收益和极低回撤的客户，不适合配置该产品。</p></div>
       </div>
     </section>
 

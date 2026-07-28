@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>嵌入-标准销量销售情况</title>
+  <style>
+
+    :root{--ink:#1f2a3d;--muted:#6d7788;--line:#dfe7f5;--blue:#4f73ea;--blue2:#7da1ff;--blueSoft:#eef4ff;--gold:#e2a20e;--red:#d65a55;--bg:#f4f7fc;--panel:#fff;--shadow:0 8px 22px rgba(26,42,75,.07)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.45}
+    .page{min-height:100vh;padding-bottom:24px}
+    .hero{padding:22px 28px 24px;text-align:center;color:#fff;background:linear-gradient(120deg,#5b79e8,#6f97ff);border-radius:0 0 8px 8px;box-shadow:var(--shadow)}
+    .hero h1{margin:0;font-size:26px;letter-spacing:0;font-weight:900}
+    .hero .sub{margin:8px 0 8px;font-size:14px;font-weight:850;color:#edf3ff}
+    .hero p{max-width:1180px;margin:0 auto;color:#eef4ff;font-size:13px;font-weight:750}
+    .tabs{display:flex;gap:10px;padding:16px 0 16px}
+    .tab{border:1px solid #cdd9ef;border-radius:8px;background:#fff;color:#34435a;font-size:14px;font-weight:900;padding:9px 14px;text-decoration:none}
+    .tab.active{border-color:#98b0ff;background:#eef3ff;color:#3766df;box-shadow:inset 4px 0 0 #5c7df0}
+    .section{margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+    .section-head{min-height:54px;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .section-title{margin:0;font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px}
+    .section-title:before{content:"";width:4px;height:20px;border-radius:2px;background:var(--blue)}
+    .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:#edf3ff;color:#436ee8;font-size:12px;font-weight:850;padding:6px 10px;white-space:nowrap}
+    .content{padding:16px}
+    .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;min-height:112px}
+    .card .label{color:#6b7689;font-size:13px;font-weight:850}
+    .card .value{display:flex;align-items:flex-end;gap:6px;margin:6px 0 4px;font-size:30px;line-height:1;font-weight:900}
+    .card .unit{font-size:12px;color:#6b7689;font-weight:750}
+    .bar{height:8px;border-radius:999px;background:#edf2f8;overflow:hidden;margin-top:12px}
+    .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4b6fe5,#7799ff);width:var(--w)}
+    .field label{display:block;color:#68758a;font-size:12px;font-weight:850;margin-bottom:6px}
+    input,select{width:100%;height:38px;border:1px solid #d7e1f2;border-radius:7px;background:#fff;color:#111827;font:inherit;font-size:14px;padding:0 10px;outline:none}
+    input:focus,select:focus{border-color:#94adff;box-shadow:0 0 0 3px rgba(79,115,234,.14)}
+    button.primary{height:38px;border:0;border-radius:7px;background:#263f73;color:#fff;font:inherit;font-size:14px;font-weight:850;padding:0 16px;cursor:pointer}
+    .muted{color:#6d7788;font-weight:750}
+    table{width:100%;border-collapse:collapse}
+    th{background:#eaf1ff;color:#315daf;font-weight:850;text-align:center;padding:9px 10px;white-space:nowrap}
+    td{border-bottom:1px solid #edf2f8;padding:10px;text-align:center;font-weight:750}
+    .num{font-variant-numeric:tabular-nums}
+    @media(max-width:1100px){.hero h1{font-size:24px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{overflow:auto}.content{overflow-x:auto}}
+    @media(max-width:720px){.hero{padding:20px 16px}.cards{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.tab{font-size:13px}.card .value{font-size:26px}}
+
+    .main-table-wrap{overflow:auto;padding:18px 16px 12px}
+    .main-table{width:100%;min-width:1180px;table-layout:fixed;font-size:13px}
+    .main-table th{padding:9px 6px;font-size:12px;font-weight:950;color:#4267bd}
+    .main-table th.sortable{cursor:pointer;user-select:none}
+    .main-table th.sortable:hover{background:#dfe9ff;color:#2f56b3}
+    .main-table th.is-sorted{color:#1f4fc9}
+    .main-table th.is-sorted::after{content:" ↓";font-size:11px}
+    .main-table td{padding:7px 6px;height:50px;font-size:13px;font-weight:900;color:#1f2a3d}
+    .main-table tbody tr:nth-child(odd){background:#fffdf7}
+    .branch-name{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .amount-cell{display:grid;gap:5px;justify-items:center;min-width:0;width:100%}
+    .amount-cell strong{font-size:13px;line-height:1;font-variant-numeric:tabular-nums}
+    .amount-bar{width:100%;height:7px;border-radius:999px;background:#edf2f8;overflow:hidden}
+    .amount-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#486ce5,#6e8fff);width:var(--w)}
+    .heat{display:grid;place-items:center;min-height:36px;min-width:0;padding:0 6px;font-size:13px;font-weight:950}
+    .rate{background:rgba(214,90,85,var(--heat,.2));color:#b84540}
+    .lift{background:rgba(226,162,14,var(--heat,.18));color:#956806}
+    .branch-tools{display:flex;gap:14px;align-items:end;flex-wrap:wrap}
+    .branch-tools .field{min-width:260px}
+    .overview-card{position:relative}
+    .overview-card{padding-right:118px}
+    .overview-card .bar{max-width:calc(100% - 14px)}
+    .share{position:absolute;right:22px;top:16px;width:74px;height:74px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fff3af;border:1px solid #f5d150;color:#9b6d04;font-weight:950;font-size:18px;line-height:1.05;gap:4px}
+    .share span{display:block;font-size:11px;line-height:1}
+    .subsection{padding:0 0 22px;margin:0 0 22px;border-bottom:1px dashed var(--line)}
+    .subsection:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+    .subsection-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 0 14px;flex-wrap:wrap}
+    .subsection-title{margin:0;font-size:17px;font-weight:950;color:#263f73}
+    .rank-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+    .bucket-layout{display:grid;grid-template-columns:92px repeat(3,minmax(0,1fr));gap:10px;align-items:stretch;width:100%;min-width:0}
+    .bucket-labels{display:grid;grid-template-rows:42px repeat(7,38px);align-items:center;color:#38506f;font-weight:950;font-size:14px;min-width:0}
+    .bucket-labels span{display:flex;align-items:center;height:38px}
+    .bucket-grid{grid-column:2 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;min-width:0}
+    .rank-panel,.bucket-panel{border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+    .bucket-panel{overflow:visible}
+    .rank-panel h3{margin:0;padding:14px 18px;border-bottom:1px solid var(--line);font-size:17px}
+    .bucket-panel h3{margin:0;height:42px;padding:11px 12px;border-bottom:1px solid var(--line);font-size:14px;color:#18233a;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rank-list{display:grid;gap:10px;padding:18px;font-size:13px}
+    .rank-item{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #e7edf7;border-radius:8px;background:#fbfcff;padding:10px 12px}
+    .rank-item.is-extra{display:none}
+    .rank-panel.is-expanded .rank-item.is-extra{display:grid}
+    .rank-toggle{height:32px;margin:0 18px 16px;border:1px solid #c9d6ef;border-radius:8px;background:#f8fbff;color:#4267bd;font:inherit;font-size:12px;font-weight:950;cursor:pointer}
+    .rank-toggle:hover{border-color:#8fa9ff;background:#eef4ff}
+    .name-pill{border:1px solid #a9bdff;border-radius:999px;color:#416be5;text-align:center;font-weight:950;padding:7px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rank-panel.public .name-pill{border-color:#f0c34d;color:#9b6d04}
+    .rank-panel.combined .name-pill{border-color:#f3aaa7;color:#c94843}
+    .bucket-row{display:grid;grid-template-columns:max-content minmax(26px,1fr) 46px;gap:7px;align-items:center;height:36px;padding:0 9px;font-size:13px;font-weight:900;min-width:0}
+    .bucket-metric{display:flex;align-items:baseline;gap:5px;min-width:max-content;white-space:nowrap}
+    .bucket-metric strong{position:relative;min-width:20px;text-align:right;font-size:14px;color:#121b2d;font-variant-numeric:tabular-nums;cursor:help;text-decoration:underline dotted rgba(66,103,189,.35);text-underline-offset:3px}
+    .bucket-amount{font-size:12px;color:#38506f;white-space:nowrap;overflow:visible;text-overflow:clip}
+    .bucket-row > strong{font-size:13px;text-align:right;color:#121b2d;font-variant-numeric:tabular-nums}
+    .bucket-bar{height:8px;border-radius:999px;background:transparent;overflow:hidden;min-width:0}
+    .bucket-bar i{display:block;height:100%;border-radius:inherit;background:var(--bucket,#4f73ea);width:var(--w)}
+    .bucket-panel.public{--bucket:#e0a00c}.bucket-panel.private{--bucket:#4f73ea}.bucket-panel.combined{--bucket:#cf524c}
+    .detail-popover{position:absolute;left:0;bottom:24px;z-index:1000;display:none;width:max-content;min-width:240px;max-width:420px;max-height:340px;overflow:auto;border:1px solid #cfdaf0;border-radius:8px;background:#fff;box-shadow:0 14px 36px rgba(31,42,61,.18);padding:10px 12px;color:#1f2a3d;font-size:12px;font-weight:850;line-height:1.6;text-align:left;text-decoration:none;white-space:normal}
+    .detail-popover i{display:block;font-style:normal;white-space:nowrap}
+    .bucket-metric strong:hover .detail-popover,.bucket-metric strong:focus .detail-popover{display:block}
+    @media(max-width:1100px){.rank-grid{grid-template-columns:1fr}.bucket-layout{grid-template-columns:82px minmax(0,1fr)}.bucket-grid{grid-template-columns:1fr}}
+    @media(max-width:720px){.subsection-head{align-items:flex-start;flex-direction:column}.bucket-labels{display:none}.bucket-layout{grid-template-columns:1fr}.bucket-grid{grid-column:1}}
+  </style>
+  <script src="data/salesBroadcastUpdateData.js?v=20260724_001"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>公私募标准销量</h1>
+      <div class="sub">山东分公司 | 标准销量统计日 <span data-as-of>20260724</span></div>
+      <p>覆盖分公司标准销量总览、营业部完成情况排序、所选营业部销量结构与分公司占比、分公司及营业部个人标销数据排名、员工全量展开、个人标销分档人数和档位员工明细。</p>
+    </section>
+    <nav class="tabs">
+      <a class="tab" href="嵌入-销售行动测算.html">销售行动测算</a>
+      <a class="tab active" href="嵌入-标准销量销售情况.html">标准销量销售情况</a>
+    </nav>
+    <div class="cards" data-summary></div>
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">营业部标准销量完成情况</h2><span class="pill">点击表头可按列降序</span></div>
+      <div class="content main-table-wrap"><table class="main-table"><thead><tr><th rowspan="2" class="sortable" data-sort-key="branch">营业部</th><th colspan="4">公募</th><th colspan="4">私募</th><th colspan="4">汇总</th></tr><tr><th class="sortable" data-sort-key="public_amount">标准销量</th><th class="sortable" data-sort-key="public_rate">完成率</th><th class="sortable" data-sort-key="public_new">统计日新增</th><th class="sortable" data-sort-key="public_lift">统计日提升</th><th class="sortable" data-sort-key="private_amount">标准销量</th><th class="sortable" data-sort-key="private_rate">完成率</th><th class="sortable" data-sort-key="private_new">统计日新增</th><th class="sortable" data-sort-key="private_lift">统计日提升</th><th class="sortable" data-sort-key="combined_amount">标准销量</th><th class="sortable" data-sort-key="combined_rate">完成率</th><th class="sortable" data-sort-key="combined_new">统计日新增</th><th class="sortable" data-sort-key="combined_lift">统计日提升</th></tr></thead><tbody data-branch-rows></tbody></table></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">所选营业部标准销量概览</h2><div class="branch-tools"><div class="field"><label>选择营业部</label><select data-branch-select></select></div><span class="pill">含分公司占比</span></div></div>
+      <div class="content"><div class="cards" data-branch-summary></div></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">个人标销数据排名</h2></div>
+      <div class="content">
+        <div class="subsection">
+          <div class="subsection-head"><h3 class="subsection-title">分公司个人标销数据排名</h3><span class="pill">分公司口径</span></div>
+          <div class="rank-grid" data-company-ranks></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h3 class="subsection-title" data-branch-rank-title>所选营业部个人标销数据排名</h3><div class="branch-tools"><div class="field"><label>选择营业部</label><select data-personal-branch-select></select></div><span class="pill">所属营业部口径</span></div></div>
+          <div class="rank-grid" data-branch-ranks></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">个人标销分档人数</h2></div>
+      <div class="content">
+        <div class="subsection">
+          <div class="subsection-head"><h3 class="subsection-title">分公司个人标销分档人数</h3><span class="pill">分公司口径</span></div>
+          <div data-company-buckets></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h3 class="subsection-title" data-branch-bucket-title>所选营业部个人标销分档人数</h3><div class="branch-tools"><div class="field"><label>选择营业部</label><select data-bucket-branch-select></select></div><span class="pill">所属营业部口径</span></div></div>
+          <div data-branch-buckets></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const reportData = window.salesBroadcastUpdateData || {};
+    const fmt = v => Number(v || 0).toLocaleString('zh-CN', {maximumFractionDigits:Number(v || 0) % 1 === 0 ? 0 : 1});
+    const pct = v => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const width = (v,max) => `${Math.max(3, Math.min(100, Number(v || 0) / Math.max(1,max) * 100))}%`;
+    const total = reportData.standard?.totals || {};
+    const branches = reportData.standard?.branches || [];
+    const employees = reportData.employees || [];
+    const bucketLabels = reportData.employeeBuckets?.combined?.map(row => row.label) || ['1000万以上','500-1000万','300-500万','100-300万','50-100万','10-50万','10万以下'];
+    document.querySelector('[data-as-of]').textContent = reportData.standard?.as_of || '20260724';
+    function card(label,value,unit,rate,extra=''){return `<div class="card ${extra}"><div class="label">${label}</div><div class="value">${fmt(value)}<span class="unit">${unit}</span></div><div class="unit">目标 ${fmt(rate?.target || 0)} 万元</div><div class="bar"><i style="--w:${Math.min(100,Number(rate?.value||0)*100)}%"></i></div></div>`;}
+    document.querySelector('[data-summary]').innerHTML = [
+      card('公私募汇总', total.combined_amount, '万元', {target:total.combined_target,value:total.combined_rate}),
+      card('公募标准销量', total.public_amount, '万元', {target:total.public_target,value:total.public_rate}),
+      card('私募标准销量', total.private_amount, '万元', {target:total.private_target,value:total.private_rate}),
+      `<div class="card"><div class="label">统计日新增</div><div class="value">${fmt(total.combined_new)}<span class="unit">万元</span></div><div class="unit">当日提升 ${pct(total.combined_lift)}</div><div class="bar"><i style="--w:${Math.min(100,Number(total.combined_rate||0)*100)}%"></i></div></div>`
+    ].join('');
+    const maxRate = Math.max(...branches.flatMap(row => [row.public_rate,row.private_rate,row.combined_rate]).map(Number),.01);
+    const maxLift = Math.max(...branches.flatMap(row => [row.public_lift,row.private_lift,row.combined_lift]).map(v=>Math.abs(Number(v||0))),.01);
+    const amountMax = {
+      public_amount: Math.max(...branches.map(row => Number(row.public_amount || 0)),1),
+      private_amount: Math.max(...branches.map(row => Number(row.private_amount || 0)),1),
+      combined_amount: Math.max(...branches.map(row => Number(row.combined_amount || 0)),1)
+    };
+    const heat = (v,max,type) => `<div class="heat ${type}" style="--heat:${(0.12 + Math.min(.72, Math.abs(Number(v||0))/max*.72)).toFixed(3)}">${type==='lift' && Number(v||0)>=0?'+':''}${pct(v)}</div>`;
+    const amountCell = (value,metric) => `<div class="amount-cell"><strong>${fmt(value)}</strong><span class="amount-bar"><i style="--w:${width(value,amountMax[metric])}"></i></span></div>`;
+    let branchSortKey = 'combined_lift';
+    function sortedBranches(){return branches.slice().sort((a,b)=>{if(branchSortKey==='branch')return String(a.branch).localeCompare(String(b.branch),'zh-CN');return Number(b[branchSortKey]||0)-Number(a[branchSortKey]||0);});}
+    function renderBranchRows(){document.querySelectorAll('.main-table th.sortable').forEach(th=>th.classList.toggle('is-sorted', th.dataset.sortKey===branchSortKey));document.querySelector('[data-branch-rows]').innerHTML = sortedBranches().map(row => `<tr><td><strong class="branch-name" title="${row.branch}">${row.branch}</strong></td><td>${amountCell(row.public_amount,'public_amount')}</td><td>${heat(row.public_rate,maxRate,'rate')}</td><td>${fmt(row.public_new)}</td><td>${heat(row.public_lift,maxLift,'lift')}</td><td>${amountCell(row.private_amount,'private_amount')}</td><td>${heat(row.private_rate,maxRate,'rate')}</td><td>${fmt(row.private_new)}</td><td>${heat(row.private_lift,maxLift,'lift')}</td><td>${amountCell(row.combined_amount,'combined_amount')}</td><td>${heat(row.combined_rate,maxRate,'rate')}</td><td>${fmt(row.combined_new)}</td><td>${heat(row.combined_lift,maxLift,'lift')}</td></tr>`).join('');}
+    document.querySelectorAll('.main-table th.sortable').forEach(th=>th.addEventListener('click',()=>{branchSortKey=th.dataset.sortKey;renderBranchRows();}));
+    renderBranchRows();
+    const branchOptions = branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
+    document.querySelector('[data-branch-select]').innerHTML = branchOptions;
+    document.querySelector('[data-personal-branch-select]').innerHTML = branchOptions;
+    document.querySelector('[data-bucket-branch-select]').innerHTML = branchOptions;
+    function branchCard(label,value,target,rate,totalValue){const share=totalValue?Number(value||0)/totalValue:0;return `<div class="card overview-card"><div class="label">${label}</div><div class="value">${fmt(value)}<span class="unit">万元</span></div><div class="unit">目标 ${fmt(target)} 万元</div><div class="bar"><i style="--w:${Math.min(100,Number(rate||0)*100)}%"></i></div><div class="share">${pct(share)}<span>占分公司</span></div></div>`;}
+    function renderBranchSummary(){const row=branches.find(item=>item.branch===document.querySelector('[data-branch-select]').value)||branches[0]||{};document.querySelector('[data-branch-summary]').innerHTML=[
+      branchCard('公私募汇总',row.combined_amount,row.combined_target,row.combined_rate,total.combined_amount),
+      branchCard('公募标准销量',row.public_amount,row.public_target,row.public_rate,total.public_amount),
+      branchCard('私募标准销量',row.private_amount,row.private_target,row.private_rate,total.private_amount),
+      branchCard('统计日新增',row.combined_new,row.combined_target,row.combined_lift,total.combined_new)
+    ].join('');}
+    function branchEmployees(branch){return employees.filter(row => row.branch === branch);}
+    function sortedRows(rows, metric){return rows.slice().sort((a,b) => Number(b[metric] || 0) - Number(a[metric] || 0));}
+    function rankRows(rows,title,metric,klass,expandable=false){const sorted=sortedRows(rows,metric);const rendered=sorted.length ? sorted.map((row,index)=>`<div class="rank-item${expandable && index>=5 ? ' is-extra' : ''}"><div class="name-pill">${row.name}</div><div><strong>${row.branch}</strong><div class="muted">公募 ${fmt(row.public_amount)} / 私募 ${fmt(row.private_amount)}</div></div><strong>${fmt(row[metric])}万</strong></div>`).join('') : '<div class="muted">该营业部暂无个人标销数据。</div>';const extraCount=Math.max(0,sorted.length-5);const toggle=expandable && extraCount ? `<button class="rank-toggle" type="button" data-rank-toggle data-open-label="展开${extraCount}项" data-close-label="收起">展开${extraCount}项</button>` : '';return `<div class="rank-panel ${klass}"><h3>${title}</h3><div class="rank-list">${rendered}</div>${toggle}</div>`;}
+    function rankPanel(key,title,metric,klass){return rankRows(reportData.employeeTop?.[key]||[],title,metric,klass);}
+    document.querySelector('[data-company-ranks]').innerHTML = rankPanel('public','公募标销排名','public_amount','public') + rankPanel('private','私募标销排名','private_amount','private') + rankPanel('combined','标销汇总排名','combined_amount','combined');
+    function bucketLabelFor(value){if(value>=1000)return '1000万以上';if(value>=500)return '500-1000万';if(value>=300)return '300-500万';if(value>=100)return '100-300万';if(value>=50)return '50-100万';if(value>=10)return '10-50万';return '10万以下';}
+    function bucketRows(rows, metric){const totalAmount=rows.reduce((sum,row)=>sum+Number(row[metric]||0),0);const grouped=Object.fromEntries(bucketLabels.map(label=>[label,{label,people:0,amount:0,share:0,members:[]}]));rows.forEach(row=>{const amount=Number(row[metric]||0);const label=bucketLabelFor(amount);grouped[label].people+=1;grouped[label].amount+=amount;grouped[label].members.push({name:row.name,branch:row.branch,amount});});return bucketLabels.map(label=>{const row=grouped[label];row.members.sort((a,b)=>b.amount-a.amount || a.name.localeCompare(b.name,'zh-CN'));return {...row,share:totalAmount ? row.amount / totalAmount : 0};});}
+    function escapeHtml(value){return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    function detailHtml(row){return row.members?.length ? row.members.map(item=>`<i>${escapeHtml(item.name)}（${escapeHtml(item.branch)}）：${fmt(item.amount)}万</i>`).join('') : '<i>暂无销售人员</i>';}
+    function bucketPanelRows(rows,title,klass){const max=Math.max(...rows.map(row=>row.amount),1);return `<div class="bucket-panel ${klass}"><h3>${title}</h3>${rows.map(row=>`<div class="bucket-row"><div class="bucket-metric"><strong tabindex="0">${row.people}<span class="detail-popover">${detailHtml(row)}</span></strong><span class="bucket-amount">${fmt(row.amount)}万</span></div><div class="bucket-bar"><i style="--w:${width(row.amount,max)}"></i></div><strong>${pct(row.share)}</strong></div>`).join('')}</div>`;}
+    function bucketPanel(key,title,klass){return bucketPanelRows(reportData.employeeBuckets?.[key]||[],title,klass);}
+    function bucketGroup(publicRows,privateRows,combinedRows){return `<div class="bucket-layout"><div class="bucket-labels"><i></i>${bucketLabels.map(label=>`<span>${label}</span>`).join('')}</div><div class="bucket-grid">${bucketPanelRows(publicRows,'公募各分档人数及占比','public')}${bucketPanelRows(privateRows,'私募各分档人数及占比','private')}${bucketPanelRows(combinedRows,'标销汇总各分档人数及占比','combined')}</div></div>`;}
+    document.querySelector('[data-company-buckets]').innerHTML = bucketGroup(bucketRows(employees,'public_amount'), bucketRows(employees,'private_amount'), bucketRows(employees,'combined_amount'));
+    function renderBranchRanks(){const branch=document.querySelector('[data-personal-branch-select]').value;const rows=branchEmployees(branch);document.querySelector('[data-branch-rank-title]').textContent=`${branch}个人标销数据排名`;document.querySelector('[data-branch-ranks]').innerHTML=rankRows(rows,'公募标销排名','public_amount','public',true)+rankRows(rows,'私募标销排名','private_amount','private',true)+rankRows(rows,'标销汇总排名','combined_amount','combined',true);}
+    function renderBranchBuckets(){const branch=document.querySelector('[data-bucket-branch-select]').value;const rows=branchEmployees(branch);document.querySelector('[data-branch-bucket-title]').textContent=`${branch}个人标销分档人数`;document.querySelector('[data-branch-buckets]').innerHTML=bucketGroup(bucketRows(rows,'public_amount'),bucketRows(rows,'private_amount'),bucketRows(rows,'combined_amount'));}
+    function syncSelectedBranch(branch){document.querySelector('[data-branch-select]').value=branch;document.querySelector('[data-personal-branch-select]').value=branch;document.querySelector('[data-bucket-branch-select]').value=branch;renderBranchSummary();renderBranchRanks();renderBranchBuckets();}
+    document.querySelector('[data-branch-select]').addEventListener('change', event => syncSelectedBranch(event.target.value));
+    document.querySelector('[data-personal-branch-select]').addEventListener('change', event => syncSelectedBranch(event.target.value));
+    document.querySelector('[data-bucket-branch-select]').addEventListener('change', event => syncSelectedBranch(event.target.value));
+    document.addEventListener('click', event => {const button=event.target.closest('[data-rank-toggle]');if(!button)return;const panel=button.closest('.rank-panel');const expanded=panel.classList.toggle('is-expanded');button.textContent=expanded ? button.dataset.closeLabel : button.dataset.openLabel;});
+    renderBranchSummary();
+    renderBranchRanks();
+    renderBranchBuckets();
+  </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
+</body>
+</html>

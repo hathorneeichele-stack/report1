@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>嵌入-销售行动测算</title>
+  <style>
+
+    :root{--ink:#1f2a3d;--muted:#6d7788;--line:#dfe7f5;--blue:#4f73ea;--blue2:#7da1ff;--blueSoft:#eef4ff;--gold:#e2a20e;--red:#d65a55;--bg:#f4f7fc;--panel:#fff;--shadow:0 8px 22px rgba(26,42,75,.07)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.45}
+    .page{min-height:100vh;padding-bottom:24px}
+    .hero{padding:22px 28px 24px;text-align:center;color:#fff;background:linear-gradient(120deg,#5b79e8,#6f97ff);border-radius:0 0 8px 8px;box-shadow:var(--shadow)}
+    .hero h1{margin:0;font-size:26px;letter-spacing:0;font-weight:900}
+    .hero .sub{margin:8px 0 8px;font-size:14px;font-weight:850;color:#edf3ff}
+    .hero p{max-width:1180px;margin:0 auto;color:#eef4ff;font-size:13px;font-weight:750}
+    .tabs{display:flex;gap:10px;padding:16px 0 16px}
+    .tab{border:1px solid #cdd9ef;border-radius:8px;background:#fff;color:#34435a;font-size:14px;font-weight:900;padding:9px 14px;text-decoration:none}
+    .tab.active{border-color:#98b0ff;background:#eef3ff;color:#3766df;box-shadow:inset 4px 0 0 #5c7df0}
+    .section{margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+    .section-head{min-height:54px;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .section-title{margin:0;font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px}
+    .section-title:before{content:"";width:4px;height:20px;border-radius:2px;background:var(--blue)}
+    .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:#edf3ff;color:#436ee8;font-size:12px;font-weight:850;padding:6px 10px;white-space:nowrap}
+    .content{padding:16px}
+    .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:16px 18px;min-height:112px}
+    .card .label{color:#6b7689;font-size:13px;font-weight:850}
+    .card .value{display:flex;align-items:flex-end;gap:6px;margin:6px 0 4px;font-size:30px;line-height:1;font-weight:900}
+    .card .unit{font-size:12px;color:#6b7689;font-weight:750}
+    .bar{height:8px;border-radius:999px;background:#edf2f8;overflow:hidden;margin-top:12px}
+    .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4b6fe5,#7799ff);width:var(--w)}
+    .field label{display:block;color:#68758a;font-size:12px;font-weight:850;margin-bottom:6px}
+    input,select{width:100%;height:38px;border:1px solid #d7e1f2;border-radius:7px;background:#fff;color:#111827;font:inherit;font-size:14px;padding:0 10px;outline:none}
+    input:focus,select:focus{border-color:#94adff;box-shadow:0 0 0 3px rgba(79,115,234,.14)}
+    button.primary{height:38px;border:0;border-radius:7px;background:#263f73;color:#fff;font:inherit;font-size:14px;font-weight:850;padding:0 16px;cursor:pointer}
+    .muted{color:#6d7788;font-weight:750}
+    table{width:100%;border-collapse:collapse}
+    th{background:#eaf1ff;color:#315daf;font-weight:850;text-align:center;padding:9px 10px;white-space:nowrap}
+    td{border-bottom:1px solid #edf2f8;padding:10px;text-align:center;font-weight:750}
+    .num{font-variant-numeric:tabular-nums}
+    @media(max-width:1100px){.hero h1{font-size:24px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{overflow:auto}.content{overflow-x:auto}}
+    @media(max-width:720px){.hero{padding:20px 16px}.cards{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.tab{font-size:13px}.card .value{font-size:26px}}
+
+    body{background:#fff}
+    .panel{border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+    .panel h3{margin:0;padding:12px 14px;border-bottom:1px solid var(--line);font-size:15px}
+    .panel-body{padding:14px}
+    .coef-box{border:1px solid #bcd0ff;border-radius:8px;background:linear-gradient(105deg,#f7fbff,#fffaf0);padding:16px}
+    .query-row{display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(260px,1fr);gap:12px;align-items:end}
+    .coef-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+    .coef-card{border:1px solid #dce6f7;border-radius:8px;background:rgba(255,255,255,.82);padding:12px 14px;min-height:82px}
+    .coef-card span{display:block;color:#6d7788;font-size:12px;font-weight:850;margin-bottom:6px}
+    .coef-card strong{font-size:17px}
+    .action-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .result-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:14px;color:#5d697c;font-size:13px;font-weight:750}
+    .result-card strong{display:block;margin:8px 0;color:#18233a;font-size:22px}
+    .employee-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:14px;align-items:start}
+    .employee-table-wrap{overflow:auto}
+    .employee-table{min-width:1180px}
+    .employee-table input{height:30px;font-size:12px}
+    .lift-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:14px;position:sticky;top:12px}
+    .lift-card strong{display:block;font-size:24px;margin:4px 0}
+    .candidate-list{display:grid;gap:8px;margin-top:10px}
+    .candidate-item{border:1px solid #e1e8f4;border-radius:8px;background:#fff;padding:9px 10px}
+    .candidate-item b{display:block;margin-bottom:4px;color:#1f2a3d}
+    .candidate-item span{color:#5f6c80;font-weight:750}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .catchup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .catchup-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:12px;display:grid;gap:8px;min-width:0}
+    .catchup-card h4{margin:0;font-size:15px;color:#18233a}
+    .catchup-card strong{display:block;color:#18233a;font-size:20px}
+    @media(max-width:1100px){.query-row,.action-grid,.compare-grid,.catchup-grid,.employee-layout{grid-template-columns:1fr}.coef-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.form-grid,.coef-grid{grid-template-columns:1fr}}
+  </style>
+  <script src="data/salesBroadcastUpdateData.js?v=20260724_001"></script>
+  <script src="data/productCalendarData.js?v=20260722_001"></script>
+  <script src="data/productCoefficientData.js?v=20260726_001"></script>
+  <script src="data/productDecisionTools.js?v=20260727_public_coef_priority"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>公私募标准销量</h1>
+      <div class="sub">山东分公司 | 标准销量统计日 <span data-as-of>20260724</span></div>
+      <p>覆盖产品考核系数查询、营业部标准销量测算、员工全量展开与赶超缺口测算。</p>
+    </section>
+    <nav class="tabs">
+      <a class="tab active" href="嵌入-销售行动测算.html">销售行动测算</a>
+      <a class="tab" href="嵌入-标准销量销售情况.html">标准销量销售情况</a>
+    </nav>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">产品考核系数查询</h2>
+        <span class="pill">输入产品代码，快速查看投发分类和 2026 折算系数</span>
+      </div>
+      <div class="content">
+        <div class="coef-box">
+          <div class="query-row">
+            <div class="field"><label>产品代码</label><input data-coef-query list="salesProductsList" value="589463"></div>
+            <button class="primary" type="button" data-run-coef>查询系数</button>
+            <div class="muted">按投发考核产品系数报表和已接入产品数据展示。</div>
+          </div>
+          <div class="coef-grid">
+            <div class="coef-card"><span>产品名称</span><strong data-coef-name>-</strong></div>
+            <div class="coef-card"><span>投发分类</span><strong data-coef-category>-</strong></div>
+            <div class="coef-card"><span>2026标准保有折算系数</span><strong data-coef-hold>-</strong></div>
+            <div class="coef-card"><span>2026标准销量折算系数</span><strong data-coef-sales>-</strong></div>
+          </div>
+          <datalist id="salesProductsList"></datalist>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">销售行动测算</h2>
+        <span class="pill">输入产品与金额，直接测算标销贡献和赶超缺口</span>
+      </div>
+      <div class="content action-grid">
+        <div class="panel">
+          <h3>营业部标准销量测算</h3>
+          <div class="panel-body">
+            <div class="form-grid">
+              <div class="field"><label>产品代码/名称</label><input data-sales-product list="salesProductsList" value="589463"></div>
+              <div class="field"><label>拟销售金额（万元）</label><input data-sales-amount type="number" min="0" step="10" value="100"></div>
+              <div class="field"><label>所属营业部</label><select data-sales-branch></select></div>
+              <div class="field"><label>新增标准销量（万元）</label><input data-sales-increment readonly></div>
+            </div>
+            <button class="primary" type="button" data-run-sales style="width:100%;margin-top:18px">测算增量</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>营业部标准销量测算增量结果</h3>
+          <div class="panel-body"><div class="result-card" data-sales-result>输入产品和金额后，展示营业部可贡献的标准销量。</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">营业部对比与赶超测算</h2>
+        <span class="pill">按同完成率缺口生成参考方案</span>
+      </div>
+      <div class="content">
+        <div class="panel">
+          <h3>选择对比营业部</h3>
+          <div class="panel-body">
+            <div class="compare-grid">
+              <div class="field"><label>本营业部</label><select data-branch-a></select></div>
+              <div class="field"><label>目标营业部</label><select data-branch-b></select></div>
+            </div>
+            <button class="primary" type="button" data-run-branch style="width:100%;margin-top:18px">生成赶超方案</button>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:22px">
+          <h3>赶超测算结果</h3>
+          <div class="panel-body"><div class="result-card" data-branch-result>选择两个营业部后，展示完成率对比、差距和可选产品组合。</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">员工标准销量测算</h2></div>
+      <div class="content">
+        <div class="form-grid" style="margin-bottom:18px">
+          <div class="field"><label>选择营业部</label><select data-employee-branch></select></div>
+          <div class="field"><label>批量产品代码/名称</label><input data-employee-product list="salesProductsList" placeholder="可填后批量应用"></div>
+        </div>
+        <div class="employee-layout">
+          <div class="employee-table-wrap">
+            <table class="employee-table">
+              <thead><tr><th>名字</th><th>公募标准销量</th><th>私募标准销量</th><th>公私募标准销量</th><th>产品代码</th><th>拟销售金额（万元）</th><th>新增标准销量（万元）</th><th>营业部提升比例</th></tr></thead>
+              <tbody data-employee-rows></tbody>
+            </table>
+          </div>
+          <div class="lift-card">
+            <span class="muted">预计营业部提升</span>
+            <strong data-employee-total-lift>0.0%</strong>
+            <span class="muted" data-employee-total-detail>选择营业部后开始测算。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const reportData = window.salesBroadcastUpdateData || {};
+    const tools = window.ProductDecisionTools;
+    const fmt = v => Number(v || 0).toLocaleString('zh-CN', {maximumFractionDigits:Number(v || 0) % 1 === 0 ? 0 : 1});
+    const pct = v => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const productData = tools ? tools.collectProducts('') : {items:[],map:new Map()};
+    const branches = reportData.standard?.branches || [];
+    document.querySelector('[data-as-of]').textContent = reportData.standard?.as_of || '20260724';
+    document.getElementById('salesProductsList').innerHTML = productData.items.slice(0,900).map(item => `<option value="${item.code || item.name}">${item.name || ''}</option>`).join('');
+    const branchOptions = branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
+    document.querySelector('[data-sales-branch]').innerHTML = branchOptions;
+    document.querySelector('[data-employee-branch]').innerHTML = branchOptions;
+    document.querySelector('[data-branch-a]').innerHTML = branchOptions;
+    document.querySelector('[data-branch-b]').innerHTML = branchOptions;
+    if(branches[0]) document.querySelector('[data-branch-a]').value = branches[0].branch;
+    if(branches[1]) document.querySelector('[data-branch-b]').value = branches[1].branch;
+    function branchByName(name){return branches.find(row => row.branch === name) || branches[0] || {};}
+    function productType(item){if(item?.category === 'public') return 'public'; if(item?.category === 'private' || item?.category === 'privateTracking') return 'private'; return 'combined';}
+    function candidateReason(item){
+      const parts = [];
+      const type = productType(item);
+      parts.push(type === 'public' ? '公募' : (type === 'private' ? '私募' : '产品'));
+      if(item?.section) parts.push(item.section);
+      if(item?.raisePeriod) parts.push(item.raisePeriod);
+      else if(item?.openText) parts.push(item.openText);
+      return parts.filter(Boolean).join('｜');
+    }
+    function candidatesForType(type, limit){
+      return (tools?.candidateProducts(18) || [])
+        .filter(item => productType(item) === type)
+        .slice(0, limit);
+    }
+    function catchupNeed(source, target, type){
+      const amountKey = type === 'public' ? 'public_amount' : 'private_amount';
+      const targetKey = type === 'public' ? 'public_target' : 'private_target';
+      const rateKey = type === 'public' ? 'public_rate' : 'private_rate';
+      return Math.max(0, Number(target[rateKey] || 0) * Number(source[targetKey] || 0) - Number(source[amountKey] || 0));
+    }
+    function catchupPortfolio(needed, candidates){
+      if(!needed || !candidates.length) return [];
+      const selected = candidates.slice(0, 3);
+      const factorTotal = selected.reduce((sum, item) => sum + tools.factorFrom(item.salesCoef), 0) || selected.length;
+      return selected.map(item => {
+        const factor = tools.factorFrom(item.salesCoef);
+        const saleNeed = Math.ceil((needed / factorTotal) / 10) * 10;
+        return {item, factor, saleNeed, increment: tools.calcStandardAmount(saleNeed, factor)};
+      });
+    }
+    function renderCatchupCard(label, type, source, target){
+      const amountKey = type === 'public' ? 'public_amount' : 'private_amount';
+      const targetKey = type === 'public' ? 'public_target' : 'private_target';
+      const rateKey = type === 'public' ? 'public_rate' : 'private_rate';
+      const needed = catchupNeed(source, target, type);
+      const portfolio = catchupPortfolio(needed, candidatesForType(type, 4));
+      const portfolioIncrement = portfolio.reduce((sum, row) => sum + row.increment, 0);
+      const afterRate = Number(source[targetKey] || 0) ? (Number(source[amountKey] || 0) + portfolioIncrement) / Number(source[targetKey] || 0) : 0;
+      const list = portfolio.map(row => `
+        <div class="candidate-item">
+          <b>${row.item.name}</b>
+          <span>${candidateReason(row.item)}｜销量系数 ${row.factor}｜建议销售 ${fmt(row.saleNeed)} 万｜贡献 ${fmt(row.increment)} 万标销</span>
+        </div>
+      `).join('');
+      return `
+        <div class="catchup-card">
+          <h4>${label}赶超方案</h4>
+          <span>${source.branch} ${label}完成率：${pct(source[rateKey])}，目标 ${target.branch}：${pct(target[rateKey])}。</span>
+          <strong>${label}赶超缺口 ${fmt(needed)} 万元标销</strong>
+          <span>${portfolio.length ? `建议组合贡献 ${fmt(portfolioIncrement)} 万元标销，测算后完成率约 ${pct(afterRate)}。` : `${label}暂无可推荐的在售候选产品。`}</span>
+          <div class="candidate-list">${list || '<div class="candidate-item"><span>暂无可推荐的高系数候选产品。</span></div>'}</div>
+        </div>
+      `;
+    }
+    function renderCoef(){
+      const item = tools?.findProduct(document.querySelector('[data-coef-query]').value, productData.map);
+      document.querySelector('[data-coef-name]').textContent = item?.name || '未找到产品';
+      document.querySelector('[data-coef-category]').textContent = [item?.section, item?.strategy, item?.theme].filter(Boolean).join(' / ') || '-';
+      document.querySelector('[data-coef-hold]').textContent = item ? tools.factorFrom(item.holdingCoef) : '-';
+      document.querySelector('[data-coef-sales]').textContent = item ? tools.factorFrom(item.salesCoef) : '-';
+    }
+    function runSales(){
+      const item = tools?.findProduct(document.querySelector('[data-sales-product]').value, productData.map);
+      const amount = Number(document.querySelector('[data-sales-amount]').value || 0);
+      const branch = branchByName(document.querySelector('[data-sales-branch]').value);
+      const box = document.querySelector('[data-sales-result]');
+      if(!item || !amount){box.textContent = '未找到产品或金额为空，请换产品代码/名称再试。';return;}
+      const factor = tools.factorFrom(item.salesCoef);
+      const holdFactor = tools.factorFrom(item.holdingCoef);
+      const increment = tools.calcStandardAmount(amount, factor);
+      const holdIncrement = tools.calcStandardAmount(amount, holdFactor);
+      document.querySelector('[data-sales-increment]').value = fmt(increment);
+      const type = productType(item);
+      const base = type === 'public' ? branch.public_amount : (type === 'private' ? branch.private_amount : branch.combined_amount);
+      const target = type === 'public' ? branch.public_target : (type === 'private' ? branch.private_target : branch.combined_target);
+      box.innerHTML = `<span>${item.name} 当前按 <b>${factor}</b> 倍标准销量、<b>${holdFactor}</b> 倍标准保有测算。</span><strong>预计新增 ${fmt(increment)} 万元标销</strong><span>若销售 ${fmt(amount)} 万元，可为 ${branch.branch} 带来约 ${fmt(increment)} 万元标准销量、${fmt(holdIncrement)} 万元标准保有；对应口径完成率可提升至 ${pct(target ? (base + increment) / target : 0)}。</span>`;
+    }
+    function renderBranchCalc(){
+      const a = branchByName(document.querySelector('[data-branch-a]').value);
+      const b = branchByName(document.querySelector('[data-branch-b]').value);
+      const needForRate = Math.max(0, Number(b.combined_rate || 0) * Number(a.combined_target || 0) - Number(a.combined_amount || 0));
+      const needed = needForRate;
+      document.querySelector('[data-branch-result]').innerHTML = `
+        <span>${a.branch} 汇总完成率 ${pct(a.combined_rate)}，${b.branch} 汇总完成率 ${pct(b.combined_rate)}。</span>
+        <strong>同完成率赶超缺口 ${fmt(needed)} 万元标销</strong>
+        <span>按“目标营业部汇总完成率 × 本营业部汇总目标 - 本营业部当前标销”测算；下方按公募、私募分别测算目标完成率缺口，并给出同类型产品组合。</span>
+        <div class="catchup-grid">
+          ${renderCatchupCard('公募', 'public', a, b)}
+          ${renderCatchupCard('私募', 'private', a, b)}
+        </div>
+        <span class="muted">候选产品取当前可销售或本月底前可销售的产品；金额单位为万元，组合为测算参考，最终以客户适配与产品额度为准。</span>
+      `;
+    }
+    function employeesForBranch(branchName){return (reportData.employees || []).filter(row => row.branch === branchName).sort((a,b)=>Number(b.combined_amount||0)-Number(a.combined_amount||0));}
+    function renderEmployeeRows(){
+      const branch = branchByName(document.querySelector('[data-employee-branch]').value);
+      const product = document.querySelector('[data-employee-product]').value || '';
+      document.querySelector('[data-employee-rows]').innerHTML = employeesForBranch(branch.branch).map(row => `<tr data-employee-row><td><strong>${row.name}</strong></td><td>${fmt(row.public_amount)}</td><td>${fmt(row.private_amount)}</td><td>${fmt(row.combined_amount)}</td><td><input data-row-product value="${product}" placeholder="代码/名称"></td><td><input data-row-amount type="number" min="0" step="10" placeholder="万元"></td><td data-row-increment>0</td><td data-row-lift>0.0%</td></tr>`).join('');
+      renderEmployeeCalc();
+    }
+    function renderEmployeeCalc(){
+      const branch = branchByName(document.querySelector('[data-employee-branch]').value);
+      let total = 0;
+      document.querySelectorAll('[data-employee-row]').forEach(row => {
+        const item = tools?.findProduct(row.querySelector('[data-row-product]').value, productData.map);
+        const amount = Number(row.querySelector('[data-row-amount]').value || 0);
+        const inc = item ? tools.calcStandardAmount(amount, tools.factorFrom(item.salesCoef)) : 0;
+        total += inc;
+        row.querySelector('[data-row-increment]').textContent = fmt(inc);
+        row.querySelector('[data-row-lift]').textContent = pct(branch.combined_target ? inc / branch.combined_target : 0);
+      });
+      document.querySelector('[data-employee-total-lift]').textContent = pct(branch.combined_target ? total / branch.combined_target : 0);
+      document.querySelector('[data-employee-total-detail]').textContent = `${branch.branch || ''} 预计新增 ${fmt(total)} 万元标销，按公私募目标 ${fmt(branch.combined_target)} 万测算。`;
+    }
+    document.querySelector('[data-run-coef]').addEventListener('click', renderCoef);
+    document.querySelector('[data-run-sales]').addEventListener('click', runSales);
+    document.querySelector('[data-run-branch]').addEventListener('click', renderBranchCalc);
+    document.querySelector('[data-employee-branch]').addEventListener('change', renderEmployeeRows);
+    document.querySelector('[data-employee-product]').addEventListener('input', () => {document.querySelectorAll('[data-row-product]').forEach(input => input.value = document.querySelector('[data-employee-product]').value);renderEmployeeCalc();});
+    document.querySelector('[data-employee-rows]').addEventListener('input', renderEmployeeCalc);
+    renderCoef(); runSales(); renderBranchCalc(); renderEmployeeRows();
+  </script>
+  <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
+</body>
+</html>

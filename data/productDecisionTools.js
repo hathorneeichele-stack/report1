@@ -248,11 +248,12 @@
       };
     }
     if(!coef) return item;
+    const keepExistingPublicCoefficient = item && item.category === 'public';
     return {
       ...item,
       coefficient: coef,
-      salesCoef: hasValue(coef.salesCoef) ? coef.salesCoef : item.salesCoef,
-      holdingCoef: hasValue(coef.holdingCoef) ? coef.holdingCoef : item.holdingCoef,
+      salesCoef: keepExistingPublicCoefficient && hasValue(item.salesCoef) ? item.salesCoef : (hasValue(coef.salesCoef) ? coef.salesCoef : item.salesCoef),
+      holdingCoef: keepExistingPublicCoefficient && hasValue(item.holdingCoef) ? item.holdingCoef : (hasValue(coef.holdingCoef) ? coef.holdingCoef : item.holdingCoef),
       investmentCategory: [coef.investmentCategory2, coef.investmentCategory3, coef.investmentCategory4].filter(hasValue).join(' / '),
       businessCategory: [coef.primaryCategory, coef.secondaryCategory].filter(hasValue).join(' / ')
     };

@@ -6,11 +6,14 @@
   <title>嵌入-销售行动测算</title>
   <style>
 
-    :root{--ink:#1f2a3d;--muted:#6d7788;--line:#dfe7f5;--blue:#4f73ea;--blue2:#7da1ff;--blueSoft:#eef4ff;--gold:#e2a20e;--red:#d65a55;--bg:#f4f7fc;--panel:#fff;--shadow:0 8px 22px rgba(26,42,75,.07)}
+    :root{--ink:#1f2a3d;--muted:#6d7788;--line:#dfe7f5;--blue:#233a66;--blue2:#5174c9;--blueSoft:#eef4ff;--gold:#e2a20e;--red:#d65a55;--bg:#f4f7fc;--panel:#fff;--shadow:0 8px 22px rgba(26,42,75,.07)}
     *{box-sizing:border-box}
+    html,body{overflow-x:hidden}
     body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.45}
-    .page{min-height:100vh;padding-bottom:24px}
-    .hero{padding:28px 30px 30px;text-align:center;color:#fff;background:linear-gradient(120deg,#5b79e8,#6f97ff);border-radius:0 0 8px 8px;box-shadow:var(--shadow)}
+    .page{min-height:100vh;padding-bottom:24px;overflow:hidden}
+    .hero{position:relative;overflow:hidden;padding:28px 30px 30px;text-align:center;color:#fff;background:linear-gradient(135deg,#182843 0%,#243c68 52%,#4f73c9 100%);border-radius:0 0 8px 8px;box-shadow:0 14px 34px rgba(24,40,67,.16)}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 48%),radial-gradient(circle at 16% 0%,rgba(126,158,220,.28),transparent 30%);pointer-events:none}
+    .hero > *{position:relative;z-index:1}
     .hero h1{margin:0;font-size:34px;letter-spacing:0;line-height:1.15;font-weight:900}
     .hero .sub{margin:10px 0 8px;font-size:15px;font-weight:850;color:#edf3ff}
     .hero p{max-width:1180px;margin:0 auto;color:#eef4ff;font-size:14px;font-weight:750;line-height:1.6}
@@ -30,8 +33,11 @@
     .card .unit{font-size:12px;color:#6b7689;font-weight:750}
     .bar{height:8px;border-radius:999px;background:#edf2f8;overflow:hidden;margin-top:12px}
     .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4b6fe5,#7799ff);width:var(--w)}
+    .field{min-width:0}
     .field label{display:block;color:#68758a;font-size:12px;font-weight:850;margin-bottom:6px}
-    input,select{width:100%;height:38px;border:1px solid #d7e1f2;border-radius:7px;background:#fff;color:#111827;font:inherit;font-size:14px;padding:0 10px;outline:none}
+    input,select{width:100%;min-width:0;height:38px;border:1px solid #d7e1f2;border-radius:7px;background:#fff;color:#111827;font:inherit;font-size:14px;padding:0 10px;outline:none}
+    input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+    input[type=number]{appearance:textfield;-moz-appearance:textfield}
     input:focus,select:focus{border-color:#94adff;box-shadow:0 0 0 3px rgba(79,115,234,.14)}
     button.primary{height:38px;border:0;border-radius:7px;background:#263f73;color:#fff;font:inherit;font-size:14px;font-weight:850;padding:0 16px;cursor:pointer}
     .muted{color:#6d7788;font-weight:750}
@@ -48,20 +54,76 @@
     .panel-body{padding:14px}
     .coef-box{border:1px solid #bcd0ff;border-radius:8px;background:linear-gradient(105deg,#f7fbff,#fffaf0);padding:16px}
     .query-row{display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(260px,1fr);gap:12px;align-items:end}
+    .coef-query-field{position:relative}
     .coef-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
     .coef-card{border:1px solid #dce6f7;border-radius:8px;background:rgba(255,255,255,.82);padding:12px 14px;min-height:82px}
     .coef-card span{display:block;color:#6d7788;font-size:12px;font-weight:850;margin-bottom:6px}
     .coef-card strong{font-size:17px}
-    .action-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .result-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:14px;color:#5d697c;font-size:13px;font-weight:750}
     .result-card strong{display:block;margin:8px 0;color:#18233a;font-size:22px}
-    .employee-layout{display:grid;grid-template-columns:minmax(0,1fr) 188px;gap:14px;align-items:start}
-    .employee-table-wrap{overflow:auto}
-    .employee-table{min-width:1180px}
-    .employee-table input{height:30px;font-size:12px}
-    .lift-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:14px;position:sticky;top:12px}
-    .lift-card strong{display:block;font-size:24px;margin:4px 0}
+    .scenario-shell{display:grid;gap:16px;background:linear-gradient(180deg,#fbfdff 0%,#fff 100%)}
+    .filter-grid{display:grid;grid-template-columns:minmax(220px,320px) minmax(220px,320px);gap:12px;align-items:end}
+    .glass-field label{color:#53657d;font-weight:900}
+    .glass-select{height:42px;border-radius:10px;border:1px solid rgba(135,158,193,.36);background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(238,244,252,.72));box-shadow:0 8px 22px rgba(32,52,88,.08),inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(10px);font-weight:850;color:#172238}
+    .glass-select:hover{border-color:#b7c7df;box-shadow:0 12px 26px rgba(32,52,88,.12),0 0 0 3px rgba(79,115,234,.08)}
+    .lever-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .lever-card{--tone:#2c86c9;--tone2:#8cc7ee;border:1px solid #dfe7f5;border-top:4px solid #8fcdf1;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,251,255,.94));padding:22px 18px;box-shadow:0 10px 24px rgba(28,44,75,.07);display:grid;gap:18px;min-height:228px;min-width:0;text-align:center;align-content:center}
+    .lever-card.private{--tone:#ad5a86;--tone2:#e7a6c7;border-top-color:#d98ab5}
+    .lever-head{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:center;justify-items:center;text-align:center}
+    .lever-tag{display:inline-flex;align-items:center;border-radius:999px;background:#f4f8ff;color:var(--tone);font-size:12px;font-weight:900;padding:4px 8px;white-space:nowrap}
+    .lever-card.private .lever-tag{background:#fff4f8}
+    .lever-product{width:100%;min-width:0;text-align:center;position:relative}
+    .lever-product label{text-align:center}
+    .lever-product input{font-weight:850;text-align:center}
+    .lever-product input.is-default-product{color:#6f7785;background:linear-gradient(180deg,#fbfcfe,#f7f9fc)}
+    .lever-suggest{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;display:none;max-height:260px;overflow:auto;border:1px solid rgba(116,134,166,.45);border-radius:10px;background:rgba(64,68,72,.92);box-shadow:0 18px 36px rgba(25,38,62,.22);backdrop-filter:blur(8px);text-align:left;scrollbar-color:rgba(255,255,255,.38) rgba(64,68,72,.92);scrollbar-width:thin}
+    .lever-suggest::-webkit-scrollbar{width:10px}
+    .lever-suggest::-webkit-scrollbar-track{background:rgba(64,68,72,.92);border-radius:0 10px 10px 0}
+    .lever-suggest::-webkit-scrollbar-thumb{background:rgba(255,255,255,.38);border:2px solid rgba(64,68,72,.92);border-radius:999px}
+    .lever-suggest.is-open{display:block}
+    .suggest-item{width:100%;border:0;border-bottom:1px solid rgba(255,255,255,.16);border-radius:0;background:transparent;color:#fff;padding:9px 12px;text-align:left;cursor:pointer}
+    .suggest-item:hover,.suggest-item:focus{background:rgba(255,255,255,.12);outline:0}
+    .suggest-item b{display:block;font-size:13px;line-height:1.35}
+    .suggest-item span{display:block;margin-top:2px;color:rgba(255,255,255,.76);font-size:11px;font-weight:750;line-height:1.35}
+    .suggest-empty{padding:12px;color:rgba(255,255,255,.78);font-size:12px;font-weight:800;text-align:center}
+    .lever-meta{width:100%;color:#66748a;font-size:12px;font-weight:800;min-height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
+    .amount-row{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:14px;align-items:center;margin-top:10px}
+    .amount-row input[type=range]{height:34px;padding:0;border:0;accent-color:var(--tone);background:transparent}
+    .amount-row input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--tone2),var(--tone));box-shadow:inset 0 1px 2px rgba(16,32,54,.25)}
+    .amount-row input[type=range]::-webkit-slider-thumb{margin-top:-6px;width:20px;height:20px;border-radius:50%;border:3px solid #fff;background:var(--tone);box-shadow:0 3px 10px rgba(27,49,82,.24)}
+    .amount-row input[type=number]{height:34px;font-size:13px;font-weight:850;text-align:center}
+    .result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .metric-card{--energy:#2c86c9;border:1px solid rgba(166,183,207,.42);border-radius:8px;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(240,246,253,.72));box-shadow:0 10px 26px rgba(24,42,75,.08),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:19px 16px;min-height:214px;display:grid;gap:14px;position:relative;overflow:hidden;align-content:center}
+    .metric-card:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.52),transparent 38%,rgba(255,255,255,.24));pointer-events:none}
+    .metric-card.public{border-top:3px solid #2c86c9}
+    .metric-card.private{--energy:#ad5a86;border-top:3px solid #ad5a86}
+    .metric-card.combined{--energy:#284b82;border-top:3px solid #284b82}
+    .metric-card span,.metric-card strong,.metric-card small,.target-line,.energy-meter,.metric-copy{position:relative}
+    .metric-card span{color:#53657d;font-size:12px;font-weight:900}
+    .metric-card strong{font-size:28px;line-height:1;color:#10213a}
+    .metric-card small{color:#7b8799;font-size:12px;font-weight:750;line-height:1.75}
+    .metric-copy{display:grid;grid-template-columns:1fr;gap:9px;align-items:center;align-content:center;justify-items:center;text-align:center}
+    .metric-copy small{grid-column:1/-1;display:block}
+    .metric-body{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:8px;align-items:center}
+    .target-line{display:grid;justify-items:center;gap:5px;align-items:center;border:1px solid rgba(128,150,180,.4);border-radius:8px;background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(236,243,250,.74));padding:10px 12px;text-align:center}
+    .target-line label{color:#254466;font-size:16px;font-weight:950}
+    .target-line strong{font-size:20px;line-height:1.05;text-align:center;color:#1f6b9d}
+    .metric-card.private .target-line label,.metric-card.private .target-line strong{color:#9b4774}
+    .metric-card.combined .target-line label,.metric-card.combined .target-line strong{color:#243f72}
+    .target-line input{height:34px;border-radius:7px;text-align:center;font-size:17px;font-weight:950;color:#254466}
+    .target-line input[hidden],.target-line strong[hidden]{display:none}
+    .energy-meter{display:grid;grid-template-columns:64px minmax(0,1fr);gap:6px;align-items:center;transform:translateX(-50px)}
+    .energy-battery{width:56px;height:88px;margin:0 auto;border:3px solid var(--energy);border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(239,244,250,.42));position:relative;box-shadow:0 0 14px color-mix(in srgb,var(--energy) 30%,transparent),inset 0 0 12px rgba(22,37,60,.08)}
+    .energy-battery:before{content:"";position:absolute;left:50%;top:-11px;width:20px;height:8px;transform:translateX(-50%);border:3px solid var(--energy);border-bottom:0;border-radius:9px 9px 0 0;background:rgba(255,255,255,.86);box-shadow:0 0 10px color-mix(in srgb,var(--energy) 24%,transparent)}
+    .energy-battery:after{content:"";position:absolute;right:7px;top:14px;width:5px;height:18px;border-radius:999px;background:rgba(255,255,255,.72);box-shadow:0 0 8px rgba(255,255,255,.7)}
+    .energy-fill{position:absolute;left:5px;right:5px;top:5px;bottom:5px;height:auto;border-radius:7px;background:linear-gradient(180deg,color-mix(in srgb,var(--energy) 38%,#fff),var(--energy));transform:scaleY(var(--energy-scale,0));transform-origin:bottom;transition:transform .38s ease;overflow:hidden;box-shadow:inset 0 0 12px color-mix(in srgb,var(--energy) 30%,transparent)}
+    .energy-fill:before{content:"";position:absolute;left:-18%;right:-18%;top:-8px;height:16px;border-radius:50%;background:rgba(255,255,255,.45);animation:energyWave 2.1s ease-in-out infinite}
+    .energy-fill:after{content:"";position:absolute;inset:10px 8px auto;height:36px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.65) 0 3px,transparent 4px),radial-gradient(circle at 70% 52%,rgba(255,255,255,.45) 0 4px,transparent 5px);opacity:.75}
+    .energy-bolt{position:absolute;left:19px;top:25px;width:17px;height:34px;clip-path:polygon(55% 0,18% 43%,47% 43%,34% 100%,82% 34%,54% 34%);background:rgba(255,255,255,.9);filter:drop-shadow(0 0 5px color-mix(in srgb,var(--energy) 52%,transparent));z-index:3}
+    .energy-rate{display:grid;justify-items:center;text-align:center;gap:6px;color:#53657d;font-size:12px;font-weight:850}
+    .energy-rate strong{font-size:24px;color:var(--energy);max-width:100%;white-space:nowrap}
+    @keyframes energyWave{0%,100%{transform:translateX(-7%)}50%{transform:translateX(7%)}}
     .candidate-list{display:grid;gap:8px;margin-top:10px}
     .candidate-item{border:1px solid #e1e8f4;border-radius:8px;background:#fff;padding:9px 10px}
     .candidate-item b{display:block;margin-bottom:4px;color:#1f2a3d}
@@ -71,11 +133,11 @@
     .catchup-card{border:1px solid #dfe7f5;border-radius:8px;background:#fbfcff;padding:12px;display:grid;gap:8px;min-width:0}
     .catchup-card h4{margin:0;font-size:15px;color:#18233a}
     .catchup-card strong{display:block;color:#18233a;font-size:20px}
-    @media(max-width:1100px){.query-row,.action-grid,.compare-grid,.catchup-grid,.employee-layout{grid-template-columns:1fr}.coef-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:720px){.form-grid,.coef-grid{grid-template-columns:1fr}}
+    @media(max-width:1100px){.query-row,.filter-grid,.compare-grid,.catchup-grid{grid-template-columns:1fr}.coef-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lever-grid,.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.form-grid,.coef-grid,.lever-grid,.result-grid{grid-template-columns:1fr}.amount-row{grid-template-columns:1fr}.amount-row input[type=number]{text-align:center}}
   </style>
-  <script src="data/salesBroadcastUpdateData.js?v=20260724_001"></script>
-  <script src="data/productCalendarData.js?v=20260728_heji_factor_period"></script>
+  <script src="data/salesBroadcastUpdateData.js?v=20260805_001"></script>
+  <script src="data/productCalendarData.js?v=20260807_private_aug_other"></script>
   <script src="data/productCoefficientData.js?v=20260726_001"></script>
   <script src="data/productDecisionTools.js?v=20260728_public_compare_no_substrategy"></script>
 </head>
@@ -83,14 +145,9 @@
   <main class="page">
     <section class="hero">
       <h1>公私募标准销量</h1>
-      <div class="sub">山东分公司 | 标准销量统计日 <span data-as-of>20260724</span></div>
-      <p>覆盖产品考核系数查询、营业部标准销量测算、员工全量展开与赶超缺口测算。</p>
+      <div class="sub">销售行动测算 | 山东分公司 | 标准销量统计日 <span data-as-of>20260724</span></div>
+      <p>覆盖产品考核系数查询、营业部/个人销售行动测算与赶超缺口测算。</p>
     </section>
-    <nav class="tabs">
-      <a class="tab active" href="嵌入-销售行动测算.html">销售行动测算</a>
-      <a class="tab" href="嵌入-标准销量销售情况.html">标准销量销售情况</a>
-    </nav>
-
     <section class="section">
       <div class="section-head">
         <h2 class="section-title">产品考核系数查询</h2>
@@ -99,7 +156,11 @@
       <div class="content">
         <div class="coef-box">
           <div class="query-row">
-            <div class="field"><label>产品代码</label><input data-coef-query list="salesProductsList" value="589463"></div>
+            <div class="field coef-query-field">
+              <label>产品代码</label>
+              <input data-coef-query value="589463" autocomplete="off">
+              <div class="lever-suggest" data-coef-suggest></div>
+            </div>
             <button class="primary" type="button" data-run-coef>查询系数</button>
             <div class="muted">按投发考核产品系数报表和已接入产品数据展示。</div>
           </div>
@@ -110,6 +171,8 @@
             <div class="coef-card"><span>2026标准销量折算系数</span><strong data-coef-sales>-</strong></div>
           </div>
           <datalist id="salesProductsList"></datalist>
+          <datalist id="publicSalesProductsList"></datalist>
+          <datalist id="privateSalesProductsList"></datalist>
         </div>
       </div>
     </section>
@@ -117,24 +180,69 @@
     <section class="section">
       <div class="section-head">
         <h2 class="section-title">销售行动测算</h2>
-        <span class="pill">输入产品与金额，直接测算标销贡献和赶超缺口</span>
+        <span class="pill">选择范围、产品和金额，实时测算新增标销</span>
       </div>
-      <div class="content action-grid">
-        <div class="panel">
-          <h3>营业部标准销量测算</h3>
-          <div class="panel-body">
-            <div class="form-grid">
-              <div class="field"><label>产品代码/名称</label><input data-sales-product list="salesProductsList" value="589463"></div>
-              <div class="field"><label>拟销售金额（万元）</label><input data-sales-amount type="number" min="0" step="10" value="100"></div>
-              <div class="field"><label>所属营业部</label><select data-sales-branch></select></div>
-              <div class="field"><label>新增标准销量（万元）</label><input data-sales-increment readonly></div>
-            </div>
-            <button class="primary" type="button" data-run-sales style="width:100%;margin-top:18px">测算增量</button>
-          </div>
+      <div class="content scenario-shell">
+        <div class="filter-grid">
+          <div class="field glass-field"><label>营业部</label><select class="glass-select" data-sales-branch></select></div>
+          <div class="field glass-field"><label>员工</label><select class="glass-select" data-sales-person></select></div>
         </div>
-        <div class="panel">
-          <h3>营业部标准销量测算增量结果</h3>
-          <div class="panel-body"><div class="result-card" data-sales-result>输入产品和金额后，展示营业部可贡献的标准销量。</div></div>
+        <div class="lever-grid" data-lever-grid></div>
+        <div class="result-grid">
+          <div class="metric-card public">
+            <div class="target-line">
+              <label>公募标销</label>
+              <strong data-target-public-text>0 万</strong>
+              <input data-target-public-input type="number" min="0" step="10" hidden>
+            </div>
+            <div class="metric-body">
+              <div class="metric-copy">
+                <span>折后预计</span>
+                <strong data-result-public>0 万</strong>
+                <small data-result-public-detail>当前 0 万<br>新增 0 万</small>
+              </div>
+              <div class="energy-meter" aria-label="公募完成率">
+                <div class="energy-battery"><i class="energy-fill" data-energy-public></i><i class="energy-bolt"></i></div>
+                <div class="energy-rate"><span>调整后完成率</span><strong data-energy-public-text>0.0%</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="metric-card private">
+            <div class="target-line">
+              <label>私募标销</label>
+              <strong data-target-private-text>0 万</strong>
+              <input data-target-private-input type="number" min="0" step="10" hidden>
+            </div>
+            <div class="metric-body">
+              <div class="metric-copy">
+                <span>折后预计</span>
+                <strong data-result-private>0 万</strong>
+                <small data-result-private-detail>当前 0 万<br>新增 0 万</small>
+              </div>
+              <div class="energy-meter" aria-label="私募完成率">
+                <div class="energy-battery"><i class="energy-fill" data-energy-private></i><i class="energy-bolt"></i></div>
+                <div class="energy-rate"><span>调整后完成率</span><strong data-energy-private-text>0.0%</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="metric-card combined">
+            <div class="target-line">
+              <label>汇总标销</label>
+              <strong data-target-combined-text>0 万</strong>
+              <input data-target-combined-input type="number" min="0" step="10" hidden>
+            </div>
+            <div class="metric-body">
+              <div class="metric-copy">
+                <span>折后预计</span>
+                <strong data-result-combined>0 万</strong>
+                <small data-result-combined-detail>当前 0 万<br>新增 0 万</small>
+              </div>
+              <div class="energy-meter" aria-label="汇总完成率">
+                <div class="energy-battery"><i class="energy-fill" data-energy-combined></i><i class="energy-bolt"></i></div>
+                <div class="energy-rate"><span>调整后完成率</span><strong data-energy-combined-text>0.0%</strong></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -161,47 +269,26 @@
         </div>
       </div>
     </section>
-
-    <section class="section">
-      <div class="section-head"><h2 class="section-title">员工标准销量测算</h2></div>
-      <div class="content">
-        <div class="form-grid" style="margin-bottom:18px">
-          <div class="field"><label>选择营业部</label><select data-employee-branch></select></div>
-          <div class="field"><label>批量产品代码/名称</label><input data-employee-product list="salesProductsList" placeholder="可填后批量应用"></div>
-        </div>
-        <div class="employee-layout">
-          <div class="employee-table-wrap">
-            <table class="employee-table">
-              <thead><tr><th>名字</th><th>公募标准销量</th><th>私募标准销量</th><th>公私募标准销量</th><th>产品代码</th><th>拟销售金额（万元）</th><th>新增标准销量（万元）</th><th>营业部提升比例</th></tr></thead>
-              <tbody data-employee-rows></tbody>
-            </table>
-          </div>
-          <div class="lift-card">
-            <span class="muted">预计营业部提升</span>
-            <strong data-employee-total-lift>0.0%</strong>
-            <span class="muted" data-employee-total-detail>选择营业部后开始测算。</span>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
   <script>
     const reportData = window.salesBroadcastUpdateData || {};
     const tools = window.ProductDecisionTools;
     const fmt = v => Number(v || 0).toLocaleString('zh-CN', {maximumFractionDigits:Number(v || 0) % 1 === 0 ? 0 : 1});
     const pct = v => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     const productData = tools ? tools.collectProducts('') : {items:[],map:new Map()};
     const branches = reportData.standard?.branches || [];
-    document.querySelector('[data-as-of]').textContent = reportData.standard?.as_of || '20260724';
+    document.querySelector('[data-as-of]').textContent = reportData.standard?.as_of || '20260805';
     document.getElementById('salesProductsList').innerHTML = productData.items.slice(0,900).map(item => `<option value="${item.code || item.name}">${item.name || ''}</option>`).join('');
-    const branchOptions = branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
+    const branchOptions = `<option value="__company__">分公司</option>` + branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
+    const branchOnlyOptions = branches.map(row => `<option value="${row.branch}">${row.branch}</option>`).join('');
     document.querySelector('[data-sales-branch]').innerHTML = branchOptions;
-    document.querySelector('[data-employee-branch]').innerHTML = branchOptions;
-    document.querySelector('[data-branch-a]').innerHTML = branchOptions;
-    document.querySelector('[data-branch-b]').innerHTML = branchOptions;
+    document.querySelector('[data-sales-branch]').value = branches.some(row => row.branch === '济南解放路') ? '济南解放路' : (branches[0]?.branch || '__company__');
+    document.querySelector('[data-branch-a]').innerHTML = branchOnlyOptions;
+    document.querySelector('[data-branch-b]').innerHTML = branchOnlyOptions;
     if(branches[0]) document.querySelector('[data-branch-a]').value = branches[0].branch;
     if(branches[1]) document.querySelector('[data-branch-b]').value = branches[1].branch;
-    function branchByName(name){return branches.find(row => row.branch === name) || branches[0] || {};}
+    function branchByName(name){return name === '__company__' ? (reportData.standard?.totals || {}) : (branches.find(row => row.branch === name) || branches[0] || {});}
     function productType(item){if(item?.category === 'public') return 'public'; if(item?.category === 'private' || item?.category === 'privateTracking') return 'private'; return 'combined';}
     function candidateReason(item){
       const parts = [];
@@ -216,6 +303,258 @@
       return (tools?.candidateProducts(18) || [])
         .filter(item => productType(item) === type)
         .slice(0, limit);
+    }
+    function productLabel(item){
+      return item ? [item.code, item.name].filter(Boolean).join(' ') : '';
+    }
+    function productDisplayLabel(item){
+      return item ? (item.name || item.code || '') : '';
+    }
+    function productMeta(item){
+      if(!item) return '未找到产品，按 0 增量测算';
+      const factor = tools.factorFrom(item.salesCoef);
+      return `${candidateReason(item)}｜销量系数 ${factor}`;
+    }
+    function preferredProducts(type, count){
+      const primary = (tools?.candidateProducts(48) || []).filter(item => productType(item) === type);
+      const fallback = productData.items
+        .filter(item => item.source !== 'coefficient' && productType(item) === type)
+        .filter(item => (tools ? tools.factorFrom(item.salesCoef) : 0) > 1 || item.section === '首发');
+      return Array.from(new Set(primary.concat(fallback))).slice(0, count);
+    }
+    function allProductsForType(type){
+      const preferred = preferredProducts(type, 900);
+      const rest = productData.items.filter(item => productType(item) === type);
+      return Array.from(new Set(preferred.concat(rest)));
+    }
+    function findProductByVisibleText(value, type){
+      const query = String(value || '').trim();
+      if(!query) return null;
+      const normalized = query.toLowerCase();
+      const exact = allProductsForType(type).find(item => {
+        return [
+          item.code,
+          item.name,
+          productLabel(item),
+          productDisplayLabel(item)
+        ].filter(Boolean).some(label => String(label).trim().toLowerCase() === normalized);
+      });
+      if(exact) return exact;
+      return allProductsForType(type).find(item => {
+        return [
+          item.code,
+          item.name,
+          productLabel(item),
+          productDisplayLabel(item)
+        ].filter(Boolean).join(' ').toLowerCase().includes(normalized);
+      }) || null;
+    }
+    document.getElementById('publicSalesProductsList').innerHTML = allProductsForType('public').map(item => `<option value="${productLabel(item)}">${item.name || ''}</option>`).join('');
+    document.getElementById('privateSalesProductsList').innerHTML = allProductsForType('private').map(item => `<option value="${productLabel(item)}">${item.name || ''}</option>`).join('');
+    const leverState = [
+      ...preferredProducts('public', 3).map((item, index) => ({id:`public-${index}`, type:'public', item, amount:100})),
+      ...preferredProducts('private', 3).map((item, index) => ({id:`private-${index}`, type:'private', item, amount:100}))
+    ];
+    const personTargets = {public:null, private:null, combined:null};
+    while(leverState.filter(row => row.type === 'public').length < 3) leverState.splice(leverState.filter(row => row.type === 'public').length, 0, {id:`public-fallback-${leverState.length}`, type:'public', item:null, amount:100});
+    while(leverState.filter(row => row.type === 'private').length < 3) leverState.push({id:`private-fallback-${leverState.length}`, type:'private', item:null, amount:100});
+    function employeesForBranch(branchName){
+      const rows = reportData.employees || [];
+      const filtered = branchName === '__company__' ? rows : rows.filter(row => row.branch === branchName);
+      return filtered.sort((a,b)=>Number(b.combined_amount||0)-Number(a.combined_amount||0));
+    }
+    function selectedEmployee(){
+      const employees = employeesForBranch(document.querySelector('[data-sales-branch]').value);
+      const selected = document.querySelector('[data-sales-person]').value;
+      if(selected === '') return null;
+      const index = Number(selected);
+      return Number.isInteger(index) && index >= 0 && employees[index] ? employees[index] : null;
+    }
+    function baseMetrics(){
+      const person = selectedEmployee();
+      if(person){
+        return {
+          label: person.name,
+          public_amount: Number(person.public_amount || 0),
+          private_amount: Number(person.private_amount || 0),
+          combined_amount: Number(person.combined_amount || 0),
+          public_target: Number(personTargets.public || 0),
+          private_target: Number(personTargets.private || 0),
+          combined_target: Number(personTargets.combined || 0),
+          isPerson: true
+        };
+      }
+      const branch = branchByName(document.querySelector('[data-sales-branch]').value);
+      return {
+        label: branch.branch || '分公司',
+        public_amount: Number(branch.public_amount || 0),
+        private_amount: Number(branch.private_amount || 0),
+        combined_amount: Number(branch.combined_amount || 0),
+        public_target: Number(branch.public_target || 0),
+        private_target: Number(branch.private_target || 0),
+        combined_target: Number(branch.combined_target || 0),
+        isPerson: false
+      };
+    }
+    function renderLevers(){
+      document.querySelector('[data-lever-grid]').innerHTML = leverState.map((row, index) => `
+        <div class="lever-card ${row.type === 'private' ? 'private' : 'public'}" data-lever="${index}">
+          <div class="lever-head">
+            <div class="lever-product field">
+              <label>产品名称</label>
+              <input class="is-default-product" data-lever-product value="${escapeHtml(productDisplayLabel(row.item))}" data-default-value="${escapeHtml(productDisplayLabel(row.item))}" placeholder="输入产品名或代码">
+              <div class="lever-suggest" data-lever-suggest></div>
+            </div>
+            <span class="lever-tag">${row.type === 'public' ? '公募' : '私募'}</span>
+          </div>
+          <div class="lever-meta" data-lever-meta>${productMeta(row.item)}</div>
+          <div class="amount-row">
+            <input data-lever-range type="range" min="0" max="${row.type === 'public' ? 2000 : 4000}" step="10" value="${row.amount}" aria-label="拟销售金额">
+            <input data-lever-amount type="number" min="0" step="10" value="${row.amount}" aria-label="拟销售金额（万元）">
+          </div>
+        </div>
+      `).join('');
+    }
+    function renderPeople(){
+      const employees = employeesForBranch(document.querySelector('[data-sales-branch]').value);
+      document.querySelector('[data-sales-person]').innerHTML = '<option value="">默认</option>' + employees.map((row, index) => `<option value="${index}">${row.name}</option>`).join('');
+    }
+    function setTargetControl(type, target, isPerson){
+      const text = document.querySelector(`[data-target-${type}-text]`);
+      const input = document.querySelector(`[data-target-${type}-input]`);
+      if(!text || !input) return;
+      text.hidden = isPerson;
+      input.hidden = !isPerson;
+      if(isPerson){
+        input.value = personTargets[type] ?? '';
+        input.placeholder = '填目标';
+      }else{
+        text.textContent = `${fmt(target)} 万`;
+      }
+    }
+    function energyColor(rate){
+      const clamped = Math.min(1, Math.max(0, rate));
+      const hue = Math.round(clamped * 120);
+      return `hsl(${hue} 64% 48%)`;
+    }
+    function setEnergy(type, rate){
+      const visual = Math.min(100, Math.max(0, rate * 100));
+      const fill = document.querySelector(`[data-energy-${type}]`);
+      const text = document.querySelector(`[data-energy-${type}-text]`);
+      const card = document.querySelector(`.metric-card.${type}`);
+      const color = energyColor(rate);
+      if(fill) fill.style.setProperty('--energy-scale', String(visual / 100));
+      if(card) card.style.setProperty('--energy', color);
+      if(text) text.textContent = `${(rate * 100).toFixed(1)}%`;
+    }
+    function suggestProducts(type, query){
+      const keyword = String(query || '').trim().toLowerCase();
+      return allProductsForType(type).filter(item => {
+        if(!keyword) return true;
+        return [item.code, item.name, item.section, item.strategy, item.theme]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+          .includes(keyword);
+      });
+    }
+    function renderLeverSuggest(card, query = ''){
+      const index = Number(card.dataset.lever);
+      const state = leverState[index];
+      const box = card.querySelector('[data-lever-suggest]');
+      if(!state || !box) return;
+      const rows = suggestProducts(state.type, query);
+      box.innerHTML = rows.length ? rows.map(item => `
+        <button class="suggest-item" type="button" data-suggest-product="${escapeHtml(productLabel(item))}" data-suggest-display="${escapeHtml(productDisplayLabel(item))}">
+          <b>${escapeHtml(productDisplayLabel(item))}</b>
+          <span>${escapeHtml(productMeta(item))}</span>
+        </button>
+      `).join('') : '<div class="suggest-empty">没有匹配产品</div>';
+      box.classList.add('is-open');
+    }
+    function closeLeverSuggests(exceptCard = null){
+      document.querySelectorAll('[data-lever]').forEach(card => {
+        if(card !== exceptCard) card.querySelector('[data-lever-suggest]')?.classList.remove('is-open');
+      });
+    }
+    function coefSuggestProducts(query){
+      const keyword = String(query || '').trim().toLowerCase();
+      return productData.items.filter(item => {
+        if(!keyword) return true;
+        return [item.code, item.name, item.section, item.strategy, item.theme]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+          .includes(keyword);
+      }).slice(0, 80);
+    }
+    function renderCoefSuggest(query = ''){
+      const box = document.querySelector('[data-coef-suggest]');
+      const rows = coefSuggestProducts(query);
+      box.innerHTML = rows.length ? rows.map(item => `
+        <button class="suggest-item" type="button" data-coef-product="${escapeHtml(item.code || item.name || '')}">
+          <b>${escapeHtml(item.code || item.name || '')}</b>
+          <span>${escapeHtml(item.name || '')}</span>
+        </button>
+      `).join('') : '<div class="suggest-empty">没有匹配产品</div>';
+      box.classList.add('is-open');
+    }
+    function closeCoefSuggest(){
+      document.querySelector('[data-coef-suggest]')?.classList.remove('is-open');
+    }
+    function renderActionCalc(){
+      const base = baseMetrics();
+      const inc = leverState.reduce((sum, row) => {
+        const factor = row.item && tools ? tools.factorFrom(row.item.salesCoef) : 0;
+        sum[row.type] += tools ? tools.calcStandardAmount(row.amount, factor) : 0;
+        return sum;
+      }, {public:0, private:0});
+      const publicTotal = base.public_amount + inc.public;
+      const privateTotal = base.private_amount + inc.private;
+      const combinedTotal = publicTotal + privateTotal;
+      const baseCombined = base.combined_amount || (base.public_amount + base.private_amount);
+      const publicRate = base.public_target ? publicTotal / base.public_target : 0;
+      const privateRate = base.private_target ? privateTotal / base.private_target : 0;
+      const combinedRate = base.combined_target ? combinedTotal / base.combined_target : 0;
+      setTargetControl('public', base.public_target, base.isPerson);
+      setTargetControl('private', base.private_target, base.isPerson);
+      setTargetControl('combined', base.combined_target, base.isPerson);
+      document.querySelector('[data-result-public]').textContent = `${fmt(publicTotal)} 万`;
+      document.querySelector('[data-result-private]').textContent = `${fmt(privateTotal)} 万`;
+      document.querySelector('[data-result-combined]').textContent = `${fmt(combinedTotal)} 万`;
+      document.querySelector('[data-result-public-detail]').innerHTML = `当前 ${fmt(base.public_amount)} 万<br>新增 ${fmt(inc.public)} 万`;
+      document.querySelector('[data-result-private-detail]').innerHTML = `当前 ${fmt(base.private_amount)} 万<br>新增 ${fmt(inc.private)} 万`;
+      document.querySelector('[data-result-combined-detail]').innerHTML = `${base.label} 当前 ${fmt(baseCombined)} 万<br>新增 ${fmt(inc.public + inc.private)} 万`;
+      setEnergy('public', publicRate);
+      setEnergy('private', privateRate);
+      setEnergy('combined', combinedRate);
+    }
+    function syncLeverFromCard(card, source){
+      const index = Number(card.dataset.lever);
+      const state = leverState[index];
+      if(!state) return;
+      if(source === 'product'){
+        const input = card.querySelector('[data-lever-product]');
+        const value = input.value.trim();
+        const matched = tools?.findProduct(value, productData.map) || findProductByVisibleText(value, state.type);
+        if(matched){
+          state.item = matched;
+        }else if(state.item && (!value || value === productDisplayLabel(state.item) || value === productLabel(state.item))){
+          input.value = productDisplayLabel(state.item);
+        }else{
+          state.item = null;
+        }
+        card.querySelector('[data-lever-meta]').textContent = productMeta(state.item);
+      }else{
+        const amountInput = card.querySelector('[data-lever-amount]');
+        const rangeInput = card.querySelector('[data-lever-range]');
+        const value = Math.max(0, Number((source === 'range' ? rangeInput.value : amountInput.value) || 0));
+        if(value > Number(rangeInput.max || 0)) rangeInput.max = String(Math.ceil(value / 100) * 100);
+        state.amount = value;
+        amountInput.value = value;
+        rangeInput.value = value;
+      }
+      renderActionCalc();
     }
     function catchupNeed(source, target, type){
       const amountKey = type === 'public' ? 'public_amount' : 'private_amount';
@@ -264,22 +603,6 @@
       document.querySelector('[data-coef-hold]').textContent = item ? tools.factorFrom(item.holdingCoef) : '-';
       document.querySelector('[data-coef-sales]').textContent = item ? tools.factorFrom(item.salesCoef) : '-';
     }
-    function runSales(){
-      const item = tools?.findProduct(document.querySelector('[data-sales-product]').value, productData.map);
-      const amount = Number(document.querySelector('[data-sales-amount]').value || 0);
-      const branch = branchByName(document.querySelector('[data-sales-branch]').value);
-      const box = document.querySelector('[data-sales-result]');
-      if(!item || !amount){box.textContent = '未找到产品或金额为空，请换产品代码/名称再试。';return;}
-      const factor = tools.factorFrom(item.salesCoef);
-      const holdFactor = tools.factorFrom(item.holdingCoef);
-      const increment = tools.calcStandardAmount(amount, factor);
-      const holdIncrement = tools.calcStandardAmount(amount, holdFactor);
-      document.querySelector('[data-sales-increment]').value = fmt(increment);
-      const type = productType(item);
-      const base = type === 'public' ? branch.public_amount : (type === 'private' ? branch.private_amount : branch.combined_amount);
-      const target = type === 'public' ? branch.public_target : (type === 'private' ? branch.private_target : branch.combined_target);
-      box.innerHTML = `<span>${item.name} 当前按 <b>${factor}</b> 倍标准销量、<b>${holdFactor}</b> 倍标准保有测算。</span><strong>预计新增 ${fmt(increment)} 万元标销</strong><span>若销售 ${fmt(amount)} 万元，可为 ${branch.branch} 带来约 ${fmt(increment)} 万元标准销量、${fmt(holdIncrement)} 万元标准保有；对应口径完成率可提升至 ${pct(target ? (base + increment) / target : 0)}。</span>`;
-    }
     function renderBranchCalc(){
       const a = branchByName(document.querySelector('[data-branch-a]').value);
       const b = branchByName(document.querySelector('[data-branch-b]').value);
@@ -296,34 +619,80 @@
         <span class="muted">候选产品取当前可销售或本月底前可销售的产品；金额单位为万元，组合为测算参考，最终以客户适配与产品额度为准。</span>
       `;
     }
-    function employeesForBranch(branchName){return (reportData.employees || []).filter(row => row.branch === branchName).sort((a,b)=>Number(b.combined_amount||0)-Number(a.combined_amount||0));}
-    function renderEmployeeRows(){
-      const branch = branchByName(document.querySelector('[data-employee-branch]').value);
-      const product = document.querySelector('[data-employee-product]').value || '';
-      document.querySelector('[data-employee-rows]').innerHTML = employeesForBranch(branch.branch).map(row => `<tr data-employee-row><td><strong>${row.name}</strong></td><td>${fmt(row.public_amount)}</td><td>${fmt(row.private_amount)}</td><td>${fmt(row.combined_amount)}</td><td><input data-row-product value="${product}" placeholder="代码/名称"></td><td><input data-row-amount type="number" min="0" step="10" placeholder="万元"></td><td data-row-increment>0</td><td data-row-lift>0.0%</td></tr>`).join('');
-      renderEmployeeCalc();
-    }
-    function renderEmployeeCalc(){
-      const branch = branchByName(document.querySelector('[data-employee-branch]').value);
-      let total = 0;
-      document.querySelectorAll('[data-employee-row]').forEach(row => {
-        const item = tools?.findProduct(row.querySelector('[data-row-product]').value, productData.map);
-        const amount = Number(row.querySelector('[data-row-amount]').value || 0);
-        const inc = item ? tools.calcStandardAmount(amount, tools.factorFrom(item.salesCoef)) : 0;
-        total += inc;
-        row.querySelector('[data-row-increment]').textContent = fmt(inc);
-        row.querySelector('[data-row-lift]').textContent = pct(branch.combined_target ? inc / branch.combined_target : 0);
-      });
-      document.querySelector('[data-employee-total-lift]').textContent = pct(branch.combined_target ? total / branch.combined_target : 0);
-      document.querySelector('[data-employee-total-detail]').textContent = `${branch.branch || ''} 预计新增 ${fmt(total)} 万元标销，按公私募目标 ${fmt(branch.combined_target)} 万测算。`;
-    }
     document.querySelector('[data-run-coef]').addEventListener('click', renderCoef);
-    document.querySelector('[data-run-sales]').addEventListener('click', runSales);
     document.querySelector('[data-run-branch]').addEventListener('click', renderBranchCalc);
-    document.querySelector('[data-employee-branch]').addEventListener('change', renderEmployeeRows);
-    document.querySelector('[data-employee-product]').addEventListener('input', () => {document.querySelectorAll('[data-row-product]').forEach(input => input.value = document.querySelector('[data-employee-product]').value);renderEmployeeCalc();});
-    document.querySelector('[data-employee-rows]').addEventListener('input', renderEmployeeCalc);
-    renderCoef(); runSales(); renderBranchCalc(); renderEmployeeRows();
+    document.querySelector('[data-sales-branch]').addEventListener('change', () => {renderPeople();renderActionCalc();});
+    document.querySelector('[data-sales-person]').addEventListener('change', renderActionCalc);
+    document.querySelector('[data-coef-query]').addEventListener('focus', event => {
+      renderCoefSuggest(event.target.value);
+      event.target.select();
+    });
+    document.querySelector('[data-coef-query]').addEventListener('input', event => {
+      renderCoefSuggest(event.target.value);
+    });
+    document.querySelector('[data-coef-query]').addEventListener('blur', () => {
+      setTimeout(closeCoefSuggest, 120);
+    });
+    document.querySelector('[data-coef-suggest]').addEventListener('mousedown', event => {
+      const item = event.target.closest('[data-coef-product]');
+      if(!item) return;
+      event.preventDefault();
+      document.querySelector('[data-coef-query]').value = item.dataset.coefProduct;
+      closeCoefSuggest();
+      renderCoef();
+    });
+    ['public','private','combined'].forEach(type => {
+      document.querySelector(`[data-target-${type}-input]`).addEventListener('input', event => {
+        const value = Number(event.target.value || 0);
+        personTargets[type] = Number.isFinite(value) ? value : 0;
+        renderActionCalc();
+      });
+    });
+    document.querySelector('[data-lever-grid]').addEventListener('input', event => {
+      const card = event.target.closest('[data-lever]');
+      if(!card) return;
+      if(event.target.matches('[data-lever-product]')){
+        event.target.classList.remove('is-default-product');
+        renderLeverSuggest(card, event.target.value);
+      }
+      if(event.target.matches('[data-lever-range]')) syncLeverFromCard(card, 'range');
+      if(event.target.matches('[data-lever-amount]')) syncLeverFromCard(card, 'amount');
+    });
+    document.querySelector('[data-lever-grid]').addEventListener('focusin', event => {
+      if(event.target.matches('[data-lever-product]')){
+        const card = event.target.closest('[data-lever]');
+        closeLeverSuggests(card);
+        renderLeverSuggest(card, '');
+        event.target.select();
+      }
+    });
+    document.querySelector('[data-lever-grid]').addEventListener('focusout', event => {
+      if(event.target.matches('[data-lever-product]')){
+        const card = event.target.closest('[data-lever]');
+        syncLeverFromCard(card, 'product');
+        setTimeout(() => card?.querySelector('[data-lever-suggest]')?.classList.remove('is-open'), 120);
+      }
+    });
+    document.querySelector('[data-lever-grid]').addEventListener('mousedown', event => {
+      const item = event.target.closest('[data-suggest-product]');
+      if(!item) return;
+      event.preventDefault();
+      const card = item.closest('[data-lever]');
+      const input = card.querySelector('[data-lever-product]');
+      const index = Number(card.dataset.lever);
+      const selected = tools?.findProduct(item.dataset.suggestProduct, productData.map);
+      if(leverState[index]) leverState[index].item = selected;
+      input.value = item.dataset.suggestDisplay || productDisplayLabel(selected);
+      input.classList.remove('is-default-product');
+      card.querySelector('[data-lever-meta]').textContent = productMeta(selected);
+      renderActionCalc();
+      card.querySelector('[data-lever-suggest]')?.classList.remove('is-open');
+    });
+    document.addEventListener('mousedown', event => {
+      if(!event.target.closest('[data-lever]')) closeLeverSuggests();
+      if(!event.target.closest('.coef-query-field')) closeCoefSuggest();
+    });
+    renderCoef(); renderLevers(); renderPeople(); renderActionCalc(); renderBranchCalc();
   </script>
   <script src="data/embeddedFrameSync.js?v=20260709_001"></script><script>window.EmbeddedFrameSync?.init();</script>
 </body>

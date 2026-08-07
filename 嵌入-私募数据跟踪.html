@@ -61,8 +61,8 @@
     .section-head { padding:16px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .section-title { margin:0; font-size:18px; display:flex; align-items:center; gap:10px; }
     .section-title:before { content:""; width:4px; height:20px; border-radius:2px; background:#5f7be8; display:block; }
-    .report-stack { display:grid; gap:18px; padding:18px; }
-    .market-block { border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
+    .report-stack { display:grid; gap:18px; padding:18px; overflow-x:auto; }
+    .market-block { min-width:1040px; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
     .market-chart-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; padding:14px 18px; }
     .chart-panel { min-width:0; }
     .chart-title { text-align:center; font-size:16px; color:#707988; font-weight:800; margin-bottom:8px; }
@@ -76,7 +76,7 @@
     .axis-bar.positive, .avg-bar.positive { background:#c9554d; }
     .axis-bar.negative, .avg-bar.negative { background:#2f9e62; }
     .bar-value { font-variant-numeric:tabular-nums; font-size:12px; color:#1f2a3d; text-align:right; }
-    .strategy-average-grid { display:grid; grid-template-columns:repeat(3,minmax(230px,1fr)); gap:10px; }
+    .strategy-average-grid { min-width:1040px; display:grid; grid-template-columns:repeat(3,minmax(230px,1fr)); gap:10px; }
     .avg-card { min-height:48px; display:grid; grid-template-columns:minmax(124px,1fr) minmax(90px,1.1fr) 76px; align-items:center; gap:12px; padding:12px 14px; border-radius:6px; background:#f7f8fa; border:1px solid #eef1f6; }
     .avg-card span:first-child { color:#536176; font-weight:650; }
     .avg-card span:last-child { font-weight:800; font-variant-numeric:tabular-nums; }
@@ -202,9 +202,18 @@
     .sort-icon { width:12px; color:#aebaf0; font-size:10px; line-height:1; }
     th.sort-asc .sort-icon, th.sort-desc .sort-icon { color:#fff; }
     table.detail td { padding:7px 8px; border-bottom:1px solid #edf0f5; white-space:nowrap; vertical-align:middle; text-align:center; font-size:11px; }
-    table.detail tbody tr:hover { background:#fffdf0; }
+    table.detail tbody tr { cursor:pointer; }
+    table.detail tbody tr:hover > td { background-color:#fff0dc!important; }
     table.detail tbody tr.private-pool { background:#fffbe6; }
-    table.detail tbody tr.private-pool:hover { background:#fff5c7; }
+    table.detail tbody tr.private-pool:hover > td { background-color:#ffe8c4!important; }
+    table.detail tbody tr.tracking-focus-row,
+    table.detail tbody tr.tracking-selected-row { outline:3px solid rgba(238,132,34,.82); outline-offset:-3px; }
+    table.detail tbody tr.tracking-focus-row > td,
+    table.detail tbody tr.tracking-selected-row > td { background-color:#ffe0b8!important; }
+    table.detail tbody tr.tracking-focus-row:hover > td,
+    table.detail tbody tr.tracking-selected-row:hover > td,
+    table.detail tbody tr.private-pool.tracking-focus-row:hover > td,
+    table.detail tbody tr.private-pool.tracking-selected-row:hover > td { background-color:#ffd39a!important; }
     .heat-cell { border-radius:0; background-clip:padding-box; }
     .data-bar-cell { position:relative; overflow:hidden; }
     .data-bar-cell:after { content:""; position:absolute; left:50%; top:5px; bottom:5px; border-left:1px dashed rgba(34,43,58,.34); z-index:0; }
@@ -224,8 +233,6 @@
     @media (max-width:1100px) {
       .app { grid-template-columns:1fr; }
       aside { display:none; }
-      .market-block, .market-chart-grid { grid-template-columns:1fr; }
-      .strategy-average-grid { grid-template-columns:1fr; }
       .topbar { position:static; height:auto; padding:14px 18px; align-items:flex-start; flex-direction:column; }
       .toolbar, .search { width:100%; }
       .workspace { padding:18px; }
@@ -314,7 +321,7 @@
     </main>
   </div>
 
-  <script src="data/productCalendarData.js?v=20260728_heji_factor_period"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260728_public_compare_no_substrategy"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
+  <script src="data/productCalendarData.js?v=20260807_private_aug_other"></script><script src="data/productReportData.js?v=20260806_market_metrics_0731"></script><script src="data/productCoefficientData.js?v=20260726_001"></script><script src="data/productDecisionTools.js?v=20260729_private_tracking_20260724"></script><script>window.ProductDecisionTools?.mountProductCompare({scope:'privateTracking',title:'私募数据跟踪产品对比'});</script><script>
     const DATA=window.productReportData.privateTracking;
     const baseColumns = [
       ["strategyRank", "策略排名"],
@@ -534,7 +541,7 @@
       const tableClass = includeExcess ? "wide-detail" : (includeSubRank ? "child-detail" : "base-detail");
       const colGroup = `<colgroup>${columns.map(([key]) => `<col class="${columnClass(key)}">`).join("")}</colgroup>`;
       const bodyRows = rows.map((row, rowIndex) => `
-        <tr class="${row.isPrivatePool ? "private-pool" : ""}" data-original-index="${rowIndex}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}" data-sort-value="${sortValue(key, row) ?? ""}">${cellContent(key, row)}</td>`).join("")}</tr>
+        <tr class="${row.isPrivatePool ? "private-pool" : ""}" data-original-index="${rowIndex}" data-product-code="${row.productCode || ""}" data-product-name="${row.productName || ""}">${columns.map(([key,label]) => `<td class="${columnClass(key)} ${cellClass(key, row[key])} ${key === "monthReturn" || key === "weekExcess" ? "heat-cell" : ""} ${key === "weekReturn" ? "week-bar-cell " + weekClass(row) : ""} ${key === "ytdReturn" ? "data-bar-cell " + ytdClass(row) : ""} ${key === "ytdBuildExcess" ? "data-bar-cell " + excessClass(row) : ""}" style="${cellStyle(key, row, metrics)}" data-sort-value="${sortValue(key, row) ?? ""}">${cellContent(key, row)}</td>`).join("")}</tr>
       `).join("");
       const headerCells = columns.map(([key,label]) => {
         if (!sortableColumns.has(key)) return `<th class="${columnClass(key)}">${label}</th>`;
@@ -806,6 +813,31 @@
       document.addEventListener("pointerup", onUp);
     });
     document.getElementById("searchBox").addEventListener("input", event => renderStrategies(event.target.value));
+    function focusTrackingProduct(payload = {}) {
+      const code = String(payload.code || "").trim();
+      const name = String(payload.name || "").trim();
+      const search = document.getElementById("searchBox");
+      if (search && search.value) {
+        search.value = "";
+        renderStrategies();
+      }
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.querySelectorAll("details.strategy, details.child-strategy").forEach(detail => detail.open = true);
+        const rows = Array.from(document.querySelectorAll("tbody tr"));
+        const target = rows.find(row => code && row.dataset.productCode === code)
+          || rows.find(row => name && row.dataset.productName === name);
+        if (!target) return;
+        document.querySelectorAll(".tracking-focus-row").forEach(row => row.classList.remove("tracking-focus-row"));
+        target.classList.add("tracking-focus-row");
+        target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        const wrap = target.closest(".table-wrap");
+        if (wrap) {
+          wrap.scrollLeft = 0;
+          updateHorizontalScrollbar(target.closest(".table-shell"));
+        }
+        window.setTimeout(() => target.classList.remove("tracking-focus-row"), 6000);
+      }));
+    }
     document.addEventListener("click", event => {
       const sortButton = event.target.closest("[data-sort-column]");
       if (sortButton) {
@@ -822,6 +854,12 @@
       if (zoomOut) {
         const shell = document.getElementById(zoomOut.dataset.zoomOut);
         if (shell) updateZoom(shell, Number(shell.dataset.zoom || 1) - 0.1);
+        return;
+      }
+      const dataRow = event.target.closest("table.detail tbody tr");
+      if (dataRow) {
+        document.querySelectorAll(".tracking-selected-row").forEach(row => row.classList.remove("tracking-selected-row"));
+        dataRow.classList.add("tracking-selected-row");
         return;
       }
       const button = event.target.closest("[data-fullscreen]");
@@ -854,6 +892,10 @@
     });
     window.addEventListener("message", event => {
       const data = event.data || {};
+      if (data.type === "focus-tracking-product") {
+        focusTrackingProduct(data);
+        return;
+      }
       if (data.type !== "set-tracking-table-scroll") return;
       const shell = document.querySelector(".table-shell.fullscreen");
       const wrap = shell?.querySelector(".table-wrap");

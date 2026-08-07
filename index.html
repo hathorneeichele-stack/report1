@@ -131,6 +131,7 @@
     .nav-trigger:hover,
     .nav-group:hover .nav-trigger,
     .nav-group:focus-within .nav-trigger,
+    .nav-item.active,
     .nav-trigger.active {
       background:var(--nav-active);
       color:#fff;
@@ -142,6 +143,15 @@
       height:8px;
       border-radius:50%;
       background:var(--blue-2);
+    }
+
+    .nav-item.active:after {
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--blue-2);
+      flex:0 0 auto;
     }
 
     .chevron {
@@ -219,6 +229,15 @@
       background:var(--blue-2);
     }
 
+    .nav-trigger:not(.active) + .flyout button.active {
+      background:transparent;
+      color:#cbd7ee;
+    }
+
+    .nav-trigger:not(.active) + .flyout button.active:after {
+      display:none;
+    }
+
     .flyout-sub {
       min-height:36px !important;
       margin-left:14px;
@@ -234,13 +253,13 @@
       z-index:1;
       min-width:0;
       height:100vh;
-      overflow:hidden;
+      overflow:auto;
     }
 
     .workspace {
       padding:0;
       min-height:100%;
-      overflow:hidden;
+      overflow:visible;
     }
 
     .module-view[hidden] {
@@ -248,7 +267,7 @@
     }
 
     .frame-shell {
-      overflow:hidden;
+      overflow:visible;
       border:0;
       border-radius:0;
       background:#fff;
@@ -346,7 +365,7 @@
       .nav-shield { left:0; }
     }
   </style>
-<script src="data/productCalendarData.js?v=20260728_public_drawer_fit"></script><script src="data/productReportData.js?v=20260717_002"></script><script src="data/productMaterialData.js?v=20260728-marketing-six-sections"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script></head>
+<script src="data/productCalendarData.js?v=20260807_public_august_metrics_latest"></script><script src="data/productReportData.js?v=20260805_private_pool_terms_0731"></script><script src="data/productMaterialData.js?v=20260807_aug_reports_evolution_facts"></script><script src="data/customerOperationData.js?v=20260708_0846"></script><script src="data/investmentServiceData.js?v=20260708_0846"></script><script src="data/frameSync.js?v=20260709_001"></script><script src="data/productAssistant.js?v=20260807_assistant_exact_open_date"></script></head>
 <body>
   <div class="shell">
     <aside class="sidebar">
@@ -369,8 +388,16 @@
             <button type="button" role="menuitem" data-calendar-entry="fixed">固收/结构化/QDII</button>
           </div>
         </div>
-        <button class="nav-item" type="button" data-module="tracking"><span>私募数据跟踪</span></button>
-        <button class="nav-item" type="button" data-module="fof"><span>FOF产品运作情况</span></button>
+        <div class="nav-group">
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" data-module="tracking" data-module-group="tracking,fof" data-nav-trigger>
+            <span>产品跟踪</span>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <div class="flyout" role="menu" aria-label="产品跟踪">
+            <button type="button" role="menuitem" data-module="tracking">私募数据跟踪</button>
+            <button type="button" role="menuitem" data-module="fof">FOF产品运作情况</button>
+          </div>
+        </div>
         <div class="nav-group">
           <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" data-module="broadcast" data-nav-trigger>
             <span>产品销售</span>
@@ -378,8 +405,8 @@
           </button>
           <div class="flyout" role="menu" aria-label="产品销售">
             <button class="active" type="button" role="menuitem" data-sales-entry="standard">公私募标准销量</button>
-            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="action">销售行动测算</button>
             <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="report">标准销量销售情况</button>
+            <button class="flyout-sub" type="button" role="menuitem" data-sales-entry="action">销售行动测算</button>
             <button type="button" role="menuitem" data-sales-entry="products">重点产品首发播报</button>
             <button type="button" role="menuitem" data-sales-entry="privateHistory">私募销售历史数据</button>
           </div>
@@ -439,21 +466,21 @@
     };
 
     const calendars = {
-      private: '嵌入-私募日历.html?v=20260728-overview-font-tune',
-      public: '嵌入-公募日历.html?v=20260728_public_drawer_fit',
+      private: '嵌入-私募日历.html?v=20260807_aug_reports_evolution_facts',
+      public: '嵌入-公募日历.html?v=20260807_public_august_metrics_latest',
       fixed: '嵌入-固收结构化日历.html?v=20260722_002'
     };
     const lazyFrames = {
-      tracking: '嵌入-私募数据跟踪.html?v=20260728_002_responsive_columns',
+      tracking: '嵌入-私募数据跟踪.html?v=20260806_orange_row_highlight',
       fof: '嵌入-FOF产品运行情况.html?v=20260708_0846',
-      broadcast: '嵌入-标准销量销售情况.html?v=20260727_bucket_fit'
+      broadcast: '嵌入-标准销量销售情况.html?v=20260805_months'
     };
     const salesPages = {
-      standard: '嵌入-标准销量销售情况.html?v=20260727_bucket_fit',
-      action: '嵌入-销售行动测算.html?v=20260727_split_pages',
-      report: '嵌入-标准销量销售情况.html?v=20260727_bucket_fit',
+      standard: '嵌入-标准销量销售情况.html?v=20260805_months',
+      action: '嵌入-销售行动测算.html?v=20260805_current',
+      report: '嵌入-标准销量销售情况.html?v=20260805_months',
       products: '嵌入-重点产品首发播报.html?v=20260722_004',
-      privateHistory: '嵌入-私募销售历史数据.html?v=20260727_002'
+      privateHistory: '嵌入-私募销售历史数据.html?v=20260807_001'
     };
 
     const sideCurrent = document.getElementById('sideCurrent');
@@ -810,7 +837,8 @@
       });
 
       document.querySelectorAll('[data-module]').forEach(button => {
-        button.classList.toggle('active', button.dataset.module === moduleName);
+        const moduleGroup = (button.dataset.moduleGroup || button.dataset.module).split(',');
+        button.classList.toggle('active', moduleGroup.includes(moduleName));
       });
 
       const current = modules[moduleName];

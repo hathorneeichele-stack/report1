@@ -9,11 +9,15 @@
     *{box-sizing:border-box}
     body{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.45}
     button,input,select{font:inherit}
-    .topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 28px;position:sticky;top:0;z-index:10}
-    .crumb{color:var(--muted);font-size:13px}.crumb strong{color:var(--ink);font-size:16px;margin-left:8px}
     .pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:800;white-space:nowrap}
     .workspace{padding:24px 28px 36px}
-    .page-head{display:grid;grid-template-columns:minmax(280px,1fr) minmax(520px,820px);align-items:end;gap:22px;margin-bottom:18px}
+    .hero{position:relative;overflow:hidden;margin:-24px -28px 22px;padding:28px 30px 30px;text-align:center;color:#fff;background:linear-gradient(135deg,#203a78 0%,#4f68c8 50%,#8665d8 100%);border-radius:0 0 8px 8px;box-shadow:0 14px 34px rgba(62,68,155,.18)}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,0) 50%),radial-gradient(circle at 12% 0%,rgba(255,255,255,.22),transparent 30%);pointer-events:none}
+    .hero > *{position:relative;z-index:1}
+    .hero h1{margin:0;font-size:34px;letter-spacing:0;line-height:1.15;font-weight:900}
+    .hero .sub{margin:10px 0 8px;font-size:15px;font-weight:850;color:#f1f3ff}
+    .hero p{max-width:1180px;margin:0 auto;color:#f4f2ff;font-size:14px;font-weight:750;line-height:1.6}
+    .page-head{display:grid;grid-template-columns:minmax(520px,820px);justify-content:end;align-items:end;gap:22px;margin-bottom:18px}
     h1{margin:0;font-size:24px;line-height:1.25}.meta{margin-top:6px;color:var(--muted);font-size:13px;font-weight:650}
     .filter-panel{display:grid;grid-template-columns:1.05fr 1fr .8fr 1fr;gap:10px;align-items:center}
     .filter-field{min-width:0}.filter-label{display:block;margin-bottom:5px;color:var(--muted);font-size:12px;font-weight:800}
@@ -35,20 +39,17 @@
     .sort-icon{width:12px;color:#6b7fc7;font-size:10px;line-height:1}
     th.sort-asc .sort-icon,th.sort-desc .sort-icon{color:#3659c9}
     @media(max-width:1100px){.page-head{grid-template-columns:1fr}.filter-panel{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:720px){.topbar{height:auto;align-items:flex-start;flex-direction:column;padding:14px 18px}.workspace{padding:18px}.summary-grid,.filter-panel{grid-template-columns:1fr}}
+    @media(max-width:720px){.workspace{padding:18px}.hero{margin:-18px -18px 18px;padding:24px 18px 26px}.hero h1{font-size:27px}.summary-grid,.filter-panel{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="crumb">产品销售 / <strong>私募销售历史数据</strong></div>
-    <span class="pill" id="dataPill">数据已接入</span>
-  </div>
   <main class="workspace">
+    <section class="hero">
+      <h1>私募销售历史数据</h1>
+      <div class="sub">山东分公司 | 数据至 <span id="heroDataDate">2026-08-04</span></div>
+      <p>用于按营业部、员工、月份和产品类型查询私募产品实际销量、客户数与交易明细。</p>
+    </section>
     <div class="page-head">
-      <div>
-        <h1>私募销售历史数据</h1>
-        <div class="meta">用于按营业部、员工、月份和产品类型查询私募产品实际销量、客户数与交易明细。</div>
-      </div>
       <div class="filter-panel" aria-label="私募销售历史筛选">
         <label class="filter-field"><span class="filter-label">营业部</span><select id="branchFilter" class="select"></select></label>
         <label class="filter-field"><span class="filter-label">员工姓名</span><select id="employeeFilter" class="select"></select></label>
@@ -88,7 +89,7 @@
       </div>
     </section>
   </main>
-  <script src="data/privateSalesHistoryData.js?v=20260727_001"></script>
+  <script src="data/privateSalesHistoryData.js?v=20260807_001"></script>
   <script>
     const PAYLOAD = window.privateSalesHistoryData || {rows:[],filters:{}};
     const DATA = Array.isArray(PAYLOAD.rows) ? PAYLOAD.rows : [];
@@ -100,7 +101,6 @@
       rows: document.getElementById('historyRows'),
       empty: document.getElementById('emptyState'),
       result: document.getElementById('resultPill'),
-      data: document.getElementById('dataPill'),
       amountSort: document.getElementById('amountSortBtn'),
       amountSortHeader: document.getElementById('amountSortHeader'),
       amountSortIcon: document.getElementById('amountSortIcon'),
@@ -183,7 +183,7 @@
       fillSelect(els.month, filters.months || [], labels.all);
       els.type.innerHTML = '<option value="">全部类型</option><option value="零售">零售-全部</option><option value="零售-首发">零售-首发</option><option value="零售-持营">零售-持营</option><option value="定制">定制</option>';
       syncEmployees();
-      els.data.textContent = PAYLOAD.updatedAt ? `数据至 ${PAYLOAD.updatedAt}` : '数据已接入';
+      document.getElementById('heroDataDate').textContent = PAYLOAD.updatedAt || '2026-08-04';
       [els.branch, els.employee, els.month, els.type].forEach(select => select.addEventListener('change', () => {
         if(select === els.branch) syncEmployees();
         render();

@@ -754,7 +754,7 @@
       });
       strategyGroups.forEach((entries, strategy) => {
         const descriptions = entries.map(({item, record}) => {
-          const subStrategy = record?.subStrategy || item.subStrategy || '未细分子策略';
+          const subStrategy = record?.subStrategy || item.subStrategy || '未细分方向';
           const week = itemMetric(item, 'weekReturn');
           const month = itemMetric(item, 'monthReturn');
           const weekRank = record?.row?.subStrategyRank || rankInTrackingGroup(record, 'weekReturn');
@@ -762,12 +762,12 @@
           const strategyWeekRank = strategyRankText(item, 'weekReturn');
           const strategyMonthRank = strategyRankText(item, 'monthReturn');
           const strategyRankPart = [strategyWeekRank ? `大类近一周${strategyWeekRank}` : '', strategyMonthRank ? `大类近一月${strategyMonthRank}` : ''].filter(Boolean).join('、');
-          return `${productName(item)}属于${subStrategy}，近一周${week}${weekRank ? `（同子策略${weekRank}）` : ''}、近一月${month}${monthRank ? `（同子策略${monthRank}）` : ''}${strategyRankPart ? `，放到${strategy}整体池里看为${strategyRankPart}` : ''}`;
+          return `${productName(item)}属于${subStrategy}，近一周${week}${weekRank ? `（同细分方向${weekRank}）` : ''}、近一月${month}${monthRank ? `（同细分方向${monthRank}）` : ''}${strategyRankPart ? `，放到${strategy}整体池里看为${strategyRankPart}` : ''}`;
         });
         const sameSubStrategy = new Set(entries.map(entry => entry.record?.subStrategy || entry.item.subStrategy).filter(hasValue)).size <= 1;
         const summary = sameSubStrategy
-          ? '子策略一致，可直接观察近端相对表现；同时可参考大类排名判断在全量池中的位置。'
-          : '同属量化多头，大类排名能看整体位置，但跟踪基准不同，仍要结合各自子策略排名解读。';
+          ? '细分方向一致，可直接观察近端相对表现；同时可参考大类排名判断在全量池中的位置。'
+          : '同属量化多头，大类排名能看整体位置，但跟踪基准不同，仍要结合各自细分方向排名解读。';
         parts.push(`${strategy}内可比：<br>${descriptions.map(item => `• ${item}`).join('<br>')}<br>${summary}`);
       });
     } else if(comparable.length === 1 && hasValue(comparable[0].weekReturn || comparable[0].monthReturn)){
